@@ -11,19 +11,17 @@
 		<div class="container mx-auto px-4 py-20">
 			<div class="mx-auto max-w-4xl text-center">
 				<h1 class="mb-8 text-3xl font-bold leading-tight text-white md:text-5xl">
-					Stay Connected & Protected
+					Luxury Rentals, Peer to Peer
 				</h1>
 
 				<p class="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-white/90 md:text-xl">
-					Keep your employees connected and stress-free with Macro Exotics. Ensure their essential
-					devices are protected when they need them most, so they can stay focused and productive
-					every day.
+					Experience luxury on your terms with Macro Exotics. Our peer-to-peer platform connects owners of exotic cars and luxury yachts with discerning renters, offering an exclusive collection of premium vehicles and vessels for unforgettable experiences on land and sea.
 				</p>
 
 				<div class="flex justify-center gap-4">
 					<a
 						href="/contact"
-						class="text-blackgroup relative inline-flex items-center rounded-full bg-[#05ADAD] px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:bg-pink-500"
+						class="text-blackgroup relative inline-flex items-center rounded-full bg-[#0bd3d3] px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:bg-pink-300"
 					>
 						Schedule a Consultation
 						<svg

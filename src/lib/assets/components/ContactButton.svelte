@@ -1,6 +1,6 @@
 <a
 	href="/contact"
-	class="group relative inline-flex items-center rounded-full bg-[#0bd3d3] px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-pink-500"
+	class="group relative inline-flex items-center rounded-full bg-[#0bd3d3] px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-pink-300"
 >
 	Schedule a Consultation
 	<svg

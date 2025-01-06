@@ -10,16 +10,15 @@
 			<h2
 				class="mb-8 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-3xl font-bold leading-tight text-transparent md:text-5xl"
 			>
-				Why Macro Exotics?
+				Why Choose Macro Exotics?
 			</h2>
 			<p class="text-lg leading-relaxed text-gray-700">
-				In today's interconnected world, the average US household orchestrates their daily life
-				through nearly 30 electronic devices. These technological companions are essential for:
+				In today's sharing economy, we connect luxury vehicle owners with discerning clients seeking premium experiences. Our peer-to-peer platform creates opportunities for both owners and renters in the world of exotic vehicles and luxury yachts:
 			</p>
 			<ul class="my-8 space-y-4 text-lg text-gray-700">
 				<li class="flex items-start space-x-3 sm:items-center">
 					<span
-						class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-500 sm:mt-0 sm:h-8 sm:w-8"
+						class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-[#f890e7] sm:mt-0 sm:h-8 sm:w-8"
 					>
 						<svg
 							class="h-3 w-3 sm:h-4 sm:w-4"
@@ -35,11 +34,11 @@
 							/>
 						</svg>
 					</span>
-					<span>Seamlessly managing schedules and maintaining organization</span>
+					<span>Access to exclusive vehicles for special events and celebrations</span>
 				</li>
 				<li class="flex items-start space-x-3 sm:items-center">
 					<span
-						class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-500 sm:mt-0 sm:h-8 sm:w-8"
+					class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-[#f890e7] sm:mt-0 sm:h-8 sm:w-8"
 					>
 						<svg
 							class="h-3 w-3 sm:h-4 sm:w-4"
@@ -55,11 +54,11 @@
 							/>
 						</svg>
 					</span>
-					<span>Enriching life through entertainment and leisure</span>
+					<span>Opportunity for owners to monetize their luxury assets safely</span>
 				</li>
 				<li class="flex items-start space-x-3 sm:items-center">
 					<span
-						class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-500 sm:mt-0 sm:h-8 sm:w-8"
+					class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-[#f890e7] sm:mt-0 sm:h-8 sm:w-8"
 					>
 						<svg
 							class="h-3 w-3 sm:h-4 sm:w-4"
@@ -75,14 +74,11 @@
 							/>
 						</svg>
 					</span>
-					<span>Nurturing connections with family and friends</span>
+					<span>Seamless platform connecting luxury vehicle owners with qualified renters</span>
 				</li>
 			</ul>
 			<p class="text-lg leading-relaxed text-gray-700">
-				When technology falters, it ripples through every aspect of life. Beyond mere inconvenience,
-				device failures drain precious time and energy, creating unexpected stress. This disruption
-				often cascades into your professional life, forcing personal technical challenges to
-				encroach on valuable work hours.
+				Our peer-to-peer marketplace revolutionizes luxury transportation by connecting owners of premium vehicles with those seeking extraordinary experiences. We ensure both parties benefit through our secure platform, comprehensive verification process, and dedication to exceptional service. Whether you're sharing your prized possession or seeking the perfect vehicle for your next adventure, we make the connection seamless and secure.
 			</p>
 		</div>
 	</div>

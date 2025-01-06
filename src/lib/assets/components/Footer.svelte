@@ -4,7 +4,7 @@
 			<div>
 				<h3 class="mb-4 text-lg font-semibold">Macro Exotics</h3>
 				<p class="text-sm leading-relaxed opacity-80">
-					Comprehensive device protection for your peace of mind. Stay connected, stay protected.
+					Premium luxury vehicle and yacht rentals connecting owners and enthusiasts. Experience extraordinary with Macro Exotics.
 				</p>
 			</div>
 
