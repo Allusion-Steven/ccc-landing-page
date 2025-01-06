@@ -2,7 +2,7 @@
 	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 </script>
 
-<section class="bg-gray-800 py-20 md:py-32">
+<section class="bg-[#1C1C1C] py-20 md:py-32">
 	<div class="container mx-auto px-4">
 		<div
 			class="mx-auto max-w-4xl overflow-hidden rounded-2xl bg-white p-12 shadow-xl transition-all duration-500 hover:shadow-2xl md:p-16"

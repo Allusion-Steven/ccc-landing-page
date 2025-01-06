@@ -1,13 +1,13 @@
 <script>
 	// import horizontalLogoLight from '$lib/assets/logos/horizontal-logo-light.svg';
-	import heroImage from '$lib/assets/images/hero-bg-1-1600.png';
+	import heroImage from '$lib/assets/images/rolls-royce-bg-hero.jpeg';
 </script>
 
 <section
-	class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-black/50"
+	class="relative h-[50vh] w-full bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-black/50"
 	style="background-image: url({heroImage})"
 >
-	<div class="relative flex min-h-screen items-center justify-center">
+	<div class="relative flex h-[50vh] items-center justify-center">
 		<div class="container mx-auto px-4 py-20">
 			<div class="mx-auto max-w-4xl text-center">
 				<h1 class="mb-8 text-3xl font-bold leading-tight text-white md:text-5xl">
@@ -15,7 +15,7 @@
 				</h1>
 
 				<p class="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-white/90 md:text-xl">
-					Keep your employees connected and stress-free with Total Tech. Ensure their essential
+					Keep your employees connected and stress-free with Macro Exotics. Ensure their essential
 					devices are protected when they need them most, so they can stay focused and productive
 					every day.
 				</p>
@@ -23,7 +23,7 @@
 				<div class="flex justify-center gap-4">
 					<a
 						href="/contact"
-						class="group relative inline-flex items-center rounded-full bg-orange-500 px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-orange-600"
+						class="text-blackgroup relative inline-flex items-center rounded-full bg-[#05ADAD] px-8 py-4 text-lg font-semibold text-white transition-all duration-300 ease-in-out hover:bg-pink-500"
 					>
 						Schedule a Consultation
 						<svg

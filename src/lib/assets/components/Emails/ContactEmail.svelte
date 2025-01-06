@@ -129,7 +129,7 @@
 		fontFamily,
 		fontSize: '10px'
 	};
-	const preview_message = ` Total Tech Protection | New Contact Form Submission 🔔 | ${email} `;
+	const preview_message = ` Macro Exotics Protection | New Contact Form Submission 🔔 | ${email} `;
 </script>
 
 <Html lang="en">
@@ -164,7 +164,7 @@
 			<!-- col -->
 			<Hr style={hr} />
 
-			<Img src={logo_url} alt="Total Tech Protection logo" style={logo} width="200" height="auto" />
+			<Img src={logo_url} alt="Macro Exotics logo" style={logo} width="200" height="auto" />
 		</Column>
 
 		<Text style={support}>
