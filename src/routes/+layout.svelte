@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { onNavigate } from '$app/navigation';
+	import { slide } from 'svelte/transition';
 	import Footer from '$lib/assets/components/Footer.svelte';
 	// import { logo } from 'static/horizontal-logo.svg';
 	import logo from '$lib/assets/logos/horizontal-logo-full.svg';
 	import '../app.css';
+	import { quintOut } from 'svelte/easing';
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
@@ -62,25 +64,34 @@
 			</button>
 		</div>
 
-		<div class="{isMenuOpen ? 'block' : 'hidden'} w-full md:block">
+		{#if isMenuOpen || innerWidth >= 768}
 			<div
-				class="flex flex-col space-y-6 px-4 py-6 text-center md:flex-row md:space-x-8 md:space-y-0 md:px-4 md:py-0"
+				class="w-full overflow-hidden md:block md:overflow-visible"
+				transition:slide={{
+					duration: 200,
+					axis: 'y',
+					easing: quintOut
+				}}
 			>
-				<a
-					href="/"
-					class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
+				<div
+					class="flex flex-col space-y-6 px-4 py-6 text-center md:flex-row md:space-x-8 md:space-y-0 md:px-4 md:py-0"
 				>
-					Home
-				</a>
+					<a
+						href="/"
+						class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
+					>
+						Home
+					</a>
 
-				<a
-					href="/contact"
-					class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
-				>
-					Contact
-				</a>
+					<a
+						href="/contact"
+						class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
+					>
+						Contact
+					</a>
+				</div>
 			</div>
-		</div>
+		{/if}
 	</div>
 </nav>
 
