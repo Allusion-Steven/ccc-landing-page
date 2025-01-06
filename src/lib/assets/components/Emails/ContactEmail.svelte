@@ -129,7 +129,7 @@
 		fontFamily,
 		fontSize: '10px'
 	};
-	const preview_message = ` Macro Exotics Protection | New Contact Form Submission 🔔 | ${email} `;
+	const preview_message = ` Macro Exotics | New Contact Form Submission 🔔 | ${email} `;
 </script>
 
 <Html lang="en">

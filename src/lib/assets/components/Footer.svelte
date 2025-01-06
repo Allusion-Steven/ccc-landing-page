@@ -58,7 +58,7 @@
 		</div>
 
 		<div class="mt-8 border-t border-gray-700 pt-8 text-center text-sm opacity-70">
-			<p>&copy; {new Date().getFullYear()} Macro Exotics Protection. All rights reserved.</p>
+			<p>&copy; {new Date().getFullYear()} Macro Exotics. All rights reserved.</p>
 		</div>
 	</div>
 </footer>
