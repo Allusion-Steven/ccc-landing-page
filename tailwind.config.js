@@ -12,7 +12,8 @@ export default {
           'hot-pink': '#ff0080',
           teal: '#00ffff',
           'neon-blue': '#45caff',
-          'deep-purple': '#6a0dad'
+          'deep-purple': '#6a0dad',
+          'light-pink': '#f890e7'
         }
       },
       backgroundImage: {
@@ -21,6 +22,8 @@ export default {
         'miami-glow': 'linear-gradient(to right, #ff0080, #00ffff)',
         'miami-sunset': 'linear-gradient(135deg, #ff0080, #ff1b6b, #6a0dad)',
         'miami-night': 'linear-gradient(to right bottom, #1e1e1e, #6a0dad)',
+        'miami-pink-night': 'linear-gradient(to right bottom, #1e1e1e, ##f890e7)',
+
       }
     }
   },

@@ -2,7 +2,7 @@
 	<div class="container mx-auto px-4 py-12">
 		<div class="grid gap-8 md:grid-cols-4">
 			<div>
-				<h3 class="mb-4 text-lg font-semibold text-miami-pink">Macro Exotics</h3>
+				<h3 class="mb-4 text-lg font-semibold text-miami-light-pink">Macro Exotics</h3>
 				<p class="text-sm leading-relaxed text-white/80">
 					Premium luxury vehicle and yacht rentals connecting owners and enthusiasts. Experience
 					extraordinary with Macro Exotics.
@@ -10,17 +10,17 @@
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-lg font-semibold text-miami-hot-pink">Quick Links</h3>
+				<h3 class="mb-4 text-lg font-semibold text-miami-light-pink">Quick Links</h3>
 				<ul class="space-y-2">
 					<li>
-						<a href="/" class="text-white/80 transition-colors duration-300 hover:text-miami-pink">
+						<a href="/" class="text-white/80 transition-colors duration-300 hover:text-miami-light-pink">
 							Home
 						</a>
 					</li>
 					<li>
 						<a
 							href="/contact"
-							class="text-white/80 transition-colors duration-300 hover:text-miami-pink"
+							class="text-white/80 transition-colors duration-300 hover:text-miami-light-pink"
 						>
 							Contact
 						</a>
@@ -28,7 +28,7 @@
 					<li>
 						<a
 							href="/privacy"
-							class="text-white/80 transition-colors duration-300 hover:text-miami-pink"
+							class="text-white/80 transition-colors duration-300 hover:text-miami-light-pink"
 						>
 							Privacy Policy
 						</a>
@@ -37,7 +37,7 @@
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-lg font-semibold text-miami-hot-pink">Contact</h3>
+				<h3 class="mb-4 text-lg font-semibold text-miami-light-pink">Contact</h3>
 				<ul class="space-y-2 text-sm text-white/80">
 					<!-- <li>1-800-TECH-HELP</li> -->
 					<li>cs@macroexotics.com</li>
@@ -47,11 +47,11 @@
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-lg font-semibold text-miami-hot-pink">Connect With Us</h3>
+				<h3 class="mb-4 text-lg font-semibold text-miami-light-pink">Connect With Us</h3>
 				<div class="flex space-x-4">
 					<a
 						href="#"
-						class="text-white/80 transition-colors duration-300 hover:text-miami-pink"
+						class="text-white/80 transition-colors duration-300 hover:text-miami-light-pink"
 						aria-label="Facebook"
 					>
 						<svg
@@ -67,7 +67,7 @@
 					</a>
 					<a
 						href="#"
-						class="text-white/80 transition-colors duration-300 hover:text-miami-pink"
+						class="text-white/80 transition-colors duration-300 hover:text-miami-light-pink"
 						aria-label="X (formerly Twitter)"
 					>
 						<svg
@@ -83,7 +83,7 @@
 					</a>
 					<a
 						href="#"
-						class="text-white/80 transition-colors duration-300 hover:text-miami-pink"
+						class="text-white/80 transition-colors duration-300 hover:text-miami-light-pink"
 						aria-label="LinkedIn"
 					>
 						<svg

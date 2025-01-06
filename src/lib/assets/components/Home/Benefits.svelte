@@ -2,7 +2,7 @@
 	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 </script>
 
-<section class="bg-miami-night py-16">
+<section class=" bg-gradient-to-br py-16 py-16">
 	<div class="container mx-auto px-4">
 		<div class="mx-auto max-w-4xl text-center">
 			<h2 class="mb-8 text-4xl font-bold leading-tight text-white md:text-5xl">
@@ -38,7 +38,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="mx-auto max-w-4xl rounded-lg border border-[#023131] bg-[#1a1a1a] p-8 shadow-xl">
+			<div class="mx-auto max-w-4xl rounded-lg border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl">
 				<h3 class="mb-6 text-2xl font-bold text-white">Rental Benefits</h3>
 				<div class="grid gap-6 text-left md:grid-cols-2">
 					<div class="flex items-center space-x-4">
