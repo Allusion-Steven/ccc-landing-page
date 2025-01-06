@@ -132,14 +132,14 @@
 							Contact us by phone at<br />
 							<a href="tel:+18332675309">(833) 267-5309</a> or by email.
 						</p>
-						<a href="mailto:sales@totaltechprotection.com">sales@totaltechprotection.com</a>
+						<a href="mailto:sales@macroexotics.com">sales@macroexotics.com</a>
 					</div>
 					<div class="contact-card">
 						<h2>Member Support</h2>
 						<p>
 							Contact us by phone at<br /><a href="tel:+18332675309">(833) 267-5309</a> or by email.
 						</p>
-						<a href="mailto:members@totaltechprotection.com">members@totaltechprotection.com</a>
+						<a href="mailto:members@macroexotics.com">members@macroexotics.com</a>
 					</div>
 				</div>
 				<!-- <div class="contact-card">

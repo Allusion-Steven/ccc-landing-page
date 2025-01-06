@@ -19,13 +19,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="og:title" content="Privacy Policy | Macro Exotics" />
 	<meta name="og:description" content="Privacy Policy | Macro Exotics" />
-	<meta name="og:url" content="https://totaltechprotection.com/privacy" />
-	<meta name="og:image" content="https://totaltechprotection.com/logo-square-768.png" />
+	
+	<!-- Need to add logo here -->
+	<meta name="og:url" content="https://macroexotics.com/privacy" />
+	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
 	<meta name="og:type" content="website" />
 	<meta name="og:locale" content="en_US" />
 	<meta name="og:site_name" content="Macro Exotics" />
-	<link rel="canonical" href="https://totaltechprotection.com/privacy" />
-	<link rel="icon" href="https://totaltechprotection.com/favicon.ico" />
+	<link rel="canonical" href="https://macroexotics.com/privacy" />
+	<link rel="icon" href="https://macroexotics.com/favicon.ico" />
 </svelte:head>
 <div class="policy-container mx-auto max-w-[1000px]">
 	<div class="policy">
@@ -49,7 +51,7 @@
 			Information.
 		</h2>
 		<p>
-			By accessing or browsing https://totaltechprotection.com ("Website") and/or using any of the
+			By accessing or browsing https://macroexotics.com ("Website") and/or using any of the
 			services that we provide to you or you access, you conﬁrm that you have read and understood
 			the entirety of this Privacy Policy.
 		</p>
@@ -180,7 +182,7 @@
 		<h2>Contact Us</h2>
 		<p>
 			If you have any questions in relation to this Privacy Policy or how we collect, use or store
-			your Personal Information, you can contact us via email at: support@totaltechprotection.com
+			your Personal Information, you can contact us via email at: support@macroexotics.com
 		</p>
 	</div>
 </div>

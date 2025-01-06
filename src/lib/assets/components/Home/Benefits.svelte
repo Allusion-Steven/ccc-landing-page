@@ -9,7 +9,7 @@
 				Comprehensive Device Protection
 			</h2>
 			<p class="mb-12 text-lg leading-relaxed text-gray-300">
-				With TotalTech Protection, employees can be assured that if their devices malfunction or are
+				With Macro Exotics, employees can be assured that if their devices malfunction or are
 				accidentally damaged, they're covered for necessary repairs or replacements.
 			</p>
 

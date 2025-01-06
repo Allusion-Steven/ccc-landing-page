@@ -15,12 +15,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="og:title" content="Contact Us | Macro Exotics" />
 	<meta name="og:description" content="Contact Form | Macro Exotics" />
-	<meta name="og:url" content="https://totaltechprotection.com/contact" />
-	<meta name="og:image" content="https://totaltechprotection.com/logo-square-768.png" />
+	<meta name="og:url" content="https://macroexotics.com/contact" />
+	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
 	<meta name="og:type" content="website" />
 	<meta name="og:locale" content="en_US" />
 	<meta name="og:site_name" content="Macro Exotics" />
-	<link rel="canonical" href="https://totaltechprotection.com/contact" />
-	<link rel="icon" href="https://totaltechprotection.com/favicon.ico" />
+	<link rel="canonical" href="https://macroexotics.com/contact" />
+	<link rel="icon" href="https://macroexotics.com/favicon.ico" />
 </svelte:head>
 <Contact />

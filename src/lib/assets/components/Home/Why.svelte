@@ -10,7 +10,7 @@
 			<h2
 				class="mb-8 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-3xl font-bold leading-tight text-transparent md:text-5xl"
 			>
-				Why Total Tech Protection?
+				Why Macro Exotics?
 			</h2>
 			<p class="text-lg leading-relaxed text-gray-700">
 				In today's interconnected world, the average US household orchestrates their daily life

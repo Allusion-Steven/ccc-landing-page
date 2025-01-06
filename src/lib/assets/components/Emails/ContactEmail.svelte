@@ -14,7 +14,7 @@
 	} from 'svelte-email';
 	// import { wrenchIconBase64 } from "$lib/assets/logos/logo.svg";
 	import { onMount } from 'svelte';
-	const logo_url = 'https://www.totaltechprotection.com/favicon.svg';
+	const logo_url = 'https://www.macroexotics.com/favicon.svg';
 
 	export let f_name = '';
 	export let l_name = '';
@@ -140,7 +140,7 @@
 		<Container style={container_bg_dark}>
 			<!-- col -->
 			<Text style={heading_filled_center}>New Contact Form Submission</Text>
-			<Text style={heading_filled_center}>www.totaltechprotection.com</Text>
+			<Text style={heading_filled_center}>www.macroexotics.com</Text>
 		</Container>
 		<Container style={container}>
 			<Text style={heading}>Contact Information</Text>
