@@ -2,84 +2,126 @@
 	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 </script>
 
-<section class="bg-[#1C1C1C] py-20 md:py-32">
-	<div class="container mx-auto px-4">
-		<div
-			class="mx-auto max-w-4xl overflow-hidden rounded-2xl bg-white p-12 shadow-xl transition-all duration-500 hover:shadow-2xl md:p-16"
-		>
-			<h2
-				class="mb-8 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-3xl font-bold leading-tight text-transparent md:text-5xl"
-			>
-				Why Choose Macro Exotics?
-			</h2>
-			<p class="text-lg leading-relaxed text-gray-700">
-				In today's sharing economy, we connect luxury vehicle owners with discerning clients seeking premium experiences. Our peer-to-peer platform creates opportunities for both owners and renters in the world of exotic vehicles and luxury yachts:
-			</p>
-			<ul class="my-8 space-y-4 text-lg text-gray-700">
-				<li class="flex items-start space-x-3 sm:items-center">
-					<span
-						class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-[#f890e7] sm:mt-0 sm:h-8 sm:w-8"
+<section class="relative overflow-hidden bg-[#1C1C1C] py-24 md:py-32">
+	<!-- Background decoration -->
+	<div
+		class="absolute left-0 top-0 h-[600px] w-[600px] opacity-15 blur-[150px]"
+		style="background: linear-gradient(45deg, #f890e7 0%, #023131 100%);"
+	></div>
+	<div
+		class="absolute bottom-0 right-0 h-[400px] w-[400px] opacity-15 blur-[150px]"
+		style="background: linear-gradient(45deg, #023131 0%, #f890e7 100%);"
+	></div>
+
+	<div class="container relative mx-auto px-6">
+		<div class="flex flex-col items-center gap-16 lg:flex-row lg:items-start lg:justify-between">
+			<!-- Left side content -->
+			<div class=" mb-12 flex max-w-2xl flex-col justify-between gap-4 lg:sticky lg:top-8 lg:mb-0">
+				<h2
+					class="mb-4 bg-gradient-to-r from-pink-300 to-[#f890e7] bg-clip-text text-4xl font-bold leading-tight text-transparent md:text-6xl"
+				>
+					Why Choose<br />Macro Exotics?
+				</h2>
+				<p class="mb-8 text-xl text-gray-400">
+					Experience luxury without compromise - where exceptional vehicles meet discerning clients.
+				</p>
+				<p class="text-lg leading-loose text-gray-300 md:text-xl">
+					In today's sharing economy, we connect luxury vehicle owners with discerning clients
+					seeking premium experiences. Our peer-to-peer platform creates opportunities for both
+					owners and renters in the world of exotic vehicles and luxury yachts.
+				</p>
+				<p class="text-lg leading-loose text-gray-300 md:text-xl">
+					Whether you're sharing your prized possession or seeking the perfect vehicle for your next
+					adventure, we make the connection seamless and secure through our comprehensive
+					verification process and dedication to exceptional service.
+				</p>
+			</div>
+
+			<!-- Right side features -->
+			<div class="w-full lg:max-w-2xl">
+				<div class="space-y-6">
+					<div
+						class="group relative overflow-hidden rounded-2xl border border-gray-800/50 bg-black/30 p-8 backdrop-blur-lg transition-all duration-300 hover:border-[#f890e7]/50 hover:bg-black/40"
 					>
-						<svg
-							class="h-3 w-3 sm:h-4 sm:w-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
+						<div
+							class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-pink-200 to-[#f890e7]/20"
 						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M5 13l4 4L19 7"
-							/>
-						</svg>
-					</span>
-					<span>Access to exclusive vehicles for special events and celebrations</span>
-				</li>
-				<li class="flex items-start space-x-3 sm:items-center">
-					<span
-					class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-[#f890e7] sm:mt-0 sm:h-8 sm:w-8"
+							<svg
+								class="h-6 w-6 text-[#f890e7]"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5 13l4 4L19 7"
+								/>
+							</svg>
+						</div>
+						<h3 class="mb-3 text-2xl font-semibold text-white">Exclusive Access</h3>
+						<p class="text-gray-400">
+							Access to an unparalleled collection of luxury vehicles and yachts for your special
+							events and celebrations. Experience the extraordinary.
+						</p>
+					</div>
+
+					<div
+						class="group relative overflow-hidden rounded-2xl border border-gray-800/50 bg-black/30 p-8 backdrop-blur-lg transition-all duration-300 hover:border-[#f890e7]/50 hover:bg-black/40"
 					>
-						<svg
-							class="h-3 w-3 sm:h-4 sm:w-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
+						<div
+							class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-pink-200 to-[#f890e7]/20"
 						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M5 13l4 4L19 7"
-							/>
-						</svg>
-					</span>
-					<span>Opportunity for owners to monetize their luxury assets safely</span>
-				</li>
-				<li class="flex items-start space-x-3 sm:items-center">
-					<span
-					class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-[#f890e7] sm:mt-0 sm:h-8 sm:w-8"
+							<svg
+								class="h-6 w-6 text-[#f890e7]"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+								/>
+							</svg>
+						</div>
+						<h3 class="mb-3 text-2xl font-semibold text-white">Safe Monetization</h3>
+						<p class="text-gray-400">
+							Transform your luxury assets into revenue streams with our secure platform. We ensure
+							your vehicles are protected while generating returns.
+						</p>
+					</div>
+
+					<div
+						class="group relative overflow-hidden rounded-2xl border border-gray-800/50 bg-black/30 p-8 backdrop-blur-lg transition-all duration-300 hover:border-[#f890e7]/50 hover:bg-black/40"
 					>
-						<svg
-							class="h-3 w-3 sm:h-4 sm:w-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
+						<div
+							class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-pink-200 to-[#f890e7]/20"
 						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M5 13l4 4L19 7"
-							/>
-						</svg>
-					</span>
-					<span>Seamless platform connecting luxury vehicle owners with qualified renters</span>
-				</li>
-			</ul>
-			<p class="text-lg leading-relaxed text-gray-700">
-				Our peer-to-peer marketplace revolutionizes luxury transportation by connecting owners of premium vehicles with those seeking extraordinary experiences. We ensure both parties benefit through our secure platform, comprehensive verification process, and dedication to exceptional service. Whether you're sharing your prized possession or seeking the perfect vehicle for your next adventure, we make the connection seamless and secure.
-			</p>
+							<svg
+								class="h-6 w-6 text-[#f890e7]"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+								/>
+							</svg>
+						</div>
+						<h3 class="mb-3 text-2xl font-semibold text-white">Seamless Connections</h3>
+						<p class="text-gray-400">
+							Our sophisticated platform brings together qualified renters and premium vehicle
+							owners, creating a trusted community of luxury enthusiasts.
+						</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
