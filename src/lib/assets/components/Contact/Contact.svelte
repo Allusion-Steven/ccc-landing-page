@@ -106,7 +106,7 @@
 	}
 </script>
 
-<div class="min-h-screen bg-miami-night py-16">
+<div class="min-h-screen bg-gradient-to-br py-16">
 	<div class="container mx-auto px-4">
 		<div
 			class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-2xl backdrop-blur-sm"
@@ -139,7 +139,7 @@
 								</p>
 								<a
 									href="mailto:sales@macroexotics.com"
-									class="text-miami-pink transition-colors hover:text-white"
+									class="text-miami-light-pink transition-colors hover:text-white"
 									>sales@macroexotics.com</a
 								>
 							</div>
@@ -157,7 +157,7 @@
 								</p>
 								<a
 									href="mailto:members@macroexotics.com"
-									class="text-miami-pink transition-colors hover:text-white"
+									class="text-miami-light-pink transition-colors hover:text-white"
 									>members@macroexotics.com</a
 								>
 							</div>
@@ -278,7 +278,7 @@
 									href="/privacy"
 									target="_blank"
 									rel="noreferrer"
-									class="text-miami-pink transition-colors hover:text-miami-blue"
+									class="text-miami-light-pink transition-colors hover:text-miami-blue"
 								>
 									Privacy Policy
 								</a>.

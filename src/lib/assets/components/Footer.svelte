@@ -39,7 +39,6 @@
 			<div>
 				<h3 class="mb-4 text-lg font-semibold text-miami-light-pink">Contact</h3>
 				<ul class="space-y-2 text-sm text-white/80">
-					<!-- <li>1-800-TECH-HELP</li> -->
 					<li>cs@macroexotics.com</li>
 					<li>21st Collins Ave</li>
 					<li>Miami, FL 33411</li>
