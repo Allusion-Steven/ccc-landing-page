@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { contactFormStore } from '$lib/stores/contactFormStore';
-	import heroBg from '$lib/assets/images/hero-bg-2-1600.png';
+	import heroBg from '$lib/assets/images/contact-form-bg-img.png';
 
 	// import { ProgressRadial } from '@skeletonlabs/skeleton';
 	let email = '';
@@ -114,7 +114,7 @@
 			<div class="space-y-8">
 				<div
 					class="overflow-hidden rounded-xl"
-					style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url({heroBg}); "
+					style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url({heroBg}); background-position: center; background-repeat: no-repeat; background-size: cover;"
 				>
 					<div class="px-8 py-16">
 						<h1 class="mb-12 text-center">

@@ -1,7 +1,7 @@
 <div class="flex justify-center pb-4">
 	<a
 		href="/contact"
-		class="group relative inline-flex items-center justify-center rounded-full bg-[#0bd3d3] px-8 py-4 text-base font-semibold text-gray-900 transition-all duration-300 ease-in-out hover:bg-pink-300 md:px-8 md:py-4 md:text-lg"
+		class="group relative inline-flex items-center justify-center rounded-full bg-[#0bd3d3] border-solid border border-[#0bd3d3] px-8 py-4 text-base font-semibold text-gray-900 transition-all duration-300 ease-in-out hover:bg-pink-300 md:px-8 md:py-4 md:text-lg"
 	>
 		Schedule a Consultation
 		<svg
