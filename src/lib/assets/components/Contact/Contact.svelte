@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { contactFormStore } from '$lib/stores/contactFormStore';
-	import heroBg from '$lib/assets/images/hero-bg-2-1600.png';
+	import heroBg from '$lib/assets/images/contact-form-bg-img.png';
 
 	// import { ProgressRadial } from '@skeletonlabs/skeleton';
 	let email = '';
@@ -106,303 +106,206 @@
 	}
 </script>
 
-<div class="contact-page-container space-y-4">
-	<div
-		class="contact-hero-container"
-		style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({heroBg}); "
-	>
-		<div class="contact-container relative">
-			<div class="contact-hero relative z-10 p-8">
-				<h1 class="text-4xl">
-					<span class="text-shadow-lg text-shadow-black font-bold tracking-tighter text-white">
-						Contact Us
-					</span>
-				</h1>
+<div class="min-h-screen bg-gradient-to-br py-16">
+	<div class="container mx-auto px-4">
+		<div
+			class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-2xl backdrop-blur-sm"
+		>
+			<div class="space-y-8">
 				<div
-					class="card-wrap bg-surface-100 mx-auto flex w-full flex-col justify-center gap-4 bg-transparent text-center align-middle text-lg md:flex-row"
+					class="overflow-hidden rounded-xl"
+					style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url({heroBg}); background-position: center; background-repeat: no-repeat; background-size: cover;"
 				>
-					<!-- <div class="contact-card">
-						<h2>Frequently Asked Questions</h2>
-						<p>Find answers to our most<br />commonly asked questions.</p>
-						<a href="faq">See Frequently Asked Questions</a>
-					</div> -->
-					<div class="contact-card">
-						<h2>Sales Support</h2>
-						<p>
-							Contact us by phone at<br />
-							<a href="tel:+18332675309">(833) 267-5309</a> or by email.
-						</p>
-						<a href="mailto:sales@totaltechprotection.com">sales@totaltechprotection.com</a>
-					</div>
-					<div class="contact-card">
-						<h2>Member Support</h2>
-						<p>
-							Contact us by phone at<br /><a href="tel:+18332675309">(833) 267-5309</a> or by email.
-						</p>
-						<a href="mailto:members@totaltechprotection.com">members@totaltechprotection.com</a>
-					</div>
-				</div>
-				<!-- <div class="contact-card">
-          <h2>Carrier Pigeon</h2>
-          <p>
-            3101 Fairlane Farms Rd<br />
-            Suite 4<br />
-            Wellington, FL 33414
-          </p>
-        </div> -->
-			</div>
-		</div>
-	</div>
-
-	<div class="contact-container mx-auto flex w-full flex-col justify-center px-4">
-		<div class="contact-form-container card mx-auto mb-16 max-w-[1000px] bg-white shadow-lg">
-			<h2 class="mx-4 mt-10 text-3xl">Send us a message</h2>
-
-			<form class="contact-form mx-10">
-				<label class="label">
-					<span class="label-text">First Name</span>
-					<input
-						required
-						class="input"
-						title="firstName"
-						type="text"
-						placeholder="Jane"
-						bind:value={$contactFormStore.firstName}
-					/>
-				</label>
-				<label class="label">
-					<span class="label-text">Last Name</span>
-					<input
-						class="input"
-						title="lastName"
-						type="text"
-						placeholder="Doe"
-						bind:value={$contactFormStore.lastName}
-					/>
-				</label>
-				<label class="label">
-					<span class="label-text">Phone Number</span>
-					<input
-						class="input"
-						title="Input (tel)"
-						type="tel"
-						placeholder="800-867-5309"
-						bind:value={$contactFormStore.phone}
-					/>
-				</label>
-				<label class="label">
-					<span class="label-text">Email Address</span>
-					<input
-						required
-						class="input"
-						title="Input (email)"
-						type="email"
-						placeholder="john@example.com"
-						autocomplete="email"
-						bind:value={$contactFormStore.email}
-					/>
-				</label>
-				<label class="label message w-full">
-					<span class="label-text">Message</span>
-					<textarea
-						required
-						class="textarea"
-						rows="6"
-						placeholder="Message"
-						bind:value={$contactFormStore.message}
-					></textarea>
-				</label>
-				<div class="sendWarning">
-					<p class="text-red-500">{sendingWarnText}</p>
-				</div>
-				<hr />
-
-				<button
-					type="button"
-					class="send-btn btn variant-filled-secondary h-[60px] w-full rounded-2xl bg-gray-800 py-4 text-xl font-bold text-white"
-					on:click={handleSendButton}
-				>
-					{#if !contactFormSending}
-						Send
-					{:else if contactFormSending}
-						Loading...
-					{:else if contactFormSent && !contactFormSending}
-						<i class="fa-solid fa-check text-green-600" />
-					{/if}
-				</button>
-			</form>
-
-			<div id="consent" class="text-primary-300 flex w-full items-center px-6 align-top">
-				<div class="checkbox-container" hidden>
-					<label for="consent-checkbox">
-						<input
-							type="checkbox"
-							class="checkbox h-[25px] w-[25px]"
-							name="consent-checkbox"
-							id="vehicle-consent"
-							bind:checked={$contactFormStore.consent}
-							required
-						/>
-					</label>
-				</div>
-				<div class="consent-text flex">
-					<p class="w-full text-center align-text-top text-sm leading-tight">
-						By clicking "Continue", I understand that I will recieve email, text or phone updates
-						regarding my inquiries, subscription, and/or related services. I have read and agree to
-						the
-						<span>
-							<!-- <a href="/tos" target="_blank" rel="noreferrer" class="text-primary-400 border-b-2"
-								>Terms of Service</a
+					<div class="px-8 py-16">
+						<h1 class="mb-12 text-center">
+							<span
+								class="text-shadow-lg text-shadow-black text-5xl font-bold tracking-tighter text-white md:text-6xl"
 							>
-							<span>&</span> -->
-							<!-- privacy -->
-							<a
-								href="/privacy"
-								target="_blank"
-								rel="noreferrer"
-								class="text-primary-400 border-b-2">Privacy Policy</a
+								Contact Us
+							</span>
+						</h1>
+						<div class="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
+							<div
+								class="rounded-xl bg-white/10 p-8 text-center backdrop-blur-md transition-all hover:bg-white/20"
 							>
-						</span>
-						.
-					</p>
+								<h2 class="mb-4 text-2xl font-bold text-white">Sales Support</h2>
+								<p class="mb-4 text-gray-200">
+									Contact us by phone at<br />
+									<a
+										href="tel:+18332675309"
+										class="text-white transition-colors hover:text-miami-pink">(833) 267-5309</a
+									>
+									<br />or by email
+								</p>
+								<a
+									href="mailto:sales@macroexotics.com"
+									class="text-miami-light-pink transition-colors hover:text-white"
+									>sales@macroexotics.com</a
+								>
+							</div>
+							<div
+								class="rounded-xl bg-white/10 p-8 text-center backdrop-blur-md transition-all hover:bg-white/20"
+							>
+								<h2 class="mb-4 text-2xl font-bold text-white">Member Support</h2>
+								<p class="mb-4 text-gray-200">
+									Contact us by phone at<br />
+									<a
+										href="tel:+18332675309"
+										class="text-white transition-colors hover:text-miami-pink">(833) 267-5309</a
+									>
+									<br />or by email
+								</p>
+								<a
+									href="mailto:members@macroexotics.com"
+									class="text-miami-light-pink transition-colors hover:text-white"
+									>members@macroexotics.com</a
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="mx-auto max-w-3xl">
+					<div class="overflow-hidden rounded-xl bg-white shadow-xl">
+						<div class="p-8">
+							<h2 class="mb-8 text-center text-3xl font-bold text-gray-800">Send us a message</h2>
+
+							<form class="space-y-6">
+								<div class="grid gap-6 md:grid-cols-2">
+									<label class="block">
+										<span class="mb-2 block font-medium text-gray-700">First Name</span>
+										<input
+											required
+											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											type="text"
+											placeholder="Jane"
+											bind:value={$contactFormStore.firstName}
+										/>
+									</label>
+									<label class="block">
+										<span class="mb-2 block font-medium text-gray-700">Last Name</span>
+										<input
+											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											type="text"
+											placeholder="Doe"
+											bind:value={$contactFormStore.lastName}
+										/>
+									</label>
+								</div>
+								<div class="grid gap-6 md:grid-cols-2">
+									<label class="block">
+										<span class="mb-2 block font-medium text-gray-700">Phone Number</span>
+										<input
+											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											type="tel"
+											placeholder="800-867-5309"
+											bind:value={$contactFormStore.phone}
+										/>
+									</label>
+									<label class="block">
+										<span class="mb-2 block font-medium text-gray-700">Email Address</span>
+										<input
+											required
+											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											type="email"
+											placeholder="john@example.com"
+											autocomplete="email"
+											bind:value={$contactFormStore.email}
+										/>
+									</label>
+								</div>
+								<label class="block">
+									<span class="mb-2 block font-medium text-gray-700">Message</span>
+									<textarea
+										required
+										class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+										rows="6"
+										placeholder="How can we help you?"
+										bind:value={$contactFormStore.message}
+									></textarea>
+								</label>
+
+								{#if sendingWarnText}
+									<div class="rounded-lg bg-red-50 p-4 text-center text-red-600">
+										{sendingWarnText}
+									</div>
+								{/if}
+
+								<button
+									type="button"
+									class="w-full rounded-xl bg-gradient-to-r from-miami-pink to-miami-blue px-6 py-4 font-bold text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+									on:click={handleSendButton}
+									disabled={contactFormSending}
+								>
+									{#if contactFormSending}
+										<div class="flex items-center justify-center gap-2">
+											<span
+												class="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"
+											></span>
+											Sending...
+										</div>
+									{:else if contactFormSent}
+										<div class="flex items-center justify-center gap-2">
+											<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M5 13l4 4L19 7"
+												></path>
+											</svg>
+											Sent!
+										</div>
+									{:else}
+										Send Message
+									{/if}
+								</button>
+
+								{#if sendFeedback}
+									<div class="rounded-lg bg-green-50 p-4 text-center text-green-600">
+										{sendFeedback}
+									</div>
+								{/if}
+							</form>
+						</div>
+
+						<div class="bg-gray-50 px-8 py-6 text-center">
+							<p class="text-sm text-gray-600">
+								By clicking "Send Message", I understand that I will receive email, text or phone
+								updates regarding my inquiries, subscription, and/or related services. I have read
+								and agree to the
+								<a
+									href="/privacy"
+									target="_blank"
+									rel="noreferrer"
+									class="text-miami-light-pink transition-colors hover:text-miami-blue"
+								>
+									Privacy Policy
+								</a>.
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
-
-			<div class="sendFeedback">{sendFeedback}</div>
 		</div>
 	</div>
 </div>
 
 <style>
-	.contact-hero-container {
-		@apply bg-gray-900 bg-opacity-90 bg-cover bg-center bg-no-repeat text-white;
-	}
-	.h2 {
-		@apply text-3xl font-bold;
-	}
-	.contact-form-container {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		padding: 10px 10px 0 10px;
+	/* Remove all existing styles and replace with new ones */
+	.text-shadow-lg {
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 	}
 
-	.sendFeedback {
-		@apply text-xl font-bold text-green-500;
-		display: flex;
-		width: 100%;
-		justify-content: center;
-		align-items: center;
-		padding: 20px;
-		text-align: center;
-	}
-	.sendingWarnText {
-		@apply text-xl font-bold text-red-500;
-		display: flex;
-		width: 100%;
-		justify-content: center;
-		align-items: center;
-		padding: 20px;
-		text-align: center;
-	}
-	.contact-page-container {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		align-items: center;
-		background-size: cover;
-	}
-	.contact-container {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		max-width: 1100px;
-		font-size: 16px;
-	}
-	input {
-		@apply bg-slate-50;
-		width: 100%;
-		min-height: 50px;
-	}
-	textarea {
-		@apply bg-slate-50;
-		width: 100%;
-		min-height: 150px;
-	}
-
-	.contact-hero-container {
-		background-size: cover;
-		background-position: top;
-		background-repeat: no-repeat;
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		align-items: center;
-	}
-	.contact-hero {
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 20px;
-		padding: 40px 0 60px;
-		font-size: 16px;
-	}
-
-	.contact-hero h1 {
-		width: 100%;
-		padding-bottom: 40px;
-		text-align: center;
-	}
-	.contact-hero h2 {
-		padding-bottom: 10px;
-	}
-	.contact-hero a {
-		text-decoration: underline;
-	}
-	.contact-card {
-		display: flex;
-		margin: 0 auto;
-		min-width: calc(25% - ((20px * 3) / 4));
-		flex-direction: column;
-	}
-	.contact-form {
-		display: flex;
-		max-width: 1300px;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-items: center;
-		padding: 40px 0;
-		gap: 20px;
-	}
-	.contact-form .label {
-		width: calc(25% - ((20px * 3) / 4));
-	}
-	.contact-form .message {
-		width: 100%;
-	}
-	@media screen and (max-width: 1000px) {
-		.contact-card {
-			width: 100%;
-			padding: 20px;
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
 		}
-		.contact-form .label {
-			width: 100%;
+		50% {
+			background-position: 100% 50%;
 		}
-		.contact-form {
-			padding: 20px 0;
-		}
-		.contact-hero {
-			padding: 20px 0 30px;
-		}
-		.contact-hero h1 {
-			padding-bottom: 20px;
-		}
-		.contact-form-container {
-			margin: 0 10px;
-		}
-		input,
-		textarea {
-			width: 100%;
+		100% {
+			background-position: 0% 50%;
 		}
 	}
 </style>

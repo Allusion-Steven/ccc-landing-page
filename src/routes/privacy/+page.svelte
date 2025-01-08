@@ -7,25 +7,27 @@
 </script>
 
 <svelte:head>
-	<title>Privacy Policy | Total Tech Protection</title>
-	<meta name="description" content="Privacy Policy | Total Tech Protection" />
-	<meta name="title" content="Privacy Policy | Total Tech Protection" />
+	<title>Privacy Policy | Macro Exotics</title>
+	<meta name="description" content="Privacy Policy | Macro Exotics" />
+	<meta name="title" content="Privacy Policy | Macro Exotics" />
 	<meta
 		name="keywords"
-		content="Privacy Policy, Total Tech Protection, Privacy Policy, Total Tech Protection"
+		content="Privacy Policy, Macro Exotics, Privacy Policy, Macro Exotics"
 	/>
 	<meta name="robots" content="index, follow" />
-	<meta name="author" content="Total Tech Protection" />
+	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="og:title" content="Privacy Policy | Total Tech Protection" />
-	<meta name="og:description" content="Privacy Policy | Total Tech Protection" />
-	<meta name="og:url" content="https://totaltechprotection.com/privacy" />
-	<meta name="og:image" content="https://totaltechprotection.com/logo-square-768.png" />
+	<meta name="og:title" content="Privacy Policy | Macro Exotics" />
+	<meta name="og:description" content="Privacy Policy | Macro Exotics" />
+	
+	<!-- Need to add logo here -->
+	<meta name="og:url" content="https://macroexotics.com/privacy" />
+	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
 	<meta name="og:type" content="website" />
 	<meta name="og:locale" content="en_US" />
-	<meta name="og:site_name" content="Total Tech Protection" />
-	<link rel="canonical" href="https://totaltechprotection.com/privacy" />
-	<link rel="icon" href="https://totaltechprotection.com/favicon.ico" />
+	<meta name="og:site_name" content="Macro Exotics" />
+	<link rel="canonical" href="https://macroexotics.com/privacy" />
+	<link rel="icon" href="https://macroexotics.com/favicon.ico" />
 </svelte:head>
 <div class="policy-container mx-auto max-w-[1000px]">
 	<div class="policy">
@@ -34,7 +36,7 @@
 
 		<h2>Introduction</h2>
 		<p>
-			Total Tech Protection ("we" or "Our" or "us") recognize and respect your right to privacy.
+			Macro Exotics ("we" or "Our" or "us") recognize and respect your right to privacy.
 			This policy explains how we collect, share, store and use data about a user of our website.
 			Typically, we collect customer data on request in order to provide the services that customers
 			request from us. For example, we may capture email and IP addresses as part of your
@@ -49,7 +51,7 @@
 			Information.
 		</h2>
 		<p>
-			By accessing or browsing https://totaltechprotection.com ("Website") and/or using any of the
+			By accessing or browsing https://macroexotics.com ("Website") and/or using any of the
 			services that we provide to you or you access, you conﬁrm that you have read and understood
 			the entirety of this Privacy Policy.
 		</p>
@@ -180,7 +182,7 @@
 		<h2>Contact Us</h2>
 		<p>
 			If you have any questions in relation to this Privacy Policy or how we collect, use or store
-			your Personal Information, you can contact us via email at: support@totaltechprotection.com
+			your Personal Information, you can contact us via email at: support@macroexotics.com
 		</p>
 	</div>
 </div>

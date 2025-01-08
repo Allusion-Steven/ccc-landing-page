@@ -5,22 +5,26 @@
 </script>
 
 <svelte:head>
-	<title>Total Tech Protection</title>
-	<meta name="description" content="Total Tech Protection" />
-	<meta name="title" content="Total Tech Protection" />
-	<meta name="keywords" content="Total Tech Protection" />
+	<title>Macro Exotics</title>
+	<meta name="description" content="Macro Exotics" />
+	<meta name="title" content="Macro Exotics" />
+	<meta name="keywords" content="Macro Exotics" />
 	<meta name="robots" content="index, follow" />
-	<meta name="author" content="Total Tech Protection" />
+	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="og:title" content="Total Tech Protection" />
-	<meta name="og:description" content="Total Tech Protection" />
-	<meta name="og:url" content="https://totaltechprotection.com" />
-	<meta name="og:image" content="https://totaltechprotection.com/logo-square-768.png" />
+	<meta name="og:title" content="Macro Exotics" />
+	<meta name="og:description" content="Macro Exotics" />
+	<meta name="og:url" content="https://macroexotics.com" />
+	
+	<!-- Need to replace these images with real images-->
+	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
 	<meta name="og:type" content="website" />
 	<meta name="og:locale" content="en_US" />
-	<meta name="og:site_name" content="Total Tech Protection" />
-	<link rel="canonical" href="https://totaltechprotection.com" />
-	<link rel="icon" href="https://totaltechprotection.com/favicon.ico" />
+	<meta name="og:site_name" content="Macro Exotics" />
+	<link rel="canonical" href="https://macroexotics.com" />
+
+	<!-- Need to replace this favicon with real images-->
+	<link rel="icon" href="https://macroexotics.com/favicon.ico" />
 </svelte:head>
 
 <Hero />

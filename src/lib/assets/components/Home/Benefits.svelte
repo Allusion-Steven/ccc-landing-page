@@ -2,48 +2,49 @@
 	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 </script>
 
-<section class="bg-white py-16 md:py-24">
+<section class=" bg-gradient-to-br py-16 py-16">
 	<div class="container mx-auto px-4">
 		<div class="mx-auto max-w-4xl text-center">
-			<h2 class="mb-8 text-4xl font-bold leading-tight text-gray-800 md:text-5xl">
-				Comprehensive Device Protection
+			<h2 class="mb-8 text-4xl font-bold leading-tight text-white md:text-5xl">
+				Luxury Vehicle & Yacht Rentals
 			</h2>
-			<p class="mb-12 text-lg leading-relaxed text-gray-600">
-				With TotalTech Protection, employees can be assured that if their devices malfunction or are
-				accidentally damaged, they're covered for necessary repairs or replacements.
+			<p class="mb-12 text-lg leading-relaxed text-gray-300">
+				With Macro Exotics, experience the ultimate in luxury transportation. Whether by land or
+				sea, our premium fleet of vehicles and yachts delivers unparalleled elegance and
+				performance.
 			</p>
 
 			<div class="mb-16 grid gap-8 md:grid-cols-3">
 				<div
-					class="rounded-lg border border-gray-200 bg-white p-6 shadow-lg transition-all hover:shadow-xl"
+					class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-6 backdrop-blur-sm transition-all duration-300 hover:from-miami-pink/20 hover:to-miami-blue/20"
 				>
-					<h3 class="mb-4 text-xl font-semibold text-gray-800">Phone Protection</h3>
-					<p class="text-gray-600">Cracked Cell Phone Screen? They're covered.</p>
+					<h3 class="mb-4 text-xl font-semibold text-white">Exotic Cars</h3>
+					<p class="text-gray-300">From Lamborghinis to Ferraris, drive your dream car today.</p>
 				</div>
 
 				<div
-					class="rounded-lg border border-gray-200 bg-white p-6 shadow-lg transition-all hover:shadow-xl"
+					class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-6 backdrop-blur-sm transition-all duration-300 hover:from-miami-pink/20 hover:to-miami-blue/20"
 				>
-					<h3 class="mb-4 text-xl font-semibold text-gray-800">Smart Devices</h3>
-					<p class="text-gray-600">Smart Device Malfunctioning? No worries, they're protected.</p>
+					<h3 class="mb-4 text-xl font-semibold text-white">Luxury Yachts</h3>
+					<p class="text-gray-300">Experience the open waters in style with our premium vessels.</p>
 				</div>
 
 				<div
-					class="rounded-lg border border-gray-200 bg-white p-6 shadow-lg transition-all hover:shadow-xl"
+					class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-6 backdrop-blur-sm transition-all duration-300 hover:from-miami-pink/20 hover:to-miami-blue/20"
 				>
-					<h3 class="mb-4 text-xl font-semibold text-gray-800">TV Coverage</h3>
-					<p class="text-gray-600">
-						Living Room TV Stopped Working? We'll reimburse for repairs or replacement.
+					<h3 class="mb-4 text-xl font-semibold text-white">Concierge Service</h3>
+					<p class="text-gray-300">
+						24/7 white-glove service to ensure your rental experience is flawless.
 					</p>
 				</div>
 			</div>
-			<div class="mx-auto max-w-4xl rounded-lg bg-gray-50 p-8 shadow-xl">
-				<h3 class="mb-6 text-2xl font-bold text-gray-800">Coverage Details</h3>
+			<div class="mx-auto max-w-4xl rounded-lg border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl">
+				<h3 class="mb-6 text-2xl font-bold text-white">Rental Benefits</h3>
 				<div class="grid gap-6 text-left md:grid-cols-2">
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-orange-100 p-3">
+						<div class="rounded-full bg-pink-200 p-3">
 							<svg
-								class="h-6 w-6 text-orange-500"
+								class="h-6 w-6 text-[#f890e7]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -57,15 +58,15 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-gray-800">Reimbursement Amount</h4>
-							<p class="text-gray-600">Up to $500 per incident</p>
+							<h4 class="font-semibold text-white">Insurance Coverage</h4>
+							<p class="text-gray-300">Comprehensive coverage included</p>
 						</div>
 					</div>
 
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-orange-100 p-3">
+						<div class="rounded-full bg-pink-200 p-3">
 							<svg
-								class="h-6 w-6 text-orange-500"
+								class="h-6 w-6 text-[#f890e7]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -79,15 +80,15 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-gray-800">Annual Claim Limit</h4>
-							<p class="text-gray-600">Up to $1,000 total</p>
+							<h4 class="font-semibold text-white">Flexible Duration</h4>
+							<p class="text-gray-300">Daily to monthly rentals available</p>
 						</div>
 					</div>
 
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-orange-100 p-3">
+						<div class="rounded-full bg-pink-200 p-3">
 							<svg
-								class="h-6 w-6 text-orange-500"
+								class="h-6 w-6 text-[#f890e7]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -101,15 +102,15 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-gray-800">Number of Claims</h4>
-							<p class="text-gray-600">Up to 2 claims per year</p>
+							<h4 class="font-semibold text-white">Delivery Service</h4>
+							<p class="text-gray-300">Door-to-door delivery included</p>
 						</div>
 					</div>
 
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-orange-100 p-3">
+						<div class="rounded-full bg-pink-200 p-3">
 							<svg
-								class="h-6 w-6 text-orange-500"
+								class="h-6 w-6 text-[#f890e7]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -123,8 +124,8 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-gray-800">Incident Copay</h4>
-							<p class="text-gray-600">Flat rate of $75</p>
+							<h4 class="font-semibold text-white">VIP Membership</h4>
+							<p class="text-gray-300">Exclusive benefits for members</p>
 						</div>
 					</div>
 				</div>
