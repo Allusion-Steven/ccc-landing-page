@@ -2,6 +2,7 @@
 	import Hero from '$lib/assets/components/Home/Hero.svelte';
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import Benefits from '$lib/assets/components/Home/Benefits.svelte';
+	import Carousel from '$lib/assets/components/Home/Carousel.svelte';
 </script>
 
 <svelte:head>
@@ -29,4 +30,5 @@
 
 <Hero />
 <Why />
+<Carousel />
 <Benefits />

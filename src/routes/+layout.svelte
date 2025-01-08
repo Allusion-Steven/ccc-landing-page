@@ -89,6 +89,12 @@
 					>
 						Contact
 					</a>
+					<!-- TODO: Remove hard coded url -->					<a
+					href="http://localhost:5173/"
+					class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
+				>
+					Account
+				</a>
 				</div>
 			</div>
 		{/if}

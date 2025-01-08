@@ -10,16 +10,13 @@
 	<title>Privacy Policy | Macro Exotics</title>
 	<meta name="description" content="Privacy Policy | Macro Exotics" />
 	<meta name="title" content="Privacy Policy | Macro Exotics" />
-	<meta
-		name="keywords"
-		content="Privacy Policy, Macro Exotics, Privacy Policy, Macro Exotics"
-	/>
+	<meta name="keywords" content="Privacy Policy, Macro Exotics, Privacy Policy, Macro Exotics" />
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="og:title" content="Privacy Policy | Macro Exotics" />
 	<meta name="og:description" content="Privacy Policy | Macro Exotics" />
-	
+
 	<!-- Need to add logo here -->
 	<meta name="og:url" content="https://macroexotics.com/privacy" />
 	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
@@ -31,32 +28,32 @@
 </svelte:head>
 <div class="policy-container mx-auto max-w-[1000px]">
 	<div class="policy">
-		<h1 class="text-3xl">Privacy Policy</h1>
-		<p class="text-sm text-slate-400">Effective Date: {effectiveDate}</p>
+		<h1 class="text-3xl text-white pb-1">Privacy Policy</h1>
+		<p class="text-sm text-slate-300">Effective Date: {effectiveDate}</p>
 
-		<h2>Introduction</h2>
-		<p>
-			Macro Exotics ("we" or "Our" or "us") recognize and respect your right to privacy.
-			This policy explains how we collect, share, store and use data about a user of our website.
-			Typically, we collect customer data on request in order to provide the services that customers
-			request from us. For example, we may capture email and IP addresses as part of your
-			communications with us. We collect visitor data through our website in order to understand and
-			improve our website content, as well as maintain a secure computing environment. When we
-			collect this data, we do so in compliance with this privacy policy, which describes how we
-			handle the data we collect in more detail. This policy also describes other important topics
-			relating to information privacy.
+		<h2 class="text-slate-200">Introduction</h2>
+		<p class="text-slate-300">
+			Macro Exotics ("we" or "Our" or "us") recognize and respect your right to privacy. This policy
+			explains how we collect, share, store and use data about a user of our website. Typically, we
+			collect customer data on request in order to provide the services that customers request from
+			us. For example, we may capture email and IP addresses as part of your communications with us.
+			We collect visitor data through our website in order to understand and improve our website
+			content, as well as maintain a secure computing environment. When we collect this data, we do
+			so in compliance with this privacy policy, which describes how we handle the data we collect
+			in more detail. This policy also describes other important topics relating to information
+			privacy.
 		</p>
-		<h2>
+		<h2 class="text-slate-200">
 			Please read this Privacy Policy carefully to understand how we handle your Personal
 			Information.
 		</h2>
-		<p>
-			By accessing or browsing https://macroexotics.com ("Website") and/or using any of the
-			services that we provide to you or you access, you conﬁrm that you have read and understood
-			the entirety of this Privacy Policy.
+		<p class="text-slate-300">
+			By accessing or browsing https://macroexotics.com ("Website") and/or App ("Macro") and/or using any of the services
+			that we provide to you or you access, you conﬁrm that you have read and understood the
+			entirety of this Privacy Policy.
 		</p>
-		<h2>Types of Information Collected</h2>
-		<p>
+		<h2 class="text-slate-200">Types of Information Collected</h2>
+		<p class="text-slate-300">
 			We may collect and process any of the following information about you and we refer to this as
 			"Personal Information" throughout this policy. You may give us information about yourself by
 			using the online forms provided on the Website or by contacting us by phone, e-mail or other
@@ -68,32 +65,32 @@
 			can provide services to you. If you do not provide us with such information, or if you ask us
 			to delete it, you may no longer be able to access our services.
 		</p>
-		<h2>Information we may collect about you</h2>
+		<h2 class="text-slate-200">Information we may collect about you</h2>
 
-		<p>
+		<p class="text-slate-300">
 			Each time you visit the Website we may automatically collect any of the following information:
 		</p>
-		<ul>
-			<li>
+		<ul class="text-slate-300">
+			<li class="text-slate-300">
 				technical information, including the Internet protocol (IP) address used to connect your
 				computer to the internet, domain name and country which requests information, the ﬁles
 				requested, browser type and version, browser plug-in types and versions, operating system
 				and platform; and
 			</li>
-			<li>
+			<li class="text-slate-300">
 				information about your visit, including the full Uniform Resource Locators (URL) clickstream
 				to, through and from our site (including date and time), length of visits to certain pages,
 				page interaction information (such as scrolling, clicks, and mouse-overs) and methods used
 				to browse away from the page.
 			</li>
 		</ul>
-		<h2>Information we may receive from other sources</h2>
-		<p>
+		<h2 class="text-slate-200">Information we may receive from other sources</h2>
+		<p class="text-slate-300">
 			We will receive information about you if you obtain our services and/or authorize a service
 			professional (i.e., accountant, attorney) to provide us with information about your business.
 		</p>
-		<h2>Use of Information</h2>
-		<p>
+		<h2 class="text-slate-200">Use of Information</h2>
+		<p class="text-slate-300">
 			We, or third-party data processors acting on our behalf, collect, use and store the Personal
 			Information listed above to enable you to receive services for which you or your company have
 			entered into a contract with us and/or because it is in the legitimate interests of our
@@ -102,43 +99,51 @@
 		</p>
 		<div class="px-3">
 			<ul class="w-full flex-col px-6">
-				<li>to assign a user account information such as username and password.</li>
-				<li>
+				<li class="text-slate-300">
+					to assign a user account information such as username and password.
+				</li>
+				<li class="text-slate-300">
 					to ensure that content from our website and services are presented in the most eﬃcient
 					manner for you.
 				</li>
-				<li>
+				<li class="text-slate-300">
 					to provide you with information, products or services that you request from us or which we
 					feel may interest you, only where you have consented to be contacted for such purposes.
 				</li>
-				<li>
+				<li class="text-slate-300">
 					to carry out our obligations arising from any contracts entered into between you and us.
 				</li>
-				<li>
+				<li class="text-slate-300">
 					to notify you about changes to our services and to keep you informed about our fees and
 					charges.
 				</li>
-				<li>to provide the service(s) you have requested</li>
-				<li>to improve the quality and accuracy of the services.</li>
-				<li>to allow you to access and use the Website and to register for an account;</li>
-				<li>
+				<li class="text-slate-300">to provide the service(s) you have requested</li>
+				<li class="text-slate-300">to improve the quality and accuracy of the services.</li>
+				<li class="text-slate-300">
+					to allow you to access and use the Website and to register for an account;
+				</li>
+				<li class="text-slate-300">
 					to carry out activities in the legitimate interests of C2 Certification, LLC, for example,
 					pursuing debt, ensuring the security of our services and Website;
 				</li>
-				<li>to verify your identity in order to prevent and detect money laundering and fraud;</li>
-				<li>to carry out statistical analysis and market research;</li>
-				<li>for marketing, advertising and promotional purposes</li>
-				<li>to take other action you request when you supply the Information.</li>
+				<li class="text-slate-300">
+					to verify your identity in order to prevent and detect money laundering and fraud;
+				</li>
+				<li class="text-slate-300">to carry out statistical analysis and market research;</li>
+				<li class="text-slate-300">for marketing, advertising and promotional purposes</li>
+				<li class="text-slate-300">
+					to take other action you request when you supply the Information.
+				</li>
 			</ul>
 		</div>
 
-		<h2>Data Retention</h2>
-		<p>
+		<h2 class="text-slate-200">Data Retention</h2>
+		<p class="text-slate-300">
 			We retain Personal Information for as long as you use the services we provide and then as
 			required to comply with applicable laws.
 		</p>
-		<h2>Disclosure of Information</h2>
-		<p>
+		<h2 class="text-slate-200">Disclosure of Information</h2>
+		<p class="text-slate-300">
 			We do not sell or give away your Personal Information. Where you have given your consent for
 			us to use your information in a particular way, but later change your mind, you should contact
 			us and we will stop doing so. We will share your Personal Information with any company that is
@@ -147,8 +152,8 @@
 			including, but not limited to, enforce our Agreements and comply with any applicable law,
 			regulatory authority request, or court order.
 		</p>
-		<h2>Use of Cookies</h2>
-		<p>
+		<h2 class="text-slate-200">Use of Cookies</h2>
+		<p class="text-slate-300">
 			Some pages on our Website use cookies, which are small ﬁles placed on your internet browser
 			when you visit our Website. We use these cookies for your convenience to store information so
 			you do not have to reenter your data upon each visit, or refresh of the page. Cookies and
@@ -161,8 +166,8 @@
 			sites you are currently on. However, turning oﬀ cookies will hinder your ability to access,
 			use, or navigate portions of the site.
 		</p>
-		<h2>Third Party Websites</h2>
-		<p>
+		<h2 class="text-slate-200">Third Party Websites</h2>
+		<p class="text-slate-300">
 			The Website may, from time to time, contain links to websites operated by third parties.
 			Please note that this Privacy Policy applies solely to the information collected from the
 			Website and we cannot be responsible for Personal Information collected and stored by
@@ -171,18 +176,22 @@
 			websites. We do not endorse or otherwise accept any responsibility or liability for the
 			content of such third-party websites or third-party terms and conditions or policies.
 		</p>
-		<h2>Changes to the Privacy Policy</h2>
-		<p>
+		<h2 class="text-slate-200">Changes to the Privacy Policy</h2>
+		<p class="text-slate-300">
 			We may update our Privacy Policy from time to time. By continuing to use the services and our
 			Website, you agree to the latest version of our Privacy Policy. Any changes we make to our
 			Privacy Policy in the future will be posted on this page and, where appropriate, notiﬁed to
 			you by email. Please check back frequently to see any updates or changes to our Privacy
 			Policy.
 		</p>
-		<h2>Contact Us</h2>
-		<p>
+		<h2 class="text-slate-200">Contact Us</h2>
+		<p class="text-slate-300">
 			If you have any questions in relation to this Privacy Policy or how we collect, use or store
-			your Personal Information, you can contact us via email at: support@macroexotics.com
+			your Personal Information, you can contact us via email at: <a
+				href="mailto:support@macroexotics.com"
+				class="text-slate-400 transition-colors duration-300 hover:text-slate-200"
+				>support@macroexotics.com</a
+			>
 		</p>
 	</div>
 </div>
