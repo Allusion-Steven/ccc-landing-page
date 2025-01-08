@@ -4,8 +4,18 @@
 	import ContactButton from '../ContactButton.svelte';
 </script>
 
+<style>
+	@media screen and (max-width: 649px){
+		.hero-bg {
+			min-height: 80vh;
+			.hero-content-container {
+				max-height: 80vh;
+			}
+		}
+	}
+</style>
 <div
-	class="relative min-h-screen bg-miami-sunset"
+	class="relative min-h-screen bg-miami-sunset hero-bg"
 	style="background-image: url('{heroImage}'); background-size: cover; background-position: center;"
 >
 	<div class="absolute inset-0 bg-gradient-to-b from-[#1e1e1e] via-[#1e1e1e]/80 to-transparent">
@@ -13,7 +23,7 @@
 			<div
 				class="absolute inset-0 bg-gradient-to-r from-[#1e1e1e]/30 via-transparent to-[#0bd3d3]/10"
 			>
-				<div class="relative flex h-screen items-center justify-center">
+				<div class="relative flex h-screen items-center justify-center hero-content-container">
 					<div class="container mx-auto flex h-full items-center justify-center px-4">
 						<div class="mx-auto max-w-4xl text-center">
 							<h1 class="mb-8 text-3xl font-bold leading-tight text-white md:text-5xl">

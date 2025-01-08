@@ -16,7 +16,7 @@
 	<div class="container relative mx-auto px-6">
 		<div class="flex flex-col items-center gap-16 lg:flex-row lg:items-start lg:justify-between">
 			<!-- Left side content -->
-			<div class=" mb-12 flex max-w-2xl flex-col justify-between gap-4 lg:sticky lg:top-8 lg:mb-0">
+			<div class="mb-4 md:mb-12 flex max-w-2xl flex-col justify-between gap-4 lg:sticky lg:top-8 lg:mb-0">
 				<h2
 					class="mb-4 bg-gradient-to-r from-pink-300 to-[#f890e7] bg-clip-text text-4xl font-bold leading-tight text-transparent md:text-6xl"
 				>
@@ -25,12 +25,12 @@
 				<p class="mb-8 text-xl text-gray-400">
 					Experience luxury without compromise - where exceptional vehicles meet discerning clients.
 				</p>
-				<p class="text-lg leading-loose text-gray-300 md:text-xl">
+				<p class="text-lg sm:leading-loose text-gray-300 md:text-xl">
 					In today's sharing economy, we connect luxury vehicle owners with discerning clients
 					seeking premium experiences. Our peer-to-peer platform creates opportunities for both
 					owners and renters in the world of exotic vehicles and luxury yachts.
 				</p>
-				<p class="text-lg leading-loose text-gray-300 md:text-xl">
+				<p class="text-lg sm:leading-loose text-gray-300 md:text-xl">
 					Whether you're sharing your prized possession or seeking the perfect vehicle for your next
 					adventure, we make the connection seamless and secure through our comprehensive
 					verification process and dedication to exceptional service.
