@@ -5,7 +5,12 @@ export const vehicles = [
 		model: 'AMG GT BLACK SERIES',
 		year: 2024,
 		price: 1800,
-		images: ['amg-gt-black.jpg'],
+		images: [
+			{ src: '/src/lib/assets/images/amg-gt-black.jpg', alt: 'AMG GT Black Series' },
+			{ src: '/src/lib/assets/images/amg-gt-front-view.webp', alt: 'AMG GT Black Series Front View' },
+            { src: '/src/lib/assets/images/amg-gt-interior.webp', alt: 'AMG GT Interior' }
+
+		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -14,7 +19,11 @@ export const vehicles = [
 		model: '765LT SPIDER',
 		year: 2024,
 		price: 2200,
-		images: ['mclaren-spider.jpg'],
+		images: [{ src: '/src/lib/assets/images/mclaren-spider.jpg', alt: 'MCLAREN 765LT SPIDER' },
+            { src: '/src/lib/assets/images/mclaren-spider-suicide.webp', alt: 'MCLAREN 765LT SPIDER' },
+            { src: '/src/lib/assets/images/mclaren-765-interior.webp', alt: 'MCLAREN 765LT SPIDER' }
+
+        ],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -23,7 +32,7 @@ export const vehicles = [
 		model: 'CONTINENTAL GT',
 		year: 2024,
 		price: 800,
-		images: ['bentley-cont-gt.jpg'],
+		images: [{ src: '/src/lib/assets/images/bentley-cont-gt.jpg', alt: 'BENTLEY CONTINENTAL GT' }],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -32,8 +41,13 @@ export const vehicles = [
 		model: 'CULLINAN',
 		year: 2024,
 		price: 1600,
-		images: ['rr-cullinan.jpg'],
-		userId: 'c7bzhd7g42hdpw7psqabf6z2'
+		images: [{ src: '/src/lib/assets/images/rr-cullinan.jpg', alt: 'ROLLS ROYCE CULLINAN' },
+            { src: '/src/lib/assets/images/rr-cullinan-back.webp', alt: 'ROLLS ROYCE CULLINAN' },
+            { src: '/src/lib/assets/images/rr-culinan-interior.webp', alt: 'ROLLS ROYCE CULLINAN Interior' }
+
+        ],
+
+        userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
 		id: '07cd1cb8-05f4-4403-910e-1576a984a9a3',
@@ -41,7 +55,11 @@ export const vehicles = [
 		model: 'F8 SPIDER',
 		year: 2024,
 		price: 1400,
-		images: ['ferrari-f8.jpg'],
+		images: [{ src: '/src/lib/assets/images/ferrari-f8.jpg', alt: 'FERRARI F8 SPIDER' },
+            { src: '/src/lib/assets/images/ferrari-f8-rear.webp', alt: 'FERRARI F8 SPIDER Rear View' },
+            { src: '/src/lib/assets/images/ferrari-f8-interior.webp', alt: 'FERRARI F8 SPIDER Interior' },
+
+        ],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -50,7 +68,11 @@ export const vehicles = [
 		model: ' GT3',
 		year: 2024,
 		price: 800,
-		images: ['porsche-gt3.webp'],
+		images: [{ src: '/src/lib/assets/images/porsche-gt3.webp', alt: 'PORSCHE GT3' },
+            { src: '/src/lib/assets/images/porsche-gt3-rear.jpeg', alt: 'PORSCHE GT3 Rear View' },
+            { src: '/src/lib/assets/images/porsche-gt3-interior.webp', alt: 'PORSCHE GT3 Interior' },
+
+        ],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -59,7 +81,11 @@ export const vehicles = [
 		model: '720S Spider',
 		year: 2024,
 		price: 1800,
-		images: ['mclaren.jpg'],
+		images: [{ src: '/src/lib/assets/images/mclaren.jpg', alt: 'MCLAREN 720S Spider' },
+            { src: '/src/lib/assets/images/mclaren-720-spider-2.webp', alt: 'MCLAREN 720S Spider' },
+            { src: '/src/lib/assets/images/mclaren-720-spider-interior.webp', alt: 'MCLAREN 720S Spider' },
+
+        ],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -68,7 +94,7 @@ export const vehicles = [
 		model: 'DAWN',
 		year: 2024,
 		price: 1400,
-		images: ['rolls-royce-dawn.webp'],
+		images: [{ src: '/src/lib/assets/images/rolls-royce-dawn.webp', alt: 'ROLLS ROYCE DAWN' }],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	}
 ];
