@@ -10,20 +10,24 @@
 	<title>Privacy Policy | Macro Exotics</title>
 	<meta name="description" content="Privacy Policy | Macro Exotics" />
 	<meta name="title" content="Privacy Policy | Macro Exotics" />
-	<meta name="keywords" content="Privacy Policy, Macro Exotics, Privacy Policy, Macro Exotics" />
+	<meta name="keywords" content="Privacy Policy, Macro Exotics, Luxury Cars, Yacht Rentals, Luxury Yachts, Macro Exotics" />
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="og:title" content="Privacy Policy | Macro Exotics" />
 	<meta name="og:description" content="Privacy Policy | Macro Exotics" />
 
-	<!-- Need to add logo here -->
+	<!-- TODO: Need to add logo here -->
 	<meta name="og:url" content="https://macroexotics.com/privacy" />
+
+	<!-- TODO: Need to add logo here -->
 	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
 	<meta name="og:type" content="website" />
 	<meta name="og:locale" content="en_US" />
 	<meta name="og:site_name" content="Macro Exotics" />
 	<link rel="canonical" href="https://macroexotics.com/privacy" />
+
+	<!-- TODO: Need to add logo here -->
 	<link rel="icon" href="https://macroexotics.com/favicon.ico" />
 </svelte:head>
 <div class="policy-container mx-auto max-w-[1000px]">
