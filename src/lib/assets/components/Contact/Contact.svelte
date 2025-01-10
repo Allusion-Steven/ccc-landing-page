@@ -233,7 +233,7 @@
 
 								<button
 									type="button"
-									class="w-full rounded-xl bg-gradient-to-r from-miami-pink to-miami-blue px-6 py-4 font-bold text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+									class="w-full rounded-xl bg-miami-light-pink px-6 py-4 font-bold text-white transition-all duration-300 hover:bg-[#0bd3d3] disabled:cursor-not-allowed disabled:opacity-50"
 									on:click={handleSendButton}
 									disabled={contactFormSending}
 								>
