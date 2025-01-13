@@ -32,7 +32,11 @@ export const vehicles = [
 		model: 'CONTINENTAL GT',
 		year: 2024,
 		price: 800,
-		images: [{ src: '/src/lib/assets/images/bentley-cont-gt.jpg', alt: 'BENTLEY CONTINENTAL GT' }],
+		images: [{ src: '/src/lib/assets/images/bentley-cont-gt.jpg', alt: 'BENTLEY CONTINENTAL GT' },
+			{ src: '/src/lib/assets/images/contintental-gt-rear.webp', alt: 'BENTLEY CONTINENTAL GT' },
+
+			{ src: '/src/lib/assets/images/contintental-gt-interior.webp', alt: 'BENTLEY CONTINENTAL GT' },
+		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -94,7 +98,10 @@ export const vehicles = [
 		model: 'DAWN',
 		year: 2024,
 		price: 1400,
-		images: [{ src: '/src/lib/assets/images/rolls-royce-dawn.webp', alt: 'ROLLS ROYCE DAWN' }],
+		images: [{ src: '/src/lib/assets/images/rolls-royce-dawn.webp', alt: 'ROLLS ROYCE DAWN' },
+			{ src: '/src/lib/assets/images/rr-dawn-side.webp', alt: 'ROLLS ROYCE DAWN' },
+			{ src: '/src/lib/assets/images/rr-dawn-interior.webp', alt: 'ROLLS ROYCE DAWN' }
+		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	}
 ];
