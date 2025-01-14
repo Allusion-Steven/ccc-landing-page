@@ -6,9 +6,9 @@ export const vehicles = [
 		year: 2024,
 		price: 1800,
 		images: [
-			{ src: '/src/lib/assets/images/amg-gt-black.jpg', alt: 'AMG GT Black Series' },
-			{ src: '/src/lib/assets/images/amg-gt-front-view.webp', alt: 'AMG GT Black Series Front View' },
-            { src: '/src/lib/assets/images/amg-gt-interior.webp', alt: 'AMG GT Interior' }
+			{ src: '/images/amg-gt-black.jpg', alt: 'AMG GT Black Series' },
+			{ src: '/images/amg-gt-front-view.webp', alt: 'AMG GT Black Series Front View' },
+			{ src: '/images/amg-gt-interior.webp', alt: 'AMG GT Interior' }
 
 		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
@@ -19,11 +19,11 @@ export const vehicles = [
 		model: '765LT SPIDER',
 		year: 2024,
 		price: 2200,
-		images: [{ src: '/src/lib/assets/images/mclaren-spider.jpg', alt: 'MCLAREN 765LT SPIDER' },
-            { src: '/src/lib/assets/images/mclaren-spider-suicide.webp', alt: 'MCLAREN 765LT SPIDER' },
-            { src: '/src/lib/assets/images/mclaren-765-interior.webp', alt: 'MCLAREN 765LT SPIDER' }
+		images: [{ src: '/images/mclaren-spider.jpg', alt: 'MCLAREN 765LT SPIDER' },
+		{ src: '/images/mclaren-spider-suicide.webp', alt: 'MCLAREN 765LT SPIDER' },
+		{ src: '/images/mclaren-765-interior.webp', alt: 'MCLAREN 765LT SPIDER' }
 
-        ],
+		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -32,10 +32,10 @@ export const vehicles = [
 		model: 'CONTINENTAL GT',
 		year: 2024,
 		price: 800,
-		images: [{ src: '/src/lib/assets/images/bentley-cont-gt.jpg', alt: 'BENTLEY CONTINENTAL GT' },
-			{ src: '/src/lib/assets/images/contintental-gt-rear.webp', alt: 'BENTLEY CONTINENTAL GT' },
+		images: [{ src: '/images/bentley-cont-gt.jpg', alt: 'BENTLEY CONTINENTAL GT' },
+		{ src: '/images/contintental-gt-rear.webp', alt: 'BENTLEY CONTINENTAL GT' },
 
-			{ src: '/src/lib/assets/images/contintental-gt-interior.webp', alt: 'BENTLEY CONTINENTAL GT' },
+		{ src: '/images/contintental-gt-interior.webp', alt: 'BENTLEY CONTINENTAL GT' },
 		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
@@ -45,13 +45,13 @@ export const vehicles = [
 		model: 'CULLINAN',
 		year: 2024,
 		price: 1600,
-		images: [{ src: '/src/lib/assets/images/rr-cullinan.jpg', alt: 'ROLLS ROYCE CULLINAN' },
-            { src: '/src/lib/assets/images/rr-cullinan-back.webp', alt: 'ROLLS ROYCE CULLINAN' },
-            { src: '/src/lib/assets/images/rr-culinan-interior.webp', alt: 'ROLLS ROYCE CULLINAN Interior' }
+		images: [{ src: '/images/rr-cullinan.jpg', alt: 'ROLLS ROYCE CULLINAN' },
+		{ src: '/images/rr-cullinan-back.webp', alt: 'ROLLS ROYCE CULLINAN' },
+		{ src: '/images/rr-culinan-interior.webp', alt: 'ROLLS ROYCE CULLINAN Interior' }
 
-        ],
+		],
 
-        userId: 'c7bzhd7g42hdpw7psqabf6z2'
+		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
 		id: '07cd1cb8-05f4-4403-910e-1576a984a9a3',
@@ -59,11 +59,11 @@ export const vehicles = [
 		model: 'F8 SPIDER',
 		year: 2024,
 		price: 1400,
-		images: [{ src: '/src/lib/assets/images/ferrari-f8.jpg', alt: 'FERRARI F8 SPIDER' },
-            { src: '/src/lib/assets/images/ferrari-f8-rear.webp', alt: 'FERRARI F8 SPIDER Rear View' },
-            { src: '/src/lib/assets/images/ferrari-f8-interior.webp', alt: 'FERRARI F8 SPIDER Interior' },
+		images: [{ src: '/images/ferrari-f8.jpg', alt: 'FERRARI F8 SPIDER' },
+		{ src: '/images/ferrari-f8-rear.webp', alt: 'FERRARI F8 SPIDER Rear View' },
+		{ src: '/images/ferrari-f8-interior.webp', alt: 'FERRARI F8 SPIDER Interior' },
 
-        ],
+		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -72,11 +72,11 @@ export const vehicles = [
 		model: ' GT3',
 		year: 2024,
 		price: 800,
-		images: [{ src: '/src/lib/assets/images/porsche-gt3.webp', alt: 'PORSCHE GT3' },
-            { src: '/src/lib/assets/images/porsche-gt3-rear.jpeg', alt: 'PORSCHE GT3 Rear View' },
-            { src: '/src/lib/assets/images/porsche-gt3-interior.webp', alt: 'PORSCHE GT3 Interior' },
+		images: [{ src: '/images/porsche-gt3.webp', alt: 'PORSCHE GT3' },
+		{ src: '/images/porsche-gt3-rear.jpeg', alt: 'PORSCHE GT3 Rear View' },
+		{ src: '/images/porsche-gt3-interior.webp', alt: 'PORSCHE GT3 Interior' },
 
-        ],
+		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -85,11 +85,11 @@ export const vehicles = [
 		model: '720S Spider',
 		year: 2024,
 		price: 1800,
-		images: [{ src: '/src/lib/assets/images/mclaren.jpg', alt: 'MCLAREN 720S Spider' },
-            { src: '/src/lib/assets/images/mclaren-720-spider-2.webp', alt: 'MCLAREN 720S Spider' },
-            { src: '/src/lib/assets/images/mclaren-720-spider-interior.webp', alt: 'MCLAREN 720S Spider' },
+		images: [{ src: '/images/mclaren.jpg', alt: 'MCLAREN 720S Spider' },
+		{ src: '/images/mclaren-720-spider-2.webp', alt: 'MCLAREN 720S Spider' },
+		{ src: '/images/mclaren-720-spider-interior.webp', alt: 'MCLAREN 720S Spider' },
 
-        ],
+		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -98,9 +98,9 @@ export const vehicles = [
 		model: 'DAWN',
 		year: 2024,
 		price: 1400,
-		images: [{ src: '/src/lib/assets/images/rolls-royce-dawn.webp', alt: 'ROLLS ROYCE DAWN' },
-			{ src: '/src/lib/assets/images/rr-dawn-side.webp', alt: 'ROLLS ROYCE DAWN' },
-			{ src: '/src/lib/assets/images/rr-dawn-interior.webp', alt: 'ROLLS ROYCE DAWN' }
+		images: [{ src: '/images/rolls-royce-dawn.webp', alt: 'ROLLS ROYCE DAWN' },
+		{ src: '/images/rr-dawn-side.webp', alt: 'ROLLS ROYCE DAWN' },
+		{ src: '/images/rr-dawn-interior.webp', alt: 'ROLLS ROYCE DAWN' }
 		],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	}
