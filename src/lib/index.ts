@@ -2,3 +2,5 @@
 
 export const environment = process.env.NODE_ENV;
 export const isLive = (environment === "production") ? true : false
+
+export const baseUrl = isLive ? "https://macroexotics.com" : "http://localhost:5173"

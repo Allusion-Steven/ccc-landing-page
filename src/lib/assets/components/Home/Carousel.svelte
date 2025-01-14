@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Carousel } from 'flowbite-svelte';
 	import { vehicles } from '$lib/constants/Vehicles';
+	import { baseUrl } from '$lib/index';
 </script>
 
 <div class="max-w-8xl container mx-auto px-4 py-16">
@@ -9,22 +10,25 @@
 	</h3>
 	<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 		{#each vehicles as vehicle, index}
-			<a href={`/vehicle/${vehicle.id}`} class="group relative block h-72 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+			<a
+				href={`/vehicle/${vehicle.id}`}
+				class="group relative block h-72 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+			>
 				<div class="aspect-[16/10] w-full overflow-hidden">
 					{#if vehicle.images && vehicle.images.length > 0}
 						{#if vehicle.images.length > 1}
-						<!-- TODO: Need to add a controls or indicators here  and remove auto scroll -->
+							<!-- TODO: Need to add a controls or indicators here  and remove auto scroll -->
 							<Carousel
 								let:Controls
 								let:Indicators
 								duration={Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000}
 								images={vehicle.images.map((img) => ({
-									src: img.src,
+									src: `${baseUrl}${img.src}`,
 									alt: `${vehicle.make} ${vehicle.model}`
 								}))}
 								style="width: 100px; object-fit: cover; height:18rem; width: 100%; position: fixed;"
 							>
-<!-- 								<Controls
+								<!-- 								<Controls
 									class="absolute flex w-full flex-col justify-between pt-4 text-red-400 dark:text-green-400"
 									style="justify-content: space-between; align-items: space-between;     width: 100%;"
 								/> -->
