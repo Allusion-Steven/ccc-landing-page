@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { baseUrl } from '$lib/index';
+	import { Gallery } from 'flowbite-svelte';
 	export let data: PageData;
 	const { vehicle } = data;
 
@@ -11,36 +12,51 @@
 <div class="container mx-auto min-h-screen px-4 py-8">
 	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 		<!-- Left side - Image Gallery -->
-		<!-- TODO: Need to add a flowbite carousel here -->
-		<div class="relative h-[600px] overflow-hidden rounded-xl bg-white/5">
-			{#if vehicle.images && vehicle.images.length > 0}
-				<img
-					src={`${baseUrl}${vehicle.images[selectedImageIndex].src}`}
-					alt={vehicle.images[selectedImageIndex].alt}
-					class="h-full w-full object-cover"
-				/>
-				<!-- Thumbnail Navigation -->
-				<div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-					{#each vehicle.images as _, index}
-						<button
-							class="h-2 w-16 rounded-full transition-all duration-300 {selectedImageIndex === index
-								? 'bg-[#0bd3d3]'
-								: 'bg-white/50'}"
-							on:click={() => (selectedImageIndex = index)}
-							aria-label={`View image ${index + 1}`}
+         <!-- TODO: Make the main image auto scroll -->
+		<div class="container">
+			<div class="relative h-[600px] overflow-hidden rounded-xl bg-white/5">
+				{#if vehicle.images && vehicle.images.length > 0}
+					<img
+						src={`${baseUrl}${vehicle.images[selectedImageIndex].src}`}
+						alt={vehicle.images[selectedImageIndex].alt}
+						class="h-full w-full object-cover"
+					/>
+					<!-- Thumbnail Navigation -->
+					<div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+						{#each vehicle.images as _, index}
+							<button
+								class="h-2 w-16 rounded-full transition-all duration-300 {selectedImageIndex === index ? 'bg-[#0bd3d3]' : 'bg-white/50'}"
+								on:click={() => (selectedImageIndex = index)}
+								aria-label={`View image ${index + 1}`}
+							></button>
+						{/each}
+					</div>
+				{:else}
+					<div class="flex h-full items-center justify-center bg-gray-800">
+						<span class="text-gray-400">No image available</span>
+					</div>
+				{/if}
+			</div>
+			<!-- New Thumbnail Section -->
+			<div class="mt-4 grid grid-cols-3 gap-4">
+				{#each vehicle.images as image, index}
+					<button
+						class="cursor-pointer h-full w-full rounded-lg"
+						on:click={() => (selectedImageIndex = index)}
+						aria-label={`View image ${index + 1}`}
+					>
+						<img
+							src={`${baseUrl}${image.src}`}
+							alt={image.alt}
+							class={`h-full w-full object-cover rounded-lg ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`}
 						/>
-					{/each}
-				</div>
-				<!-- New Thumbnail Section -->
-			{:else}
-				<div class="flex h-full items-center justify-center bg-gray-800">
-					<span class="text-gray-400">No image available</span>
-				</div>
-			{/if}
+					</button>
+				{/each}
+			</div>
 		</div>
 
 		<!-- Right side - Vehicle Information -->
-		<div class="flex flex-col justify-between space-y-6">
+		<div class="flex flex-col justify-start space-y-8">
 			<div>
 				<h1 class="text-4xl font-bold text-white">
 					{vehicle.make}
