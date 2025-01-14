@@ -19,6 +19,7 @@
 						{#if vehicle.images.length > 1}
 							<!-- TODO: Need to add a controls or indicators here  and remove auto scroll -->
 							<Carousel
+								class="pointer-events-none;"
 								let:Controls
 								let:Indicators
 								duration={Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000}
@@ -26,7 +27,7 @@
 									src: `${baseUrl}${img.src}`,
 									alt: `${vehicle.make} ${vehicle.model}`
 								}))}
-								style="width: 100px; object-fit: cover; height:18rem; width: 100%; position: fixed;"
+								style="width: 100px; object-fit: cover; height:18rem; width: 100%; position: fixed; pointer-events: none;"
 							>
 								<!-- 								<Controls
 									class="absolute flex w-full flex-col justify-between pt-4 text-red-400 dark:text-green-400"
