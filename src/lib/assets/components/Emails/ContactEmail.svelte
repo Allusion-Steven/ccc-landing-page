@@ -1,4 +1,8 @@
-<script lang="ts">
+<!-- 
+	Commented out for now because svelte-email is not working due to the way the email is being rendered with svelte 5
+	TODO: Fix svelte-email to work with svelte 5 will probably be an update to the library
+-->
+<!--<script lang="ts">
 	import {
 		Button,
 		Container,
@@ -138,7 +142,7 @@
 	</Head>
 	<Section>
 		<Container style={container_bg_dark}>
-			<!-- col -->
+
 			<Text style={heading_filled_center}>New Contact Form Submission</Text>
 			<Text style={heading_filled_center}>www.macroexotics.com</Text>
 		</Container>
@@ -161,7 +165,7 @@
 		</Section>
 
 		<Column style={container_bg_dark}>
-			<!-- col -->
+
 			<Hr style={hr} />
 
 			<Img src={logo_url} alt="Macro Exotics logo" style={logo} width="200" height="auto" />
@@ -172,3 +176,4 @@
 		</Text>
 	</Section>
 </Html>
+-->
