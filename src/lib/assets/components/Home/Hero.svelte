@@ -1,6 +1,6 @@
 <script>
 	// import horizontalLogoLight from '$lib/assets/logos/horizontal-logo-light.svg';
-	import heroImage from '$lib/assets/images/rolls-royce-bg-hero.jpeg';
+	import heroImage from '$lib/assets/images/rr-dawn-miami.jpg';
 	import ContactButton from '../ContactButton.svelte';
 </script>
 
@@ -18,7 +18,7 @@
 	class="relative min-h-screen bg-miami-sunset hero-bg"
 	style="background-image: url('{heroImage}'); background-size: cover; background-position: center;"
 >
-	<div class="absolute inset-0 bg-gradient-to-b from-[#1e1e1e] via-[#1e1e1e]/80 to-transparent">
+	<div class="absolute inset-0 bg-gradient-to-b from-[#1e1e1e]/30 via-[#1e1e1e]/80 to-transparent">
 		<div class="absolute inset-0">
 			<div
 				class="absolute inset-0 bg-gradient-to-r from-[#1e1e1e]/30 via-transparent to-[#0bd3d3]/10"
