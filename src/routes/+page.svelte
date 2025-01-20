@@ -3,6 +3,7 @@
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import Benefits from '$lib/assets/components/Home/Benefits.svelte';
 	import Carousel from '$lib/assets/components/Home/Carousel.svelte';
+	import SomeComponent from './some-component.svelte';
 </script>
 
 <svelte:head>
@@ -16,7 +17,7 @@
 	<meta name="og:title" content="Macro Exotics" />
 	<meta name="og:description" content="Macro Exotics" />
 	<meta name="og:url" content="https://macroexotics.com" />
-	
+
 	<!-- Need to replace these images with real images-->
 	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
 	<meta name="og:type" content="website" />
@@ -27,7 +28,7 @@
 	<!-- Need to replace this favicon with real images-->
 	<link rel="icon" href="https://macroexotics.com/favicon.ico" />
 </svelte:head>
-
+<SomeComponent />
 <Hero />
 <Why />
 <Carousel />
