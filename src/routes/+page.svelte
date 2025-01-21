@@ -16,6 +16,8 @@
 	<meta name="og:title" content="Macro Exotics" />
 	<meta name="og:description" content="Macro Exotics" />
 	<meta name="og:url" content="https://macroexotics.com" />
+	<meta name="theme-color" content="#1C1C1C" />
+
 	
 	<!-- Need to replace these images with real images-->
 	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />

@@ -16,6 +16,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="og:title" content="Privacy Policy | Macro Exotics" />
 	<meta name="og:description" content="Privacy Policy | Macro Exotics" />
+	
+	<meta name="theme-color" content="#1C1C1C" />
 
 	<!-- TODO: Need to add logo here -->
 	<meta name="og:url" content="https://macroexotics.com/privacy" />
