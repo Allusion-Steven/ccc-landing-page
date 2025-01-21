@@ -10,6 +10,8 @@
 		name="keywords"
 		content="Contact Us, Macro Exotics, Contact Form, Macro Exotics"
 	/>
+	<meta name="theme-color" content="#1C1C1C" />
+
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
