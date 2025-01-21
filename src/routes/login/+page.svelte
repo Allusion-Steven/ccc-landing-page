@@ -151,6 +151,7 @@
 								bg-gray-800/50 text-white backdrop-blur-sm"
 								placeholder="Confirm your password"
 							/>
+							<!-- TODO: Password validation fix-->
 							{#if !passwordsMatch}
 								<p class="mt-1 text-sm text-red-400">Passwords do not match</p>
 							{/if}
