@@ -1,13 +1,27 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
 	import loginImage from '$lib/assets/images/570s.jpg';
+	import { onMount } from 'svelte';
 
-	interface LoginActionData extends ActionData {
+	interface LoginActionData {
 		message?: string;
+		success?: boolean;
 	}
 
-	let { form }: { form: LoginActionData } = $props();
+	
+	let heroDiv;
+	let imageLoaded = $state(false);
+
+	onMount(() => {
+		const img = new Image();
+		img.src = loginImage;
+		img.onload = () => {
+			imageLoaded = true;
+		};
+	});
+
+	
+	let { form }: { form: LoginActionData | null } = $props();
 	
 	let activeTab = $state<'login' | 'register'>('login');
 	let password = $state('');
@@ -25,8 +39,14 @@
 </script>
 
 <div class="relative min-h-[80vh]">
+	<div class="loading-placeholder" class:hidden={imageLoaded}></div>
+
 	<!-- Background Image -->
-	<div class="absolute inset-0">
+	<div class="absolute inset-0"
+			bind:this={heroDiv}
+			class:loaded={imageLoaded}
+			style="background-image: url('{loginImage}');"
+>
 		<img
 			src={loginImage}
 			alt="Background"
@@ -63,10 +83,11 @@
 						use:enhance
 					>
 						<div>
-							<label class="block text-sm font-medium text-gray-300">
+							<label for="login-username" class="block text-sm font-medium text-gray-300">
 								Username
 							</label>
 							<input
+								id="login-username"
 								name="username"
 								required
 								class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-600 
@@ -77,10 +98,11 @@
 						</div>
 
 						<div>
-							<label class="block text-sm font-medium text-gray-300">
+							<label for="login-password" class="block text-sm font-medium text-gray-300">
 								Password
 							</label>
 							<input
+								id="login-password"
 								type="password"
 								name="password"
 								required
@@ -109,10 +131,11 @@
 						onsubmit={handleRegisterSubmit}
 					>
 						<div>
-							<label class="block text-sm font-medium text-gray-300">
+							<label for="register-username" class="block text-sm font-medium text-gray-300">
 								Username
 							</label>
 							<input
+								id="register-username"
 								name="username"
 								required
 								class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-600 
@@ -123,10 +146,11 @@
 						</div>
 
 						<div>
-							<label class="block text-sm font-medium text-gray-300">
+							<label for="register-password" class="block text-sm font-medium text-gray-300">
 								Password
 							</label>
 							<input
+								id="register-password"
 								type="password"
 								name="password"
 								required
@@ -139,10 +163,11 @@
 						</div>
 
 						<div>
-							<label class="block text-sm font-medium text-gray-300">
+							<label for="confirm-password" class="block text-sm font-medium text-gray-300">
 								Confirm Password
 							</label>
 							<input
+								id="confirm-password"
 								type="password"
 								required
 								bind:value={confirmPassword}
@@ -177,6 +202,12 @@
 </div>
 
 <style>
+	.loading-placeholder {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+	}
+
 	/* Remove the previous background animations as they're no longer needed */
 	@media (max-width: 550px) {
 		.login-form-container {

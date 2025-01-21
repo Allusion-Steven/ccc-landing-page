@@ -3,7 +3,6 @@
 	import { contactFormStore } from '$lib/stores/contactFormStore';
 	import heroBg from '$lib/assets/images/contact-form-bg-img.png';
 
-	// import { ProgressRadial } from '@skeletonlabs/skeleton';
 	let email = '';
 	let phone = '';
 	let f_name = '';
