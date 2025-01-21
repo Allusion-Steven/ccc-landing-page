@@ -24,7 +24,7 @@
 
 <svelte:window bind:innerWidth on:resize={() => (isMenuOpen = false)} />
 
-<nav class="bg-gradient-to-r from-miami-dark via-miami-purple to-miami-dark py-6 text-white">
+<nav class="bg-[#1C1C1C] py-6 text-white">
 	<div class="container mx-auto flex flex-col items-center md:flex-row md:justify-between">
 		<div class="flex w-full items-center justify-between px-4">
 			<a href="/" class="text-xl font-bold">
