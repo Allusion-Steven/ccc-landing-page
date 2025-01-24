@@ -52,7 +52,7 @@
 						</p>
 
 						<div class="mx-auto mb-12 max-w-4xl">
-							<div class="rounded-3xl bg-white/10 p-2 backdrop-blur-sm">
+							<div class="rounded-2xl bg-white/10 p-2 backdrop-blur-sm">
 								<div
 									class="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0"
 								>
@@ -82,21 +82,21 @@
 											type="text"
 											placeholder="Location"
 											bind:value={location}
-											class="!h-12 w-full !rounded-full !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50"
+											class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50"
 										/>
 									</div>
 
 									<div class="flex w-full space-x-2 md:w-3/5">
 										<div class="relative z-20 w-1/2">
 											<input
-												class="!h-12 w-full !rounded-full !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
+												class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
 												type="date"
 												bind:value={pickupDate}
 											/>
 										</div>
 										<div class="relative z-20 w-1/2">
 											<input
-												class="!h-12 w-full !rounded-full !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
+												class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
 												type="date"
 												bind:value={dropoffDate}
 											/>
@@ -104,7 +104,7 @@
 									</div>
 
 									<button
-										class="!h-12 w-full rounded-full bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
+										class="!h-12 w-full rounded-2xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
 									>
 										Search
 									</button>
