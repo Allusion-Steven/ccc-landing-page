@@ -118,7 +118,7 @@
 							class="flex flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
 						>
 							<PrimaryButton text="List Your Vehicle" href="/contact" />
-							<SecondaryButton text="Rent Now" href="/list" />
+							<SecondaryButton text="Rent Now" href="/vehicles" />
 						</div>
 					</div>
 				</div>
