@@ -8,7 +8,6 @@
 		success?: boolean;
 	}
 
-	
 	let heroDiv;
 	let imageLoaded = $state(false);
 
@@ -20,9 +19,8 @@
 		};
 	});
 
-	
 	let { form }: { form: LoginActionData | null } = $props();
-	
+
 	let activeTab = $state<'login' | 'register'>('login');
 	let password = $state('');
 	let confirmPassword = $state('');
@@ -42,46 +40,48 @@
 	<div class="loading-placeholder" class:hidden={imageLoaded}></div>
 
 	<!-- Background Image -->
-	<div class="absolute inset-0"
-			bind:this={heroDiv}
-			class:loaded={imageLoaded}
-			style="background-image: url('{loginImage}');"
->
-		<img
-			src={loginImage}
-			alt="Background"
-			class="h-full w-full object-cover"
-		/>
-		<div class="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/60 to-gray-900/50"></div>
+	<div
+		class="absolute inset-0"
+		bind:this={heroDiv}
+		class:loaded={imageLoaded}
+		style="background-image: url('{loginImage}');"
+	>
+		<img src={loginImage} alt="Background" class="h-full w-full object-cover" />
+		<div
+			class="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/60 to-gray-900/50"
+		></div>
 	</div>
 
 	<!-- Login Form Container -->
 	<div class="relative flex min-h-[80vh] items-center justify-center">
-		<div class="w-[450px] login-form-container rounded-xl bg-gradient-to-r from-miami-dark/85 via-miami-purple/85 to-miami-dark/85 backdrop-blur-sm shadow-2xl">
+		<div
+			class="login-form-container w-[450px] rounded-xl bg-gradient-to-r from-miami-dark/85 via-miami-purple/85 to-miami-dark/85 shadow-2xl backdrop-blur-sm"
+		>
 			<div class="w-full px-8 py-12">
 				<!-- Tabs -->
-				<div class="flex mb-8 border-b border-gray-600">
+				<div class="mb-8 flex border-b border-gray-600">
 					<button
-						class="flex-1 py-2 text-center text-lg font-medium transition-colors {activeTab === 'login' ? 'text-white border-b-2 border-blue-500' : 'text-gray-400 hover:text-gray-300'}"
-						onclick={() => activeTab = 'login'}
+						class="flex-1 py-2 text-center text-lg font-medium transition-colors {activeTab ===
+						'login'
+							? 'border-b-2 border-[#0bd3d3] text-white'
+							: 'text-gray-400 hover:text-gray-300'}"
+						onclick={() => (activeTab = 'login')}
 					>
 						Login
 					</button>
 					<button
-						class="flex-1 py-2 text-center text-lg font-medium transition-colors {activeTab === 'register' ? 'text-white border-b-2 border-blue-500' : 'text-gray-400 hover:text-gray-300'}"
-						onclick={() => activeTab = 'register'}
+						class="flex-1 py-2 text-center text-lg font-medium transition-colors {activeTab ===
+						'register'
+							? 'border-b-2 border-[#0bd3d3] text-white'
+							: 'text-gray-400 hover:text-gray-300'}"
+						onclick={() => (activeTab = 'register')}
 					>
 						Register
 					</button>
 				</div>
 
 				{#if activeTab === 'login'}
-					<form 
-						class="space-y-6" 
-						method="post" 
-						action="?/login" 
-						use:enhance
-					>
+					<form class="space-y-6" method="post" action="?/login" use:enhance>
 						<div>
 							<label for="login-username" class="block text-sm font-medium text-gray-300">
 								Username
@@ -90,9 +90,9 @@
 								id="login-username"
 								name="username"
 								required
-								class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-600 
-								focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
-								bg-gray-800/50 text-white backdrop-blur-sm"
+								class="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-800/50 px-4
+								py-3 text-white backdrop-blur-sm transition-colors
+								focus:border-blue-500 focus:ring-2 focus:ring-[#0bd3d3]"
 								placeholder="Enter your username"
 							/>
 						</div>
@@ -106,27 +106,25 @@
 								type="password"
 								name="password"
 								required
-								class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-600 
-								focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
-								bg-gray-800/50 text-white backdrop-blur-sm"
+								class="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-800/50 px-4
+								py-3 text-white backdrop-blur-sm transition-colors
+								focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
 								placeholder="Enter your password"
 							/>
 						</div>
 
-						<button 
+						<button
 							type="submit"
-							class="w-full py-3 px-4 rounded-lg bg-blue-600/90 hover:bg-blue-700 
-							text-white font-medium transition-colors focus:outline-none 
-							focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 backdrop-blur-sm"
+							class="w-full relative inline-flex items-center justify-center rounded-lg bg-[#0bd3d3] px-8 py-3 text-base font-medium text-gray-900 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#0bd3d3]/80 hover:shadow-lg md:text-lg"
 						>
 							Sign In
 						</button>
 					</form>
 				{:else}
-					<form 
-						class="space-y-6" 
-						method="post" 
-						action="?/register" 
+					<form
+						class="space-y-6"
+						method="post"
+						action="?/register"
 						use:enhance
 						onsubmit={handleRegisterSubmit}
 					>
@@ -138,9 +136,9 @@
 								id="register-username"
 								name="username"
 								required
-								class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-600 
-								focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
-								bg-gray-800/50 text-white backdrop-blur-sm"
+								class="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-800/50 px-4
+								py-3 text-white backdrop-blur-sm transition-colors
+								focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
 								placeholder="Choose a username"
 							/>
 						</div>
@@ -155,9 +153,9 @@
 								name="password"
 								required
 								bind:value={password}
-								class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-600 
-								focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
-								bg-gray-800/50 text-white backdrop-blur-sm"
+								class="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-800/50 px-4
+								py-3 text-white backdrop-blur-sm transition-colors
+								focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
 								placeholder="Choose a password"
 							/>
 						</div>
@@ -171,9 +169,9 @@
 								type="password"
 								required
 								bind:value={confirmPassword}
-								class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-600 
-								focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors
-								bg-gray-800/50 text-white backdrop-blur-sm"
+								class="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-800/50 px-4
+								py-3 text-white backdrop-blur-sm transition-colors
+								focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
 								placeholder="Confirm your password"
 							/>
 							<!-- TODO: Password validation fix-->
@@ -182,11 +180,9 @@
 							{/if}
 						</div>
 
-						<button 
+						<button
 							type="submit"
-							class="w-full py-3 px-4 rounded-lg bg-blue-600/90 hover:bg-blue-700 
-							text-white font-medium transition-colors focus:outline-none 
-							focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 backdrop-blur-sm"
+							class="w-full relative inline-flex items-center justify-center rounded-lg bg-[#0bd3d3] px-8 py-3 text-base font-medium text-gray-900 transition-all duration-300 ease-in-out hover:scale-105 hover:bg-[#0bd3d3]/80 hover:shadow-lg md:text-lg"
 						>
 							Create Account
 						</button>
