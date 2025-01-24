@@ -106,7 +106,7 @@
 		<div class="px-3">
 			<ul class="w-full flex-col px-6">
 				<li class="text-slate-300">
-					to assign a user account information such as username and password.
+					to assign a user account information such as username, email, and password.
 				</li>
 				<li class="text-slate-300">
 					to ensure that content from our website and services are presented in the most eﬃcient

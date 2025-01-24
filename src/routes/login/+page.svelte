@@ -84,7 +84,7 @@
 					<form class="space-y-6" method="post" action="?/login" use:enhance>
 						<div>
 							<label for="login-username" class="block text-sm font-medium text-gray-300">
-								Username
+								Email
 							</label>
 							<input
 								id="login-username"
@@ -93,7 +93,7 @@
 								class="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-800/50 px-4
 								py-3 text-white backdrop-blur-sm transition-colors
 								focus:border-blue-500 focus:ring-2 focus:ring-[#0bd3d3]"
-								placeholder="Enter your username"
+								placeholder="Enter your Email"
 							/>
 						</div>
 
