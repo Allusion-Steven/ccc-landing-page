@@ -5,15 +5,17 @@
 	import { onMount } from 'svelte';
 	import { Search, Input, Button } from 'flowbite-svelte';
 	import { Datepicker, P } from 'flowbite-svelte';
+	import PrimaryButton from '../buttons/PrimaryButton.svelte';
+	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 	let selectedDate = null;
 
 	let heroDiv;
 	let imageLoaded = false;
 	let location = '';
 	let pickupDate = new Date().toISOString().split('T')[0];
-	let pickupTime = '';
+	//let pickupTime = '';
 	let dropoffDate = new Date().toISOString().split('T')[0];
-	let dropoffTime = '';
+	//let dropoffTime = '';
 
 	onMount(() => {
 		const img = new Image();
@@ -115,44 +117,8 @@
 						<div
 							class="flex flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
 						>
-							<a
-								href="/list"
-								class="group relative inline-flex min-w-48 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-8 py-4 text-base font-medium text-white backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-miami-light-pink/20 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,27,107,0.15)] md:text-lg"
-							>
-								List Your Vehicle
-								<svg
-									class="ml-2 h-5 w-5 transform opacity-70 transition-transform group-hover:translate-x-1"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="1.5"
-										d="M9 5l7 7-7 7"
-									/>
-								</svg>
-							</a>
-							<a
-								href="/contact"
-								class="group relative inline-flex min-w-48 items-center justify-center rounded-lg bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 py-4 text-base font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:text-lg"
-							>
-								Rent Now
-								<svg
-									class="ml-2 h-5 w-5 transform opacity-70 transition-transform group-hover:translate-x-1"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="1.5"
-										d="M9 5l7 7-7 7"
-									/>
-								</svg>
-							</a>
+							<PrimaryButton text="List Your Vehicle" href="/contact" />
+							<SecondaryButton text="Rent Now" href="/list" />
 						</div>
 					</div>
 				</div>
