@@ -14,7 +14,7 @@
 		<!-- Left side - Image Gallery -->
          <!-- TODO: Make the main image auto scroll -->
 		<div class="container">
-			<div class="relative h-[600px] overflow-hidden rounded-xl bg-white/5">
+			<div class="relative h-[400px] sm:h-[500px] overflow-hidden rounded-xl bg-white/5">
 				{#if vehicle.images && vehicle.images.length > 0}
 					<img
 						src={`${baseUrl}${vehicle.images[selectedImageIndex].src}`}
