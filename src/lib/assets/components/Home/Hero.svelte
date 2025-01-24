@@ -10,9 +10,9 @@
 	let heroDiv;
 	let imageLoaded = false;
 	let location = '';
-	let pickupDate = new Date();
+	let pickupDate = new Date().toISOString().split('T')[0];
 	let pickupTime = '';
-	let dropoffDate = new Date();
+	let dropoffDate = new Date().toISOString().split('T')[0];
 	let dropoffTime = '';
 
 	onMount(() => {
