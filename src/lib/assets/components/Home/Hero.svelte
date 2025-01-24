@@ -3,9 +3,17 @@
 	import heroImage from '$lib/assets/images/lambo-performante.jpg';
 	import ContactButton from '../ContactButton.svelte';
 	import { onMount } from 'svelte';
+	import { Search, Input, Button } from 'flowbite-svelte';
+	import { Datepicker, P } from 'flowbite-svelte';
+	let selectedDate = null;
 
 	let heroDiv;
 	let imageLoaded = false;
+	let location = '';
+	let pickupDate = new Date();
+	let pickupTime = '';
+	let dropoffDate = new Date();
+	let dropoffTime = '';
 
 	onMount(() => {
 		const img = new Image();
@@ -16,65 +24,135 @@
 	});
 </script>
 
-<div class="relative sm:h-[80vh]">
+<div class="relative h-[90vh]">
 	<div class="loading-placeholder" class:hidden={imageLoaded}></div>
+
 	<div
 		bind:this={heroDiv}
-		class="hero-bg relative h-[80vh] bg-miami-sunset"
+		class="hero-bg relative h-full"
 		class:loaded={imageLoaded}
 		style="background-image: url('{heroImage}');;"
 	>
 		<div
-			class="absolute inset-0 bg-gradient-to-b from-[#1e1e1e]/60 via-[#1e1e1e]/90 to-transparent"
+			class="absolute inset-0 bg-gradient-to-br from-[#1C1C1C]/95 via-[#1e1e1e]/90 to-[#2d1b2a]/85"
 		>
-			<div class="absolute inset-0">
-				<div
-					class="absolute inset-0 bg-gradient-to-r from-[#1e1e1e]/30 via-transparent to-[#0bd3d3]/10"
-				>
-					<div class="hero-content-container relative flex h-[80vh] items-center justify-center">
-						<div class="container mx-auto flex h-[80vh] items-center justify-center px-4">
-							<div class="mx-auto max-w-4xl text-center">
-								<h1 class="mb-8 text-3xl font-bold leading-tight text-white md:text-5xl">
-									Luxury Rentals, Peer to Peer
-								</h1>
+			<div class="absolute inset-0 bg-gradient-to-t from-[#2d1b2a]/80 to-transparent"></div>
+			<div class="container mx-auto h-full px-4">
+				<div class="flex h-full items-center justify-center">
+					<div class="mx-auto max-w-4xl text-center">
+						<h1
+							class="mb-8 text-4xl font-bold tracking-tight text-white drop-shadow-lg md:text-6xl"
+						>
+							Premium Cars & Yachts, Your Way
+						</h1>
 
-								<p class="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-white/90 md:text-xl">
-									Experience luxury on your terms with Macro Exotics. Our peer-to-peer platform
-									connects owners of exotic cars and luxury yachts with discerning renters, offering
-									an exclusive collection of premium vehicles and vessels for unforgettable
-									experiences on land and sea.
-								</p>
-								<div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-									<a
-										href="/contact"
-										class="group relative inline-flex items-center justify-center rounded-full bg-[#0bd3d3] px-8 py-3 text-base font-medium text-gray-900 transition-all duration-300 ease-in-out hover:bg-[#0bd3d3]/80 hover:scale-105 hover:shadow-lg md:text-lg"
+						<p class="mx-auto mb-12 max-w-3xl text-center text-xl leading-relaxed text-white/95">
+							Connect with luxury vehicle owners and experience the extraordinary. From exotic cars
+							to luxury yachts, Macro Exotics delivers unparalleled rental experiences.
+						</p>
+
+						<div class="mx-auto mb-12 max-w-4xl">
+							<div class="rounded-full bg-white/10 p-2 backdrop-blur-sm">
+								<div
+									class="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0"
+								>
+									<div class="relative flex w-full md:w-2/5">
+										<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
+											<svg
+												class="h-5 w-5 text-white/70"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+												/>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+												/>
+											</svg>
+										</div>
+										<Input
+											type="text"
+											placeholder="Location"
+											bind:value={location}
+											class="!h-12 w-full !rounded-full !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50"
+										/>
+									</div>
+
+									<div class="flex w-full space-x-2 md:w-3/5">
+										<div class="relative z-20 w-1/2">
+											<input
+												class="!h-12 w-full !rounded-full !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
+												type="date"
+												bind:value={pickupDate}
+											/>
+										</div>
+										<div class="relative z-20 w-1/2">
+											<input
+												class="!h-12 w-full !rounded-full !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
+												type="date"
+												bind:value={dropoffDate}
+											/>
+										</div>
+									</div>
+
+									<button
+										class="!h-12 w-full rounded-full bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
 									>
-										Rent a Car
-										<svg
-											class="ml-2 h-5 w-5 transform transition-transform group-hover:translate-x-1"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-										</svg>
-									</a>
-									<a
-										href="/list"
-										class="group relative inline-flex items-center justify-center rounded-full bg-transparent border-2 border-[#0bd3d3] px-8 py-3 text-base font-medium text-white transition-all duration-300 ease-in-out hover:bg-[#0bd3d3]/10 hover:scale-105 hover:shadow-lg md:text-lg"
-									>
-										List a Car
-										<svg
-											class="ml-2 h-5 w-5 transform transition-transform group-hover:translate-x-1"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-										</svg>
-									</a>
+										Search
+									</button>
 								</div>
 							</div>
+						</div>
+
+						<div
+							class="flex flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
+						>
+							<a
+								href="/list"
+								class="group relative inline-flex min-w-48 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-8 py-4 text-base font-medium text-white backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-miami-light-pink/20 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,27,107,0.15)] md:text-lg"
+							>
+								List Your Vehicle
+								<svg
+									class="ml-2 h-5 w-5 transform opacity-70 transition-transform group-hover:translate-x-1"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="1.5"
+										d="M9 5l7 7-7 7"
+									/>
+								</svg>
+							</a>
+							<a
+								href="/contact"
+								class="group relative inline-flex min-w-48 items-center justify-center rounded-lg bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 py-4 text-base font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:text-lg"
+							>
+								Rent Now
+								<svg
+									class="ml-2 h-5 w-5 transform opacity-70 transition-transform group-hover:translate-x-1"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="1.5"
+										d="M9 5l7 7-7 7"
+									/>
+								</svg>
+							</a>
 						</div>
 					</div>
 				</div>
