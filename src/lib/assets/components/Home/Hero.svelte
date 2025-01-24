@@ -52,7 +52,7 @@
 						</p>
 
 						<div class="mx-auto mb-12 max-w-4xl">
-							<div class="rounded-full bg-white/10 p-2 backdrop-blur-sm">
+							<div class="rounded-3xl bg-white/10 p-2 backdrop-blur-sm">
 								<div
 									class="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0"
 								>
