@@ -31,12 +31,12 @@
 		bind:this={heroDiv}
 		class="hero-bg relative h-full"
 		class:loaded={imageLoaded}
-		style="background-image: url('{heroImage}');;"
+		style="background-image: url('{heroImage}'); background-position: center;"
 	>
 		<div
-			class="absolute inset-0 bg-gradient-to-br from-[#1C1C1C]/95 via-[#1e1e1e]/90 to-[#2d1b2a]/85"
+			class="absolute inset-0 bg-gradient-to-br from-[#1C1C1C]/85 via-[#1e1e1e]/80 to-[#2d1b2a]/85"
 		>
-			<div class="absolute inset-0 bg-gradient-to-t from-[#2d1b2a]/80 to-transparent"></div>
+			<div class="absolute inset-0 bg-gradient-to-t from-[#2d1b2a]/60 to-transparent"></div>
 			<div class="container mx-auto h-full px-4">
 				<div class="flex h-full items-center justify-center">
 					<div class="mx-auto max-w-4xl text-center">
@@ -176,9 +176,6 @@
 	@media screen and (max-width: 649px) {
 		.hero-bg {
 			min-height: 80vh;
-			.hero-content-container {
-				max-height: 80vh;
-			}
 		}
 	}
 
@@ -186,5 +183,10 @@
 		position: absolute;
 		inset: 0;
 		background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+	}
+	@media screen and (min-width: 649px) {
+		.hero-bg {
+			background-size: 160%;
+		}
 	}
 </style>
