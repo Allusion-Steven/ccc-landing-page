@@ -2,6 +2,8 @@
 	import { Carousel } from 'flowbite-svelte';
 	import { vehicles } from '$lib/constants/Vehicles';
 	import { baseUrl } from '$lib/index';
+	import PrimaryButton from '../buttons/PrimaryButton.svelte';
+	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 </script>
 
 <div class="max-w-8xl container mx-auto px-4 py-16">
@@ -10,6 +12,7 @@
 	</h3>
 	<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 		{#each vehicles as vehicle, index}
+		{#if index < 8}
 			<a
 				href={`/vehicle/${vehicle.id}`}
 				class="group relative block h-72 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
@@ -88,7 +91,11 @@
 						</div>
 					{/if}
 				</div>
-			</a>
+				</a>
+			{/if}
 		{/each}
+	</div>
+	<div class="flex justify-center">
+		<SecondaryButton href="/booking" type="submit" text="Quick Booking" />
 	</div>
 </div>

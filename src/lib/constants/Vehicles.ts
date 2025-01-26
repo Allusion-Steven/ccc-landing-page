@@ -9,8 +9,24 @@ export const vehicles = [
 			{ src: '/images/amg-gt-black.jpg', alt: 'AMG GT Black Series' },
 			{ src: '/images/amg-gt-front-view.webp', alt: 'AMG GT Black Series Front View' },
 			{ src: '/images/amg-gt-interior.webp', alt: 'AMG GT Interior' }
-
 		],
+		tags: ['Comfort', 'Performance', 'Coupe'],
+		userId: 'c7bzhd7g42hdpw7psqabf6z2'
+	},
+	{
+		id: '6c28b7b7-becb-4c75-983c-db3b19d3b20d1',
+		make: 'FERRARI',
+		model: '812 SUPERFAST',
+		year: 2024,
+		price: 1800,
+		images: [
+			{ src: '/images/superfast-side.jpg', alt: 'Ferrari 812 Superfast' },
+			{ src: '/images/superfast-front.jpg', alt: 'Ferrari 812 Superfast Rear View' },
+			{ src: '/images/superfast-interior-1.jpg', alt: 'Ferrari 812 Superfast Interior' },
+			{ src: '/images/superfast-interior-2.jpg', alt: 'Ferrari 812 Superfast Interior' },
+			{ src: '/images/superfast-rear.jpg', alt: 'Ferrari 812 Superfast Interior' }
+		],
+		tags: ['Performance'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -22,8 +38,8 @@ export const vehicles = [
 		images: [{ src: '/images/mclaren-spider.jpg', alt: 'MCLAREN 765LT SPIDER' },
 		{ src: '/images/mclaren-spider-suicide.webp', alt: 'MCLAREN 765LT SPIDER' },
 		{ src: '/images/mclaren-765-interior.webp', alt: 'MCLAREN 765LT SPIDER' }
-
 		],
+		tags: ['Supercar', 'Performance', 'Convertible'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -34,9 +50,9 @@ export const vehicles = [
 		price: 800,
 		images: [{ src: '/images/bentley-cont-gt.jpg', alt: 'BENTLEY CONTINENTAL GT' },
 		{ src: '/images/contintental-gt-rear.webp', alt: 'BENTLEY CONTINENTAL GT' },
-
 		{ src: '/images/contintental-gt-interior.webp', alt: 'BENTLEY CONTINENTAL GT' },
 		],
+		tags: ['Comfort', 'Coupe'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -48,9 +64,8 @@ export const vehicles = [
 		images: [{ src: '/images/rr-cullinan.jpg', alt: 'ROLLS ROYCE CULLINAN' },
 		{ src: '/images/rr-cullinan-back.webp', alt: 'ROLLS ROYCE CULLINAN' },
 		{ src: '/images/rr-culinan-interior.webp', alt: 'ROLLS ROYCE CULLINAN Interior' }
-
 		],
-
+		tags: ['Comfort', 'SUV'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -62,8 +77,8 @@ export const vehicles = [
 		images: [{ src: '/images/ferrari-f8.jpg', alt: 'FERRARI F8 SPIDER' },
 		{ src: '/images/ferrari-f8-rear.webp', alt: 'FERRARI F8 SPIDER Rear View' },
 		{ src: '/images/ferrari-f8-interior.webp', alt: 'FERRARI F8 SPIDER Interior' },
-
 		],
+		tags: ['Supercar', 'Performance', 'Convertible'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -75,8 +90,8 @@ export const vehicles = [
 		images: [{ src: '/images/porsche-gt3.webp', alt: 'PORSCHE GT3' },
 		{ src: '/images/porsche-gt3-rear.jpeg', alt: 'PORSCHE GT3 Rear View' },
 		{ src: '/images/porsche-gt3-interior.webp', alt: 'PORSCHE GT3 Interior' },
-
 		],
+		tags: ['Performance', 'Coupe'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -88,8 +103,8 @@ export const vehicles = [
 		images: [{ src: '/images/mclaren.jpg', alt: 'MCLAREN 720S Spider' },
 		{ src: '/images/mclaren-720-spider-2.webp', alt: 'MCLAREN 720S Spider' },
 		{ src: '/images/mclaren-720-spider-interior.webp', alt: 'MCLAREN 720S Spider' },
-
 		],
+		tags: ['Supercar', 'Performance', 'Convertible'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	},
 	{
@@ -102,6 +117,7 @@ export const vehicles = [
 		{ src: '/images/rr-dawn-side.webp', alt: 'ROLLS ROYCE DAWN' },
 		{ src: '/images/rr-dawn-interior.webp', alt: 'ROLLS ROYCE DAWN' }
 		],
+		tags: ['Comfort', 'Convertible'],
 		userId: 'c7bzhd7g42hdpw7psqabf6z2'
 	}
 ];

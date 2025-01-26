@@ -2,11 +2,17 @@
     import { enhance } from '$app/forms';
     import type { PageData } from './$types';
     import { onMount } from 'svelte';
+    import { page } from '$app/stores';
     import { compressImage, handleFileUpload, type FormData, type FormErrors } from '$lib/utils/image';
 
     export let data: PageData;
     let loading = false;
     let step = 1; // 1: User Info, 2: Payment
+
+    // Get query parameters
+    $: pickupDate = $page.url.searchParams.get('pickup') || '';
+    $: dropoffDate = $page.url.searchParams.get('dropoff') || '';
+    $: location = $page.url.searchParams.get('location') || '';
 
     // Form validation errors
     let errors: FormErrors = {
@@ -159,11 +165,35 @@
 <!-- TODO: ADD check if vehicle is booked... -->
 <!-- TODO: ADD check if user is 21+... -->
 <!-- TODO: Verify  your email address-->
- <!-- TODO: Verify Your Phone Number-->
+<!-- TODO: Verify Your Phone Number-->
 
 <div class="container mx-auto min-h-screen px-4 py-8">
     <div class="mx-auto max-w-2xl">
+        <!-- TODO: Check if user exists and is loged in -->
         <h1 class="mb-8 text-3xl font-bold text-white">Complete Your Booking</h1>
+
+        <!-- Booking Summary -->
+        <div class="mb-8 rounded-lg bg-white/5 p-6 backdrop-blur-sm border border-white/10">
+            <h2 class="mb-4 text-xl font-semibold text-white">Booking Details</h2>
+            <div class="grid grid-cols-2 gap-4 text-gray-300">
+                <div>
+                    <p class="text-sm">Pickup Date</p>
+                    <p class="font-medium text-white">{new Date(pickupDate).toLocaleDateString()}</p>
+                </div>
+                <div>
+                    <p class="text-sm">Dropoff Date</p>
+                    <p class="font-medium text-white">{new Date(dropoffDate).toLocaleDateString()}</p>
+                </div>
+                <div>
+                    <p class="text-sm">Location</p>
+                    <p class="font-medium text-white">{location}</p>
+                </div>
+                <div>
+                    <p class="text-sm">Vehicle</p>
+                    <p class="font-medium text-white">{data.vehicle?.year} {data.vehicle?.make} {data.vehicle?.model}</p>
+                </div>
+            </div>
+        </div>
 
         <!-- Progress Steps -->
         <div class="mb-8 flex justify-center">
@@ -332,6 +362,7 @@
                                 type="date"
                                 id="licenseExpiration"
                                 bind:value={formData.licenseExpiration}
+                                min={new Date().toISOString().split('T')[0]}
                                 required
                                 class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.licenseExpiration ? 'border-red-500' : ''}"
                             />
@@ -348,6 +379,7 @@
                                 type="date"
                                 id="dateOfBirth"
                                 bind:value={formData.dateOfBirth}
+                                max={new Date().toISOString().split('T')[0]}
                                 required
                                 class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.dateOfBirth ? 'border-red-500' : ''}"
                             />

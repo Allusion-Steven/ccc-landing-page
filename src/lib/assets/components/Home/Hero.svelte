@@ -80,12 +80,29 @@
 												/>
 											</svg>
 										</div>
-										<Input
-											type="text"
-											placeholder="Location"
+										<div class="absolute right-4 top-1/2 z-10 -translate-y-1/2 pointer-events-none">
+											<svg
+												class="h-5 w-5 text-white/70"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M19 9l-7 7-7-7"
+												/>
+											</svg>
+										</div>
+										<select
 											bind:value={location}
-											class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50"
-										/>
+											class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50 appearance-none"
+											style="background-color: rgba(255, 255, 255, 0.1);"
+										>
+											<option value="" disabled selected class="!bg-[#1C1C1C] !text-white">Select location</option>
+											<option value="Miami, FL" class="!bg-[#1C1C1C] !text-white">Miami, FL</option>
+										</select>
 									</div>
 
 									<div class="flex w-full space-x-2 md:w-3/5">
@@ -94,6 +111,7 @@
 												class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
 												type="date"
 												bind:value={pickupDate}
+												min={new Date().toISOString().split('T')[0]}
 											/>
 										</div>
 										<div class="relative z-20 w-1/2">
@@ -101,12 +119,15 @@
 												class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
 												type="date"
 												bind:value={dropoffDate}
+												min={pickupDate || new Date().toISOString().split('T')[0]}
 											/>
 										</div>
 									</div>
 
+									<!-- TODO: Add search functionality -->
 									<button
 										class="!h-12 w-full rounded-2xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
+										on:click={() => window.location.href = '/vehicles'}
 									>
 										Search
 									</button>
