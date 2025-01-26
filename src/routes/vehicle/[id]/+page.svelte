@@ -95,7 +95,7 @@
 			<div class="flex flex-col space-y-4">
 				<button
 					class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
-					on:click={() => window.location.href = `/booking`}
+					on:click={() => window.location.href = `/booking/${vehicle.id}`}
 				>
 					Book Now
 				</button>
