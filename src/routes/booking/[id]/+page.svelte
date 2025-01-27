@@ -4,6 +4,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
     import { compressImage, handleFileUpload, type FormData, type FormErrors } from '$lib/utils/image';
+    import { vehicles } from '$lib/constants/Vehicles';
 
     export let data: PageData;
     let loading = false;
@@ -13,6 +14,10 @@
     $: pickupDate = $page.url.searchParams.get('pickup') || '';
     $: dropoffDate = $page.url.searchParams.get('dropoff') || '';
     $: location = $page.url.searchParams.get('location') || '';
+
+    // Get the vehicle ID from the route parameter
+    $: vehicleId = $page.params.id;
+    $: selectedVehicle = vehicles.find(v => v.id === vehicleId);
 
     // Form validation errors
     let errors: FormErrors = {
