@@ -2,10 +2,54 @@
 	import type { PageData } from './$types';
 	import { baseUrl } from '$lib/index';
 	import { Gallery } from 'flowbite-svelte';
+	import { goto } from '$app/navigation';
+	import { slide } from 'svelte/transition';
 	export let data: PageData;
 	const { vehicle } = data;
 
 	let selectedImageIndex = 0;
+	let showDatePicker = false;
+	let pickupDate: string = '';
+	let dropoffDate: string = '';
+	let location: string = 'Miami, FL';
+	let error: string = '';
+
+	const validateDates = () => {
+		if (!pickupDate || !dropoffDate) {
+			error = 'Please select both pickup and dropoff dates';
+			return false;
+		}
+
+		const pickup = new Date(pickupDate);
+		const dropoff = new Date(dropoffDate);
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		if (pickup < today) {
+			error = 'Pickup date cannot be in the past';
+			return false;
+		}
+
+		if (dropoff <= pickup) {
+			error = 'Dropoff date must be after pickup date';
+			return false;
+		}
+
+		return true;
+	};
+
+	const handleBooking = () => {
+		if (!validateDates()) {
+			return;
+		}
+
+		// Clear any existing errors
+		error = '';
+
+		// Navigate to the booking form with the dates and location
+		goto(`/booking/${vehicle.id}?pickup=${pickupDate}&dropoff=${dropoffDate}&location=${location}`);
+	};
+
 	console.log(baseUrl);
 </script>
 
@@ -95,10 +139,76 @@
 			<div class="flex flex-col space-y-4">
 				<button
 					class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
-					on:click={() => window.location.href = `/booking/${vehicle.id}`}
+					on:click={() => showDatePicker = !showDatePicker}
 				>
 					Book Now
 				</button>
+
+				{#if showDatePicker}
+					<div 
+						class="rounded-lg bg-white/5 p-6 space-y-6 border border-white/10"
+						transition:slide={{ duration: 300 }}
+					>
+						<div class="space-y-4">
+							<div>
+								<label for="location" class="block mb-2 text-sm font-medium text-gray-300">
+									Pickup Location <span class="text-red-500">*</span>
+								</label>
+								<select
+									id="location"
+									bind:value={location}
+									class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3]"
+									required
+								>
+									<option value="Miami, FL" class="bg-gray-800">Miami, FL</option>
+								</select>
+							</div>
+
+							<div>
+								<label for="pickupDate" class="block mb-2 text-sm font-medium text-gray-300">
+									Pickup Date <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="date"
+									id="pickupDate"
+									bind:value={pickupDate}
+									min={new Date().toISOString().split('T')[0]}
+									class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer relative"
+									required
+								/>
+							</div>
+
+							<div>
+								<label for="dropoffDate" class="block mb-2 text-sm font-medium text-gray-300">
+									Dropoff Date <span class="text-red-500">*</span>
+								</label>
+								<input
+									type="date"
+									id="dropoffDate"
+									bind:value={dropoffDate}
+									min={pickupDate || new Date().toISOString().split('T')[0]}
+									class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer relative"
+									required
+								/>
+							</div>
+
+							{#if error}
+								<div class="text-red-500 text-sm">
+									{error}
+								</div>
+							{/if}
+
+							<button
+								type="button"
+								on:click={handleBooking}
+								class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
+							>
+								Continue to Booking
+							</button>
+						</div>
+					</div>
+				{/if}
+
 				<a
 					href="/contact"
 					class="w-full rounded-lg border border-[#0bd3d3] px-6 py-3 text-center font-semibold text-[#0bd3d3] transition-all duration-300 hover:bg-[#0bd3d3]/10"
