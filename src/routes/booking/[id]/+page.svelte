@@ -10,14 +10,14 @@
     let loading = false;
     let step = 1; // 1: User Info, 2: Payment
 
-    // Get query parameters
-    $: pickupDate = $page.url.searchParams.get('pickup') || '';
-    $: dropoffDate = $page.url.searchParams.get('dropoff') || '';
-    $: location = $page.url.searchParams.get('location') || '';
+    // Get data from server load function
+    const { vehicle, pickupDate, dropoffDate, location } = data;
+
 
     // Get the vehicle ID from the route parameter
     $: vehicleId = $page.params.id;
     $: selectedVehicle = vehicles.find(v => v.id === vehicleId);
+
 
     // Form validation errors
     let errors: FormErrors = {
@@ -177,25 +177,26 @@
         <!-- TODO: Check if user exists and is loged in -->
         <h1 class="mb-8 text-3xl font-bold text-white">Complete Your Booking</h1>
 
+        <!-- TODO: Request parameters from URL (PICKUPDATE IS NOT WORKING)-->
         <!-- Booking Summary -->
         <div class="mb-8 rounded-lg bg-white/5 p-6 backdrop-blur-sm border border-white/10">
             <h2 class="mb-4 text-xl font-semibold text-white">Booking Details</h2>
             <div class="grid grid-cols-2 gap-4 text-gray-300">
                 <div>
                     <p class="text-sm">Pickup Date</p>
-                    <p class="font-medium text-white">{new Date(pickupDate).toLocaleDateString()}</p>
+                    <p class="font-medium text-white">{pickupDate ? new Date(pickupDate).toLocaleDateString() : 'Not specified'}</p>
                 </div>
                 <div>
                     <p class="text-sm">Dropoff Date</p>
-                    <p class="font-medium text-white">{new Date(dropoffDate).toLocaleDateString()}</p>
+                    <p class="font-medium text-white">{dropoffDate ? new Date(dropoffDate).toLocaleDateString() : 'Not specified'}</p>
                 </div>
                 <div>
                     <p class="text-sm">Location</p>
-                    <p class="font-medium text-white">{location}</p>
+                    <p class="font-medium text-white">{location || 'Not specified'}</p>
                 </div>
                 <div>
                     <p class="text-sm">Vehicle</p>
-                    <p class="font-medium text-white">{data.vehicle?.year} {data.vehicle?.make} {data.vehicle?.model}</p>
+                    <p class="font-medium text-white">{vehicle?.year} {vehicle?.make} {vehicle?.model}</p>
                 </div>
             </div>
         </div>

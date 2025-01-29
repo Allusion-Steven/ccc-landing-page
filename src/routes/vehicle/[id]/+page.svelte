@@ -4,15 +4,30 @@
 	import { Gallery } from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
 	import { slide } from 'svelte/transition';
+	import { page } from '$app/stores';
 	export let data: PageData;
-	const { vehicle } = data;
+	const { vehicle, pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation } = data;
 
 	let selectedImageIndex = 0;
 	let showDatePicker = false;
-	let pickupDate: string = '';
-	let dropoffDate: string = '';
-	let location: string = 'Miami, FL';
+	let pickupDate: string = initialPickupDate;
+	let dropoffDate: string = initialDropoffDate;
+	let location: string = initialLocation;
 	let error: string = '';
+
+	// Add this to handle URL parameters when the page loads
+	$: {
+		const searchParams = $page.url.searchParams;
+		location = searchParams.get('location') || initialLocation;
+		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
+		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
+	}
+
+
+	// Show date picker automatically if dates are provided
+/* 	$: if ((initialPickupDate || initialDropoffDate) && !showDatePicker) {
+		showDatePicker = true;
+	} */
 
 	const validateDates = () => {
 		if (!pickupDate || !dropoffDate) {
@@ -22,13 +37,6 @@
 
 		const pickup = new Date(pickupDate);
 		const dropoff = new Date(dropoffDate);
-		const today = new Date();
-		today.setHours(0, 0, 0, 0);
-
-		if (pickup < today) {
-			error = 'Pickup date cannot be in the past';
-			return false;
-		}
 
 		if (dropoff <= pickup) {
 			error = 'Dropoff date must be after pickup date';
@@ -38,6 +46,14 @@
 		return true;
 	};
 
+	// Add this helper function to calculate tomorrow's date
+	const getTomorrow = (date: string) => {
+		const tomorrow = new Date(date);
+		tomorrow.setDate(tomorrow.getDate() + 1);
+		return tomorrow.toISOString().split('T')[0];
+	};
+
+	// Update the handleBooking function to preserve parameters when navigating
 	const handleBooking = () => {
 		if (!validateDates()) {
 			return;
@@ -47,7 +63,7 @@
 		error = '';
 
 		// Navigate to the booking form with the dates and location
-		goto(`/booking/${vehicle.id}?pickup=${pickupDate}&dropoff=${dropoffDate}&location=${location}`);
+		goto(`/booking/${vehicle.id}?pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}&location=${encodeURIComponent(location)}`);
 	};
 
 	console.log(baseUrl);
@@ -186,7 +202,7 @@
 									type="date"
 									id="dropoffDate"
 									bind:value={dropoffDate}
-									min={pickupDate || new Date().toISOString().split('T')[0]}
+									min={pickupDate ? getTomorrow(pickupDate) : getTomorrow(new Date().toISOString().split('T')[0])}
 									class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer relative"
 									required
 								/>

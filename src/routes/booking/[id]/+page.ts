@@ -1,14 +1,13 @@
 import type { PageLoad } from './$types';
-import { vehicles } from '$lib/constants/Vehicles';
+import type { Vehicle } from '$lib/types';
 
-export const load = (({ params }) => {
-    const vehicle = vehicles.find(v => v.id === params.id);
-    
-    if (!vehicle) {
-        throw new Error('Vehicle not found');
-    }
+export type BookingPageData = {
+    vehicle: Vehicle | undefined;
+    pickupDate: string;
+    dropoffDate: string;
+    location: string;
+};
 
-    return {
-        vehicle
-    };
-}) satisfies PageLoad; 
+export const load: PageLoad<BookingPageData> = async ({ data }) => {
+    return data as BookingPageData;
+}; 
