@@ -13,8 +13,8 @@
 	let imageLoaded = false;
 	let location = '';
 	let pickupDate = new Date().toISOString().split('T')[0];
+	let dropoffDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 	//let pickupTime = '';
-	let dropoffDate = new Date().toISOString().split('T')[0];
 	//let dropoffTime = '';
 
 	onMount(() => {
@@ -124,10 +124,10 @@
 										</div>
 									</div>
 
-									<!-- TODO: Add search functionality -->
+									<!-- Search button -->
 									<button
 										class="!h-12 w-full rounded-2xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
-										on:click={() => window.location.href = '/vehicles'}
+										on:click={() => window.location.href = `/vehicles?location=${encodeURIComponent(location)}&pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}`}
 									>
 										Search
 									</button>
@@ -139,7 +139,10 @@
 							class="flex flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
 						>
 							<PrimaryButton text="List Your Vehicle" href="/contact" />
-							<SecondaryButton text="Rent Now" href="/vehicles" />
+							<SecondaryButton 
+								text="Rent Now" 
+								href="/vehicles" 
+							/>
 						</div>
 					</div>
 				</div>

@@ -1,20 +1,26 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
+import { vehicles } from '$lib/constants/Vehicles';
 
-export const load: PageServerLoad = async ({ params, locals }) => {
-    try {
-        // TODO: Check if user is authenticated
-        // const session = await locals.getSession();
-        
-        // TODO: Fetch vehicle data based on ID
-        // const vehicle = await getVehicleById(params.id);
-        
-        return {
-            vehicle: null // TODO: Return actual vehicle data
-        };
-    } catch (err) {
+export const load: PageServerLoad = async ({ params, url }) => {
+    const vehicleId = params.id;
+    const vehicle = vehicles.find(v => v.id === vehicleId);
+    
+    // Get query parameters with the same names as they are passed from vehicles page
+    const pickupDate = url.searchParams.get('pickupDate') || '';
+    const dropoffDate = url.searchParams.get('dropoffDate') || '';
+    const location = url.searchParams.get('location') || '';
+
+    if (!vehicle) {
         throw error(404, 'Vehicle not found');
     }
+
+    return {
+        vehicle,
+        pickupDate,
+        dropoffDate,
+        location
+    };
 };
 
 export const actions: Actions = {
