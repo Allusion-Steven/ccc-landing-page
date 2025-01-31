@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@stripe/stripe-js':
+        specifier: ^5.6.0
+        version: 5.6.0
       '@tailwindcss/forms':
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.4.17)
@@ -377,6 +380,10 @@ packages:
     resolution: {integrity: sha512-DYvxS0M07PvgvavMIybCOBYheyrqlui6ZQBHJs6GqduVzHSZ06TPPvlfvnYstjODHQ8UUXFwt5YE+h0jFI8kwg==}
     cpu: [x64]
     os: [win32]
+
+  '@stripe/stripe-js@5.6.0':
+    resolution: {integrity: sha512-w8CEY73X/7tw2KKlL3iOk679V9bWseE4GzNz3zlaYxcTjmcmWOathRb0emgo/QQ3eoNzmq68+2Y2gxluAv3xGw==}
+    engines: {node: '>=12.16'}
 
   '@sveltejs/adapter-auto@3.3.1':
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
@@ -1453,6 +1460,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.30.0':
     optional: true
+
+  '@stripe/stripe-js@5.6.0': {}
 
   '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.15.1(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.16.2)(vite@5.4.11(@types/node@22.10.6)))(svelte@5.16.2)(vite@5.4.11(@types/node@22.10.6)))':
     dependencies:
