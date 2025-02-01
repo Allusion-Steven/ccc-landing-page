@@ -3,6 +3,8 @@
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import Benefits from '$lib/assets/components/Home/Benefits.svelte';
 	import Carousel from '$lib/assets/components/Home/Carousel.svelte';
+	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
+	import { faqData } from '$lib/data/faq';
 </script>
 
 <svelte:head>
@@ -34,3 +36,4 @@
 <Why />
 <Carousel />
 <Benefits />
+<Accordion faqs={faqData} />
