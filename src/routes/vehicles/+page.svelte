@@ -12,7 +12,6 @@
 
 	// Filter states
 	let searchQuery = '';
-	let minPrice: number;
 	let maxPrice: number;
 	let minYear: number;
 	let maxYear: number;
@@ -29,7 +28,6 @@
 	const maxYearAvailable = Math.max(...vehicles.map((v) => v.year));
 
 	// Initialize filters to their full ranges
-	minPrice = minPriceAvailable;
 	maxPrice = maxPriceAvailable;
 	minYear = minYearAvailable;
 	maxYear = maxYearAvailable;
@@ -39,7 +37,7 @@
 		const matchesSearch = (vehicle.make + ' ' + vehicle.model)
 			.toLowerCase()
 			.includes(searchQuery.toLowerCase());
-		const matchesPrice = vehicle.price >= minPrice && vehicle.price <= maxPrice;
+		const matchesPrice = vehicle.price <= maxPrice;
 		const matchesYear = vehicle.year >= minYear && vehicle.year <= maxYear;
 		// Check if any of the vehicle's tags match any of the selected types
 		const matchesType = selectedTypes.length === 0 || 
@@ -51,7 +49,6 @@
 	// Add reactive statement to check if any filters are active
 	$: isAnyFilterActive = 
 		searchQuery !== '' || 
-		minPrice !== minPriceAvailable || 
 		maxPrice !== maxPriceAvailable || 
 		minYear !== minYearAvailable || 
 		maxYear !== maxYearAvailable || 
@@ -60,7 +57,6 @@
 	// Add clear filters function
 	function clearFilters() {
 		searchQuery = '';
-		minPrice = minPriceAvailable;
 		maxPrice = maxPriceAvailable;
 		minYear = minYearAvailable;
 		maxYear = maxYearAvailable;
@@ -148,17 +144,17 @@
 
 						<!-- Price Range -->
 						<div class="w-full">
-							<label for="price-range-mobile" class="mb-2 block text-sm font-medium text-white/70">Price Range ($/day)</label>
+							<label for="price-range-mobile" class="mb-2 block text-sm font-medium text-white/70">Maximum Price ($/day)</label>
 							<input
 								type="range"
 								id="price-range-mobile"
 								min={minPriceAvailable}
 								max={maxPriceAvailable}
-								bind:value={minPrice}
+								bind:value={maxPrice}
 								class="w-full"
 							/>
 							<div class="mt-2 flex justify-between text-sm text-white/70">
-								<span>${minPrice}</span>
+								<span>${minPriceAvailable}</span>
 								<span>${maxPrice}</span>
 							</div>
 						</div>
@@ -253,17 +249,17 @@
 
 					<!-- Price Range -->
 					<div class="w-full">
-						<label class="mb-2 block text-sm font-medium text-white/70">Price Range ($/day)</label>
+						<label class="mb-2 block text-sm font-medium text-white/70">Maximum Price ($/day)</label>
 						<input
 							type="range"
 							id="price-range"
 							min={minPriceAvailable}
 							max={maxPriceAvailable}
-							bind:value={minPrice}
+							bind:value={maxPrice}
 							class="w-full"
 						/>
 						<div class="mt-2 flex justify-between text-sm text-white/70">
-							<span>${minPrice}</span>
+							<span>${minPriceAvailable}</span>
 							<span>${maxPrice}</span>
 						</div>
 					</div>
