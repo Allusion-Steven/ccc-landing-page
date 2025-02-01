@@ -131,8 +131,8 @@
 								<p class="mb-4 text-gray-200">
 									Contact us by phone at<br />
 									<a
-										href="tel:+18332675309"
-										class="text-white transition-colors hover:text-miami-pink">(833) 267-5309</a
+										href="tel:+18888675309"
+										class="text-white transition-colors hover:text-miami-pink">(888) 867-5309</a
 									>
 									<br />or by email
 								</p>
@@ -149,8 +149,8 @@
 								<p class="mb-4 text-gray-200">
 									Contact us by phone at<br />
 									<a
-										href="tel:+18332675309"
-										class="text-white transition-colors hover:text-miami-pink">(833) 267-5309</a
+										href="tel:+18888675309"
+										class="text-white transition-colors hover:text-miami-pink">(888) 867-5309</a
 									>
 									<br />or by email
 								</p>
