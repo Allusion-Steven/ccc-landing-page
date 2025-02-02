@@ -130,7 +130,7 @@
 
 		<div class="mt-8 border-t border-miami-pink/20 pt-8 text-center">
 			<p class="text-sm text-white/60">
-				&copy; {new Date().getFullYear()} Macro Exotics. All rights reserved.
+				&copy; 2023 Macro Exotics. All rights reserved.
 			</p>
 		</div>
 	</div>

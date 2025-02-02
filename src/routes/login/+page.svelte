@@ -41,12 +41,17 @@
 
 	<!-- Background Image -->
 	<div
-		class="absolute inset-0"
+		class="absolute inset-0 transition-opacity duration-1000"
 		bind:this={heroDiv}
-		class:loaded={imageLoaded}
-		style="background-image: url('{loginImage}');"
+		class:opacity-0={!imageLoaded}
+		class:opacity-100={imageLoaded}
+		style="background-image: url('{loginImage}'); background-size:cover;"
 	>
-		<img src={loginImage} alt="Background" class="h-full w-full object-cover" />
+		<img 
+			src={loginImage} 
+			alt="Background" 
+			class="h-full w-full object-cover opacity-0" 
+		/>
 		<div
 			class="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/60 to-gray-900/50"
 		></div>
@@ -202,6 +207,7 @@
 		position: absolute;
 		inset: 0;
 		background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+		transition: opacity 0.5s ease-in-out;
 	}
 
 	/* Remove the previous background animations as they're no longer needed */
