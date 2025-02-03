@@ -125,7 +125,7 @@
 					{#if !$page.data.user}
 						<a
 							href="/login"
-							class="flex items-center justify-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] {$page.url.pathname === '/login' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-miami-light-pink/10 before:backdrop-blur-sm px-4 py-2 text-miami-light-pink' : 'px-4 py-2'}"
+							class="flex items-center justify-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
 						>
 							<AccountIcon className="w-6 h-6 sm:flex hidden" />
 						</a>
