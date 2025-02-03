@@ -6,6 +6,7 @@
 
 	export let faqs: FAQItem[];
 	export let showAll = false;
+	export let isHomePage = false;
 	let activeIndex: number | null = null;
 	let contentVisible = false;
 
@@ -23,8 +24,9 @@
 </script>
 
 <section class="bg-[#1e1e1e]">
-	<div class="mx-auto w-full max-w-4xl px-4 py-24">
+	<div class="mx-auto w-full max-w-4xl px-4 py-20">
 		{#if contentVisible}
+			{#if isHomePage}
 			<div class="mb-16 text-center">
 				<h2
 					class="mb-4 text-4xl font-bold text-white"
@@ -36,6 +38,7 @@
 					Find answers to common questions about our luxury car rental service
 				</p>
 			</div>
+			{/if}
 
 			<div class="space-y-4">
 				{#each displayFaqs as faq, index}

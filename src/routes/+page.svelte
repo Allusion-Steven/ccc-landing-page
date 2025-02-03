@@ -122,7 +122,9 @@
 					easing: quintOut
 				}}
 			>
-				<Accordion faqs={faqData} />
+				<div class="relative">
+					<Accordion faqs={faqData} isHomePage={true} />
+				</div>
 			</div>
 		{/if}
 	</div>
