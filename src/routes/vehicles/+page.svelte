@@ -92,8 +92,24 @@
 		</h1>
 
 		<div class="flex flex-col gap-8 lg:flex-row" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
-			<!-- Mobile Filter Button -->
-			<div class="lg:hidden">
+			<!-- Mobile Search and Filters -->
+			<div class="flex flex-col gap-4 lg:hidden">
+				<!-- Mobile Search Input -->
+				<div class="relative w-full">
+					<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
+						<svg class="h-5 w-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+						</svg>
+					</div>
+					<Input
+						id="search-mobile"
+						type="text"
+						placeholder="Search by make or model..."
+						bind:value={searchQuery}
+						class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50"
+					/>
+				</div>
+				<!-- Mobile Filter Button -->
 				<Button color="light" class="w-full" on:click={() => showFiltersModal = true}>
 					<svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
@@ -137,22 +153,6 @@
 						</div>
 
 						<div class="flex flex-col gap-6">
-							<!-- Search input -->
-							<div class="relative w-full">
-								<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
-									<svg class="h-5 w-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-									</svg>
-								</div>
-								<Input
-									id="search-mobile"
-									type="text"
-									placeholder="Search by make or model..."
-									bind:value={searchQuery}
-									class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50"
-								/>
-							</div>
-
 							<!-- Price Range -->
 							<div class="w-full">
 								<label for="price-range-mobile" class="mb-2 block text-sm font-medium text-white/70">Maximum Price ($/day)</label>
