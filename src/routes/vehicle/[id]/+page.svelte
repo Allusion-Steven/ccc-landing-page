@@ -76,10 +76,10 @@
 	console.log(baseUrl);
 </script>
 
-<div class="container mx-auto min-h-screen px-4 py-8" in:fade={{ duration: 300, delay: 100 }}>
-	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2" in:fade={{ duration: 300, delay: 300 }}>
+<div class="container mx-auto min-h-screen px-4 py-8" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 		<!-- Left side - Image Gallery -->
-		<div class="container">
+		<div class="container" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
 			<div class="relative h-[400px] overflow-hidden rounded-xl bg-white/5 sm:h-[500px]">
 				{#if vehicle.images && vehicle.images.length > 0}
 					{#key selectedImageIndex}

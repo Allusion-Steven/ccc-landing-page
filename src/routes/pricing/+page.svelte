@@ -19,10 +19,11 @@
     }
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20">
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20 overflow-x-hidden">
     <div class="container mx-auto px-4">
         {#if contentVisible}
             <!-- Header Section -->
+
             <div class="mb-16 text-center" in:fly="{{ y: 50, duration: 1000, delay: 200 }}">
                 <h1 class="mb-4 text-4xl font-bold text-white md:text-5xl">Choose Your Membership</h1>
                 <p class="text-xl text-gray-400">Select the perfect plan for your luxury driving experience</p>
@@ -96,7 +97,7 @@
             <!-- Additional Info -->
             <div class="mt-16 text-center" in:fly="{{ y: 50, duration: 1000, delay: 1200 }}">
                 <p class="text-gray-400">
-                    All plans include access to our mobile app and 24/7 roadside assistance.
+                    All plans include access to our mobile app and 24/7 customer service.
                     <br />
                     Need a custom plan? <a href="/contact" class="text-[#0bd3d3] hover:underline">Contact us</a>
                 </p>
