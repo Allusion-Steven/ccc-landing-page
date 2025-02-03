@@ -9,7 +9,7 @@ interface PricingTier {
 export const pricingTiers: PricingTier[] = [
     {
         name: "Premium",
-        price: "$499",
+        price: "$599",
         description: "Perfect for occasional exotic car enthusiasts",
         features: [
             "Access to basic fleet vehicles",
@@ -24,7 +24,7 @@ export const pricingTiers: PricingTier[] = [
 
     {
         name: "VIP",
-        price: "$699",
+        price: "$799",
         description: "Our most popular plan for car enthusiasts",
         features: [
             "Everything included in Basic",
@@ -33,8 +33,6 @@ export const pricingTiers: PricingTier[] = [
             "Enhanced insurance coverage",
             "12% Off All Rentals",
             "Priority weekend booking",
-            "Free delivery within 50 miles",
-            "Track day experiences"
         ],
         highlighted: true
     },
@@ -49,7 +47,6 @@ export const pricingTiers: PricingTier[] = [
             "24/7 concierge service",
             "15% Off All Rentals",
             "Comprehensive insurance coverage",
-            "Unlimited rentals",
             "Priority booking on all vehicles",
             "Free delivery anywhere"
         ]

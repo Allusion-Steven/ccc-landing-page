@@ -42,7 +42,7 @@
 							In today's sharing economy, we connect luxury vehicle owners with discerning clients
 							seeking premium experiences. Our peer-to-peer platform creates opportunities for both
 							owners and renters in the world of exotic vehicles and luxury yachts.
-						</p>
+						</p><br>
 						<p class="text-lg sm:leading-loose text-gray-300 md:text-xl">
 							Whether you're sharing your prized possession or seeking the perfect vehicle for your next
 							adventure, we make the connection seamless and secure through our comprehensive

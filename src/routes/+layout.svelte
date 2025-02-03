@@ -10,6 +10,8 @@
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
+	let isScrolled = $state(false);
+
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
 	}
@@ -17,17 +19,27 @@
 	function closeMenu() {
 		isMenuOpen = false;
 	}
+
+	function handleScroll() {
+		isScrolled = window.scrollY > 0;
+	}
+
 	onNavigate(() => {
 		closeMenu();
 	});
 </script>
 
-<svelte:window bind:innerWidth on:resize={() => (isMenuOpen = false)} />
+<svelte:window 
+	bind:innerWidth 
+	on:resize={() => (isMenuOpen = false)}
+	on:scroll={handleScroll}
+/>
 
-<nav class="bg-[#1C1C1C] py-6 text-white">
+<nav class="py-6 text-white sticky top-0 z-50 transition-colors duration-300 {isScrolled ? 'sm:bg-opacity-50' : 'sm:bg-opacity-100'} bg-[#1C1C1C]">
 	<div class="container mx-auto flex flex-col items-center md:flex-row md:justify-between">
 		<div class="flex w-full items-center justify-between px-4">
 			<a href="/" class="text-xl font-bold">
+
 				<img
 					src={logo}
 					alt="Macro Exotics Logo"

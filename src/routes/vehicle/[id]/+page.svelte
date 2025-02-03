@@ -3,7 +3,7 @@
 	import { baseUrl } from '$lib/index';
 	import { Gallery } from 'flowbite-svelte';
 	import { goto } from '$app/navigation';
-	import { slide } from 'svelte/transition';
+	import { slide, fade, fly } from 'svelte/transition';
 	import { page } from '$app/stores';
 	export let data: PageData;
 	const { vehicle, pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation } = data;
@@ -14,6 +14,7 @@
 	let dropoffDate: string = initialDropoffDate;
 	let location: string = initialLocation;
 	let error: string = '';
+	let transitionDirection = 1; // 1 for right-to-left, -1 for left-to-right
 
 	// Add this to handle URL parameters when the page loads
 	$: {
@@ -72,21 +73,53 @@
 <div class="container mx-auto min-h-screen px-4 py-8">
 	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 		<!-- Left side - Image Gallery -->
-         <!-- TODO: Make the main image auto scroll -->
 		<div class="container">
 			<div class="relative h-[400px] sm:h-[500px] overflow-hidden rounded-xl bg-white/5">
 				{#if vehicle.images && vehicle.images.length > 0}
-					<img
-						src={`${baseUrl}${vehicle.images[selectedImageIndex].src}`}
-						alt={vehicle.images[selectedImageIndex].alt}
-						class="h-full w-full object-cover"
-					/>
+					{#key selectedImageIndex}
+						<img
+							transition:fly={{ duration: 300, x: transitionDirection * 300 }}
+							src={`${baseUrl}${vehicle.images[selectedImageIndex].src}`}
+							alt={vehicle.images[selectedImageIndex].alt}
+							class="h-full w-full object-cover"
+						/>
+					{/key}
+					<!-- Left Arrow -->
+					<button
+						class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300"
+						on:click={() => {
+							transitionDirection = 1;
+							selectedImageIndex = selectedImageIndex === 0 ? vehicle.images.length - 1 : selectedImageIndex - 1;
+						}}
+						aria-label="Previous image"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						</svg>
+					</button>
+					<!-- Right Arrow -->
+					<button
+						class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300"
+						on:click={() => {
+							transitionDirection = -1;
+							selectedImageIndex = selectedImageIndex === vehicle.images.length - 1 ? 0 : selectedImageIndex + 1;
+						}}
+						aria-label="Next image"
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						</svg>
+					</button>
 					<!-- Thumbnail Navigation -->
 					<div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
 						{#each vehicle.images as _, index}
 							<button
 								class="h-2 w-16 rounded-full transition-all duration-300 {selectedImageIndex === index ? 'bg-[#0bd3d3]' : 'bg-white/50'}"
-								on:click={() => (selectedImageIndex = index)}
+								on:click={() => {
+									// For thumbnail clicks, determine direction based on index difference
+									transitionDirection = index > selectedImageIndex ? -1 : 1;
+									selectedImageIndex = index;
+								}}
 								aria-label={`View image ${index + 1}`}
 							></button>
 						{/each}
@@ -102,10 +135,15 @@
 				{#each vehicle.images as image, index}
 					<button
 						class="cursor-pointer h-full w-full rounded-lg"
-						on:click={() => (selectedImageIndex = index)}
+						on:click={() => {
+							// For thumbnail clicks, determine direction based on index difference
+							transitionDirection = index > selectedImageIndex ? -1 : 1;
+							selectedImageIndex = index;
+						}}
 						aria-label={`View image ${index + 1}`}
 					>
 						<img
+							transition:fly={{ duration: 300, x: transitionDirection * 300 }}
 							src={`${baseUrl}${image.src}`}
 							alt={image.alt}
 							class={`h-full w-full object-cover rounded-lg ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`}
