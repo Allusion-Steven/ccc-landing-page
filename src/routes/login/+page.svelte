@@ -144,7 +144,7 @@
 								class="mt-1 block w-full rounded-lg border border-gray-600 bg-gray-800/50 px-4
 								py-3 text-white backdrop-blur-sm transition-colors
 								focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-								placeholder="Enter your E-mail"
+								placeholder="Enter your email"
 							/>
 						</div>
 
