@@ -98,7 +98,7 @@
 				}}
 			>
 				<div
-					class="flex flex-col space-y-6 px-4 py-6 text-center md:flex-row md:justify-end md:space-x-8 md:space-y-0 md:px-4 md:py-0"
+					class="flex flex-col space-y-4 px-4 py-6 text-center md:flex-row md:justify-end md:space-x-8 md:space-y-0 md:px-4 md:py-0"
 				>
 					<a
 						href="/"
