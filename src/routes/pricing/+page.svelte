@@ -4,7 +4,7 @@
     import { pricingTiers } from '$lib/constants/Pricing';
     import { fly, fade } from 'svelte/transition';
 
-    let selectedTier = $state<string | null>("Premium");
+    let selectedTier = $state<string | null>("VIP");
     let contentVisible = $state(false);
 
     onMount(() => {
