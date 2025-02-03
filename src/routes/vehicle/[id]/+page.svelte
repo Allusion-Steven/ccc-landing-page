@@ -6,7 +6,12 @@
 	import { slide, fade, fly } from 'svelte/transition';
 	import { page } from '$app/stores';
 	export let data: PageData;
-	const { vehicle, pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation } = data;
+	const {
+		vehicle,
+		pickupDate: initialPickupDate,
+		dropoffDate: initialDropoffDate,
+		location: initialLocation
+	} = data;
 
 	let selectedImageIndex = 0;
 	let showDatePicker = false;
@@ -24,9 +29,8 @@
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
 	}
 
-
 	// Show date picker automatically if dates are provided
-/* 	$: if ((initialPickupDate || initialDropoffDate) && !showDatePicker) {
+	/* 	$: if ((initialPickupDate || initialDropoffDate) && !showDatePicker) {
 		showDatePicker = true;
 	} */
 
@@ -64,17 +68,19 @@
 		error = '';
 
 		// Navigate to the booking form with the dates and location
-		goto(`/booking/${vehicle.id}?pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}&location=${encodeURIComponent(location)}`);
+		goto(
+			`/booking/${vehicle.id}?pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}&location=${encodeURIComponent(location)}`
+		);
 	};
 
 	console.log(baseUrl);
 </script>
 
-<div class="container mx-auto min-h-screen px-4 py-8">
-	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+<div class="container mx-auto min-h-screen px-4 py-8" in:fade={{ duration: 300, delay: 100 }}>
+	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2" in:fade={{ duration: 300, delay: 300 }}>
 		<!-- Left side - Image Gallery -->
 		<div class="container">
-			<div class="relative h-[400px] sm:h-[500px] overflow-hidden rounded-xl bg-white/5">
+			<div class="relative h-[400px] overflow-hidden rounded-xl bg-white/5 sm:h-[500px]">
 				{#if vehicle.images && vehicle.images.length > 0}
 					{#key selectedImageIndex}
 						<img
@@ -86,35 +92,62 @@
 					{/key}
 					<!-- Left Arrow -->
 					<button
-						class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300"
+						class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-all duration-300 hover:bg-black/70"
 						on:click={() => {
 							transitionDirection = 1;
-							selectedImageIndex = selectedImageIndex === 0 ? vehicle.images.length - 1 : selectedImageIndex - 1;
+							selectedImageIndex =
+								selectedImageIndex === 0 ? vehicle.images.length - 1 : selectedImageIndex - 1;
 						}}
 						aria-label="Previous image"
 					>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M15 19l-7-7 7-7"
+							/>
 						</svg>
 					</button>
 					<!-- Right Arrow -->
 					<button
-						class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300"
+						class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-all duration-300 hover:bg-black/70"
 						on:click={() => {
 							transitionDirection = -1;
-							selectedImageIndex = selectedImageIndex === vehicle.images.length - 1 ? 0 : selectedImageIndex + 1;
+							selectedImageIndex =
+								selectedImageIndex === vehicle.images.length - 1 ? 0 : selectedImageIndex + 1;
 						}}
 						aria-label="Next image"
 					>
-						<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M9 5l7 7-7 7"
+							/>
 						</svg>
 					</button>
 					<!-- Thumbnail Navigation -->
 					<div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
 						{#each vehicle.images as _, index}
 							<button
-								class="h-2 w-16 rounded-full transition-all duration-300 {selectedImageIndex === index ? 'bg-[#0bd3d3]' : 'bg-white/50'}"
+								class="h-2 w-16 rounded-full transition-all duration-300 {selectedImageIndex ===
+								index
+									? 'bg-[#0bd3d3]'
+									: 'bg-white/50'}"
 								on:click={() => {
 									// For thumbnail clicks, determine direction based on index difference
 									transitionDirection = index > selectedImageIndex ? -1 : 1;
@@ -134,7 +167,7 @@
 			<div class="mt-4 grid grid-cols-3 gap-4">
 				{#each vehicle.images as image, index}
 					<button
-						class="cursor-pointer h-full w-full rounded-lg"
+						class="h-full w-full cursor-pointer rounded-lg"
 						on:click={() => {
 							// For thumbnail clicks, determine direction based on index difference
 							transitionDirection = index > selectedImageIndex ? -1 : 1;
@@ -146,7 +179,7 @@
 							transition:fly={{ duration: 300, x: transitionDirection * 300 }}
 							src={`${baseUrl}${image.src}`}
 							alt={image.alt}
-							class={`h-full w-full object-cover rounded-lg ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`}
+							class={`h-full w-full rounded-lg object-cover ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`}
 						/>
 					</button>
 				{/each}
@@ -193,19 +226,19 @@
 			<div class="flex flex-col space-y-4">
 				<button
 					class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
-					on:click={() => showDatePicker = !showDatePicker}
+					on:click={() => (showDatePicker = !showDatePicker)}
 				>
 					Book Now
 				</button>
 
 				{#if showDatePicker}
-					<div 
-						class="rounded-lg bg-white/5 p-6 space-y-6 border border-white/10"
+					<div
+						class="space-y-6 rounded-lg border border-white/10 bg-white/5 p-6"
 						transition:slide={{ duration: 300 }}
 					>
 						<div class="space-y-4">
 							<div>
-								<label for="location" class="block mb-2 text-sm font-medium text-gray-300">
+								<label for="location" class="mb-2 block text-sm font-medium text-gray-300">
 									Pickup Location <span class="text-red-500">*</span>
 								</label>
 								<select
@@ -219,7 +252,7 @@
 							</div>
 
 							<div>
-								<label for="pickupDate" class="block mb-2 text-sm font-medium text-gray-300">
+								<label for="pickupDate" class="mb-2 block text-sm font-medium text-gray-300">
 									Pickup Date <span class="text-red-500">*</span>
 								</label>
 								<input
@@ -227,27 +260,29 @@
 									id="pickupDate"
 									bind:value={pickupDate}
 									min={new Date().toISOString().split('T')[0]}
-									class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer relative"
+									class="relative w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0"
 									required
 								/>
 							</div>
 
 							<div>
-								<label for="dropoffDate" class="block mb-2 text-sm font-medium text-gray-300">
+								<label for="dropoffDate" class="mb-2 block text-sm font-medium text-gray-300">
 									Dropoff Date <span class="text-red-500">*</span>
 								</label>
 								<input
 									type="date"
 									id="dropoffDate"
 									bind:value={dropoffDate}
-									min={pickupDate ? getTomorrow(pickupDate) : getTomorrow(new Date().toISOString().split('T')[0])}
-									class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer relative"
+									min={pickupDate
+										? getTomorrow(pickupDate)
+										: getTomorrow(new Date().toISOString().split('T')[0])}
+									class="relative w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0"
 									required
 								/>
 							</div>
 
 							{#if error}
-								<div class="text-red-500 text-sm">
+								<div class="text-sm text-red-500">
 									{error}
 								</div>
 							{/if}
@@ -282,11 +317,7 @@
 			This is temporary text to serve as a "vehicle description" section.....<br /><br />
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
 			et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing
-			elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-			dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-			sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			tempor incididunt ut labore et dolore magna aliqua.  qui officia deserunt mollit anim id est laborum.
 		</p>
 	</div>
 </div>

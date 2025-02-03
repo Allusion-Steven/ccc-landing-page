@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import { contactFormStore } from '$lib/stores/contactFormStore';
 	import heroBg from '$lib/assets/images/contact-form-bg-img.png';
 
@@ -106,9 +107,10 @@
 </script>
 
 <div class="min-h-screen bg-gradient-to-br py-16">
-	<div class="container mx-auto sm:px-4">
+	<div class="container mx-auto sm:px-4" in:fade={{ duration: 300, delay: 150 }}>
 		<div
 			class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-2xl backdrop-blur-sm"
+			in:fade={{ duration: 300, delay: 300 }}
 		>
 			<div class="space-y-8">
 				<div
