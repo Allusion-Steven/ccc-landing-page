@@ -40,11 +40,14 @@
 />
 
 <div class="dark">
-	<nav class="py-6 text-white sticky top-0 z-50 transition-colors duration-300 {isScrolled ? 'sm:bg-opacity-50' : 'sm:bg-opacity-100'} bg-[#1C1C1C]">
+	<nav
+		class="sticky top-0 z-50 py-6 text-white transition-colors duration-300 {isScrolled
+			? 'sm:bg-opacity-50'
+			: 'sm:bg-opacity-100'} bg-[#1C1C1C]"
+	>
 		<div class="container mx-auto flex flex-col items-center md:flex-row md:justify-between">
 			<div class="flex w-full items-center justify-between px-4">
 				<a href="/" class="text-xl font-bold">
-
 					<img
 						src={logo}
 						alt="Macro Exotics Logo"
@@ -54,7 +57,7 @@
 				<div class="flex items-center gap-4">
 					{#if !$page.data.user}
 						<a
-							href="https://www.dashboard.macroexotics.com"
+							href="https://dashboard.macroexotics.com/login"
 							class="flex items-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] sm:hidden"
 						>
 							<AccountIcon className="w-6 h-6 pointer-events-none" />
@@ -126,7 +129,6 @@
 							Contact
 						</a>
 
-						<!-- TODO: Create login / logout page... Logout API -->
 						{#if !$page.data.user}
 							<a
 								href="https://dashboard.macroexotics.com/login"
