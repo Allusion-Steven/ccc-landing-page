@@ -2,6 +2,14 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-head, body {
-    background-color: #1C1C1C;
+:root {
+    color-scheme: dark;
+}
+
+html {
+    @apply dark;
+}
+
+body {
+    @apply bg-[#1C1C1C] text-white min-h-screen;
 }

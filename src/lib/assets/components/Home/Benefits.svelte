@@ -144,7 +144,7 @@
 				</div>
 			</div>
 			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-[5rem] flex justify-center">
-				<SecondaryButton href="/login" text="Join the club" />
+				<SecondaryButton href="https://dashboard.macroexotics.com/login" text="Join the club" />
 			</div>
 		</div>
 	</div>
