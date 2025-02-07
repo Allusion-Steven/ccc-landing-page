@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+import flowbite from 'flowbite/plugin';
+
+
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -22,10 +26,9 @@ export default {
         'miami-glow': 'linear-gradient(to right, #ff0080, #00ffff)',
         'miami-sunset': 'linear-gradient(135deg, #ff0080, #ff1b6b, #6a0dad)',
         'miami-night': 'linear-gradient(to right bottom, #1e1e1e, #6a0dad)',
-        'miami-pink-night': 'linear-gradient(to right bottom, #1e1e1e, ##f890e7)',
-
+        'miami-pink-night': 'linear-gradient(to right bottom, #1e1e1e, #f890e7)',
       }
     }
   },
-  plugins: []
+  plugins: [flowbite]
 }; 
