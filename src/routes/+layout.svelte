@@ -57,7 +57,7 @@
 				<div class="flex items-center gap-4">
 					{#if !$page.data.user}
 						<a
-							href="https://dashboard.macroexotics.com/login"
+							href="https://my.macroexotics.com/login"
 							class="flex items-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] sm:hidden"
 						>
 							<AccountIcon className="w-6 h-6 pointer-events-none" />
@@ -131,7 +131,7 @@
 
 						{#if !$page.data.user}
 							<a
-								href="https://dashboard.macroexotics.com/login"
+								href="https://my.macroexotics.com/login"
 								class="flex items-center justify-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
 							>
 								<AccountIcon className="w-6 h-6 sm:flex hidden" />

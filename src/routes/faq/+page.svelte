@@ -13,6 +13,26 @@
     });
 </script>
 
+<svelte:head>
+	<title>FAQ | Macro Exotics</title>
+	<meta name="description" content="Find answers to frequently asked questions about luxury car and yacht rentals with Macro Exotics in Miami. Learn about our rental process, requirements, and services." />
+	<meta name="title" content="FAQ | Macro Exotics" />
+	<meta name="keywords" content="Macro Exotics FAQ, Luxury Car Rental Questions, Yacht Rental FAQ, Miami Car Rental Help" />
+	<meta name="robots" content="index, follow" />
+	<meta name="author" content="Macro Exotics" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" content="#1C1C1C" />
+
+	<meta property="og:title" content="FAQ | Macro Exotics" />
+	<meta property="og:description" content="Find answers to frequently asked questions about luxury car and yacht rentals with Macro Exotics in Miami. Learn about our rental process, requirements, and services." />
+	<meta property="og:url" content="https://macroexotics.com/faq" />
+	<meta property="og:image" content="https://macroexotics.com/logo-square-768.png" />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content="Macro Exotics" />
+	<link rel="canonical" href="https://macroexotics.com/faq" />
+</svelte:head>
+
 <div class="min-h-screen bg-[#1e1e1e] py-16">
     {#if contentVisible}
         <div class="container mx-auto px-4">
