@@ -8,29 +8,25 @@
 
 <svelte:head>
 	<title>Privacy Policy | Macro Exotics</title>
-	<meta name="description" content="Privacy Policy | Macro Exotics" />
+	<meta name="description" content="Read our privacy policy to understand how Macro Exotics handles and protects your personal information when using our luxury car and yacht rental services." />
 	<meta name="title" content="Privacy Policy | Macro Exotics" />
-	<meta name="keywords" content="Privacy Policy, Macro Exotics, Luxury Cars, Yacht Rentals, Luxury Yachts, Macro Exotics" />
+	<meta name="keywords" content="Macro Exotics Privacy Policy, Privacy Terms, Data Protection, Car Rental Privacy" />
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta name="og:title" content="Privacy Policy | Macro Exotics" />
-	<meta name="og:description" content="Privacy Policy | Macro Exotics" />
-	
 	<meta name="theme-color" content="#1C1C1C" />
 
-	<!-- TODO: Need to add logo here -->
-	<meta name="og:url" content="https://macroexotics.com/privacy" />
-
-	<!-- TODO: Need to add logo here -->
-	<meta name="og:image" content="https://macroexotics.com/logo-square-768.png" />
-	<meta name="og:type" content="website" />
-	<meta name="og:locale" content="en_US" />
-	<meta name="og:site_name" content="Macro Exotics" />
+	<meta property="og:title" content="Privacy Policy | Macro Exotics" />
+	<meta property="og:description" content="Read our privacy policy to understand how Macro Exotics handles and protects your personal information when using our luxury car and yacht rental services." />
+	<meta property="og:url" content="https://macroexotics.com/privacy" />
+	<meta property="og:image" content="https://macroexotics.com/logo-square-768.png" />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content="Macro Exotics" />
 	<link rel="canonical" href="https://macroexotics.com/privacy" />
 
 	<!-- TODO: Need to add logo here -->
-	<link rel="icon" href="https://macroexotics.com/favicon.ico" />
+	<link rel="icon" href="https://macroexotics.com/favicon.png" />
 </svelte:head>
 <div class="policy-container mx-auto max-w-[1000px]">
 	<div class="policy">

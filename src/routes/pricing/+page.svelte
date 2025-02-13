@@ -121,7 +121,7 @@
 								class="w-full rounded-lg {selectedTier === tier.name
 									? 'bg-[#0bd3d3] text-gray-900 hover:bg-[#0bd3d3]/80'
 									: 'bg-gray-700 text-white hover:bg-gray-600'} py-3 text-center font-semibold transition-colors"
-								href="https://dashboard.macroexotics.com/login"
+								href="https://my.macroexotics.com/login"
 							>
 								{selectedTier === tier.name ? `Join The ${tier.name} Club` : 'Get Started'}
 							</Button>

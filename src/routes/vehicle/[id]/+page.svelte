@@ -76,6 +76,26 @@
 	console.log(baseUrl);
 </script>
 
+<svelte:head>
+	<title> {vehicle.make} {vehicle.model} | Macro Exotics</title>
+	<meta name="description" content="{vehicle.year} {vehicle.make} {vehicle.model} - Luxury car rental in Miami. Book now at Macro Exotics." />
+	<meta name="title" content="{vehicle.make} {vehicle.model} | Macro Exotics" />
+	<meta name="keywords" content="{vehicle.make}, {vehicle.model}, Luxury Car Rental, Miami, Macro Exotics" />
+	<meta name="robots" content="index, follow" />
+	<meta name="author" content="Macro Exotics" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" content="#1C1C1C" />
+
+	<meta property="og:title" content="{vehicle.make} {vehicle.model} | Macro Exotics" />
+	<meta property="og:description" content="{vehicle.year} {vehicle.make} {vehicle.model} - Luxury car rental in Miami. Book now at Macro Exotics." />
+	<meta property="og:url" content="https://macroexotics.com/vehicle/{vehicle.id}" />
+	<meta property="og:image" content="https://macroexotics.com{vehicle.images[0].src}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content="Macro Exotics" />
+	<link rel="canonical" href="https://macroexotics.com/vehicle/{vehicle.id}" />
+</svelte:head>
+
 <div class="container mx-auto min-h-screen px-4 py-8" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 		<!-- Left side - Image Gallery -->
