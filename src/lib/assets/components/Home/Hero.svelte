@@ -92,7 +92,7 @@
 												</svg>
 											</div>
 											<div class="absolute right-4 top-1/2 z-10 -translate-y-1/2 pointer-events-none">
-												<svg
+<!-- 												<svg
 													class="h-5 w-5 text-white/70"
 													fill="none"
 													stroke="currentColor"
@@ -104,7 +104,7 @@
 														stroke-width="2"
 														d="M19 9l-7 7-7-7"
 													/>
-												</svg>
+												</svg> -->
 											</div>
 											<select
 												bind:value={location}

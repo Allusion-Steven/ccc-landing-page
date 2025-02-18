@@ -55,7 +55,7 @@
 	<meta property="og:title" content="Home | Macro Exotics" />
 	<meta property="og:description" content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences." />
 	<meta property="og:url" content="https://macroexotics.com" />
-	<meta property="og:image" content="https://macroexotics.com/logo-square-768.png" />
+	<meta property="og:image" content="https://macroexotics.com/favicon.png" />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:site_name" content="Macro Exotics" />
