@@ -168,26 +168,26 @@
 				</div>
 
 				<div class="mx-auto max-w-3xl">
-					<div class="overflow-hidden rounded-xl bg-white shadow-xl">
+					<div class="overflow-hidden rounded-xl bg-[#1C1C1C]/90 shadow-xl backdrop-blur-sm border border-white/10">
 						<div class="p-8">
-							<h2 class="mb-8 text-center text-3xl font-bold text-gray-800">Send us a message</h2>
+							<h2 class="mb-8 text-center text-3xl font-bold text-white">Send us a message</h2>
 
 							<form class="space-y-6">
 								<div class="grid gap-6 md:grid-cols-2">
 									<label class="block">
-										<span class="mb-2 block font-medium text-gray-700">First Name</span>
+										<span class="mb-2 block font-medium text-white/90">First Name</span>
 										<input
 											required
-											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="text"
 											placeholder="Jane"
 											bind:value={$contactFormStore.firstName}
 										/>
 									</label>
 									<label class="block">
-										<span class="mb-2 block font-medium text-gray-700">Last Name</span>
+										<span class="mb-2 block font-medium text-white/90">Last Name</span>
 										<input
-											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="text"
 											placeholder="Doe"
 											bind:value={$contactFormStore.lastName}
@@ -196,19 +196,19 @@
 								</div>
 								<div class="grid gap-6 md:grid-cols-2">
 									<label class="block">
-										<span class="mb-2 block font-medium text-gray-700">Phone Number</span>
+										<span class="mb-2 block font-medium text-white/90">Phone Number</span>
 										<input
-											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="tel"
 											placeholder="800-867-5309"
 											bind:value={$contactFormStore.phone}
 										/>
 									</label>
 									<label class="block">
-										<span class="mb-2 block font-medium text-gray-700">Email Address</span>
+										<span class="mb-2 block font-medium text-white/90">Email Address</span>
 										<input
 											required
-											class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="email"
 											placeholder="john@example.com"
 											autocomplete="email"
@@ -217,10 +217,10 @@
 									</label>
 								</div>
 								<label class="block">
-									<span class="mb-2 block font-medium text-gray-700">Message</span>
+									<span class="mb-2 block font-medium text-white/90">Message</span>
 									<textarea
 										required
-										class="w-full rounded-lg border border-gray-300 px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+										class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 										rows="6"
 										placeholder="How can we help you?"
 										bind:value={$contactFormStore.message}
@@ -228,14 +228,14 @@
 								</label>
 
 								{#if sendingWarnText}
-									<div class="rounded-lg bg-red-50 p-4 text-center text-red-600">
+									<div class="rounded-lg bg-red-900/50 p-4 text-center text-red-200 border border-red-500/50">
 										{sendingWarnText}
 									</div>
 								{/if}
 
 								<button
 									type="button"
-									class="w-full rounded-xl bg-miami-light-pink px-6 py-4 font-bold text-white transition-all duration-300 hover:bg-[#0bd3d3] disabled:cursor-not-allowed disabled:opacity-50"
+									class="w-full rounded-xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-6 py-4 font-bold text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
 									on:click={handleSendButton}
 									disabled={contactFormSending}
 								>
@@ -264,15 +264,15 @@
 								</button>
 
 								{#if sendFeedback}
-									<div class="rounded-lg bg-green-50 p-4 text-center text-green-600">
+									<div class="rounded-lg bg-green-900/50 p-4 text-center text-green-200 border border-green-500/50">
 										{sendFeedback}
 									</div>
 								{/if}
 							</form>
 						</div>
 
-						<div class="bg-gray-50 px-8 py-6 text-center">
-							<p class="text-sm text-gray-600">
+						<div class="bg-[#1C1C1C] border-t border-white/10 px-8 py-6 text-center">
+							<p class="text-sm text-white/70">
 								By clicking "Send Message", I understand that I will receive email, text or phone
 								updates regarding my inquiries, subscription, and/or related services. I have read
 								and agree to the
@@ -280,7 +280,7 @@
 									href="/privacy"
 									target="_blank"
 									rel="noreferrer"
-									class="text-miami-light-pink transition-colors hover:text-miami-blue"
+									class="text-miami-light-pink transition-colors hover:text-miami-pink"
 								>
 									Privacy Policy
 								</a>.
