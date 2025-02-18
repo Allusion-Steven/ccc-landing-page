@@ -50,7 +50,6 @@
 							class="group flex w-full items-center justify-between px-8 py-6 text-left"
 							on:click={() => toggleItem(index)}
 							aria-expanded={activeIndex === index}
-							in:fly={{ y: 50, duration: 1000, delay: 100 }}
 						>
 							<span
 								class="text-lg font-medium text-white/90 transition-colors duration-200 group-hover:text-miami-light-pink"

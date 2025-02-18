@@ -41,7 +41,7 @@
 
 <div class="dark">
 	<nav
-		class="sticky top-0 z-50 py-6 text-white transition-colors duration-300 {isScrolled
+		class="sticky top-0 z-50 text-white transition-colors duration-300 {isScrolled
 			? 'sm:bg-opacity-50'
 			: 'sm:bg-opacity-100'} bg-[#1C1C1C]"
 	>
@@ -51,7 +51,7 @@
 					<img
 						src={logo}
 						alt="Macro Exotics Logo"
-						class="h-12 transition-transform hover:scale-105 md:h-16"
+						class="p-2 h-12 transition-transform hover:scale-105 md:h-16"
 					/>
 				</a>
 				<div class="flex items-center gap-4">
