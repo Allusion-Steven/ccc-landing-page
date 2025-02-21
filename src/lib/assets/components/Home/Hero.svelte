@@ -140,7 +140,7 @@
 										<!-- Search button -->
 										<button
 											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
-											on:click={() => window.location.href = `/vehicles?location=${encodeURIComponent(location)}&pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}`}
+											onclick={() => window.location.href = `/vehicles?location=${encodeURIComponent(location)}&pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}`}
 										>
 											Search
 										</button>

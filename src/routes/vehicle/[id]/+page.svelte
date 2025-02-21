@@ -113,7 +113,7 @@
 					<!-- Left Arrow -->
 					<button
 						class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-all duration-300 hover:bg-black/70"
-						on:click={() => {
+						onclick={() => {
 							transitionDirection = 1;
 							selectedImageIndex =
 								selectedImageIndex === 0 ? vehicle.images.length - 1 : selectedImageIndex - 1;
@@ -138,7 +138,7 @@
 					<!-- Right Arrow -->
 					<button
 						class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-all duration-300 hover:bg-black/70"
-						on:click={() => {
+						onclick={() => {
 							transitionDirection = -1;
 							selectedImageIndex =
 								selectedImageIndex === vehicle.images.length - 1 ? 0 : selectedImageIndex + 1;
@@ -168,7 +168,7 @@
 								index
 									? 'bg-[#0bd3d3]'
 									: 'bg-white/50'}"
-								on:click={() => {
+								onclick={() => {
 									// For thumbnail clicks, determine direction based on index difference
 									transitionDirection = index > selectedImageIndex ? -1 : 1;
 									selectedImageIndex = index;
@@ -188,7 +188,7 @@
 				{#each vehicle.images as image, index}
 					<button
 						class="h-full w-full cursor-pointer rounded-lg"
-						on:click={() => {
+						onclick={() => {
 							// For thumbnail clicks, determine direction based on index difference
 							transitionDirection = index > selectedImageIndex ? -1 : 1;
 							selectedImageIndex = index;
@@ -246,7 +246,7 @@
 			<div class="flex flex-col space-y-4">
 				<button
 					class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
-					on:click={() => (showDatePicker = !showDatePicker)}
+					onclick={() => (showDatePicker = !showDatePicker)}
 				>
 					Book Now
 				</button>
@@ -309,7 +309,7 @@
 
 							<button
 								type="button"
-								on:click={handleBooking}
+								onclick={handleBooking}
 								class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
 							>
 								Continue to Booking

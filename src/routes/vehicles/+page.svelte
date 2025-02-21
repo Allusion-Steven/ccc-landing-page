@@ -130,7 +130,7 @@
 					/>
 				</div>
 				<!-- Mobile Filter Button -->
-				<Button color="light" class="w-full" on:click={() => showFiltersModal = true}>
+				<Button color="light" class="w-full" onclick={() => showFiltersModal = true}>
 					<svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
 					</svg>
@@ -146,11 +146,10 @@
 				<div 
 					class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity"
 					on:click={() => showFiltersModal = false}
-					on:keydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
+					on:keydown={(e: KeyboardEvent) => e.key === 'Escape' && (showFiltersModal = false)}
 					role="button"
 					tabindex="0"
 				>
-					<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 					<div
 						class="fixed right-0 top-0 h-full w-[90%] max-w-md transform overflow-y-auto bg-[#1c1c1c] p-6 shadow-xl transition-transform duration-300"
 						on:click|stopPropagation
@@ -163,7 +162,7 @@
 							<h3 class="text-xl font-bold text-white">Filters</h3>
 							<button
 								class="rounded-lg p-2 text-white/70 hover:bg-white/10"
-								on:click={() => showFiltersModal = false}
+								on:click|stopPropagation={() => showFiltersModal = false}
 								aria-label="Close filters"
 							>
 								<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

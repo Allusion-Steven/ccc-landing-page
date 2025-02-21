@@ -48,7 +48,7 @@
 					>
 						<button
 							class="group flex w-full items-center justify-between px-8 py-6 text-left"
-							on:click={() => toggleItem(index)}
+							onclick={() => toggleItem(index)}
 							aria-expanded={activeIndex === index}
 						>
 							<span

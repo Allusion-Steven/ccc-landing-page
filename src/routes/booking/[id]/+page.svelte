@@ -205,7 +205,7 @@
         <div class="mb-8 flex justify-center">
             <div class="flex items-center">
                 <button
-                    on:click={() => step = 1}
+                    onclick={() => step = 1}
                     class="flex h-10 w-10 items-center justify-center rounded-full {step >= 1 ? 'bg-[#0bd3d3]' : 'bg-gray-600'} text-black hover:opacity-80 cursor-pointer"
                     type="button"
                 >
