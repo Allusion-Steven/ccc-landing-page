@@ -5,5 +5,5 @@ export const isLive = (environment === "production") ? true : false
 
 // export const baseUrl = isLive ? "https://macroexotics.com" : "http://localhost:5173"
 export const baseUrl = import.meta.env.DEV
-  ? 'http://10.0.0.9:5173'
+  ? 'http://localhost:5173'
   : 'https://ccc-landing-page-six.vercel.app';

@@ -7,10 +7,31 @@
 	import { quintOut } from 'svelte/easing';
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { auth } from '$lib/firebase/config';
+	import { user, isAuthenticated } from '$lib/stores/authStore';
+	import type { User } from 'firebase/auth';
+	import { customerUtils } from '$lib/firebase/customerUtils';
+	
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
 	let isScrolled = $state(false);
+
+	console.log("user: ", $user);
+	onMount(() => {
+		// Set up Firebase auth listener
+		if($user) {
+			console.log("user is authenticated -------- ", $user);
+			customerUtils.getUserAccount($user.uid);
+		}
+		const unsubscribe = auth.onAuthStateChanged((firebaseUser: User | null) => {
+			user.set(firebaseUser);
+			isAuthenticated.set(!!firebaseUser);
+		});
+
+		return () => unsubscribe();
+	});
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -55,9 +76,16 @@
 					/>
 				</a>
 				<div class="flex items-center gap-4">
-					{#if !$page.data.user}
+					{#if $user}
 						<a
 							href="https://my.macroexotics.com/login"
+							class="flex items-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] sm:hidden"
+						>
+							<AccountIcon className="w-6 h-6 pointer-events-none" />
+						</a>
+					{:else}
+						<a
+							href="https://my.macroexotics.com/dashboard"
 							class="flex items-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] sm:hidden"
 						>
 							<AccountIcon className="w-6 h-6 pointer-events-none" />
@@ -129,7 +157,7 @@
 							Contact
 						</a>
 
-						{#if !$page.data.user}
+						{#if !$user}
 							<a
 								href="https://my.macroexotics.com/login"
 								class="flex items-center justify-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
@@ -138,10 +166,10 @@
 							</a>
 						{:else}
 							<a
-								href="/logout"
-								class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
+								href="https://my.macroexotics.com/dashboard"
+								class="flex items-center justify-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
 							>
-								Logout
+								<AccountIcon className="w-6 h-6 sm:flex hidden" />
 							</a>
 						{/if}
 					</div>
