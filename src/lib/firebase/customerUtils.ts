@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { db, auth, customerCollectionName } from './config';
+import { db, auth, customerCollectionName } from '../firebase';
 
 export async function getCustomerDocById(docId: string) {
     console.log("firebase.ts: getDocById: id: ", docId);

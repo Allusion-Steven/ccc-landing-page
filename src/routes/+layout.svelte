@@ -8,7 +8,7 @@
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { auth } from '$lib/firebase/config';
+	import { auth } from '$lib/firebase';
 	import { user, isAuthenticated } from '$lib/stores/authStore';
 	import type { User } from 'firebase/auth';
 	import { customerUtils } from '$lib/firebase/customerUtils';
@@ -18,7 +18,6 @@
 	let innerWidth = $state(0);
 	let isScrolled = $state(false);
 
-	console.log("user: ", $user);
 	onMount(() => {
 		// Set up Firebase auth listener
 		if($user) {
@@ -29,6 +28,9 @@
 			user.set(firebaseUser);
 			isAuthenticated.set(!!firebaseUser);
 		});
+
+		console.log("user is authenticated -------- ", $user);
+
 
 		return () => unsubscribe();
 	});

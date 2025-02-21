@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store';
 import type { User } from 'firebase/auth';
-import { auth } from '$lib/firebase/config';
+import { auth } from '$lib/firebase';
 import { signInWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth';
-import { db } from '$lib/firebase/config';
+import { db } from '$lib/firebase';
 import { collection, addDoc, getDocs, query, where, type CollectionReference } from 'firebase/firestore';
 
 export const user = writable<User | null>(null);
