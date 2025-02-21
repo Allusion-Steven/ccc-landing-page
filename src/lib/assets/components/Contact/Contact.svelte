@@ -236,7 +236,7 @@
 								<button
 									type="button"
 									class="w-full rounded-xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-6 py-4 font-bold text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
-									on:click={handleSendButton}
+									onclick={handleSendButton}
 									disabled={contactFormSending}
 								>
 									{#if contactFormSending}

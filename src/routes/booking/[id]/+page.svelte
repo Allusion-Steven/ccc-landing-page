@@ -205,7 +205,7 @@
         <div class="mb-8 flex justify-center">
             <div class="flex items-center">
                 <button
-                    on:click={() => step = 1}
+                    onclick={() => step = 1}
                     class="flex h-10 w-10 items-center justify-center rounded-full {step >= 1 ? 'bg-[#0bd3d3]' : 'bg-gray-600'} text-black hover:opacity-80 cursor-pointer"
                     type="button"
                 >
@@ -220,7 +220,7 @@
             <!-- User Information Form -->
             <div class="rounded-lg bg-white/5 p-8 backdrop-blur-sm border border-white/10 shadow-xl">
                 <h2 class="text-2xl font-semibold text-white mb-6">Personal Information</h2>
-                <form on:submit|preventDefault={handleSubmit} class="space-y-6">
+                <form onsubmit={(e)=>{e.preventDefault(); handleSubmit()}} class="space-y-6">
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div class="space-y-2">
                             <label for="firstName" class="text-sm font-medium text-gray-300">
@@ -402,7 +402,7 @@
                                 type="file"
                                 id="licenseFront"
                                 accept="image/*"
-                                on:change={(e) => handleFileUpload(e, 'front', formData, errors)}
+                                onchange={(e) => handleFileUpload(e, 'front', formData, errors)}
                                 required
                                 class="w-full rounded-lg bg-white/10 p-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#0bd3d3] file:text-black hover:file:bg-[#0bd3d3]/80 {errors.licenseFrontImage ? 'border-red-500' : ''}"
                             />
@@ -419,7 +419,7 @@
                                 type="file"
                                 id="licenseBack"
                                 accept="image/*"
-                                on:change={(e) => handleFileUpload(e, 'back', formData, errors)}
+                                onchange={(e) => handleFileUpload(e, 'back', formData, errors)}
                                 required
                                 class="w-full rounded-lg bg-white/10 p-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#0bd3d3] file:text-black hover:file:bg-[#0bd3d3]/80 {errors.licenseBackImage ? 'border-red-500' : ''}"
                             />

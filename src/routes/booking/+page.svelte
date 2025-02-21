@@ -138,7 +138,7 @@
 
                 <button
                     type="button"
-                    on:click={handleContinue}
+                    onclick={handleContinue}
                     class="mt-8 w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
                 >
                     Continue to Booking
