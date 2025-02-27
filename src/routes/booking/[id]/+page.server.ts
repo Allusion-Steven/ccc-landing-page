@@ -1,10 +1,10 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { vehicles } from '$lib/constants/Vehicles';
-
+import { yachts } from '$lib/constants/Yachts';
 export const load: PageServerLoad = async ({ params, url }) => {
     const vehicleId = params.id;
-    const vehicle = vehicles.find(v => v.id === vehicleId);
+    const vehicle = vehicles.find(v => v.id === vehicleId) || yachts.find(v => v.id === vehicleId);
     
     // Get query parameters with the same names as they are passed from vehicles page
     const pickupDate = url.searchParams.get('pickupDate') || '';

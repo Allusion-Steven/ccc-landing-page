@@ -16,6 +16,7 @@
 	let pickupDate = new Date().toISOString().split('T')[0];
 	let dropoffDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 	let contentVisible = false;
+	let vehicleType = 'Car';
 
 	onMount(() => {
 		const img = new Image();
@@ -70,52 +71,51 @@
 										class="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0"
 									>
 										<div class="relative flex w-full md:w-2/5">
-											<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
-												<svg
-													class="h-5 w-5 text-white/70"
-													fill="none"
-													stroke="currentColor"
-													viewBox="0 0 24 24"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-													/>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-													/>
-												</svg>
+											<div class="flex w-full space-x-2">
+												<div class="relative z-20 w-1/3">
+													<select
+														bind:value={vehicleType}
+														class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
+														style="background-color: rgba(255, 255, 255, 0.1);"
+													>
+														<option value="Car" class="!bg-[#1C1C1C] !text-white">Car</option>
+														<option value="Yacht" class="!bg-[#1C1C1C] !text-white">Yacht</option>
+													</select>
+												</div>
+												<div class="relative w-2/3">
+													<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
+														<svg
+															class="h-5 w-5 text-white/70"
+															fill="none"
+															stroke="currentColor"
+															viewBox="0 0 24 24"
+														>
+															<path
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+															/>
+															<path
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+															/>
+														</svg>
+													</div>
+													<select
+														bind:value={location}
+														class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50 appearance-none"
+														style="background-color: rgba(255, 255, 255, 0.1);"
+													>
+														<option value="Miami, FL" class="!bg-[#1C1C1C] !text-white">Miami, FL</option>
+														<option value="Los Angeles, CA" disabled class="!bg-[#1C1C1C] !text-white">Los Angeles, CA</option>
+														<option value="New York, NY" disabled class="!bg-[#1C1C1C] !text-white">New York, NY</option>
+														<option value="Columbus, OH" disabled class="!bg-[#1C1C1C] !text-white">Columbus, OH</option>
+													</select>
+												</div>
 											</div>
-											<div class="absolute right-4 top-1/2 z-10 -translate-y-1/2 pointer-events-none">
-<!-- 												<svg
-													class="h-5 w-5 text-white/70"
-													fill="none"
-													stroke="currentColor"
-													viewBox="0 0 24 24"
-												>
-													<path
-														stroke-linecap="round"
-														stroke-linejoin="round"
-														stroke-width="2"
-														d="M19 9l-7 7-7-7"
-													/>
-												</svg> -->
-											</div>
-											<select
-												bind:value={location}
-												class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50 appearance-none"
-												style="background-color: rgba(255, 255, 255, 0.1);"
-											>
-												<option value="Miami, FL" class="!bg-[#1C1C1C] !text-white">Miami, FL</option>
-												<option value="Los Angeles, CA" disabled class="!bg-[#1C1C1C] !text-white">Los Angeles, CA</option>
-												<option value="New York, NY" disabled class="!bg-[#1C1C1C] !text-white">New York, NY</option>
-												<option value="Columbus, OH" disabled class="!bg-[#1C1C1C] !text-white">Columbus, OH</option>
-											</select>
 										</div>
 
 										<div class="flex w-full space-x-2 md:w-3/5">
@@ -140,7 +140,16 @@
 										<!-- Search button -->
 										<button
 											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
-											on:click={() => window.location.href = `/vehicles?location=${encodeURIComponent(location)}&pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}`}
+											on:click={() => {
+												const baseUrl = vehicleType === 'Yacht' ? '/yachts' : '/vehicles';
+												const params = new URLSearchParams({
+													location: location,
+													pickupDate: pickupDate,
+													dropoffDate: dropoffDate,
+													...(vehicleType === 'Yacht' && { vehicleType: 'yacht' })
+												});
+												window.location.href = `${baseUrl}?${params.toString()}`;
+											}}
 										>
 											Search
 										</button>

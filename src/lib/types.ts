@@ -97,3 +97,30 @@ export interface Booking {
 }
 
 /**************************** END OF VEHICLE TYPES ***************************** */
+
+export type YachtTag = 'Flybridge' | 'Luxury' | 'Family' | 'Sport' | 'Performance' | 'Mega Yacht' | 'Motor Yacht' | 'Entertainment';
+
+export interface YachtSpecs {
+    length: string;
+    beam: string;
+    guests: number;
+    cabins: number;
+    crew: number;
+}
+
+export interface Yacht {
+    id: string;
+    make: string;
+    model: string;
+    year: number;
+    price: number;
+    images: VehicleImage[];
+    tags: YachtTag[];
+    userId: string;
+    specs: YachtSpecs;
+    isAvailable?: boolean;
+    createdAt?: Date;
+    updatedAt?: Date;
+    isActive?: boolean;
+    userDeleted?: boolean;
+}
