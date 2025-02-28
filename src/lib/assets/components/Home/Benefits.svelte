@@ -4,7 +4,7 @@
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 </script>
 
-<section class=" bg-gradient-to-br py-16 py-16">
+<section class="bg-gradient-to-br py-16">
 	<div class="container mx-auto px-4">
 		<div class="mx-auto max-w-4xl text-center">
 			<h2

@@ -2,16 +2,20 @@
 	import Hero from '$lib/assets/components/Home/Hero.svelte';
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import Benefits from '$lib/assets/components/Home/Benefits.svelte';
-	import Carousel from '$lib/assets/components/Home/Carousel.svelte';
+	import VehicleCarousel from '$lib/assets/components/Home/VehicleCarousel.svelte';
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
 	import { faqData } from '$lib/data/faq';
+	import { vehicles } from '$lib/constants/Vehicles';
+	import { yachts } from '$lib/constants/Yachts';
+	import type { Vehicle, Yacht } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { fade, fly, scale, slide } from 'svelte/transition';
 	import { elasticOut, quintOut } from 'svelte/easing';
 
 	let mounted = false;
 	let whyVisible = false;
-	let carouselVisible = false;
+	let vehicleCarouselVisible = false;
+	let yachtCarouselVisible = false;
 	let benefitsVisible = false;
 	let accordionVisible = false;
 
@@ -84,8 +88,8 @@
 		{/if}
 	</div>
 
-	<div use:intersectionObserver={(isVisible) => (carouselVisible = isVisible)}>
-		{#if carouselVisible}
+	<div use:intersectionObserver={(isVisible) => (vehicleCarouselVisible = isVisible)}>
+		{#if vehicleCarouselVisible}
 			<div
 				in:fly={{
 					x: -100,
@@ -93,7 +97,12 @@
 					easing: quintOut
 				}}
 			>
-				<Carousel />
+				<VehicleCarousel 
+					items={vehicles as Vehicle[]} 
+					title="Featured Vehicles" 
+					viewAllLink="/vehicles" 
+					itemType="vehicle"
+				/>
 			</div>
 		{/if}
 	</div>
@@ -108,6 +117,25 @@
 				}}
 			>
 				<Benefits />
+			</div>
+		{/if}
+	</div>
+
+	<div use:intersectionObserver={(isVisible) => (yachtCarouselVisible = isVisible)}>
+		{#if yachtCarouselVisible}
+			<div
+				in:fly={{
+					x: -100,
+					duration: 3000,
+					easing: quintOut
+				}}
+			>
+				<VehicleCarousel 
+					items={yachts as Yacht[]} 
+					title="Featured Yachts" 
+					viewAllLink="/yachts" 
+					itemType="yacht"
+				/>
 			</div>
 		{/if}
 	</div>

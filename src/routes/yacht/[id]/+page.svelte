@@ -8,7 +8,7 @@
 
 	export let data: PageData;
 	const {
-		vehicle,
+		yacht,
 		pickupDate: initialPickupDate,
 		dropoffDate: initialDropoffDate,
 		location: initialLocation
@@ -29,52 +29,61 @@
 </script>
 
 <VehicleSEO
-	make={vehicle.make}
-	model={vehicle.model}
-	year={vehicle.year.toString()}
-	id={vehicle.id}
-	imageUrl={vehicle.images[0].src}
+	make={yacht.make}
+	model={yacht.model}
+	year={yacht.year.toString()}
+	id={yacht.id}
+	imageUrl={yacht.images[0].src}
+	vehicleType="yacht"
 />
 
-<div class="container mx-auto min-h-screen px-4 py-8" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
-	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
+<div class="container mx-auto px-4 py-8">
+	<div class="grid gap-8 lg:grid-cols-2">
 		<!-- Left side - Image Gallery -->
-		<div in:fly={{ y: 50, duration: 1000, delay: 600 }}>
-			<ImageGallery images={vehicle.images} />
+		<div>
+			<ImageGallery images={yacht.images} />
 		</div>
 
-		<!-- Right side - Vehicle Information -->
+		<!-- Right side - Yacht Information -->
 		<div class="flex flex-col justify-start space-y-8">
 			<div>
 				<h1 class="text-4xl font-bold text-white">
-					{vehicle.make}
-					{vehicle.model}
+					{yacht.make}
+					{yacht.model}
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
-					<span class="text-xl text-gray-300">{vehicle.year}</span>
-					<span class="text-3xl font-bold text-[#0bd3d3]">${vehicle.price}/day</span>
+					<span class="text-xl text-gray-300">{yacht.year}</span>
+					<span class="text-3xl font-bold text-[#0bd3d3]">${yacht.price}/day</span>
 				</div>
 			</div>
 
-			<!-- Vehicle Features -->
+			<!-- Yacht Specifications -->
 			<div class="space-y-6">
-				<h2 class="text-2xl font-semibold text-white">Features</h2>
+				<h2 class="text-2xl font-semibold text-white">Specifications</h2>
 				<div class="grid grid-cols-2 gap-4">
 					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Make</span>
-						<p class="text-lg font-medium text-white">{vehicle.make}</p>
+						<span class="text-sm text-gray-400">Length</span>
+						<p class="text-lg font-medium text-white">{yacht.specs.length}</p>
 					</div>
 					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Model</span>
-						<p class="text-lg font-medium text-white">{vehicle.model}</p>
+						<span class="text-sm text-gray-400">Beam</span>
+						<p class="text-lg font-medium text-white">{yacht.specs.beam}</p>
 					</div>
 					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Year</span>
-						<p class="text-lg font-medium text-white">{vehicle.year}</p>
+						<span class="text-sm text-gray-400">Guests</span>
+						<p class="text-lg font-medium text-white">{yacht.specs.guests}</p>
+					</div>
+					<div class="rounded-lg bg-white/5 p-4">
+						<span class="text-sm text-gray-400">Cabins</span>
+						<p class="text-lg font-medium text-white">{yacht.specs.cabins}</p>
+					</div>
+					<div class="rounded-lg bg-white/5 p-4">
+						<span class="text-sm text-gray-400">Crew</span>
+						<p class="text-lg font-medium text-white">{yacht.specs.crew}</p>
 					</div>
 					<div class="rounded-lg bg-white/5 p-4">
 						<span class="text-sm text-gray-400">Daily Rate</span>
-						<p class="text-lg font-medium text-[#0bd3d3]">${vehicle.price}</p>
+						<p class="text-lg font-medium text-[#0bd3d3]">${yacht.price}</p>
 					</div>
 				</div>
 			</div>
@@ -93,29 +102,20 @@
 					{pickupDate}
 					{dropoffDate}
 					{location}
-					id={vehicle.id}
+					id={yacht.id}
+					vehicleType="yacht"
 				/>
-
-				<a
-					href="/contact"
-					class="w-full rounded-lg border border-[#0bd3d3] px-6 py-3 text-center font-semibold text-[#0bd3d3] transition-all duration-300 hover:bg-[#0bd3d3]/10"
-				>
-					Contact Us
-				</a>
 			</div>
 		</div>
 	</div>
 
-	<!-- New Full Width Description Section -->
-	<h2 class="mt-20 text-3xl font-bold uppercase text-white">Description</h2>
-
-	<!-- TODO: Need to add a description section here from the vehicle object -->
+	<!-- Yacht Description -->
 	<div class="mt-8 rounded-lg bg-white/5 p-6 shadow-md">
+		<h2 class="mb-4 text-2xl font-semibold text-white">About This Yacht</h2>
 		<p class="mt-2 text-lg text-gray-200">
-			This is temporary text to serve as a "vehicle description" section.....<br /><br />
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-			et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua.  qui officia deserunt mollit anim id est laborum.
+			Experience luxury on the water with the {yacht.year} {yacht.make} {yacht.model}. This stunning {yacht.specs.length} yacht 
+			offers exceptional comfort and style, accommodating up to {yacht.specs.guests} guests in {yacht.specs.cabins} luxurious cabins. 
+			With a professional crew of {yacht.specs.crew}, your journey will be nothing short of extraordinary.
 		</p>
 	</div>
-</div>
+</div> 
