@@ -99,14 +99,14 @@
 	section {
 		position: relative;
 	}
-	section::after {
+/* 	section::after {
 		content: '';
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		right: 0;
-		height: 150px;
+		height: 10px;
 		background: linear-gradient(to bottom, transparent, #2d1b2a);
 		pointer-events: none;
-	}
+	} */
 </style>
