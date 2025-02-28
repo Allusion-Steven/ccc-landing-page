@@ -8,7 +8,7 @@
 	import PrimaryButton from '../buttons/PrimaryButton.svelte';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 	import { fade, fly, scale } from 'svelte/transition';
-	
+
 	let selectedDate = null;
 	let heroDiv;
 	let imageLoaded = false;
@@ -16,6 +16,7 @@
 	let pickupDate = new Date().toISOString().split('T')[0];
 	let dropoffDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 	let contentVisible = false;
+
 	let vehicleType = 'Car';
 
 	onMount(() => {
@@ -54,18 +55,43 @@
 								Premium Cars & Yachts, Your Way
 							</h1>
 
-							<p 
+							<p
 								in:fly={{ y: 50, duration: 1000, delay: 400 }}
 								class="mx-auto mb-12 max-w-3xl text-center text-xl leading-relaxed text-white/95"
 							>
-								Connect with luxury vehicle owners and experience the extraordinary. From exotic cars
-								to luxury yachts, Macro Exotics delivers unparalleled rental experiences.
+								Connect with luxury vehicle owners and experience the extraordinary.
+								From exotic cars to luxury yachts, Macro Exotics delivers
+								unparalleled rental experiences.
 							</p>
 
-							<div 
+							<div
 								in:fly={{ y: 50, duration: 1000, delay: 600 }}
 								class="mx-auto mb-12 max-w-4xl"
 							>
+								<div
+									class="mb-4 flex w-full items-center justify-center space-x-4 align-middle"
+								>
+									<p class="text-white/95">I'm Looking For</p>
+									<button
+										class="w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType ===
+										'Car'
+											? 'bg-gradient-to-r from-miami-pink to-miami-light-pink text-white'
+											: 'bg-white/10 text-white/90 hover:bg-white/20'}"
+										on:click={() => {
+											vehicleType = 'Car';
+										}}>Cars</button
+									>
+
+									<button
+										class="w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType ===
+										'Yacht'
+											? 'bg-gradient-to-r from-miami-pink to-miami-light-pink text-white'
+											: 'bg-white/10 text-white/90 hover:bg-white/20'}"
+										on:click={() => {
+											vehicleType = 'Yacht';
+										}}>Yachts</button
+									>
+								</div>
 								<div class="rounded-2xl bg-white/10 p-2 backdrop-blur-sm">
 									<div
 										class="flex flex-col space-y-2 md:flex-row md:items-center md:space-x-2 md:space-y-0"
@@ -78,12 +104,22 @@
 														class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
 														style="background-color: rgba(255, 255, 255, 0.1);"
 													>
-														<option value="Car" class="!bg-[#1C1C1C] !text-white">Car</option>
-														<option value="Yacht" class="!bg-[#1C1C1C] !text-white">Yacht</option>
+														<option
+															value="Car"
+															class="!bg-[#1C1C1C] !text-white"
+															>Car</option
+														>
+														<option
+															value="Yacht"
+															class="!bg-[#1C1C1C] !text-white"
+															>Yacht</option
+														>
 													</select>
 												</div>
 												<div class="relative w-2/3">
-													<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
+													<div
+														class="absolute left-4 top-1/2 z-10 -translate-y-1/2"
+													>
 														<svg
 															class="h-5 w-5 text-white/70"
 															fill="none"
@@ -106,13 +142,32 @@
 													</div>
 													<select
 														bind:value={location}
-														class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50 appearance-none"
+														class="!h-12 w-full appearance-none !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50"
 														style="background-color: rgba(255, 255, 255, 0.1);"
 													>
-														<option value="Miami, FL" class="!bg-[#1C1C1C] !text-white">Miami, FL</option>
-														<option value="Los Angeles, CA" disabled class="!bg-[#1C1C1C] !text-white">Los Angeles, CA</option>
-														<option value="New York, NY" disabled class="!bg-[#1C1C1C] !text-white">New York, NY</option>
-														<option value="Columbus, OH" disabled class="!bg-[#1C1C1C] !text-white">Columbus, OH</option>
+														<option
+															value="Miami, FL"
+															class="!bg-[#1C1C1C] !text-white"
+															>Miami, FL</option
+														>
+														<option
+															value="Los Angeles, CA"
+															disabled
+															class="!bg-[#1C1C1C] !text-white"
+															>Los Angeles, CA</option
+														>
+														<option
+															value="New York, NY"
+															disabled
+															class="!bg-[#1C1C1C] !text-white"
+															>New York, NY</option
+														>
+														<option
+															value="Columbus, OH"
+															disabled
+															class="!bg-[#1C1C1C] !text-white"
+															>Columbus, OH</option
+														>
 													</select>
 												</div>
 											</div>
@@ -132,7 +187,8 @@
 													class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-4 text-white placeholder-white/50"
 													type="date"
 													bind:value={dropoffDate}
-													min={pickupDate || new Date().toISOString().split('T')[0]}
+													min={pickupDate ||
+														new Date().toISOString().split('T')[0]}
 												/>
 											</div>
 										</div>
@@ -141,12 +197,17 @@
 										<button
 											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
 											on:click={() => {
-												const baseUrl = vehicleType === 'Yacht' ? '/yachts' : '/vehicles';
+												const baseUrl =
+													vehicleType === 'Yacht'
+														? '/yachts'
+														: '/vehicles';
 												const params = new URLSearchParams({
 													location: location,
 													pickupDate: pickupDate,
 													dropoffDate: dropoffDate,
-													...(vehicleType === 'Yacht' && { vehicleType: 'yacht' })
+													...(vehicleType === 'Yacht' && {
+														vehicleType: 'yacht'
+													})
 												});
 												window.location.href = `${baseUrl}?${params.toString()}`;
 											}}
@@ -155,17 +216,6 @@
 										</button>
 									</div>
 								</div>
-							</div>
-
-							<div
-								in:fly={{ y: 50, duration: 1000, delay: 800 }}
-								class="flex flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
-							>
-								<PrimaryButton text="List Your Vehicle" href="/contact" />
-								<SecondaryButton 
-									text="Rent Now" 
-									href="/vehicles" 
-								/>
 							</div>
 						</div>
 					</div>

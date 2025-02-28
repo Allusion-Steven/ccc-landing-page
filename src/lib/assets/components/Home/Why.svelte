@@ -2,6 +2,8 @@
 	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import PrimaryButton from '$lib/assets/components/buttons/PrimaryButton.svelte';
+	import SecondaryButton from '$lib/assets/components/buttons/SecondaryButton.svelte';
 
 	let visible = false;
 	onMount(() => {
@@ -21,9 +23,13 @@
 	></div>
 
 	<div class="container relative mx-auto px-6">
-		<div class="flex flex-col items-center gap-16 lg:flex-row lg:items-start lg:justify-between">
+		<div
+			class="flex flex-col items-center gap-16 lg:flex-row lg:items-start lg:justify-between"
+		>
 			<!-- Left side content -->
-			<div class="mb-4 md:mb-12 flex max-w-2xl flex-col justify-between gap-4 lg:sticky lg:top-8 lg:mb-0">
+			<div
+				class="mb-4 flex max-w-2xl flex-col justify-between gap-4 md:mb-12 lg:sticky lg:top-8 lg:mb-0"
+			>
 				{#if visible}
 					<h2
 						in:fly={{ x: -50, duration: 800, delay: 0 }}
@@ -31,25 +37,40 @@
 					>
 						Why Choose<br />Macro Exotics?
 					</h2>
-					<p 
+					<p
 						in:fly={{ x: -50, duration: 800, delay: 200 }}
 						class="mb-8 text-xl text-gray-400"
 					>
-						Experience luxury without compromise - where exceptional vehicles meet discerning clients.
+						Experience luxury without compromise - where exceptional vehicles meet
+						discerning clients.
 					</p>
 					<div in:fly={{ x: -50, duration: 800, delay: 400 }}>
-						<p class="text-lg sm:leading-loose text-gray-300 md:text-xl">
-							In today's sharing economy, we connect luxury vehicle owners with discerning clients
-							seeking premium experiences. Our peer-to-peer platform creates opportunities for both
-							owners and renters in the world of exotic vehicles and luxury yachts.
-						</p><br>
-						<p class="text-lg sm:leading-loose text-gray-300 md:text-xl">
-							Whether you're sharing your prized possession or seeking the perfect vehicle for your next
-							adventure, we make the connection seamless and secure through our comprehensive
-							verification process and dedication to exceptional service.
+						<p class="text-lg text-gray-300 sm:leading-loose md:text-xl">
+							In today's sharing economy, we connect luxury vehicle owners with
+							discerning clients seeking premium experiences. Our peer-to-peer
+							platform creates opportunities for both owners and renters in the world
+							of exotic vehicles and luxury yachts.
+						</p>
+						<br />
+						<p class="text-lg text-gray-300 sm:leading-loose md:text-xl">
+							Whether you're sharing your prized possession or seeking the perfect
+							vehicle for your next adventure, we make the connection seamless and
+							secure through our comprehensive verification process and dedication to
+							exceptional service.
 						</p>
 					</div>
 				{/if}
+				<div
+					in:fly={{ y: 50, duration: 1000, delay: 800 }}
+					class="mt-12 flex w-full flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
+				>
+					<PrimaryButton
+						text="List Your Vehicle"
+						href="https://my.macroexotics.com/"
+						width="w-full"
+					/>
+					<SecondaryButton text="Rent Now" href="/vehicles" width="w-full" />
+				</div>
 			</div>
 
 			<!-- Right side features -->
@@ -79,8 +100,9 @@
 							</div>
 							<h3 class="mb-3 text-2xl font-semibold text-white">Exclusive Access</h3>
 							<p class="text-gray-400">
-								Access to an unparalleled collection of luxury vehicles and yachts for your special
-								events and celebrations. Experience the extraordinary.
+								Access to an unparalleled collection of luxury vehicles and yachts
+								for your special events and celebrations. Experience the
+								extraordinary.
 							</p>
 						</div>
 
@@ -105,10 +127,13 @@
 									/>
 								</svg>
 							</div>
-							<h3 class="mb-3 text-2xl font-semibold text-white">Safe Monetization</h3>
+							<h3 class="mb-3 text-2xl font-semibold text-white">
+								Safe Monetization
+							</h3>
 							<p class="text-gray-400">
-								Transform your luxury assets into revenue streams with our secure platform. We ensure
-								your vehicles are protected while generating returns.
+								Transform your luxury assets into revenue streams with our secure
+								platform. We ensure your vehicles are protected while generating
+								returns.
 							</p>
 						</div>
 
@@ -133,10 +158,13 @@
 									/>
 								</svg>
 							</div>
-							<h3 class="mb-3 text-2xl font-semibold text-white">Seamless Connections</h3>
+							<h3 class="mb-3 text-2xl font-semibold text-white">
+								Seamless Connections
+							</h3>
 							<p class="text-gray-400">
-								Our sophisticated platform brings together qualified renters and premium vehicle
-								owners, creating a trusted community of luxury enthusiasts.
+								Our sophisticated platform brings together qualified renters and
+								premium vehicle owners, creating a trusted community of luxury
+								enthusiasts.
 							</p>
 						</div>
 					{/if}
