@@ -1,5 +1,4 @@
 <script>
-	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import PrimaryButton from '$lib/assets/components/buttons/PrimaryButton.svelte';
@@ -11,7 +10,7 @@
 	});
 </script>
 
-<section class="relative overflow-hidden bg-[#1C1C1C] py-24 md:py-32">
+<section class="relative overflow-hidden bg-[#1C1C1C] py-12 md:py-32">
 	<!-- Background decoration -->
 	<div
 		class="absolute left-0 top-0 h-[600px] w-[600px] opacity-15 blur-[150px]"

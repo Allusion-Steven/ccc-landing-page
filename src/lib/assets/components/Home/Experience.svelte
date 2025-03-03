@@ -1,58 +1,109 @@
 <script>
-	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 	import { fly } from 'svelte/transition';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
+	import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
+	import conciergeHeroBg from '$lib/assets/images/concierge-service.avif';
+	import heroBg from '$lib/assets/images/rr-culinan-interior.webp';
 </script>
 
 <section class="bg-gradient-to-br py-16">
-	<div class="container mx-auto px-4">
-		<div class="mx-auto max-w-4xl text-center">
+	<div class="px-4">
+		<div class="mx-auto max-w-5xl">
 			<h2
 				in:fly={{ y: 50, duration: 1000, delay: 200 }}
-				class="mb-8 text-4xl font-bold leading-tight text-white md:text-5xl"
+				class="mb-8 text-center text-5xl font-bold text-white "
 			>
 				Luxury Vehicle & Yacht Rentals
 			</h2>
 			<p
-				in:fly={{ y: 50, duration: 1000, delay: 400 }}
-				class="mb-8 text-lg leading-relaxed text-gray-300 text-center"
+				in:fly={{ y: 50, duration: 1000, delay: 300 }}
+				class="mb-8 text-center text-lg leading-relaxed text-gray-300"
 			>
-				With Macro Exotics, experience the ultimate in luxury transportation. Whether by land or
-				sea, our premium fleet of vehicles and yachts delivers unparalleled elegance and
-				performance.
+				With Macro Exotics, experience the ultimate in luxury transportation. Whether by
+				land or sea, our premium fleet of vehicles and yachts delivers unparalleled elegance
+				and performance.
 			</p>
-
-			<div in:fly={{ y: 50, duration: 1000, delay: 600 }} class="mb-16 grid gap-8 md:grid-cols-3">
+			<div class="mb-8 grid gap-8 md:grid-cols-3">
 				<div
-					class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-6 backdrop-blur-sm transition-all duration-300 hover:from-miami-pink/20 hover:to-miami-blue/20"
+					in:fly={{ x: -50, duration: 1000, delay: 400 }}
+					class="group relative h-[400px] transform overflow-hidden rounded-xl transition-all duration-500 hover:scale-[1.02]"
 				>
-					<h3 class="mb-4 text-xl font-semibold text-white">Exotic Cars</h3>
-					<p class="text-gray-300">From Lamborghinis to Ferraris, drive your dream car today.</p>
+					<img
+						src={heroBg}
+						alt="Luxury Car Experience"
+						class="absolute inset-0 h-full w-full object-cover"
+					/>
+					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
+						<div class="absolute bottom-0 p-8">
+							<h3 class="mb-3 text-2xl font-bold text-white">
+								Exotic Car Collection
+							</h3>
+							<p class="mb-4 text-gray-300">
+								Experience the thrill of driving the world's most prestigious
+								vehicles through the vibrant streets of Miami.
+							</p>
+							<SecondaryButton href="/vehicles" text="Explore Cars" />
+						</div>
+					</div>
 				</div>
 
 				<div
-					class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-6 backdrop-blur-sm transition-all duration-300 hover:from-miami-pink/20 hover:to-miami-blue/20"
+					in:fly={{ x: 50, duration: 1000, delay: 600 }}
+					class="group relative h-[400px] transform overflow-hidden rounded-xl transition-all duration-500 hover:scale-[1.02]"
 				>
-					<h3 class="mb-4 text-xl font-semibold text-white">Luxury Yachts</h3>
-					<p class="text-gray-300">
-						Experience the open waters in style with our premium vessels.
-					</p>
+					<img
+						src={yachtHeroBg}
+						alt="Yacht Experience"
+						class="absolute inset-0 h-full w-full object-cover"
+					/>
+					<div
+						class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-transparent"
+					>
+						<div class="absolute bottom-0 p-8">
+							<h3 class="mb-3 text-2xl font-bold text-white">Yacht Adventures</h3>
+							<p class="mb-4 text-gray-300">
+								Set sail on crystal-clear waters with premium yachts, perfectly
+								suited for adventures wherever your journey leads.
+							</p>
+							<SecondaryButton
+								className="whitespace-nowrap"
+								href="/yachts"
+								text="Discover Yachts"
+							/>
+						</div>
+					</div>
 				</div>
-
 				<div
-					class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-6 backdrop-blur-sm transition-all duration-300 hover:from-miami-pink/20 hover:to-miami-blue/20"
+					in:fly={{ x: 50, duration: 1000, delay: 600 }}
+					class="group relative h-[400px] transform overflow-hidden rounded-xl transition-all duration-500 hover:scale-[1.02]"
 				>
-					<h3 class="mb-4 text-xl font-semibold text-white">Concierge Service</h3>
-					<p class="text-gray-300">
-						24/7 white-glove service to ensure your rental experience is flawless.
-					</p>
+					<img
+						src={conciergeHeroBg}
+						alt="Yacht Experience"
+						class="absolute inset-0 h-full w-full object-cover"
+					/>
+					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
+						<div class="absolute bottom-0 p-8">
+							<h3 class="mb-3 text-2xl font-bold text-white">Concierge Service</h3>
+							<p class="mb-4 text-gray-300">
+								Round-the-clock white-glove support to make your rental experience
+								seamless and exceptional.
+							</p>
+							<SecondaryButton
+								className="whitespace-nowrap"
+								href="/yachts"
+								text="Learn More"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
+
 			<div
 				in:fly={{ y: 50, duration: 1000, delay: 800 }}
-				class="mx-auto max-w-4xl rounded-lg border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl"
+				class="mx-auto max-w-5xl rounded-lg border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl"
 			>
-				<h3 class="mb-6 text-2xl font-bold text-white">Rental Benefits</h3>
+				<h3 class="mb-6 text-center text-2xl font-bold text-white">Rental Benefits</h3>
 				<div class="grid gap-6 text-left md:grid-cols-2">
 					<div class="flex items-center space-x-4">
 						<div class="rounded-full bg-pink-200 p-3">
@@ -143,7 +194,7 @@
 					</div>
 				</div>
 			</div>
-			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-[5rem] flex justify-center">
+			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-8 flex justify-center">
 				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" />
 			</div>
 		</div>

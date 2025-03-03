@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Hero from '$lib/assets/components/Home/Hero.svelte';
 	import Why from '$lib/assets/components/Home/Why.svelte';
-	import Benefits from '$lib/assets/components/Home/Benefits.svelte';
 	import VehicleCarousel from '$lib/assets/components/Home/VehicleCarousel.svelte';
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
+	import Experience from '$lib/assets/components/Home/Experience.svelte';
 	import { faqData } from '$lib/data/faq';
 	import { vehicles } from '$lib/constants/Vehicles';
 	import { yachts } from '$lib/constants/Yachts';
@@ -16,8 +16,8 @@
 	let whyVisible = false;
 	let vehicleCarouselVisible = false;
 	let yachtCarouselVisible = false;
-	let benefitsVisible = false;
 	let accordionVisible = false;
+	let experienceVisible = false;
 
 	function intersectionObserver(node: HTMLElement, callback: (isVisible: boolean) => void) {
 		const observer = new IntersectionObserver(
@@ -107,8 +107,10 @@
 		{/if}
 	</div>
 
-	<div use:intersectionObserver={(isVisible) => (benefitsVisible = isVisible)}>
-		{#if benefitsVisible}
+
+
+	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
+		{#if experienceVisible}
 			<div
 				in:fly={{
 					y: 50,
@@ -116,7 +118,7 @@
 					easing: quintOut
 				}}
 			>
-				<Benefits />
+				<Experience />
 			</div>
 		{/if}
 	</div>
