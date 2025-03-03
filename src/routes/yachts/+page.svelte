@@ -6,11 +6,14 @@
 	import { flip } from 'svelte/animate';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
+	import SortingOptions from '$lib/components/SortingOptions.svelte';
+	import { getUniqueTypes, getMinMaxPrice, getMinMaxGuests, filterItems, isAnyFilterActive as checkFiltersActive } from '$lib/utils/filtering';
 
 	export let data: PageData;
 	const { pickupDate, dropoffDate, location } = data;
 
 	let contentVisible = false;
+	let currentSort = 'default';
 
 	onMount(() => {
 		setTimeout(() => {
@@ -26,40 +29,38 @@
 	let showFiltersModal = false;
 
 	// Get unique tags from yachts array
-	const yachtTypes = [...new Set(yachts.flatMap(yacht => yacht.tags))].sort();
+	const yachtTypes = getUniqueTypes(yachts);
 	let selectedTypes: string[] = [];
 
 	// Get min and max values for the filters
-	const minPriceAvailable = Math.min(...yachts.map((y) => y.price));
-	const maxPriceAvailable = Math.max(...yachts.map((y) => y.price));
-	const minGuestsAvailable = Math.min(...yachts.map((y) => y.specs.guests));
-	const maxGuestsAvailable = Math.max(...yachts.map((y) => y.specs.guests));
+	const { min: minPriceAvailable, max: maxPriceAvailable } = getMinMaxPrice(yachts);
+	const { min: minGuestsAvailable, max: maxGuestsAvailable } = getMinMaxGuests(yachts);
 
 	// Initialize filters to their full ranges
 	maxPrice = maxPriceAvailable;
 	minGuests = minGuestsAvailable;
 	maxGuests = maxGuestsAvailable;
 
-	// Update filteredYachts
-	$: filteredYachts = yachts.filter((yacht) => {
-		const matchesSearch = (yacht.make + ' ' + yacht.model)
-			.toLowerCase()
-			.includes(searchQuery.toLowerCase());
-		const matchesPrice = yacht.price <= maxPrice;
-		const matchesGuests = yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests;
-		const matchesType = selectedTypes.length === 0 || 
-			yacht.tags.some(tag => selectedTypes.includes(tag));
-
-		return matchesSearch && matchesPrice && matchesGuests && matchesType;
-	});
+	// Update filteredYachts to include sorting
+	$: filteredYachts = filterItems(
+		yachts,
+		searchQuery,
+		maxPrice,
+		selectedTypes,
+		currentSort,
+		(yacht) => yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests
+	);
 
 	// Check if any filters are active
-	$: isAnyFilterActive = 
-		searchQuery !== '' || 
-		maxPrice !== maxPriceAvailable || 
-		minGuests !== minGuestsAvailable || 
-		maxGuests !== maxGuestsAvailable || 
-		selectedTypes.length > 0;
+	$: isAnyFilterActive = checkFiltersActive(
+		searchQuery,
+		maxPrice,
+		maxPriceAvailable,
+		selectedTypes,
+		{
+			guestRange: minGuests !== minGuestsAvailable || maxGuests !== maxGuestsAvailable
+		}
+	);
 
 	// Clear filters function
 	function clearFilters() {
@@ -68,6 +69,11 @@
 		minGuests = minGuestsAvailable;
 		maxGuests = maxGuestsAvailable;
 		selectedTypes = [];
+		currentSort = 'default';
+	}
+
+	function handleSort(sortOption: string) {
+		currentSort = sortOption;
 	}
 </script>
 
@@ -108,6 +114,10 @@
 		<h1 class="mb-8 text-center text-4xl font-bold text-white" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 			Available Yachts
 		</h1>
+
+		<div class="mb-6 flex sm:justify-end">
+			<SortingOptions onSort={handleSort} {currentSort} />
+		</div>
 
 		<div class="flex flex-col gap-8 lg:flex-row" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 			<!-- Mobile Search and Filters -->
