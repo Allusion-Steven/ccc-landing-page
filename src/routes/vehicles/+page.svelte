@@ -6,11 +6,14 @@
 	import { flip } from 'svelte/animate';
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
+	import SortingOptions from '$lib/components/SortingOptions.svelte';
+	import { getUniqueTypes, getMinMaxPrice, getMinMaxYear, filterItems, isAnyFilterActive as checkFiltersActive } from '$lib/utils/filtering';
 
 	export let data: PageData;
 	const { pickupDate, dropoffDate, location } = data;
 
 	let contentVisible = false;
+	let currentSort = 'default';
 
 	onMount(() => {
 		setTimeout(() => {
@@ -26,49 +29,51 @@
 	let showFiltersModal = false;
 
 	// Get unique tags from vehicles array
-	const vehicleTypes = [...new Set(vehicles.flatMap(vehicle => vehicle.tags))].sort();
+	const vehicleTypes = getUniqueTypes(vehicles);
 	let selectedTypes: string[] = [];
 
 	// Get min and max values for the filters
-	const minPriceAvailable = Math.min(...vehicles.map((v) => v.price));
-	const maxPriceAvailable = Math.max(...vehicles.map((v) => v.price));
-	const minYearAvailable = Math.min(...vehicles.map((v) => v.year));
-	const maxYearAvailable = Math.max(...vehicles.map((v) => v.year));
+	const { min: minPriceAvailable, max: maxPriceAvailable } = getMinMaxPrice(vehicles);
+	const { min: minYearAvailable, max: maxYearAvailable } = getMinMaxYear(vehicles);
 
 	// Initialize filters to their full ranges
 	maxPrice = maxPriceAvailable;
 	minYear = minYearAvailable;
 	maxYear = maxYearAvailable;
 
-	// Update filteredVehicles to filter by tags instead of type
-	$: filteredVehicles = vehicles.filter((vehicle) => {
-		const matchesSearch = (vehicle.make + ' ' + vehicle.model)
-			.toLowerCase()
-			.includes(searchQuery.toLowerCase());
-		const matchesPrice = vehicle.price <= maxPrice;
-		const matchesYear = vehicle.year >= minYear && vehicle.year <= maxYear;
-		// Check if any of the vehicle's tags match any of the selected types
-		const matchesType = selectedTypes.length === 0 || 
-			vehicle.tags.some(tag => selectedTypes.includes(tag));
+	// Update filteredVehicles to include sorting
+	$: filteredVehicles = filterItems(
+		vehicles,
+		searchQuery,
+		maxPrice,
+		selectedTypes,
+		currentSort,
+		(vehicle) => vehicle.year >= minYear && vehicle.year <= maxYear
+	);
 
-		return matchesSearch && matchesPrice && matchesYear && matchesType;
-	});
+	// Check if any filters are active
+	$: isAnyFilterActive = checkFiltersActive(
+		searchQuery,
+		maxPrice,
+		maxPriceAvailable,
+		selectedTypes,
+		{
+			yearRange: minYear !== minYearAvailable || maxYear !== maxYearAvailable
+		}
+	);
 
-	// Add reactive statement to check if any filters are active
-	$: isAnyFilterActive = 
-		searchQuery !== '' || 
-		maxPrice !== maxPriceAvailable || 
-		minYear !== minYearAvailable || 
-		maxYear !== maxYearAvailable || 
-		selectedTypes.length > 0;
-
-	// Add clear filters function
+	// Clear filters function
 	function clearFilters() {
 		searchQuery = '';
 		maxPrice = maxPriceAvailable;
 		minYear = minYearAvailable;
 		maxYear = maxYearAvailable;
 		selectedTypes = [];
+		currentSort = 'default';
+	}
+
+	function handleSort(sortOption: string) {
+		currentSort = sortOption;
 	}
 </script>
 
@@ -110,6 +115,10 @@
 		<h1 class="mb-8 text-center text-4xl font-bold text-white" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 			Available Vehicles
 		</h1>
+
+		<div class="mb-6 flex sm:justify-end">
+			<SortingOptions onSort={handleSort} {currentSort} />
+		</div>
 
 		<div class="flex flex-col gap-8 lg:flex-row" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 			<!-- Mobile Search and Filters -->
