@@ -8,10 +8,10 @@
 
 <section class="bg-gradient-to-br py-16">
 	<div class="px-4">
-		<div class="mx-auto max-w-5xl">
+		<div class="mx-auto container ">
 			<h2
 				in:fly={{ y: 50, duration: 1000, delay: 200 }}
-				class="mb-8 text-center text-5xl font-bold text-white "
+				class="mb-8 text-center text-4xl font-bold text-white md:text-5xl"
 			>
 				Luxury Vehicle & Yacht Rentals
 			</h2>
@@ -19,9 +19,9 @@
 				in:fly={{ y: 50, duration: 1000, delay: 300 }}
 				class="mb-8 text-center text-lg leading-relaxed text-gray-300"
 			>
-				With Macro Exotics, experience the ultimate in luxury transportation. Whether by
-				land or sea, our premium fleet of vehicles and yachts delivers unparalleled elegance
-				and performance.
+				With Macro Exotics, indulge in the pinnacle of luxury transportation. Whether on
+				land or at sea, our exclusive selection of vehicles and yachts offers unmatched
+				elegance and performance.
 			</p>
 			<div class="mb-8 grid gap-8 md:grid-cols-3">
 				<div
@@ -40,7 +40,7 @@
 							</h3>
 							<p class="mb-4 text-gray-300">
 								Experience the thrill of driving the world's most prestigious
-								vehicles through the vibrant streets of Miami.
+								vehicles through the vibrant streets across the world.
 							</p>
 							<SecondaryButton href="/vehicles" text="Explore Cars" />
 						</div>
@@ -57,7 +57,7 @@
 						class="absolute inset-0 h-full w-full object-cover"
 					/>
 					<div
-						class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-transparent"
+						class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/60 to-transparent"
 					>
 						<div class="absolute bottom-0 p-8">
 							<h3 class="mb-3 text-2xl font-bold text-white">Yacht Adventures</h3>
@@ -84,15 +84,14 @@
 					/>
 					<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
 						<div class="absolute bottom-0 p-8">
-							<h3 class="mb-3 text-2xl font-bold text-white">Concierge Service</h3>
+							<h3 class="mb-3 text-2xl font-bold text-white">Become a host</h3>
 							<p class="mb-4 text-gray-300">
-								Round-the-clock white-glove support to make your rental experience
-								seamless and exceptional.
+								Boost your entrepreneurial journey and start building your own luxury vehicle rental business on Macro Exotics.
 							</p>
 							<SecondaryButton
 								className="whitespace-nowrap"
-								href="/yachts"
-								text="Learn More"
+								href="https://my.macroexotics.com/"
+								text="Become a host"
 							/>
 						</div>
 					</div>
@@ -101,10 +100,10 @@
 
 			<div
 				in:fly={{ y: 50, duration: 1000, delay: 800 }}
-				class="mx-auto max-w-5xl rounded-lg border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl"
+				class="mx-auto rounded-xl border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl"
 			>
 				<h3 class="mb-6 text-center text-2xl font-bold text-white">Rental Benefits</h3>
-				<div class="grid gap-6 text-left md:grid-cols-2">
+				<div class="my-0 mx-auto grid gap-6 text-left md:grid-cols-2">
 					<div class="flex items-center space-x-4">
 						<div class="rounded-full bg-pink-200 p-3">
 							<svg
@@ -127,7 +126,7 @@
 						</div>
 					</div>
 
-					<div class="flex items-center space-x-4">
+					<div class="flex items-center space-x-4 ">
 						<div class="rounded-full bg-pink-200 p-3">
 							<svg
 								class="h-6 w-6 text-[#f890e7]"
@@ -149,7 +148,7 @@
 						</div>
 					</div>
 
-					<div class="flex items-center space-x-4">
+				<div class="flex items-center space-x-4">
 						<div class="rounded-full bg-pink-200 p-3">
 							<svg
 								class="h-6 w-6 text-[#f890e7]"

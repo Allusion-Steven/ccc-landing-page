@@ -48,16 +48,25 @@
 
 <svelte:head>
 	<title>Home | Macro Exotics</title>
-	<meta name="description" content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences." />
+	<meta
+		name="description"
+		content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences."
+	/>
 	<meta name="title" content="Home | Macro Exotics" />
-	<meta name="keywords" content="Luxury Car Rental, Miami, Exotic Cars, Yacht Rentals, Macro Exotics" />
+	<meta
+		name="keywords"
+		content="Luxury Car Rental, Miami, Exotic Cars, Yacht Rentals, Macro Exotics"
+	/>
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="theme-color" content="#1C1C1C" />
 
 	<meta property="og:title" content="Home | Macro Exotics" />
-	<meta property="og:description" content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences." />
+	<meta
+		property="og:description"
+		content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences."
+	/>
 	<meta property="og:url" content="https://macroexotics.com" />
 	<meta property="og:image" content="https://macroexotics.com/favicon.png" />
 	<meta property="og:type" content="website" />
@@ -74,8 +83,8 @@
 		<Hero />
 	</div>
 
-	<div use:intersectionObserver={(isVisible) => (whyVisible = isVisible)}>
-		{#if whyVisible}
+	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
+		{#if experienceVisible}
 			<div
 				in:fly={{
 					x: -100,
@@ -83,7 +92,7 @@
 					easing: quintOut
 				}}
 			>
-				<Why />
+				<Experience />
 			</div>
 		{/if}
 	</div>
@@ -97,20 +106,18 @@
 					easing: quintOut
 				}}
 			>
-				<VehicleCarousel 
-					items={vehicles as Vehicle[]} 
-					title="Featured Vehicles" 
-					viewAllLink="/vehicles" 
+				<VehicleCarousel
+					items={vehicles as Vehicle[]}
+					title="Featured Vehicles"
+					viewAllLink="/vehicles"
 					itemType="vehicle"
 				/>
 			</div>
 		{/if}
 	</div>
 
-
-
-	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
-		{#if experienceVisible}
+	<div use:intersectionObserver={(isVisible) => (whyVisible = isVisible)}>
+		{#if whyVisible}
 			<div
 				in:fly={{
 					y: 50,
@@ -118,7 +125,7 @@
 					easing: quintOut
 				}}
 			>
-				<Experience />
+				<Why />
 			</div>
 		{/if}
 	</div>
@@ -132,10 +139,10 @@
 					easing: quintOut
 				}}
 			>
-				<VehicleCarousel 
-					items={yachts as Yacht[]} 
-					title="Featured Yachts" 
-					viewAllLink="/yachts" 
+				<VehicleCarousel
+					items={yachts as Yacht[]}
+					title="Featured Yachts"
+					viewAllLink="/yachts"
 					itemType="yacht"
 				/>
 			</div>

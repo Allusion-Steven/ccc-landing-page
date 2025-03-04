@@ -10,7 +10,7 @@
 	let activeIndex: number | null = null;
 	let contentVisible = false;
 
-	$: displayFaqs = showAll ? faqs : faqs.slice(0, 6);
+	$: displayFaqs = showAll ? faqs : faqs.slice(0, 10);
 
 	function toggleItem(index: number) {
 		activeIndex = activeIndex === index ? null : index;
@@ -29,7 +29,7 @@
 			{#if isHomePage}
 			<div class="mb-16 text-center">
 				<h2
-					class="mb-4 text-4xl font-bold text-white"
+					class="mb-4 text-4xl font-bold text-white md:text-5xl"
 					in:fly={{ y: 50, duration: 1000, delay: 200 }}
 				>
 					Frequently Asked Questions
