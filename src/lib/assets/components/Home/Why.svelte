@@ -64,11 +64,11 @@
 					class="mt-12 flex w-full flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
 				>
 					<PrimaryButton
-						text="List Your Vehicle"
+						text="Beocme a host"
 						href="https://my.macroexotics.com/"
 						width="w-full"
 					/>
-					<SecondaryButton text="Rent Now" href="/vehicles" width="w-full" />
+					<SecondaryButton text="Book a vehicle" href="/vehicles" width="w-full" />
 				</div>
 			</div>
 

@@ -30,7 +30,7 @@
 
 	onMount(() => {
 		// Preload both images
-		const preloadImages = [heroImage, yachtHeroBg].map(src => {
+		const preloadImages = [heroImage, yachtHeroBg].map((src) => {
 			return new Promise((resolve, reject) => {
 				const img = new Image();
 				img.src = src;
@@ -46,28 +46,32 @@
 					contentVisible = true;
 				}, 300);
 			})
-			.catch(error => {
+			.catch((error) => {
 				console.error('Error preloading images:', error);
 			});
 	});
 </script>
 
-<div class="relative h-[90vh]">
+<div class="relative h-[100vh]">
 	<div class="loading-placeholder" class:hidden={imageLoaded}></div>
 
 	{#if contentVisible}
 		<div class="relative h-full overflow-hidden">
 			{#key currentBgImage}
 				<div
-					class="absolute inset-0"
-					style="background-image: url('{currentBgImage}'); background-size: cover; background-position: center;"
+					class="hero-bg absolute inset-0"
+					style="background-image: url('{currentBgImage}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
 					in:fade={{ duration: 400 }}
 					out:fade={{ duration: 400 }}
 				/>
 			{/key}
-			
-			<div class="absolute inset-0 bg-gradient-to-br from-[#1C1C1C]/85 via-[#1e1e1e]/80 to-[#2d1b2a]/85">
-				<div class="absolute inset-0 bg-gradient-to-t from-[#2d1b2a]/60 to-transparent"></div>
+
+			<div
+				class="absolute inset-0 bg-gradient-to-br from-[#1C1C1C]/85 via-[#1e1e1e]/80 to-[#2d1b2a]/85"
+			>
+				<div
+					class="absolute inset-0 bg-gradient-to-t from-[#2d1b2a]/60 to-transparent"
+				></div>
 				<div class="container mx-auto h-full px-4">
 					<div class="flex h-full items-center justify-center">
 						<div class="mx-auto max-w-4xl text-center">
@@ -121,7 +125,6 @@
 									>
 										<div class="relative flex w-full md:w-2/5">
 											<div class="flex w-full space-x-2">
-
 												<div class="relative w-full">
 													<div
 														class="absolute left-4 top-1/2 z-10 -translate-y-1/2"
@@ -148,7 +151,7 @@
 													</div>
 													<select
 														bind:value={location}
-														class="!h-12 w-full appearance-none !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50 focus:!ring-0 focus:!border-transparent hover:!bg-white/20 transition-all duration-300"
+														class="!h-12 w-full appearance-none !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50 transition-all duration-300 hover:!bg-white/20 focus:!border-transparent focus:!ring-0"
 														style="background-color: rgba(255, 255, 255, 0.1);"
 													>
 														<option
@@ -232,9 +235,13 @@
 </div>
 
 <style>
-	.hero-bg {
-		background-size: cover;
-		background-position: center;
+
+
+	@media screen and (min-width: 1024px) {
+		.hero-bg {
+			background-size: 180% !important;
+			background-position: center;
+		}
 	}
 
 	@media screen and (max-width: 649px) {
