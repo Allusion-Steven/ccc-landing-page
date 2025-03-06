@@ -37,12 +37,10 @@
 
 <div
 	class="container mx-auto min-h-screen px-4 py-8"
-	in:fly={{ y: 50, duration: 1000, delay: 200 }}
->
+	in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 	<div
 		class="grid grid-cols-1 gap-8 lg:grid-cols-2"
-		in:fly={{ y: 50, duration: 1000, delay: 400 }}
-	>
+		in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 		<div in:fly={{ y: 50, duration: 1000, delay: 600 }}>
 			<ImageGallery images={vehicle.images} />
 		</div>
@@ -55,8 +53,8 @@
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-gray-300">{vehicle.year}</span>
-					<span class="text-3xl font-bold text-[#0bd3d3]">${vehicle.pricePerDay}/day</span
-					>
+					<span class="text-3xl font-bold text-[#0bd3d3]"
+						>${vehicle.pricePerDay}/day</span>
 				</div>
 			</div>
 
@@ -86,23 +84,20 @@
 			<div class="flex flex-col space-y-4">
 				<button
 					class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
-					on:click={() => (showDatePicker = !showDatePicker)}
-				>
+					on:click={() => (showDatePicker = !showDatePicker)}>
 					Book Now
 				</button>
 
-				<!-- <BookingForm
+				<BookingForm
 					{showDatePicker}
 					{pickupDate}
 					{dropoffDate}
 					{location}
-					id={vehicle.id}
-				/> -->
+					id={vehicle.id} />
 
 				<a
 					href="/contact"
-					class="w-full rounded-lg border border-[#0bd3d3] px-6 py-3 text-center font-semibold text-[#0bd3d3] transition-all duration-300 hover:bg-[#0bd3d3]/10"
-				>
+					class="w-full rounded-lg border border-[#0bd3d3] px-6 py-3 text-center font-semibold text-[#0bd3d3] transition-all duration-300 hover:bg-[#0bd3d3]/10">
 					Contact Us
 				</a>
 			</div>
