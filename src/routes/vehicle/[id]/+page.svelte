@@ -13,6 +13,11 @@
 		dropoffDate: initialDropoffDate,
 		location: initialLocation
 	} = data;
+	console.log('Page received vehicle data:', vehicle);
+
+	if (!vehicle) {
+		throw new Error('Vehicle data is missing');
+	}
 
 	let showDatePicker = false;
 	let pickupDate: string = initialPickupDate;
@@ -28,22 +33,20 @@
 	}
 </script>
 
-<VehicleSEO
-	make={vehicle.make}
-	model={vehicle.model}
-	year={vehicle.year.toString()}
-	id={vehicle.id}
-	imageUrl={vehicle.images[0].src}
-/>
+<!-- <VehicleSEO make={vehicle.make} model={vehicle.model} imageUrl={vehicle.images[0].src} /> -->
 
-<div class="container mx-auto min-h-screen px-4 py-8" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
-	<div class="grid grid-cols-1 gap-8 lg:grid-cols-2" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
-		<!-- Left side - Image Gallery -->
+<div
+	class="container mx-auto min-h-screen px-4 py-8"
+	in:fly={{ y: 50, duration: 1000, delay: 200 }}
+>
+	<div
+		class="grid grid-cols-1 gap-8 lg:grid-cols-2"
+		in:fly={{ y: 50, duration: 1000, delay: 400 }}
+	>
 		<div in:fly={{ y: 50, duration: 1000, delay: 600 }}>
 			<ImageGallery images={vehicle.images} />
 		</div>
 
-		<!-- Right side - Vehicle Information -->
 		<div class="flex flex-col justify-start space-y-8">
 			<div>
 				<h1 class="text-4xl font-bold text-white">
@@ -52,11 +55,11 @@
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-gray-300">{vehicle.year}</span>
-					<span class="text-3xl font-bold text-[#0bd3d3]">${vehicle.price}/day</span>
+					<span class="text-3xl font-bold text-[#0bd3d3]">${vehicle.pricePerDay}/day</span
+					>
 				</div>
 			</div>
 
-			<!-- Vehicle Features -->
 			<div class="space-y-6">
 				<h2 class="text-2xl font-semibold text-white">Features</h2>
 				<div class="grid grid-cols-2 gap-4">
@@ -74,7 +77,7 @@
 					</div>
 					<div class="rounded-lg bg-white/5 p-4">
 						<span class="text-sm text-gray-400">Daily Rate</span>
-						<p class="text-lg font-medium text-[#0bd3d3]">${vehicle.price}</p>
+						<p class="text-lg font-medium text-[#0bd3d3]">${vehicle.pricePerDay}</p>
 					</div>
 				</div>
 			</div>
@@ -88,13 +91,13 @@
 					Book Now
 				</button>
 
-				<BookingForm
+				<!-- <BookingForm
 					{showDatePicker}
 					{pickupDate}
 					{dropoffDate}
 					{location}
 					id={vehicle.id}
-				/>
+				/> -->
 
 				<a
 					href="/contact"
@@ -112,10 +115,7 @@
 	<!-- TODO: Need to add a description section here from the vehicle object -->
 	<div class="mt-8 rounded-lg bg-white/5 p-6 shadow-md">
 		<p class="mt-2 text-lg text-gray-200">
-			This is temporary text to serve as a "vehicle description" section.....<br /><br />
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-			et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua.  qui officia deserunt mollit anim id est laborum.
+			{vehicle.description}
 		</p>
 	</div>
 </div>
