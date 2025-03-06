@@ -42,6 +42,7 @@
 								Experience the thrill of driving the world's most prestigious
 								vehicles through the vibrant streets across the world.
 							</p>
+							<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
 							<SecondaryButton href="/vehicles" text="Explore Cars" />
 						</div>
 					</div>

@@ -58,9 +58,11 @@ export interface User {
 /**************************** VEHICLE TYPES ***************************** */
 // Vehicle related types
 export interface VehicleImage {
-    src: string;
-    alt: string;
+    url: string;
+    public_id: string;
+    alt?: string;
     isPrimary?: boolean;
+
 }
 
 export type VehicleTag = 'Comfort' | 'Performance' | 'Coupe' | 'Supercar' | 'Convertible' | 'SUV';

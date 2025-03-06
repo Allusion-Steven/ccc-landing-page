@@ -37,8 +37,9 @@
 						</a>
 					</li>
 					<li>
+						<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
 						<a
-							href="/vehicles"
+							href="/ourVehicles"
 							class="text-white/80 transition-colors duration-300 hover:text-miami-light-pink"
 						>
 							Vehicles
