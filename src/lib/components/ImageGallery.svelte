@@ -14,7 +14,7 @@
 			{#key selectedImageIndex}
 				<img
 					transition:fly={{ duration: 300, x: transitionDirection * 300 }}
-					src={`${baseUrl}${images[selectedImageIndex].src}`}
+					src={`${images[selectedImageIndex].url}`}
 					alt={images[selectedImageIndex].alt}
 					class="h-full w-full object-cover"
 				/>
@@ -108,7 +108,7 @@
 			>
 				<img
 					transition:fly={{ duration: 300, x: transitionDirection * 300 }}
-					src={`${baseUrl}${image.src}`}
+					src={`${image.url}`}
 					alt={image.alt}
 					class={`h-full w-full rounded-lg object-cover ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`}
 				/>

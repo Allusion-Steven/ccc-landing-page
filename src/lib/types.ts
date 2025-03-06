@@ -1,7 +1,7 @@
 // User related types
 // TODO: Utilize this data structure for database schema
 
-/**************************** USER TYPES ***************************** */  
+/**************************** USER TYPES ***************************** */
 export interface UserAddress {
     street: string;
     city: string;
@@ -58,6 +58,7 @@ export interface User {
 /**************************** VEHICLE TYPES ***************************** */
 // Vehicle related types
 export interface VehicleImage {
+    isActive: unknown;
     url: string;
     public_id: string;
     alt?: string;
