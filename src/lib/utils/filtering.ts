@@ -1,4 +1,5 @@
 interface BaseItem {
+    specs: any;
     userId: any;
     id: string;
     make: string;
@@ -10,7 +11,7 @@ interface BaseItem {
 
 interface Vehicle extends BaseItem {
     year: number;
-    specs?: { length: string; guests: number; };
+    specs: { length: string; guests: number; };
 }
 
 interface Yacht extends BaseItem {
