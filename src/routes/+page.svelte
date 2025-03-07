@@ -19,6 +19,9 @@
 	let accordionVisible = false;
 	let experienceVisible = false;
 
+	export let data;
+	const { featuredVehicles } = data;
+
 	function intersectionObserver(node: HTMLElement, callback: (isVisible: boolean) => void) {
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -50,13 +53,11 @@
 	<title>Home | Macro Exotics</title>
 	<meta
 		name="description"
-		content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences."
-	/>
+		content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences." />
 	<meta name="title" content="Home | Macro Exotics" />
 	<meta
 		name="keywords"
-		content="Luxury Car Rental, Miami, Exotic Cars, Yacht Rentals, Macro Exotics"
-	/>
+		content="Luxury Car Rental, Miami, Exotic Cars, Yacht Rentals, Macro Exotics" />
 	<meta name="robots" content="index, follow" />
 	<meta name="author" content="Macro Exotics" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -65,8 +66,7 @@
 	<meta property="og:title" content="Home | Macro Exotics" />
 	<meta
 		property="og:description"
-		content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences."
-	/>
+		content="Experience luxury car and yacht rentals in Miami with Macro Exotics. Premium vehicles, exceptional service, and unforgettable experiences." />
 	<meta property="og:url" content="https://macroexotics.com" />
 	<meta property="og:image" content="https://macroexotics.com/favicon.png" />
 	<meta property="og:type" content="website" />
@@ -90,8 +90,7 @@
 					x: -100,
 					duration: 1000,
 					easing: quintOut
-				}}
-			>
+				}}>
 				<Experience />
 			</div>
 		{/if}
@@ -104,14 +103,12 @@
 					x: -100,
 					duration: 3000,
 					easing: quintOut
-				}}
-			>
+				}}>
 				<VehicleCarousel
-					items={vehicles as Vehicle[]}
+					items={featuredVehicles.vehicles}
 					title="Featured Vehicles"
 					viewAllLink="/vehicles"
-					itemType="vehicle"
-				/>
+					itemType="vehicle" />
 			</div>
 		{/if}
 	</div>
@@ -123,8 +120,7 @@
 					y: 50,
 					duration: 800,
 					easing: quintOut
-				}}
-			>
+				}}>
 				<Why />
 			</div>
 		{/if}
@@ -137,14 +133,12 @@
 					x: -100,
 					duration: 3000,
 					easing: quintOut
-				}}
-			>
+				}}>
 				<VehicleCarousel
 					items={yachts as Yacht[]}
 					title="Featured Yachts"
 					viewAllLink="/yachts"
-					itemType="yacht"
-				/>
+					itemType="yacht" />
 			</div>
 		{/if}
 	</div>
@@ -156,8 +150,7 @@
 					y: 100,
 					duration: 2000,
 					easing: quintOut
-				}}
-			>
+				}}>
 				<div class="relative">
 					<Accordion faqs={faqData} isHomePage={true} />
 				</div>
