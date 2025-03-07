@@ -2,7 +2,7 @@ interface BaseItem {
     id: string;
     make: string;
     model: string;
-    price: number;
+    pricePerDay: number;
     tags: string[];
     images: { src: string }[];
 }
@@ -24,8 +24,8 @@ export function getUniqueTypes<T extends BaseItem>(items: T[]): string[] {
 
 export function getMinMaxPrice<T extends BaseItem>(items: T[]): { min: number; max: number } {
     return {
-        min: Math.min(...items.map(item => item.price)),
-        max: Math.max(...items.map(item => item.price))
+        min: Math.min(...items.map(item => item.pricePerDay)),
+        max: Math.max(...items.map(item => item.pricePerDay))
     };
 }
 
@@ -56,11 +56,11 @@ export function filterItems<T extends BaseItem>(
             const matchesSearch = (item.make + ' ' + item.model)
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());
-            const matchesPrice = item.price <= maxPrice;
-            const matchesType = selectedTypes.length === 0 || 
+            const matchesPrice = item.pricePerDay <= maxPrice;
+            const matchesType = selectedTypes.length === 0 ||
                 item.tags.some(tag => selectedTypes.includes(tag));
 
-            return matchesSearch && matchesPrice && matchesType && 
+            return matchesSearch && matchesPrice && matchesType &&
                 (additionalFilter ? additionalFilter(item) : true);
         })
         .sort((a, b) => {
@@ -70,9 +70,9 @@ export function filterItems<T extends BaseItem>(
                 case 'name-desc':
                     return (b.make + b.model).localeCompare(a.make + a.model);
                 case 'price-asc':
-                    return a.price - b.price;
+                    return a.pricePerDay - b.pricePerDay;
                 case 'price-desc':
-                    return b.price - a.price;
+                    return b.pricePerDay - a.pricePerDay;
                 default:
                     return 0;
             }
@@ -86,9 +86,9 @@ export function isAnyFilterActive(
     selectedTypes: string[],
     additionalFilters?: { [key: string]: boolean }
 ): boolean {
-    const baseFiltersActive = 
-        searchQuery !== '' || 
-        maxPrice !== maxPriceAvailable || 
+    const baseFiltersActive =
+        searchQuery !== '' ||
+        maxPrice !== maxPriceAvailable ||
         selectedTypes.length > 0;
 
     if (!additionalFilters) {

@@ -73,7 +73,7 @@ export interface Vehicle {
     make: string;
     model: string;
     year: number;
-    price: number;
+    pricePerDay: number;
     vin?: string;  // Optional VIN number
     images: VehicleImage[];
     tags: VehicleTag[];

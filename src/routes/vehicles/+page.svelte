@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { vehicles } from '$lib/constants/Vehicles';
 	import { baseUrl } from '$lib/index';
 	import { Carousel, Input, Modal, Button } from 'flowbite-svelte';
 	import { fade, scale, fly } from 'svelte/transition';
@@ -16,7 +15,7 @@
 	} from '$lib/utils/filtering';
 
 	export let data: PageData;
-	const { pickupDate, dropoffDate, location } = data;
+	const { pickupDate, dropoffDate, location, vehicles } = data;
 
 	let contentVisible = false;
 	let currentSort = 'default';
@@ -399,7 +398,7 @@
 													Math.random() * (5000 - 3000 + 1)
 												) + 3000}
 												images={vehicle.images.map((img) => ({
-													src: `${baseUrl}${img.src}`,
+													src: `${img.url}`,
 													alt: `${vehicle.make} ${vehicle.model}`
 												}))}
 												style="object-fit: cover; height:20rem; width: 100%; position: fixed; pointer-events: none;" />
