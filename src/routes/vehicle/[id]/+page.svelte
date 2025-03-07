@@ -33,7 +33,13 @@
 	}
 </script>
 
-<!-- <VehicleSEO make={vehicle.make} model={vehicle.model} imageUrl={vehicle.images[0].src} /> -->
+<VehicleSEO
+	make={vehicle.make}
+	model={vehicle.model}
+	year={vehicle.year}
+	id={vehicle.id}
+	imageUrl={vehicle.images[0].url ?? 'https://macroexotics.com/favicon.png'}
+/>
 
 <div
 	class="container mx-auto min-h-screen px-4 py-8"

@@ -18,7 +18,26 @@
 		selectedTier = selectedTier === tierName ? null : tierName;
 	}
 </script>
+<svelte:head>
+	<title>Membership Plans & Pricing | Macro Exotics</title>
+	<meta name="description" content="Choose from our exclusive membership tiers at Macro Exotics. Access premium luxury cars and yachts with VIP benefits, concierge service, and priority bookings." />
+	<meta name="title" content="Membership Plans & Pricing | Macro Exotics" />
+	<meta name="keywords" content="Macro Exotics membership, luxury car subscription, VIP car rental, exclusive car club Miami, luxury vehicle membership, yacht club membership" />
+	<meta name="robots" content="index, follow" />
+	<meta name="author" content="Macro Exotics" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="theme-color" content="#1C1C1C" />
 
+	<meta property="og:title" content="Membership Plans & Pricing | Macro Exotics" />
+	<meta property="og:description" content="Choose from our exclusive membership tiers at Macro Exotics. Access premium luxury cars and yachts with VIP benefits, concierge service, and priority bookings." />
+	<meta property="og:url" content="https://macroexotics.com/pricing" />
+	<meta property="og:image" content="https://macroexotics.com/logo-square-768.png" />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content="Macro Exotics" />
+	<link rel="canonical" href="https://macroexotics.com/pricing" />
+	<link rel="icon" href="https://macroexotics.com/favicon.png" />
+</svelte:head>
 <div
 	class="min-h-screen overflow-x-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20"
 >
