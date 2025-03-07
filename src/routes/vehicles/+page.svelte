@@ -393,20 +393,22 @@
 								class="group relative block h-80 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
 								<div class="aspect-[16/10] w-full overflow-hidden">
 									{#if vehicle.images && vehicle.images.length > 0}
-										{#if vehicle.images.length > 1}
+										{#if vehicle.images.filter((img) => img.isActive).length > 1}
 											<Carousel
 												class="pointer-events-none z-10"
 												duration={Math.floor(
 													Math.random() * (5000 - 3000 + 1)
 												) + 3000}
-												images={vehicle.images.map((img) => ({
-													src: `${img.url}`,
-													alt: `${vehicle.make} ${vehicle.model}`
-												}))}
+												images={vehicle.images
+													.filter((img) => img.isActive)
+													.map((img) => ({
+														src: `${img.url}`,
+														alt: `${vehicle.make} ${vehicle.model}`
+													}))}
 												style="object-fit: cover; height:20rem; width: 100%; position: fixed; pointer-events: none;" />
 										{:else}
 											<img
-												src={`${vehicle.images[0]?.src}`}
+												src={`${vehicle.images.find((img) => img.isActive)?.url}`}
 												alt={`${vehicle.make} ${vehicle.model}`}
 												class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
 										{/if}
@@ -426,7 +428,7 @@
 										<div class="mt-2 flex items-center justify-between">
 											<p class="text-sm text-gray-300">{vehicle.year}</p>
 											<p class="font-semibold text-[#0bd3d3]">
-												${vehicle.price}/day
+												${vehicle.pricePerDay}/day
 											</p>
 										</div>
 									</div>
