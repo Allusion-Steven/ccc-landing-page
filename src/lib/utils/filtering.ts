@@ -5,11 +5,12 @@ interface BaseItem {
     model: string;
     pricePerDay: number;
     tags: string[];
-    images: { src: string }[];
+    images: { url: string; alt: string; }[];
 }
 
 interface Vehicle extends BaseItem {
     year: number;
+    specs?: { length: string; guests: number; };
 }
 
 interface Yacht extends BaseItem {
