@@ -383,11 +383,13 @@
 							<a
 								in:scale={{ duration: 300, start: 0.95 }}
 								out:fade={{ duration: 200 }}
-								href={`/vehicle/${vehicle.id}?${new URLSearchParams({
-									...(pickupDate ? { pickupDate } : {}),
-									...(dropoffDate ? { dropoffDate } : {}),
-									...(location ? { location } : {})
-								}).toString()}`}
+								href={`/vehicle/${vehicle.id}?userId=${vehicle.userId}&${new URLSearchParams(
+									{
+										...(pickupDate ? { pickupDate } : {}),
+										...(dropoffDate ? { dropoffDate } : {}),
+										...(location ? { location } : {})
+									}
+								).toString()}`}
 								class="group relative block h-80 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
 								<div class="aspect-[16/10] w-full overflow-hidden">
 									{#if vehicle.images && vehicle.images.length > 0}
