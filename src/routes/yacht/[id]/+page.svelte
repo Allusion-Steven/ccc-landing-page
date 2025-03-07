@@ -34,8 +34,7 @@
 	year={yacht.year.toString()}
 	id={yacht.id}
 	imageUrl={yacht.images[0].src}
-	vehicleType="yacht"
-/>
+	vehicleType="yacht" />
 
 <div class="container mx-auto px-4 py-8">
 	<div class="grid gap-8 lg:grid-cols-2">
@@ -53,7 +52,7 @@
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-gray-300">{yacht.year}</span>
-					<span class="text-3xl font-bold text-[#0bd3d3]">${yacht.price}/day</span>
+					<span class="text-3xl font-bold text-[#0bd3d3]">${yacht.pricePerDay}/day</span>
 				</div>
 			</div>
 
@@ -83,7 +82,7 @@
 					</div>
 					<div class="rounded-lg bg-white/5 p-4">
 						<span class="text-sm text-gray-400">Daily Rate</span>
-						<p class="text-lg font-medium text-[#0bd3d3]">${yacht.price}</p>
+						<p class="text-lg font-medium text-[#0bd3d3]">${yacht.pricePerDay}</p>
 					</div>
 				</div>
 			</div>
@@ -92,8 +91,7 @@
 			<div class="flex flex-col space-y-4">
 				<button
 					class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
-					on:click={() => (showDatePicker = !showDatePicker)}
-				>
+					on:click={() => (showDatePicker = !showDatePicker)}>
 					Book Now
 				</button>
 
@@ -103,8 +101,7 @@
 					{dropoffDate}
 					{location}
 					id={yacht.id}
-					vehicleType="yacht"
-				/>
+					vehicleType="yacht" />
 			</div>
 		</div>
 	</div>
@@ -113,9 +110,12 @@
 	<div class="mt-8 rounded-lg bg-white/5 p-6 shadow-md">
 		<h2 class="mb-4 text-2xl font-semibold text-white">About This Yacht</h2>
 		<p class="mt-2 text-lg text-gray-200">
-			Experience luxury on the water with the {yacht.year} {yacht.make} {yacht.model}. This stunning {yacht.specs.length} yacht 
-			offers exceptional comfort and style, accommodating up to {yacht.specs.guests} guests in {yacht.specs.cabins} luxurious cabins. 
-			With a professional crew of {yacht.specs.crew}, your journey will be nothing short of extraordinary.
+			Experience luxury on the water with the {yacht.year}
+			{yacht.make}
+			{yacht.model}. This stunning {yacht.specs.length} yacht offers exceptional comfort and style,
+			accommodating up to {yacht.specs.guests} guests in {yacht.specs.cabins} luxurious cabins.
+			With a professional crew of {yacht.specs.crew}, your journey will be nothing short of
+			extraordinary.
 		</p>
 	</div>
-</div> 
+</div>

@@ -4,7 +4,7 @@ export const yachts = [
 		make: 'SUNSEEKER',
 		model: 'MANHATTAN 68',
 		year: 2024,
-		price: 5000,
+		pricePerDay: 5000,
 		images: [
 			{ url: '/images/sunseeker-78.jpg', alt: 'Sunseeker Manhattan 68' },
 			{ url: '/images/sunseeker-78.jpg', alt: 'Sunseeker Manhattan 68 Interior' },
@@ -25,7 +25,7 @@ export const yachts = [
 		make: 'AZIMUT',
 		model: '77S',
 		year: 2023,
-		price: 6500,
+		pricePerDay: 6500,
 		images: [
 			{ url: '/images/azimut-77s.jpg', alt: 'Azimut 77S' }
 		],
@@ -44,7 +44,7 @@ export const yachts = [
 		make: 'FERRETTI',
 		model: 'YACHTS 920',
 		year: 2024,
-		price: 8000,
+		pricePerDay: 8000,
 		images: [
 			{ url: '/images/ferretti-yachts-920.jpg', alt: 'Ferretti 920' }
 		],
@@ -63,7 +63,7 @@ export const yachts = [
 		make: 'PRINCESS',
 		model: 'Y85',
 		year: 2024,
-		price: 7000,
+		pricePerDay: 7000,
 		images: [
 			{ url: '/images/Princess_Yachts_Y85_15.jpg', alt: 'Princess Y85' }
 		],
@@ -82,7 +82,7 @@ export const yachts = [
 		make: 'PERSHING',
 		model: '9X',
 		year: 2023,
-		price: 7500,
+		pricePerDay: 7500,
 		images: [
 			{ url: '/images/pershing-9x.jpg', alt: 'Pershing 9X' }
 		],
