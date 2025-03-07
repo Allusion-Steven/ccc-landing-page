@@ -1,4 +1,5 @@
 interface BaseItem {
+    userId: any;
     id: string;
     make: string;
     model: string;
