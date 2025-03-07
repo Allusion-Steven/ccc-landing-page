@@ -4,11 +4,12 @@ interface BaseItem {
     model: string;
     price: number;
     tags: string[];
-    images: { src: string }[];
+    images: { url: string; alt: string; }[];
 }
 
 interface Vehicle extends BaseItem {
     year: number;
+    specs?: { length: string; guests: number; };
 }
 
 interface Yacht extends BaseItem {

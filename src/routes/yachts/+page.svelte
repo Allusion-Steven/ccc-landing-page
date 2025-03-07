@@ -368,14 +368,14 @@
 												class="pointer-events-none z-10"
 												duration={Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000}
 												images={yacht.images.map((img) => ({
-													src: `${baseUrl}${img.src}`,
+													src: `${img.url}`,
 													alt: `${yacht.make} ${yacht.model}`
 												}))}
 												style="object-fit: cover; height:20rem; width: 100%; position: fixed; pointer-events: none;"
 											/>
 										{:else}
 											<img
-												src={`${baseUrl}${yacht.images[0]?.src}`}
+												src={`${yacht.images[0]?.url}`}
 												alt={`${yacht.make} ${yacht.model}`}
 												class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
 											/>
