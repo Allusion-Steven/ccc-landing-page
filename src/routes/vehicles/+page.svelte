@@ -399,18 +399,17 @@
 												duration={Math.floor(
 													Math.random() * (5000 - 3000 + 1)
 												) + 3000}
-
 												images={vehicle.images
 													.filter((img) => img.isActive)
 													.map((img) => ({
-														src: `${img.url}`,
+														src: img.urls?.medium ?? img.url,
 														alt: `${vehicle.make} ${vehicle.model}`
 													}))}
 												style="object-fit: cover; height:20rem; width: 100%; position: fixed; pointer-events: none;" />
 										{:else}
 											<img
-												src={`${vehicle.images.find((img) => img.isActive)?.url}`}
-
+												src={vehicle.images[0].urls?.medium ??
+													vehicle.images[0].url}
 												alt={`${vehicle.make} ${vehicle.model}`}
 												class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
 										{/if}
