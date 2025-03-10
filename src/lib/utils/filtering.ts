@@ -6,7 +6,7 @@ interface BaseItem {
     model: string;
     pricePerDay: number;
     tags: string[];
-    images: { url: string; alt: string; }[];
+    images: { url: string; alt: string; urls: any; isActive: boolean }[];
 }
 
 interface Vehicle extends BaseItem {

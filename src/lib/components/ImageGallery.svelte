@@ -2,7 +2,13 @@
 	import { baseUrl } from '$lib/index';
 	import { fly } from 'svelte/transition';
 
-	export let images: { src: string; alt: string }[];
+	export let images: {
+		url: string;
+		urls: any;
+		src: string;
+		alt: string;
+		isActive: boolean;
+	}[];
 
 	let selectedImageIndex = 0;
 	let transitionDirection = 1; // 1 for right-to-left, -1 for left-to-right
@@ -14,10 +20,9 @@
 			{#key selectedImageIndex}
 				<img
 					transition:fly={{ duration: 300, x: transitionDirection * 300 }}
-					src={`${images[selectedImageIndex].url}`}
+					src={images[selectedImageIndex].urls?.large ?? images[selectedImageIndex].url}
 					alt={images[selectedImageIndex].alt}
-					class="h-full w-full object-cover"
-				/>
+					class="h-full w-full object-cover" />
 			{/key}
 			<!-- Left Arrow -->
 			{#if images && images.length > 1}
@@ -28,21 +33,18 @@
 						selectedImageIndex =
 							selectedImageIndex === 0 ? images.length - 1 : selectedImageIndex - 1;
 					}}
-					aria-label="Previous image"
-				>
+					aria-label="Previous image">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-6 w-6"
 						fill="none"
 						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
+						stroke="currentColor">
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
-							d="M15 19l-7-7 7-7"
-						/>
+							d="M15 19l-7-7 7-7" />
 					</svg>
 				</button>
 				<!-- Right Arrow -->
@@ -53,21 +55,18 @@
 						selectedImageIndex =
 							selectedImageIndex === images.length - 1 ? 0 : selectedImageIndex + 1;
 					}}
-					aria-label="Next image"
-				>
+					aria-label="Next image">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-6 w-6"
 						fill="none"
 						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
+						stroke="currentColor">
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
-							d="M9 5l7 7-7 7"
-						/>
+							d="M9 5l7 7-7 7" />
 					</svg>
 				</button>
 			{/if}
@@ -84,8 +83,7 @@
 								transitionDirection = index > selectedImageIndex ? -1 : 1;
 								selectedImageIndex = index;
 							}}
-							aria-label={`View image ${index + 1}`}
-						></button>
+							aria-label={`View image ${index + 1}`}></button>
 					{/each}
 				</div>
 			{/if}
@@ -104,14 +102,12 @@
 					transitionDirection = index > selectedImageIndex ? -1 : 1;
 					selectedImageIndex = index;
 				}}
-				aria-label={`View image ${index + 1}`}
-			>
+				aria-label={`View image ${index + 1}`}>
 				<img
 					transition:fly={{ duration: 300, x: transitionDirection * 300 }}
-					src={`${image.url}`}
+					src={image.urls ? `${image.urls.small}` : `${image.url}`}
 					alt={image.alt}
-					class={`h-full w-full rounded-lg object-cover ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`}
-				/>
+					class={`h-full w-full rounded-lg object-cover ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`} />
 			</button>
 		{/each}
 	</div>

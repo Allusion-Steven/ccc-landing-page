@@ -60,6 +60,7 @@ export interface User {
 export interface VehicleImage {
     isActive: unknown;
     url: string;
+    urls: any;
     public_id: string;
     alt?: string;
     isPrimary?: boolean;

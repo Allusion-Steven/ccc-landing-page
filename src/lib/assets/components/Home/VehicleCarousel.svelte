@@ -55,7 +55,7 @@
 											images={item.images.map((img) => {
 												console.log('Processing image:', img);
 												return {
-													src: img.url,
+													src: img.urls?.medium ?? img.url,
 													alt: img.alt || `${item.make} ${item.model}`
 												};
 											})}
