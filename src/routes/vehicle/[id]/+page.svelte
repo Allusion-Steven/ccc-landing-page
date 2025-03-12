@@ -42,7 +42,13 @@
 		class="grid grid-cols-1 gap-8 lg:grid-cols-2"
 		in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 		<div in:fly={{ y: 50, duration: 1000, delay: 600 }}>
-			<ImageGallery images={vehicle.images.filter((img) => img.isActive)} />
+			<ImageGallery
+				images={vehicle.images
+					.filter((img) => img.isActive)
+					.map((img) => ({
+						...img,
+						url: img.urls?.medium ?? img.url
+					}))} />
 		</div>
 
 		<div class="flex flex-col justify-start space-y-8">

@@ -55,12 +55,19 @@ export interface User {
 }
 
 /**************************** END OF USER TYPES ***************************** */
+
 /**************************** VEHICLE TYPES ***************************** */
+export type VehicleImageUrls = {
+    thumbnail: string;
+    small: string;
+    medium: string;
+    large: string;
+}
 // Vehicle related types
-export interface VehicleImage {
+export type VehicleImage = {
     isActive: unknown;
     url: string;
-    urls: any;
+    urls: VehicleImageUrls;
     public_id: string;
     alt?: string;
     isPrimary?: boolean;
@@ -117,7 +124,7 @@ export interface Yacht {
     make: string;
     model: string;
     year: number;
-    price: number;
+    pricePerDay: number;
     images: VehicleImage[];
     tags: YachtTag[];
     userId: string;
