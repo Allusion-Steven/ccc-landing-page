@@ -6,7 +6,7 @@
 	import heroBg from '$lib/assets/images/rr-culinan-interior.webp';
 </script>
 
-<section class="bg-gradient-to-br py-16">
+<section class="bg-gradient-to-br py-16 overflow-hidden">
 	<div class="px-4">
 		<div class="mx-auto container ">
 			<h2

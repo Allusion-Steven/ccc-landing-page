@@ -58,12 +58,11 @@ export interface User {
 /**************************** VEHICLE TYPES ***************************** */
 // Vehicle related types
 export interface VehicleImage {
-    isActive: unknown;
+    isActive?: boolean;
     url: string;
     public_id: string;
     alt?: string;
     isPrimary?: boolean;
-
 }
 
 export type VehicleTag = 'Comfort' | 'Performance' | 'Coupe' | 'Supercar' | 'Convertible' | 'SUV';
@@ -116,7 +115,7 @@ export interface Yacht {
     make: string;
     model: string;
     year: number;
-    price: number;
+    pricePerDay: number;
     images: VehicleImage[];
     tags: YachtTag[];
     userId: string;

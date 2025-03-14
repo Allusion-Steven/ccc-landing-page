@@ -1,10 +1,9 @@
-import { vehicles } from '$lib/constants/Vehicles';
 import { error } from '@sveltejs/kit';
 import { apiUrl } from '$lib/index';
 
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
-export const load: PageLoad = async ({ params, url, fetch }) => {
+export const load: PageServerLoad = async ({ params, url, fetch }) => {
     const userId = url.searchParams.get('userId');
     if (!userId) {
         throw error(404, 'User not found');

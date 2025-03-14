@@ -5,7 +5,6 @@
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
 	import Experience from '$lib/assets/components/Home/Experience.svelte';
 	import { faqData } from '$lib/data/faq';
-	import { vehicles } from '$lib/constants/Vehicles';
 	import { yachts } from '$lib/constants/Yachts';
 	import type { Vehicle, Yacht } from '$lib/types';
 	import { onMount } from 'svelte';
