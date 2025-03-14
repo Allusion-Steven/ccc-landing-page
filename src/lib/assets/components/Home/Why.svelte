@@ -64,7 +64,7 @@
 					class="mt-12 flex w-full flex-col justify-center space-y-4 sm:flex-row sm:space-x-6 sm:space-y-0"
 				>
 					<PrimaryButton
-						text="Beocme a host"
+						text="Become a host"
 						href="https://my.macroexotics.com/"
 						width="w-full"
 					/>
