@@ -32,7 +32,7 @@
 	make={yacht.make}
 	model={yacht.model}
 	year={yacht.year.toString()}
-	id={yacht.id}
+	canonical={`${yacht.id}?userId=${yacht.userId}`}
 	imageUrl={yacht.images[0].url ?? 'https://macroexotics.com/favicon.png'}
 	vehicleType="yacht" />
 
