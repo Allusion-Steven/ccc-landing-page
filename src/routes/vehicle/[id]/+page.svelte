@@ -39,6 +39,7 @@
 	model={vehicle.model}
 	year={vehicle.year}
 	id={vehicle.id}
+	canonical={`${vehicle.id}?userId=${vehicle.userId}`}
 	imageUrl={vehicle.images[0].url ?? 'https://macroexotics.com/favicon.png'}
 />
 
