@@ -33,7 +33,7 @@
 	model={yacht.model}
 	year={yacht.year.toString()}
 	id={yacht.id}
-	imageUrl={yacht.images[0].src}
+	imageUrl={yacht.images[0].url ?? 'https://macroexotics.com/favicon.png'}
 	vehicleType="yacht" />
 
 <div class="container mx-auto px-4 py-8">

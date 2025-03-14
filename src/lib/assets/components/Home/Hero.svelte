@@ -2,16 +2,8 @@
 	// import horizontalLogoLight from '$lib/assets/logos/horizontal-logo-light.svg';
 	import heroImage from '$lib/assets/images/lambo-performante.jpg';
 	import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
-	import ContactButton from '../ContactButton.svelte';
 	import { onMount } from 'svelte';
-	import { Search, Input, Button } from 'flowbite-svelte';
-	import { Datepicker, P } from 'flowbite-svelte';
-	import PrimaryButton from '../buttons/PrimaryButton.svelte';
-	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 	import { fade, fly, scale } from 'svelte/transition';
-
-	let selectedDate = null;
-	let heroDiv;
 	let imageLoaded = false;
 	let location = 'Miami, FL';
 	let pickupDate = new Date().toISOString().split('T')[0];

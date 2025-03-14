@@ -1,5 +1,4 @@
 <script>
-	import ContactButton from '$lib/assets/components/ContactButton.svelte';
 	import { fly } from 'svelte/transition';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 </script>

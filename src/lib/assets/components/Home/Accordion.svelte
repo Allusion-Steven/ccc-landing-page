@@ -3,6 +3,7 @@
 	import type { FAQItem } from '$lib/data/faq';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 	import { onMount } from 'svelte';
+	import { quintOut } from 'svelte/easing';
 
 	export let faqs: FAQItem[];
 	export let showAll = false;
@@ -11,6 +12,8 @@
 	let contentVisible = false;
 
 	$: displayFaqs = showAll ? faqs : faqs.slice(0, 10);
+	$: leftColumnFaqs = displayFaqs.filter((_, i) => i % 2 === 0);
+	$: rightColumnFaqs = displayFaqs.filter((_, i) => i % 2 === 1);
 
 	function toggleItem(index: number) {
 		activeIndex = activeIndex === index ? null : index;
@@ -23,8 +26,8 @@
 	});
 </script>
 
-<section class="bg-[#1e1e1e]">
-	<div class="mx-auto w-full max-w-4xl px-4 py-20">
+<section class="">
+	<div class="mx-auto w-full max-w-7xl px-4 py-20">
 		{#if contentVisible}
 			{#if isHomePage}
 			<div class="mb-16 text-center">
@@ -34,53 +37,104 @@
 				>
 					Frequently Asked Questions
 				</h2>
-				<p class="text-lg text-gray-300" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+				<p class="text-lg text-gray-300" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 					Find answers to common questions about our luxury car rental service
 				</p>
 			</div>
 			{/if}
 
-			<div class="space-y-4">
-				{#each displayFaqs as faq, index}
-                <!-- TODO: Make each accordion slide in one by one-->
-					<div
-						class="rounded-xl border border-white/5 bg-[#2d1b2a]/40 backdrop-blur-sm transition-all duration-300 hover:border-white/10"
-					>
-						<button
-							class="group flex w-full items-center justify-between px-8 py-6 text-left"
-							on:click={() => toggleItem(index)}
-							aria-expanded={activeIndex === index}
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+				<!-- Left Column -->
+				<div class="space-y-4">
+					{#each leftColumnFaqs as faq, index}
+						<div
+							in:fly={{ y: 50, duration: 800, delay: 200 + index * 100, easing: quintOut }}
+							class="rounded-xl border border-white/5 bg-[#2d1b2a]/40 backdrop-blur-sm transition-all duration-300 hover:border-white/10"
 						>
-							<span
-								class="text-lg font-medium text-white/90 transition-colors duration-200 group-hover:text-miami-light-pink"
-								>{faq.title}</span
+							<button
+								class="group flex w-full items-center justify-between px-8 py-6 text-left"
+								on:click={() => toggleItem(index * 2)}
+								aria-expanded={activeIndex === index * 2}
 							>
-							<svg
-								class="h-6 w-6 transform text-white/50 transition-transform duration-300 group-hover:text-miami-light-pink {activeIndex ===
-								index
-									? 'rotate-180'
-									: ''}"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M19 9l-7 7-7-7"
-								/>
-							</svg>
-						</button>
+								<span
+									class="text-lg font-medium text-white/90 transition-colors duration-200 group-hover:text-miami-light-pink"
+									>{faq.title}</span
+								>
+								<svg
+									class="h-6 w-6 transform text-white/50 transition-transform duration-300 group-hover:text-miami-light-pink {activeIndex === index * 2
+										? 'rotate-180'
+										: ''}"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M19 9l-7 7-7-7"
+									/>
+								</svg>
+							</button>
 
-						{#if activeIndex === index}
-							<div class="px-8 pb-6" transition:slide={{ duration: 300 }}>
-								<div class="mb-6 h-px w-full bg-white/5"></div>
-								<p class="leading-relaxed text-gray-300">{faq.answer}</p>
-							</div>
-						{/if}
-					</div>
-				{/each}
+							{#if activeIndex === index * 2}
+								<div 
+									class="px-8 pb-6" 
+									transition:slide={{ duration: 300, easing: quintOut }}
+								>
+									<div class="mb-6 h-px w-full bg-white/5"></div>
+									<p class="leading-relaxed text-gray-300">{faq.answer}</p>
+								</div>
+							{/if}
+						</div>
+					{/each}
+				</div>
+
+				<!-- Right Column -->
+				<div class="space-y-4">
+					{#each rightColumnFaqs as faq, index}
+						<div
+							in:fly={{ y: 50, duration: 800, delay: 200 + index * 100, easing: quintOut }}
+							class="rounded-xl border border-white/5 bg-[#2d1b2a]/40 backdrop-blur-sm transition-all duration-300 hover:border-white/10"
+						>
+							<button
+								class="group flex w-full items-center justify-between px-8 py-6 text-left"
+								on:click={() => toggleItem(index * 2 + 1)}
+								aria-expanded={activeIndex === index * 2 + 1}
+							>
+								<span
+									class="text-lg font-medium text-white/90 transition-colors duration-200 group-hover:text-miami-light-pink"
+									>{faq.title}</span
+								>
+								<svg
+									class="h-6 w-6 transform text-white/50 transition-transform duration-300 group-hover:text-miami-light-pink {activeIndex === index * 2 + 1
+										? 'rotate-180'
+										: ''}"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M19 9l-7 7-7-7"
+									/>
+								</svg>
+							</button>
+
+							{#if activeIndex === index * 2 + 1}
+								<div 
+									class="px-8 pb-6" 
+									transition:slide={{ duration: 300, easing: quintOut }}
+								>
+									<div class="mb-6 h-px w-full bg-white/5"></div>
+									<p class="leading-relaxed text-gray-300">{faq.answer}</p>
+								</div>
+							{/if}
+						</div>
+					{/each}
+				</div>
 			</div>
 
 			{#if !showAll}

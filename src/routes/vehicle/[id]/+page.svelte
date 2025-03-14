@@ -5,6 +5,7 @@
 	import ImageGallery from '$lib/components/ImageGallery.svelte';
 	import BookingForm from '$lib/components/BookingForm.svelte';
 	import VehicleSEO from '$lib/components/VehicleSEO.svelte';
+	import type { VehicleImage } from '$lib/types';
 
 	export let data: PageData;
 	const {
@@ -33,19 +34,25 @@
 	}
 </script>
 
-<!-- <VehicleSEO make={vehicle.make} model={vehicle.model} imageUrl={vehicle.images[0].src} /> -->
+<VehicleSEO
+	make={vehicle.make}
+	model={vehicle.model}
+	year={vehicle.year}
+	id={vehicle.id}
+	imageUrl={vehicle.images[0].url ?? 'https://macroexotics.com/favicon.png'}
+/>
 
 <div
 	class="container mx-auto min-h-screen px-4 py-8"
 	in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 	<div
-		class="grid grid-cols-1 gap-8 lg:grid-cols-2"
+		class="grid grid-cols-1 gap-8  lg:grid-cols-10"
 		in:fly={{ y: 50, duration: 1000, delay: 400 }}>
-		<div in:fly={{ y: 50, duration: 1000, delay: 600 }}>
-			<ImageGallery images={vehicle.images.filter((img) => img.isActive)} />
+		<div class="md:col-span-1 lg:col-span-6" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
+			<ImageGallery images={vehicle.images.filter((img: VehicleImage) => img.isActive)} />
 		</div>
 
-		<div class="flex flex-col justify-start space-y-8">
+		<div class="md:col-span-1 lg:col-span-4 flex flex-col justify-start space-y-8">
 			<div>
 				<h1 class="text-4xl font-bold text-white">
 					{vehicle.make}

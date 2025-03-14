@@ -47,6 +47,7 @@
                     <option value="Los Angeles, CA" class="bg-gray-800" disabled>Los Angeles, CA</option>
                     <option value="New York, NY" class="bg-gray-800" disabled>New York, NY</option>
                 </select>
+                <p class="text-sm text-gray-400">You will receive exact pickup location when booking is confirmed</p>
             </div>
 
             <div>
