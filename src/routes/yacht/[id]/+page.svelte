@@ -52,7 +52,7 @@
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-gray-300">{yacht.year}</span>
-					<span class="text-3xl font-bold text-[#0bd3d3]">${yacht.pricePerDay}/day</span>
+					<span class="text-3xl font-bold text-miami-pink">${yacht.pricePerDay}/day</span>
 				</div>
 			</div>
 
@@ -82,7 +82,7 @@
 					</div>
 					<div class="rounded-lg bg-white/5 p-4">
 						<span class="text-sm text-gray-400">Daily Rate</span>
-						<p class="text-lg font-medium text-[#0bd3d3]">${yacht.pricePerDay}</p>
+						<p class="text-lg font-medium text-miami-pink">${yacht.pricePerDay}</p>
 					</div>
 				</div>
 			</div>
@@ -90,7 +90,7 @@
 			<!-- Action Buttons -->
 			<div class="flex flex-col space-y-4">
 				<button
-					class="w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80"
+					class="w-full rounded-lg bg-miami-pink px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-miami-pink/80"
 					on:click={() => (showDatePicker = !showDatePicker)}>
 					Book Now
 				</button>

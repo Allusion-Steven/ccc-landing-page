@@ -3,6 +3,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { contactFormStore } from '$lib/stores/contactFormStore';
 	import heroBg from '$lib/assets/images/contact-form-bg-img.png';
+	import { theme } from '$lib/stores/theme';
 
 	let email = '';
 	let phone = '';
@@ -106,10 +107,10 @@
 	}
 </script>
 
-<div class="min-h-screen bg-gradient-to-br py-16">
+<div class="min-h-screen {$theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' : 'bg-gradient-to-br from-white via-gray-50 to-white'} py-16">
 	<div class="container mx-auto sm:px-4" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 		<div
-			class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-2xl backdrop-blur-sm"
+			class="rounded-lg {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-miami-pink/5 to-miami-blue/5'} p-8 shadow-2xl backdrop-blur-sm"
 			in:fly={{ y: 50, duration: 1000, delay: 400 }}
 		>
 			<div class="space-y-8">
@@ -168,26 +169,26 @@
 				</div>
 
 				<div class="mx-auto max-w-3xl">
-					<div class="overflow-hidden rounded-xl bg-[#1C1C1C]/90 shadow-xl backdrop-blur-sm border border-white/10">
+					<div class="overflow-hidden rounded-xl {$theme === 'dark' ? 'bg-[#1C1C1C]/90 border-white/10' : 'bg-white border-primary-accent/10'} shadow-xl backdrop-blur-sm border">
 						<div class="p-8">
-							<h2 class="mb-8 text-center text-3xl font-bold text-white">Send us a message</h2>
+							<h2 class="mb-8 text-center text-3xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Send us a message</h2>
 
 							<form class="space-y-6">
 								<div class="grid gap-6 md:grid-cols-2">
 									<label class="block">
-										<span class="mb-2 block font-medium text-white/90">First Name</span>
+										<span class="mb-2 block font-medium {$theme === 'dark' ? 'text-white/90' : 'text-primary-accent'}">First Name</span>
 										<input
 											required
-											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg {$theme === 'dark' ? 'border-white/10 bg-white/10 text-white placeholder-white/50' : 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="text"
 											placeholder="Jane"
 											bind:value={$contactFormStore.firstName}
 										/>
 									</label>
 									<label class="block">
-										<span class="mb-2 block font-medium text-white/90">Last Name</span>
+										<span class="mb-2 block font-medium {$theme === 'dark' ? 'text-white/90' : 'text-primary-accent'}">Last Name</span>
 										<input
-											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg {$theme === 'dark' ? 'border-white/10 bg-white/10 text-white placeholder-white/50' : 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="text"
 											placeholder="Doe"
 											bind:value={$contactFormStore.lastName}
@@ -196,19 +197,19 @@
 								</div>
 								<div class="grid gap-6 md:grid-cols-2">
 									<label class="block">
-										<span class="mb-2 block font-medium text-white/90">Phone Number</span>
+										<span class="mb-2 block font-medium {$theme === 'dark' ? 'text-white/90' : 'text-primary-accent'}">Phone Number</span>
 										<input
-											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg {$theme === 'dark' ? 'border-white/10 bg-white/10 text-white placeholder-white/50' : 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="tel"
 											placeholder="800-867-5309"
 											bind:value={$contactFormStore.phone}
 										/>
 									</label>
 									<label class="block">
-										<span class="mb-2 block font-medium text-white/90">Email Address</span>
+										<span class="mb-2 block font-medium {$theme === 'dark' ? 'text-white/90' : 'text-primary-accent'}">Email Address</span>
 										<input
 											required
-											class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+											class="w-full rounded-lg {$theme === 'dark' ? 'border-white/10 bg-white/10 text-white placeholder-white/50' : 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 											type="email"
 											placeholder="john@example.com"
 											autocomplete="email"
@@ -217,10 +218,10 @@
 									</label>
 								</div>
 								<label class="block">
-									<span class="mb-2 block font-medium text-white/90">Message</span>
+									<span class="mb-2 block font-medium {$theme === 'dark' ? 'text-white/90' : 'text-primary-accent'}">Message</span>
 									<textarea
 										required
-										class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-3 text-white placeholder-white/50 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
+										class="w-full rounded-lg {$theme === 'dark' ? 'border-white/10 bg-white/10 text-white placeholder-white/50' : 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
 										rows="6"
 										placeholder="How can we help you?"
 										bind:value={$contactFormStore.message}
@@ -271,8 +272,8 @@
 							</form>
 						</div>
 
-						<div class="bg-[#1C1C1C] border-t border-white/10 px-8 py-6 text-center">
-							<p class="text-sm text-white/70">
+						<div class="{$theme === 'dark' ? 'bg-[#1C1C1C] border-white/10' : 'bg-primary-accent/5 border-primary-accent/10'} border-t px-8 py-6 text-center">
+							<p class="text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-muted'}">
 								By clicking "Send Message", I understand that I will receive email, text or phone
 								updates regarding my inquiries, subscription, and/or related services. I have read
 								and agree to the

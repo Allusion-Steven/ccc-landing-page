@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { baseUrl } from '$lib/index';
 	import { fly } from 'svelte/transition';
+	import { theme } from '$lib/stores/theme';
 
-	export let images: { src: string; alt: string }[];
+	export let images: { url: string; alt: string }[];
 
 	let selectedImageIndex = 0;
 	let transitionDirection = 1; // 1 for right-to-left, -1 for left-to-right
 </script>
 
 <div class="container">
-	<div class="relative h-[400px] overflow-hidden rounded-xl bg-white/5 sm:h-[500px]">
+	<div class="relative h-[400px] overflow-hidden rounded-xl {$theme === 'dark' ? 'bg-white/5' : 'bg-primary-accent/5'} sm:h-[500px]">
 		{#if images && images.length > 0}
 			{#key selectedImageIndex}
 				<img
@@ -22,7 +23,7 @@
 			<!-- Left Arrow -->
 			{#if images && images.length > 1}
 				<button
-					class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-all duration-300 hover:bg-black/70"
+					class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full {$theme === 'dark' ? 'bg-black/50 hover:bg-black/70' : 'bg-primary-accent/50 hover:bg-primary-accent/70'} p-2 text-white transition-all duration-300"
 					on:click={() => {
 						transitionDirection = 1;
 						selectedImageIndex =
@@ -47,7 +48,7 @@
 				</button>
 				<!-- Right Arrow -->
 				<button
-					class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-all duration-300 hover:bg-black/70"
+					class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full {$theme === 'dark' ? 'bg-black/50 hover:bg-black/70' : 'bg-primary-accent/50 hover:bg-primary-accent/70'} p-2 text-white transition-all duration-300"
 					on:click={() => {
 						transitionDirection = -1;
 						selectedImageIndex =

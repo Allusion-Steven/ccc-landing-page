@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { theme } from '$lib/stores/theme';
     export let onSort: (sortOption: string) => void;
     export let currentSort: string = 'default';
 
@@ -16,38 +17,35 @@
     }
 </script>
 
-<style lang="postcss">
+<style>
     select {
-        @apply appearance-none bg-[#1c1c1c] text-white;
+        appearance: none;
     }
-    select option {
-        @apply bg-[#1c1c1c] text-white;
-    }
-    /* For Firefox */
     select:-moz-focusring {
-        @apply text-transparent shadow-none;
+        color: transparent;
+        text-shadow: 0 0 0 #000;
     }
-    /* For Webkit browsers */
     select::-ms-expand {
-        @apply hidden;
+        display: none;
     }
 </style>
 
 <div class="flex items-center space-x-2">
-    <label for="sort" class="text-gray-300">Sort by:</label>
+    <label for="sort" class="{$theme === 'dark' ? 'text-gray-300' : 'text-[#c23f5b]'}">Sort by:</label>
     <div class="relative">
         <select
             id="sort"
-            class="w-full rounded-lg border border-white/20 bg-white/5 px-4 py-2 pr-10 text-white transition-all hover:border-white/40 hover:bg-white/10 focus:border-[#0bd3d3] focus:outline-none focus:ring-1 focus:ring-[#0bd3d3]"
+            class="w-full rounded-lg border {$theme === 'dark' ? 'border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10' : 'border-[#c23f5b]/20 bg-[#c23f5b]/5 text-[#c23f5b] hover:border-[#c23f5b]/40 hover:bg-[#c23f5b]/10'} px-4 py-2 pr-10 transition-all focus:border-[#7ed4ac] focus:outline-none focus:ring-1 focus:ring-[#7ed4ac]"
             on:change={handleSort}
             value={currentSort}
+            style:background-color={$theme === 'dark' ? '#1C1C1C' : 'white'}
         >
             {#each sortOptions as option}
-                <option value={option.value}>{option.label}</option>
+                <option value={option.value} class="{$theme === 'dark' ? 'bg-[#1C1C1C] text-white' : 'bg-white text-[#c23f5b]'}">{option.label}</option>
             {/each}
         </select>
         <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
-            <svg class="h-4 w-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="h-4 w-4 {$theme === 'dark' ? 'text-white/70' : 'text-[#c23f5b]/70'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
         </div>

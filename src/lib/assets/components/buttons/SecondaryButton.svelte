@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { theme } from '$lib/stores/theme';
 	export let href = '';
 	export let text = '';
 	export let type: 'button' | 'submit' | 'reset' = 'button';
@@ -11,7 +12,7 @@
 		{href}
 		class="group relative inline-flex {width === ''
 			? 'min-w-48'
-			: width} {className} items-center justify-center rounded-lg border border-white/10 bg-white/5 px-8 py-4 text-base font-medium text-white backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-miami-light-pink/20 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,27,107,0.15)] md:text-lg"
+			: width} {className} items-center justify-center rounded-lg border {$theme === 'dark' ? 'border-white/10 bg-white/5 text-white hover:border-primary-light/20' : 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent hover:border-primary-light/20'} px-8 py-4 text-base font-medium backdrop-blur-sm transition-all duration-300 ease-in-out hover:bg-primary-light/10 hover:shadow-[0_0_20px_rgba(126,212,172,0.15)] md:text-lg"
 	>
 		{text}
 		<svg
@@ -33,9 +34,7 @@
 		{type}
 		class="group relative inline-flex {width === ''
 			? ''
-			: {
-					width
-				}} items-center justify-center rounded-lg border border-white/10 bg-white/5 px-8 py-4 text-base font-medium text-white backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-miami-light-pink/20 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,27,107,0.15)] md:text-lg"
+			: width} items-center justify-center rounded-lg border {$theme === 'dark' ? 'border-white/10 bg-white/5 text-white hover:border-primary-light/20' : 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent hover:border-primary-light/20'} px-8 py-4 text-base font-medium backdrop-blur-sm transition-all duration-300 ease-in-out hover:bg-primary-light/10 hover:shadow-[0_0_20px_rgba(126,212,172,0.15)] md:text-lg"
 	>
 		{text}
 		<svg

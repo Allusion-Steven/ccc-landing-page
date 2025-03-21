@@ -4,19 +4,20 @@
 	import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
 	import conciergeHeroBg from '$lib/assets/images/concierge-service.avif';
 	import heroBg from '$lib/assets/images/rr-culinan-interior.webp';
+	import { theme } from '$lib/stores/theme';
 </script>
 
-<section class="overflow-hidden bg-gradient-to-br py-16">
+<section class="overflow-hidden bg-gradient-to-br py-16 {$theme === 'dark' ? 'from-primary-dark to-[#2d1b2a]' : 'from-white to-white/90'}">
 	<div class="px-4">
 		<div class="container mx-auto">
 			<h2
 				in:fly={{ y: 50, duration: 1000, delay: 200 }}
-				class="mb-8 text-center text-4xl font-bold text-white md:text-5xl">
+				class="mb-8 text-center text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">
 				Luxury Vehicle & Yacht Rentals
 			</h2>
 			<p
 				in:fly={{ y: 50, duration: 1000, delay: 300 }}
-				class="mb-8 text-center text-lg leading-relaxed text-gray-300">
+				class="mb-8 text-center text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
 				With Macro Exotics, indulge in the pinnacle of luxury transportation. Whether on
 				land or at sea, our exclusive selection of vehicles and yachts offers unmatched
 				elegance and performance.
@@ -87,8 +88,8 @@
 
 			<div
 				in:fly={{ y: 50, duration: 1000, delay: 800 }}
-				class="mx-auto rounded-xl border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl">
-				<h3 class="mb-6 text-center text-2xl font-bold text-white">Rental Benefits</h3>
+				class="mx-auto rounded-xl border {$theme === 'dark' ? 'border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'border-primary-accent/20 bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-8 shadow-xl">
+				<h3 class="mb-6 text-center text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Rental Benefits</h3>
 				<div class="mx-auto my-0 grid gap-6 text-left md:grid-cols-2">
 					<div class="flex items-center space-x-4">
 						<div class="rounded-full bg-pink-200 p-3">
@@ -105,8 +106,8 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-white">Insurance Coverage</h4>
-							<p class="text-gray-300">Comprehensive coverage included</p>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Insurance Coverage</h4>
+							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Comprehensive coverage included</p>
 						</div>
 					</div>
 
@@ -125,8 +126,8 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-white">Flexible Duration</h4>
-							<p class="text-gray-300">Daily to monthly rentals available</p>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Flexible Duration</h4>
+							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Daily to monthly rentals available</p>
 						</div>
 					</div>
 
@@ -145,8 +146,8 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-white">Delivery Service</h4>
-							<p class="text-gray-300">Door-to-door delivery included</p>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Delivery Service</h4>
+							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Door-to-door delivery included</p>
 						</div>
 					</div>
 
@@ -165,8 +166,8 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold text-white">VIP Membership</h4>
-							<p class="text-gray-300">Exclusive benefits for members</p>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">VIP Membership</h4>
+							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Exclusive benefits for members</p>
 						</div>
 					</div>
 				</div>

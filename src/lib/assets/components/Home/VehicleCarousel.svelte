@@ -5,6 +5,7 @@
 	import { fly, fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import type { Vehicle, Yacht, VehicleTag, YachtTag } from '$lib/types';
+	import { theme } from '$lib/stores/theme';
 
 	export let items: Vehicle[] | Yacht[] = [];
 	export let title: string = '';
@@ -24,9 +25,12 @@
 <div
 	class="w-full"
 	class:bg-gradient-to-br={itemType === 'yacht'}
-	class:from-[#1C1C1C]={itemType === 'yacht'}
-	class:via-[#1e1e1e]={itemType === 'yacht'}
-	class:to-[#141414]={itemType === 'yacht'}>
+	class:from-[#1C1C1C]={itemType === 'yacht' && $theme === 'dark'}
+	class:via-[#1e1e1e]={itemType === 'yacht' && $theme === 'dark'}
+	class:to-[#141414]={itemType === 'yacht' && $theme === 'dark'}
+	class:from-[#7e94ac]={itemType === 'yacht' && $theme === 'light'}
+	class:via-[#7e94ac]={itemType === 'yacht' && $theme === 'light'}
+	class:to-[#7e94ac]={itemType === 'yacht' && $theme === 'light'}>
 	<div class="max-w-8xl container mx-auto px-4 py-16">
 		{#if visible}
 			<h3
@@ -76,7 +80,7 @@
 															{item.year}
 														{/if}
 													</p>
-													<p class="font-semibold text-[#0bd3d3]">
+													<p class="font-semibold text-miami-pink">
 														${item.pricePerDay}/day
 													</p>
 												</div>
@@ -109,7 +113,7 @@
 														{item.year}
 													{/if}
 												</p>
-												<p class="font-semibold text-[#0bd3d3]">
+												<p class="font-semibold text-miami-pink">
 													${item.pricePerDay}/day
 												</p>
 											</div>
@@ -134,7 +138,7 @@
 														{item.year}
 													{/if}
 												</p>
-												<p class="font-semibold text-[#0bd3d3]">
+												<p class="font-semibold text-miami-pink">
 													${item.pricePerDay}/day
 												</p>
 											</div>
