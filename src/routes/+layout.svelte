@@ -2,7 +2,7 @@
 	import { onNavigate } from '$app/navigation';
 	import { slide } from 'svelte/transition';
 	import Footer from '$lib/assets/components/Footer.svelte';
-	import logo from '$lib/assets/logos/horizontal-logo-full.svg';
+	import logo from '$lib/assets/logos/macro-purpl-logo-2.png';
 	import '../app.css';
 	import { quintOut } from 'svelte/easing';
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
@@ -51,7 +51,7 @@
 					<img
 						src={logo}
 						alt="Macro Exotics Logo"
-						class="p-2 h-12 transition-transform hover:scale-105 md:h-16"
+						class="p-2 h-20 transition-transform hover:scale-105 md:h-24"
 					/>
 				</a>
 				<div class="flex items-center gap-4">
