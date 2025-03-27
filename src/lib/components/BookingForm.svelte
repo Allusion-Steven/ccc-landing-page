@@ -2,6 +2,7 @@
     import { slide } from 'svelte/transition';
     import { getTomorrow, validateDates } from '$lib/utils/dateUtils';
     import { goto } from '$app/navigation';
+    import { page } from '$app/stores';
 
     export let id: string;
     export let showDatePicker: boolean;
@@ -22,10 +23,13 @@
         // Clear any existing errors
         error = '';
 
+        const userId = $page.url.searchParams.get('userId') || '';
+        const userIdParam = userId ? `&userId=${userId}` : '';
+        
         // Navigate to the booking form with the dates and location
         const vehicleTypeParam = vehicleType === 'yacht' ? '&vehicleType=yacht' : '';
         goto(
-            `/booking/${id}?pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}&location=${encodeURIComponent(location)}${vehicleTypeParam}`
+            `/booking/${id}?pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}&location=${encodeURIComponent(location)}${vehicleTypeParam}${userIdParam}`
         );
     };
 </script>

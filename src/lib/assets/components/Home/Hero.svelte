@@ -206,9 +206,7 @@
 													location: location,
 													pickupDate: pickupDate,
 													dropoffDate: dropoffDate,
-													...(vehicleType === 'Yacht' && {
-														vehicleType: 'yacht'
-													})
+													vehicleType: vehicleType === 'Yacht' ? 'yacht' : 'car'
 												});
 												window.location.href = `${baseUrl}?${params.toString()}`;
 											}}

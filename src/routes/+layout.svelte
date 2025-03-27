@@ -2,7 +2,10 @@
 	import { onNavigate } from '$app/navigation';
 	import { slide } from 'svelte/transition';
 	import Footer from '$lib/assets/components/Footer.svelte';
-	import logo from '$lib/assets/logos/macro-purpl-logo-2.png';
+	//TODO: Implement light v dark logo
+	import logo from '$lib/assets/logos/macro-exotics-light-logo.png';
+	import darkLogo from '$lib/assets/logos/macro-exotics-dark-logo.png';
+
 	import '../app.css';
 	import { quintOut } from 'svelte/easing';
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
@@ -49,9 +52,9 @@
 			<div class="flex w-full items-center justify-between px-4">
 				<a href="/" class="text-xl font-bold">
 					<img
-						src={logo}
+						src={darkLogo}
 						alt="Macro Exotics Logo"
-						class="p-2 h-20 transition-transform hover:scale-105 md:h-24"
+						class="pt-3 px-3 h-20 transition-transform hover:scale-105 md:h-24"
 					/>
 				</a>
 				<div class="flex items-center gap-4">

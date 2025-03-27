@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { yachts } from '$lib/constants/Yachts';
 	import { baseUrl } from '$lib/index';
 	import { Carousel, Input, Modal, Button } from 'flowbite-svelte';
 	import { fade, scale, fly } from 'svelte/transition';
@@ -16,7 +15,7 @@
 	} from '$lib/utils/filtering';
 
 	export let data: PageData;
-	const { pickupDate, dropoffDate, location } = data;
+	const { pickupDate, dropoffDate, location, yachts } = data;
 
 	let contentVisible = false;
 	let currentSort = 'default';
@@ -251,7 +250,7 @@
 												class="flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 transition-all
 													   hover:border-white/40 hover:bg-white/10 peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
 												<span
-													class="text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
+													class="capitalize text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
 													{type}
 												</span>
 											</div>
@@ -360,7 +359,7 @@
 											class="flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 transition-all
 												   hover:border-white/40 hover:bg-white/10 peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
 											<span
-												class="text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
+												class="capitalize text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
 												{type}
 											</span>
 										</div>
@@ -383,7 +382,9 @@
 								href={`/yacht/${yacht.id}?${new URLSearchParams({
 									...(pickupDate ? { pickupDate } : {}),
 									...(dropoffDate ? { dropoffDate } : {}),
-									...(location ? { location } : {})
+									...(location ? { location } : {}),
+									vehicleType: 'yacht',
+									...(yacht.userId ? { userId: yacht.userId } : {})
 								}).toString()}`}
 								class="group relative block h-80 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
 								<div class="aspect-[16/10] w-full overflow-hidden">
@@ -395,13 +396,13 @@
 													Math.random() * (5000 - 3000 + 1)
 												) + 3000}
 												images={yacht.images.map((img) => ({
-													src: `${img.url}`,
+													src: `${img.urls ? img.urls.large : img.url}`,
 													alt: `${yacht.make} ${yacht.model}`
 												}))}
 												style="object-fit: cover; height:20rem; width: 100%; position: fixed; pointer-events: none;" />
 										{:else}
 											<img
-												src={`${yacht.images[0]?.url}`}
+												src={`${yacht.images[0]?.urls ? yacht.images[0]?.urls.large : yacht.images[0]?.url}`}
 												alt={`${yacht.make} ${yacht.model}`}
 												class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
 										{/if}

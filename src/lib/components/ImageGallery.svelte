@@ -1,11 +1,26 @@
 <script lang="ts">
-	import { baseUrl } from '$lib/index';
+	import type { VehicleImage } from '$lib/types';
 	import { fly } from 'svelte/transition';
 
-	export let images: { src: string; alt: string }[];
+	// Updated type to handle both direct URLs and urls object structure
+	export let images: VehicleImage[];
 
 	let selectedImageIndex = 0;
 	let transitionDirection = 1; // 1 for right-to-left, -1 for left-to-right
+
+	// Helper function to get the image URL regardless of format, preferring large URL when available
+	function getImageUrl(image: any): string {
+		if (image.urls?.large){
+			return image.urls.large;
+		} 
+		return image.src || image.url || '';
+	}
+
+	// Helper function to get the thumbnail URL, or fallback to main URL
+	function getSmallUrl(image: any): string {
+		if (image.urls?.small) return image.urls.small;
+		return image.small || image.src || image.url || '';
+	}
 </script>
 
 <div class="container">
@@ -14,7 +29,7 @@
 			{#key selectedImageIndex}
 				<img
 					transition:fly={{ duration: 300, x: transitionDirection * 300 }}
-					src={`${images[selectedImageIndex].url}`}
+					src={getImageUrl(images[selectedImageIndex])}
 					alt={images[selectedImageIndex].alt}
 					class="h-full w-full object-cover"
 				/>
@@ -108,7 +123,7 @@
 			>
 				<img
 					transition:fly={{ duration: 300, x: transitionDirection * 300 }}
-					src={`${image.url}`}
+					src={getSmallUrl(image)}
 					alt={image.alt}
 					class={`h-full w-full rounded-lg object-cover ${selectedImageIndex === index ? 'border-4 border-[#0bd3d3]' : ''}`}
 				/>
