@@ -251,9 +251,9 @@
 												value={type}
 												class="peer hidden" />
 											<div
-												class="flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 transition-all hover:border-white/40 hover:bg-white/10 peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
+												class="capitalize flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 transition-all hover:border-white/40 hover:bg-white/10 peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
 												<span
-													class="text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
+													class="capitalize text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
 													{type}
 												</span>
 											</div>
@@ -363,7 +363,7 @@
 											class="flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 transition-all
 												   hover:border-white/40 hover:bg-white/10 peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
 											<span
-												class="text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
+												class="capitalize text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
 												{type}
 											</span>
 										</div>
@@ -403,13 +403,13 @@
 												images={vehicle.images
 													.filter((img) => img.isActive)
 													.map((img) => ({
-														src: `${img.url}`,
+														src: `${img?.urls ? img?.urls.large : img?.url}`,
 														alt: `${vehicle.make} ${vehicle.model}`
 													}))}
 												style="object-fit: cover; height:20rem; width: 100%; position: fixed; pointer-events: none;" />
 										{:else}
 											<img
-												src={`${vehicle.images.find((img) => img.isActive)?.url}`}
+												src={`${vehicle.images[0]?.urls ? vehicle.images[0]?.urls.large : vehicle.images[0]?.url}`}
 
 												alt={`${vehicle.make} ${vehicle.model}`}
 												class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />

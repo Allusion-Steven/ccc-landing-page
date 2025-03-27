@@ -9,7 +9,7 @@
 	export let items: Vehicle[] | Yacht[] = [];
 	export let title: string = '';
 	export let viewAllLink: string = '';
-	export let itemType: 'vehicle' | 'yacht' = 'vehicle';
+	export let itemType: 'car' | 'vehicle' | 'yacht' = 'car';
 
 	let visible = false;
 	onMount(() => {
@@ -17,7 +17,16 @@
 	});
 
 	function isYacht(item: Vehicle | Yacht): item is Yacht {
-		return 'specs' in item;
+		return (item as any).vehicleType === 'yacht';
+	}
+
+	// Safe getter function for yacht specs
+	function getYachtInfo(yacht: any) {
+		const specs = yacht.specs || {};
+		return {
+			length: specs.length || 'N/A',
+			guests: specs.guests || yacht.capacity || 0
+		};
 	}
 </script>
 
@@ -36,10 +45,10 @@
 			</h3>
 			<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 				{#each items as item, index}
-					{#if itemType === 'vehicle' ? index < 8 : index < 4}
+					{#if itemType === 'vehicle' || itemType === 'car' ? index < 8 : index < 4}
 						<a
-							href={`/${itemType}/${item.id}?userId=${item.userId}`}
-							class="group relative block h-72 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+							href={`/${itemType}/${item.id}${item.userId ? `?userId=${item.userId}` : ''}`}
+							class="group relative blockGallery h-72 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
 							<div
 								class="aspect-[16/10] w-full overflow-hidden"
 								in:fly={{ duration: 800, delay: index * 200, x: -50 }}>
@@ -53,10 +62,9 @@
 												Math.random() * (5000 - 3000 + 1)
 											) + 3000}
 											images={item.images.map((img) => {
-												console.log('Processing image:', img);
 												return {
-													src: img.url,
-													alt: img.alt || `${item.make} ${item.model}`
+													src: `${img?.urls ? img?.urls.large : img?.url}`,
+													alt: img?.alt || `${item.make} ${item.model}`
 												};
 											})}
 											style="width: 100px; object-fit: cover; height:18rem; width: 100%; position: fixed; pointer-events: none;">
@@ -70,7 +78,7 @@
 												<div class="mt-2 flex items-center justify-between">
 													<p class="text-sm text-gray-300">
 														{#if isYacht(item)}
-															{item.specs.length} | {item.specs
+														{item.specs.length} | {item.specs
 																.guests} Guests
 														{:else}
 															{item.year}
@@ -84,7 +92,7 @@
 										</Carousel>
 									{:else if item.images.length == 1}
 										<img
-											src={`${item.images[0]?.url}`}
+											src={`${item.images[0]?.urls ? item.images[0]?.urls.large : item.images[0]?.url}`}
 											alt={`${item.make} ${item.model}`}
 											class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
 											on:error={(e) => {
@@ -104,7 +112,7 @@
 											<div class="mt-2 flex items-center justify-between">
 												<p class="text-sm text-gray-300">
 													{#if isYacht(item)}
-														{item.specs.length} | {item.specs.guests} Guests
+													{item.specs.length} | {item.specs.guests} Guests
 													{:else}
 														{item.year}
 													{/if}
@@ -129,7 +137,8 @@
 											<div class="mt-2 flex items-center justify-between">
 												<p class="text-sm text-gray-300">
 													{#if isYacht(item)}
-														{item.specs.length} | {item.specs.guests} Guests
+													{item.specs.length} | {item.specs.guests} Guests
+
 													{:else}
 														{item.year}
 													{/if}

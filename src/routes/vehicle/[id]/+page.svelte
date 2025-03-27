@@ -38,9 +38,8 @@
 	make={vehicle.make}
 	model={vehicle.model}
 	year={vehicle.year}
-	id={vehicle.id}
 	canonical={`${vehicle.id}?userId=${vehicle.userId}`}
-	imageUrl={vehicle.images[0].url ?? 'https://macroexotics.com/favicon.png'}
+	imageUrl={vehicle?.images?.[0]?.url ?? 'https://macroexotics.com/favicon.png'}
 />
 
 <div
@@ -50,7 +49,7 @@
 		class="grid grid-cols-1 gap-8  lg:grid-cols-10"
 		in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 		<div class="md:col-span-1 lg:col-span-6" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
-			<ImageGallery images={vehicle.images.filter((img: VehicleImage) => img.isActive)} />
+			<ImageGallery images={vehicle.images.filter((img: VehicleImage) => img?.isActive !== false)} />
 		</div>
 
 		<div class="md:col-span-1 lg:col-span-4 flex flex-col justify-start space-y-8">
