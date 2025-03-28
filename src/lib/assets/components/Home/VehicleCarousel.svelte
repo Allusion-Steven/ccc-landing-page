@@ -9,7 +9,7 @@
 	export let items: Vehicle[] | Yacht[] = [];
 	export let title: string = '';
 	export let viewAllLink: string = '';
-	export let itemType: 'car' | 'vehicle' | 'yacht' = 'car';
+	export let itemType: 'car' | 'yacht' = 'car';
 
 	let visible = false;
 	onMount(() => {
@@ -45,9 +45,9 @@
 			</h3>
 			<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 				{#each items as item, index}
-					{#if itemType === 'vehicle' || itemType === 'car' ? index < 8 : index < 4}
+					{#if itemType === 'car' ? index < 8 : index < 4}
 						<a
-							href={`/${itemType}/${item.id}${item.userId ? `?userId=${item.userId}` : ''}`}
+							href={`/${itemType === 'car' ? 'vehicle' : "yacht"}/${item.id}${item.userId ? `?userId=${item.userId}` : ''}`}
 							class="group relative blockGallery h-72 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
 							<div
 								class="aspect-[16/10] w-full overflow-hidden"
