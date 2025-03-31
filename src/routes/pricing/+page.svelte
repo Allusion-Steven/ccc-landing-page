@@ -3,6 +3,7 @@
 	import { Button } from 'flowbite-svelte';
 	import { pricingTiers } from '$lib/constants/Pricing';
 	import { fly, fade } from 'svelte/transition';
+	import { theme } from '$lib/stores/theme';
 
 	let selectedTier = $state<string | null>('VIP');
 	let contentVisible = $state(false);
@@ -39,15 +40,15 @@
 	<link rel="icon" href="https://macroexotics.com/favicon.png" />
 </svelte:head>
 <div
-	class="min-h-screen overflow-x-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20"
+	class="min-h-screen overflow-x-hidden {$theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' : 'bg-gradient-to-br from-white via-gray-50 to-white'} py-20"
 >
 	<div class="container mx-auto px-4">
 		{#if contentVisible}
 			<!-- Header Section -->
 
 			<div class="mb-16 text-center" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
-				<h1 class="mb-4 text-4xl font-bold text-white md:text-5xl">Choose Your Membership</h1>
-				<p class="text-xl text-gray-400">
+				<h1 class="mb-4 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">Choose Your Membership</h1>
+				<p class="text-xl {$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">
 					Select the perfect plan for your luxury driving experience
 				</p>
 			</div>
@@ -69,7 +70,7 @@
 						{#if tier.highlighted}
 							<div class="absolute -top-6 left-1/2 z-30 -translate-x-1/2 transform">
 								<span
-									class="whitespace-nowrap rounded-full bg-[#0bd3d3] px-4 py-1 text-sm font-semibold text-gray-900"
+									class="whitespace-nowrap rounded-full bg-miami-pink px-4 py-1 text-sm font-semibold text-white"
 								>
 									Most Popular
 								</span>
@@ -80,10 +81,10 @@
 						{#if selectedTier === tier.name}
 							<div class="absolute -right-2 -top-2 z-20">
 								<span
-									class="flex h-8 w-8 items-center justify-center rounded-full bg-[#0bd3d3] shadow-lg"
+									class="flex h-8 w-8 items-center justify-center rounded-full bg-miami-pink shadow-lg"
 								>
 									<svg
-										class="h-5 w-5 text-gray-900"
+										class="h-5 w-5 text-white"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -101,24 +102,28 @@
 
 						<div
 							class="flex h-full flex-col rounded-2xl {selectedTier === tier.name
-								? 'bg-gradient-to-br from-miami-dark via-miami-purple to-miami-dark'
-								: 'bg-gray-800'} cursor-pointer p-8 shadow-xl transition-all duration-300 hover:scale-105"
+								? $theme === 'dark' 
+									? 'bg-gradient-to-br from-miami-dark via-miami-purple to-miami-dark'
+									: 'bg-gradient-to-br from-miami-pink/10 via-miami-light-pink/10 to-miami-pink/10'
+								: $theme === 'dark'
+									? 'bg-gray-800'
+									: 'bg-white'} cursor-pointer p-8 shadow-xl transition-all duration-300 hover:scale-105"
 						>
 							<div class="mb-8">
-								<h2 class="mb-2 text-2xl font-bold text-white">{tier.name}</h2>
+								<h2 class="mb-2 text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{tier.name}</h2>
 								<div class="mb-4">
-									<span class="text-4xl font-bold text-white">{tier.price}</span>
-									<span class="text-gray-400">/month</span>
+									<span class="text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{tier.price}</span>
+									<span class="{$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">/month</span>
 								</div>
-								<p class="text-gray-400">{tier.description}</p>
+								<p class="{$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">{tier.description}</p>
 							</div>
 
 							<div class="mb-8 flex-grow">
 								<ul class="space-y-4">
 									{#each tier.features as feature}
-										<li class="flex items-center text-gray-300">
+										<li class="flex items-center {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
 											<svg
-												class="mr-3 h-5 w-5 text-[#0bd3d3]"
+												class="mr-3 h-5 w-5 text-miami-pink"
 												fill="none"
 												stroke="currentColor"
 												viewBox="0 0 24 24"
@@ -138,8 +143,10 @@
 
 							<Button
 								class="w-full rounded-lg {selectedTier === tier.name
-									? 'bg-[#0bd3d3] text-gray-900 hover:bg-[#0bd3d3]/80'
-									: 'bg-gray-700 text-white hover:bg-gray-600'} py-3 text-center font-semibold transition-colors"
+									? 'bg-miami-pink text-white hover:bg-miami-pink/80'
+									: $theme === 'dark'
+										? 'bg-gray-700 text-white hover:bg-gray-600'
+										: 'bg-gray-100 text-primary-accent hover:bg-gray-200'} py-3 text-center font-semibold transition-colors"
 								href="https://my.macroexotics.com/login"
 							>
 								{selectedTier === tier.name ? `Join The ${tier.name} Club` : 'Get Started'}
@@ -151,11 +158,11 @@
 
 			<!-- Additional Info -->
 			<div class="mt-16 text-center" in:fly={{ y: 50, duration: 1000, delay: 1200 }}>
-				<p class="text-gray-400">
+				<p class="{$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">
 					All plans include access to our mobile app and 24/7 customer service.
 					<br />
 					Need a custom plan?
-					<a href="/contact" class="text-[#0bd3d3] hover:underline">Contact us</a>
+					<a href="/contact" class="text-miami-pink hover:underline">Contact us</a>
 				</p>
 			</div>
 		{/if}

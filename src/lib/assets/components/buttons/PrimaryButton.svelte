@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { theme } from '$lib/stores/theme';
 	export let href = '';
 	export let text = '';
 	export let type: 'button' | 'submit' | 'reset' = 'button';
@@ -10,7 +11,7 @@
 		{href}
 		class="group relative inline-flex {width === ''
 			? 'min-w-48'
-			: width} items-center justify-center rounded-lg bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 py-4 text-base font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:text-lg"
+			: width} items-center justify-center rounded-lg bg-gradient-to-r {$theme === 'dark' ? 'from-primary-accent to-primary-light' : 'from-primary-light to-primary-accent'} px-8 py-4 text-base font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(126,212,172,0.3)] md:text-lg"
 	>
 		{text}
 		<svg
@@ -32,7 +33,7 @@
 		{type}
 		class="group relative inline-flex {width === ''
 			? 'min-w-48'
-			: width} items-center justify-center rounded-lg bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 py-4 text-base font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:text-lg"
+			: width} items-center justify-center rounded-lg bg-gradient-to-r {$theme === 'dark' ? 'from-primary-accent to-primary-light' : 'from-primary-light to-primary-accent'} px-8 py-4 text-base font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(126,212,172,0.3)] md:text-lg"
 	>
 		{text}
 		<svg

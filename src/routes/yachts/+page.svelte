@@ -6,6 +6,7 @@
 	import type { PageData } from './$types';
 	import { onMount } from 'svelte';
 	import SortingOptions from '$lib/components/SortingOptions.svelte';
+	import { theme } from '$lib/stores/theme';
 	import {
 		getUniqueTypes,
 		getMinMaxPrice,
@@ -111,7 +112,7 @@
 <div class="container mx-auto px-4 py-8">
 	{#if contentVisible}
 		<h1
-			class="mb-8 text-center text-4xl font-bold text-white"
+			class="mb-8 text-center text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}"
 			in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 			Available Yachts
 		</h1>
@@ -125,9 +126,9 @@
 			<div class="flex flex-col gap-4 lg:hidden">
 				<!-- Mobile Search Input -->
 				<div class="relative w-full">
-					<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
+					<div class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
 						<svg
-							class="h-5 w-5 text-white/70"
+							class="h-5 w-5 {$theme === 'dark' ? 'text-white/70' : 'text-gray-500'}"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24">
@@ -143,10 +144,12 @@
 						type="text"
 						placeholder="Search by make or model..."
 						bind:value={searchQuery}
-						class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50" />
+						class="!h-12 w-full !rounded-2xl {$theme === 'dark' 
+						? '!border-transparent !bg-white/10 text-white placeholder-white/50' 
+						: '!border-transparent !bg-gray-100 text-gray-800 placeholder-gray-500'}" />
 				</div>
 				<!-- Mobile Filter Button -->
-				<Button color="light" class="w-full" on:click={() => (showFiltersModal = true)}>
+				<Button color={$theme === 'dark' ? 'dark' : 'light'} class="w-full" on:click={() => (showFiltersModal = true)}>
 					<svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path
 							stroke-linecap="round"
@@ -166,23 +169,23 @@
 			<!-- Filters Modal for Mobile -->
 			{#if showFiltersModal}
 				<div
-					class="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity"
+					class="fixed inset-0 z-[60] {$theme === 'dark' ? 'bg-black/50' : 'bg-gray-800/50'} backdrop-blur-sm transition-opacity"
 					on:click={() => (showFiltersModal = false)}
 					on:keydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
 					role="button"
 					tabindex="0">
 					<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 					<div
-						class="fixed right-0 top-0 h-full w-[90%] max-w-md transform overflow-y-auto bg-[#1c1c1c] p-6 shadow-xl transition-transform duration-300"
+						class="fixed right-0 top-0 h-full w-[90%] max-w-md transform overflow-y-auto {$theme === 'dark' ? 'bg-[#1c1c1c]' : 'bg-white'} p-6 shadow-xl transition-transform duration-300"
 						on:click|stopPropagation
 						on:keydown|stopPropagation
 						role="dialog"
 						tabindex="-1"
 						transition:fly={{ x: 300, duration: 300 }}>
 						<div class="mb-4 flex items-center justify-between">
-							<h3 class="text-xl font-bold text-white">Filters</h3>
+							<h3 class="text-xl font-bold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">Filters</h3>
 							<button
-								class="rounded-lg p-2 text-white/70 hover:bg-white/10"
+								class="rounded-lg p-2 {$theme === 'dark' ? 'text-white/70 hover:bg-white/10' : 'text-primary-accent hover:bg-gray-100'}"
 								on:click={() => (showFiltersModal = false)}
 								aria-label="Close filters">
 								<svg
@@ -202,7 +205,7 @@
 						<div class="flex flex-col gap-6">
 							<!-- Price Range -->
 							<div class="w-full">
-								<label class="mb-2 block text-sm font-medium text-white/70"
+								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 									>Maximum Price ($/day)</label>
 								<input
 									type="range"
@@ -211,7 +214,7 @@
 									max={maxPriceAvailable}
 									bind:value={maxPrice}
 									class="w-full" />
-								<div class="mt-2 flex justify-between text-sm text-white/70">
+								<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
 									<span>${minPriceAvailable}</span>
 									<span>${maxPrice}</span>
 								</div>
@@ -219,7 +222,7 @@
 
 							<!-- Guest Range -->
 							<div class="w-full">
-								<label class="mb-2 block text-sm font-medium text-white/70"
+								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 									>Guest Range</label>
 								<input
 									type="range"
@@ -228,7 +231,7 @@
 									max={maxGuestsAvailable}
 									bind:value={maxGuests}
 									class="w-full" />
-								<div class="mt-2 flex justify-between text-sm text-white/70">
+								<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
 									<span>{minGuests}</span>
 									<span>{maxGuests}</span>
 								</div>
@@ -236,7 +239,7 @@
 
 							<!-- Yacht Type -->
 							<div class="w-full">
-								<label class="mb-3 block text-sm font-medium text-white/70"
+								<label class="mb-3 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 									>Yacht Type</label>
 								<div class="flex flex-wrap gap-3">
 									{#each yachtTypes as type}
@@ -247,10 +250,13 @@
 												value={type}
 												class="peer hidden" />
 											<div
-												class="flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 transition-all
-													   hover:border-white/40 hover:bg-white/10 peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
+												class="flex items-center rounded-full {$theme === 'dark'
+													? 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10'
+													: 'border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-100'} border px-4 py-2 transition-all peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
 												<span
-													class="capitalize text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
+													class="capitalize text-sm {$theme === 'dark'
+														? 'text-white/70 group-hover:text-white'
+														: 'text-gray-700 group-hover:text-gray-900'} transition-colors peer-checked:text-[#0bd3d3]">
 													{type}
 												</span>
 											</div>
@@ -262,7 +268,7 @@
 							<!-- Apply Filters Button -->
 							<div class="mt-auto flex justify-end gap-4">
 								{#if isAnyFilterActive}
-									<Button color="light" on:click={clearFilters}>Clear All</Button>
+									<Button color={$theme === 'dark' ? 'dark' : 'light'} on:click={clearFilters}>Clear All</Button>
 								{/if}
 								<Button color="primary" on:click={() => (showFiltersModal = false)}
 									>Apply Filters</Button>
@@ -274,9 +280,11 @@
 
 			<!-- Filters sidebar (desktop) -->
 			<div class="hidden lg:block lg:w-80">
-				<div class="sticky top-8 rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
+				<div class="sticky top-8 rounded-2xl {$theme === 'dark' 
+					? 'bg-white/10 dark:shadow-none' 
+					: 'bg-gray-100 shadow-md'} p-6 backdrop-blur-sm">
 					<div class="mb-6 flex items-center justify-between">
-						<h2 class="text-xl font-semibold text-white">Filters</h2>
+						<h2 class="text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">Filters</h2>
 						{#if isAnyFilterActive}
 							<button
 								on:click={clearFilters}
@@ -288,9 +296,9 @@
 					<div class="flex flex-col gap-8">
 						<!-- Search input -->
 						<div class="relative w-full">
-							<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
+							<div class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
 								<svg
-									class="h-5 w-5 text-white/70"
+									class="h-5 w-5 {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24">
@@ -306,12 +314,14 @@
 								type="text"
 								placeholder="Search by make or model..."
 								bind:value={searchQuery}
-								class="!h-12 w-full !rounded-2xl !border-transparent !bg-white/10 !px-12 text-white placeholder-white/50" />
+								class="!h-12 w-full !rounded-2xl !border-transparent {$theme === 'dark' 
+									? '!bg-white/10 text-white placeholder-white/50' 
+									: '!bg-white text-gray-800 placeholder-gray-500'}" />
 						</div>
 
 						<!-- Price Range -->
 						<div class="w-full">
-							<label class="mb-2 block text-sm font-medium text-white/70"
+							<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 								>Maximum Price ($/day)</label>
 							<input
 								type="range"
@@ -320,7 +330,7 @@
 								max={maxPriceAvailable}
 								bind:value={maxPrice}
 								class="w-full" />
-							<div class="mt-2 flex justify-between text-sm text-white/70">
+							<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
 								<span>${minPriceAvailable}</span>
 								<span>${maxPrice}</span>
 							</div>
@@ -328,7 +338,7 @@
 
 						<!-- Guest Range -->
 						<div class="w-full">
-							<label class="mb-2 block text-sm font-medium text-white/70"
+							<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 								>Guest Range</label>
 							<input
 								type="range"
@@ -337,7 +347,7 @@
 								max={maxGuestsAvailable}
 								bind:value={maxGuests}
 								class="w-full" />
-							<div class="mt-2 flex justify-between text-sm text-white/70">
+							<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
 								<span>{minGuests}</span>
 								<span>{maxGuests}</span>
 							</div>
@@ -345,7 +355,7 @@
 
 						<!-- Yacht Type -->
 						<div class="w-full">
-							<label class="mb-3 block text-sm font-medium text-white/70"
+							<label class="mb-3 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 								>Yacht Type</label>
 							<div class="flex flex-wrap gap-3">
 								{#each yachtTypes as type}
@@ -356,10 +366,14 @@
 											value={type}
 											class="peer hidden" />
 										<div
-											class="flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-2 transition-all
-												   hover:border-white/40 hover:bg-white/10 peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
+											class="flex items-center rounded-full {$theme === 'dark'
+												? 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10'
+												: 'border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-100'} border px-4 py-2 transition-all
+												   peer-checked:border-[#0bd3d3] peer-checked:bg-[#0bd3d3]/10">
 											<span
-												class="capitalize text-sm text-white/70 transition-colors group-hover:text-white peer-checked:text-[#0bd3d3]">
+												class="capitalize text-sm {$theme === 'dark'
+													? 'text-white/70 group-hover:text-white'
+													: 'text-gray-700 group-hover:text-gray-900'} transition-colors peer-checked:text-[#0bd3d3]">
 												{type}
 											</span>
 										</div>
@@ -386,7 +400,9 @@
 									vehicleType: 'yacht',
 									...(yacht.userId ? { userId: yacht.userId } : {})
 								}).toString()}`}
-								class="group relative block h-80 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+								class="group relative block h-80 w-full transform overflow-hidden rounded-xl {$theme === 'dark' 
+									? 'bg-white/5 shadow-xl' 
+									: 'bg-gray-100 shadow-lg'} transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
 								<div class="aspect-[16/10] w-full overflow-hidden">
 									{#if yacht.images && yacht.images.length > 0}
 										{#if yacht.images.length > 1}
@@ -408,8 +424,8 @@
 										{/if}
 									{:else}
 										<div
-											class="flex h-full w-full items-center justify-center bg-gray-800">
-											<span class="text-gray-400">No image available</span>
+											class="flex h-full w-full items-center justify-center {$theme === 'dark' ? 'bg-gray-800' : 'bg-gray-300'}">
+											<span class="{$theme === 'dark' ? 'text-gray-400' : 'text-primary-accent'}">No image available</span>
 										</div>
 									{/if}
 
@@ -421,14 +437,14 @@
 										</h3>
 										<div class="mt-2 flex items-center justify-between">
 											<div class="flex items-center space-x-2">
-												<span class="text-sm text-gray-300"
+												<span class="text-sm {$theme === 'dark' ? 'text-gray-300' : 'text-gray-200'}"
 													>{yacht.specs.length}</span>
-												<span class="text-sm text-gray-300">•</span>
-												<span class="text-sm text-gray-300"
+												<span class="text-sm {$theme === 'dark' ? 'text-gray-300' : 'text-gray-200'}">•</span>
+												<span class="text-sm {$theme === 'dark' ? 'text-gray-300' : 'text-gray-200'}"
 													>{yacht.specs.guests} Guests</span>
 											</div>
 											<p class="font-semibold text-[#0bd3d3]">
-												${yacht.pricePerDay}/day
+												${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
 											</p>
 										</div>
 									</div>
@@ -439,7 +455,7 @@
 				</div>
 
 				{#if filteredYachts.length === 0}
-					<div in:fade={{ duration: 200 }} class="mt-8 text-center text-gray-400">
+					<div in:fade={{ duration: 200 }} class="mt-8 text-center {$theme === 'dark' ? 'text-gray-400' : 'text-primary-accent'}">
 						<p>No yachts match your search criteria.</p>
 					</div>
 				{/if}
@@ -450,7 +466,7 @@
 
 <style lang="postcss">
 	input[type='range'] {
-		@apply h-2 w-full cursor-pointer appearance-none rounded-lg bg-white/10;
+		@apply h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-white/10;
 	}
 	input[type='range']::-webkit-slider-thumb {
 		@apply h-4 w-4 appearance-none rounded-full bg-[#0bd3d3] hover:bg-[#0bd3d3]/80;

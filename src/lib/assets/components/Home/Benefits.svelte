@@ -1,7 +1,104 @@
 <script>
 	import { fly } from 'svelte/transition';
+	import { theme } from '$lib/stores/theme';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 </script>
+
+<section class="overflow-hidden bg-gradient-to-br py-16 {$theme === 'dark' ? 'from-primary-dark to-[#2d1b2a]' : 'from-white to-white/90'}">
+	<div class="container mx-auto px-4">
+		<div class="text-center">
+			<h2
+				in:fly={{ y: 50, duration: 1000, delay: 200 }}
+				class="mb-8 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">
+				Why Choose Macro Exotics?
+			</h2>
+			<p
+				in:fly={{ y: 50, duration: 1000, delay: 300 }}
+				class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+				Experience unparalleled luxury and service with our premium vehicle and yacht
+				rental platform. We offer more than just rentals - we create unforgettable
+				experiences.
+			</p>
+		</div>
+
+		<div class="grid gap-8 md:grid-cols-3">
+			<div
+				in:fly={{ x: -50, duration: 1000, delay: 400 }}
+				class="rounded-xl {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-6">
+				<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
+					<svg
+						class="h-6 w-6 text-[#B54959]"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
+				</div>
+				<h3 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
+					Premium Selection
+				</h3>
+				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+					Access to an exclusive fleet of luxury vehicles and yachts, carefully curated
+					for the most discerning clients.
+				</p>
+			</div>
+
+			<div
+				in:fly={{ y: 50, duration: 1000, delay: 500 }}
+				class="rounded-xl {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-6">
+				<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
+					<svg
+						class="h-6 w-6 text-[#f890e7]"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+					</svg>
+				</div>
+				<h3 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
+					Flexible Options
+				</h3>
+				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+					Customizable rental periods and services tailored to your specific needs and
+					preferences.
+				</p>
+			</div>
+
+			<div
+				in:fly={{ x: 50, duration: 1000, delay: 600 }}
+				class="rounded-xl {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-6">
+				<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
+					<svg
+						class="h-6 w-6 text-[#f890e7]"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+					</svg>
+				</div>
+				<h3 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
+					Concierge Service
+				</h3>
+				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+					24/7 personalized assistance and support to ensure a seamless and luxurious
+					experience.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
 
 <section class="bg-gradient-to-br py-16">
 	<div class="container mx-auto px-4">
@@ -143,7 +240,7 @@
 				</div>
 			</div>
 			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-[5rem] flex justify-center">
-				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" />
+				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" colorScheme={$theme === 'dark' ? 'dark' : 'dark'} />
 			</div>
 		</div>
 	</div>

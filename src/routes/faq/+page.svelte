@@ -3,6 +3,7 @@
     import { faqData } from '$lib/data/faq';
     import { onMount } from 'svelte';
     import { fly } from 'svelte/transition';
+    import { theme } from '$lib/stores/theme';
 
     let contentVisible = false;
 
@@ -33,12 +34,12 @@
 	<link rel="canonical" href="https://macroexotics.com/faq" />
 </svelte:head>
 
-<div class="min-h-screen bg-[#1e1e1e] py-16">
+<div class="min-h-screen {$theme === 'dark' ? 'bg-primary-dark' : 'bg-white'} py-16">
     {#if contentVisible}
         <div class="container mx-auto px-4">
             <div class="mb-16 text-center" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
-                <h1 class="mb-4 text-4xl font-bold text-white md:text-5xl">Frequently Asked Questions</h1>
-                <p class="text-xl text-gray-400">Find answers to common questions about our services</p>
+                <h1 class="mb-4 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">Frequently Asked Questions</h1>
+                <p class="text-xl {$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">Find answers to common questions about our services</p>
             </div>
             
             <div in:fly={{ y: 50, duration: 1000, delay: 400 }}>

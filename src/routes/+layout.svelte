@@ -10,14 +10,11 @@
 	import { quintOut } from 'svelte/easing';
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
 	import { page } from '$app/stores';
+	import { theme, toggleTheme } from '$lib/stores/theme';
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
 	let isScrolled = $state(false);
-
-	function toggleMenu() {
-		isMenuOpen = !isMenuOpen;
-	}
 
 	function closeMenu() {
 		isMenuOpen = false;
@@ -33,7 +30,7 @@
 </script>
 
 <svelte:head>
-	<meta name="color-scheme" content="dark" />
+	<meta name="color-scheme" content={$theme} />
 </svelte:head>
 
 <svelte:window 
@@ -42,34 +39,49 @@
 	on:scroll={handleScroll}
 />
 
-<div class="dark">
+<div class={$theme}>
 	<nav
-		class="sticky top-0 z-50 text-white transition-colors duration-300 {isScrolled
+		class="sticky top-0 z-50 transition-colors duration-300 {isScrolled
 			? 'sm:bg-opacity-50'
-			: 'sm:bg-opacity-100'} bg-[#1C1C1C]"
+			: 'sm:bg-opacity-100'} {$theme === 'dark' ? 'bg-primary-dark text-white' : 'bg-white text-primary-accent'}"
 	>
 		<div class="container mx-auto flex flex-col items-center md:flex-row md:justify-between">
 			<div class="flex w-full items-center justify-between px-4">
 				<a href="/" class="text-xl font-bold">
 					<img
-						src={darkLogo}
+						src={$theme === 'dark' ? darkLogo : logo}
 						alt="Macro Exotics Logo"
-						class="pt-3 px-3 h-20 transition-transform hover:scale-105 md:h-24"
+						class="p-2 h-24 transition-transform hover:scale-105 md:h-22"
 					/>
 				</a>
 				<div class="flex items-center gap-4">
+					<button
+						class="p-2 rounded-full hidden  {$theme === 'dark' ? 'bg-white text-primary-dark' : 'bg-primary-accent text-white'}"
+						onclick={toggleTheme}
+						aria-label="Toggle theme"
+					>
+						{#if $theme === 'dark'}
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+							</svg>
+						{:else}
+							<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+								<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+							</svg>
+						{/if}
+					</button>
 					{#if !$page.data.user}
 						<a
 							href="https://my.macroexotics.com/login"
-							class="flex items-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] sm:hidden"
+							class="flex items-center gap-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] sm:hidden"
 						>
 							<AccountIcon className="w-6 h-6 pointer-events-none" />
 						</a>
 					{/if}
 
 					<button
-						class="text-white transition-colors duration-300 hover:text-miami-pink md:hidden"
-						onclick={toggleMenu}
+						class="transition-colors duration-300 hover:text-primary-light md:hidden"
+						onclick={() => (isMenuOpen = !isMenuOpen)}
 						aria-label="Toggle menu"
 					>
 						<svg
@@ -113,21 +125,21 @@
 					>
 						<a
 							href="/"
-							class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] {$page.url.pathname === '/' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-miami-light-pink/10 before:backdrop-blur-sm px-4 py-2 text-miami-light-pink' : 'px-4 py-2'}"
+							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2' : 'px-4 py-2'}"
 						>
 							Home
 						</a>
 
 						<a
 							href="/pricing"
-							class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] {$page.url.pathname === '/pricing' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-miami-light-pink/10 before:backdrop-blur-sm px-4 py-2 text-miami-light-pink' : 'px-4 py-2'}"
+							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/pricing' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2 ' : 'px-4 py-2'}"
 						>
 							VIP
 						</a>
 
 						<a
 							href="/contact"
-							class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)] {$page.url.pathname === '/contact' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-miami-light-pink/10 before:backdrop-blur-sm px-4 py-2 text-miami-light-pink' : 'px-4 py-2'}"
+							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/contact' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2' : 'px-4 py-2'}"
 						>
 							Contact
 						</a>
@@ -135,14 +147,14 @@
 						{#if !$page.data.user}
 							<a
 								href="https://my.macroexotics.com/login"
-								class="flex items-center justify-center gap-2 text-white hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
+								class="flex items-center justify-center gap-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]"
 							>
 								<AccountIcon className="w-6 h-6 sm:flex hidden" />
 							</a>
 						{:else}
 							<a
 								href="/logout"
-								class="text-lg font-medium text-white transition-colors duration-300 hover:text-miami-light-pink hover:drop-shadow-[0_0_8px_rgba(255,27,107,0.5)]"
+								class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]"
 							>
 								Logout
 							</a>
@@ -153,7 +165,7 @@
 		</div>
 	</nav>
 
-	<main class="mx-auto min-h-[80vh] w-full bg-gradient-to-b from-[#1e1e1e] to-[#2d1b2a]">
+	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? 'bg-dark-gradient' : 'bg-white'}">
 		{@render children()}
 	</main>
 

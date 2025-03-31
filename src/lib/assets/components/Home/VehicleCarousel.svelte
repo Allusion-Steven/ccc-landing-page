@@ -5,6 +5,7 @@
 	import { fly, fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import type { Vehicle, Yacht, VehicleTag, YachtTag } from '$lib/types';
+	import { theme } from '$lib/stores/theme';
 
 	export let items: Vehicle[] | Yacht[] = [];
 	export let title: string = '';
@@ -31,16 +32,16 @@
 </script>
 
 <div
-	class="w-full"
-	class:bg-gradient-to-br={itemType === 'yacht'}
-	class:from-[#1C1C1C]={itemType === 'yacht'}
-	class:via-[#1e1e1e]={itemType === 'yacht'}
-	class:to-[#141414]={itemType === 'yacht'}>
+	class="w-full {itemType === 'yacht' && $theme === 'dark' ? 'bg-gradient-to-br' : ''} 
+	{itemType === 'yacht' && $theme === 'dark' ? 'from-[#1C1C1C] via-[#1e1e1e] to-[#141414]' : ''}
+	{itemType === 'yacht' && $theme === 'light' ? 'bg-white' : ''}
+	{$theme === 'dark' && itemType !== 'yacht' ? 'bg-transparent' : ''}
+	{$theme === 'light' && itemType !== 'yacht' ? 'bg-white' : ''}">
 	<div class="max-w-8xl container mx-auto px-4 py-16">
 		{#if visible}
 			<h3
 				in:fly={{ duration: 800, delay: 0, x: -50 }}
-				class="mb-12 text-center text-4xl font-bold leading-tight text-white md:text-5xl">
+				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
 				{title}
 			</h3>
 			<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -48,7 +49,7 @@
 					{#if itemType === 'car' ? index < 8 : index < 4}
 						<a
 							href={`/${itemType === 'car' ? 'vehicle' : "yacht"}/${item.id}${item.userId ? `?userId=${item.userId}` : ''}`}
-							class="group relative blockGallery h-72 w-full transform overflow-hidden rounded-xl bg-white/5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+							class="group relative blockGallery h-72 w-full transform overflow-hidden rounded-xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl {$theme === 'dark' ? 'bg-white/5' : 'bg-[#8393AA]/10'}">
 							<div
 								class="aspect-[16/10] w-full overflow-hidden"
 								in:fly={{ duration: 800, delay: index * 200, x: -50 }}>
@@ -69,23 +70,22 @@
 											})}
 											style="width: 100px; object-fit: cover; height:18rem; width: 100%; position: fixed; pointer-events: none;">
 											<div
-												class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-black/0 p-4 text-white">
+												class="fixed bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/80 via-[#513954]/70 to-transparent'}">
 												<h3
-													class="line-clamp-2 text-xl font-bold tracking-tight">
+													class="line-clamp-2 text-xl font-bold tracking-tight ">
 													{item.make}
 													{item.model}
 												</h3>
 												<div class="mt-2 flex items-center justify-between">
-													<p class="text-sm text-gray-300">
+													<p class="text-sm {$theme === 'dark' ? 'text-gray-300' : 'text-white'}">
 														{#if isYacht(item)}
-														{item.specs.length} | {item.specs
-																.guests} Guests
+															{item.specs.length} | {item.specs.guests} Guests
 														{:else}
 															{item.year}
 														{/if}
 													</p>
-													<p class="font-semibold text-[#0bd3d3]">
-														${item.pricePerDay}/day
+													<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#08D3D3]'}">
+														${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 													</p>
 												</div>
 											</div>
@@ -103,48 +103,47 @@
 												);
 											}} />
 										<div
-											class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-black/0 p-4 text-white">
+											class="fixed bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/80 via-[#513954]/70 to-transparent'}">
 											<h3
 												class="line-clamp-2 text-xl font-bold tracking-tight">
 												{item.make}
 												{item.model}
 											</h3>
 											<div class="mt-2 flex items-center justify-between">
-												<p class="text-sm text-gray-300">
+												<p class="text-sm {$theme === 'dark' ? 'text-gray-300' : 'text-white'}">
 													{#if isYacht(item)}
-													{item.specs.length} | {item.specs.guests} Guests
+														{item.specs.length} | {item.specs.guests} Guests
 													{:else}
 														{item.year}
 													{/if}
 												</p>
-												<p class="font-semibold text-[#0bd3d3]">
-													${item.pricePerDay}/day
+												<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#08D3D3]'}">
+													${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 												</p>
 											</div>
 										</div>
 									{/if}
 								{:else}
 									<div
-										class="flex h-full w-full items-center justify-center bg-gray-800">
-										<span class="text-gray-400">No image available</span>
+										class="flex h-full w-full items-center justify-center {$theme === 'dark' ? 'bg-gray-800' : 'bg-[#8393AA]/20'}">
+										<span class="{$theme === 'dark' ? 'text-gray-400' : 'text-[#513954]'}">No image available</span>
 										<div
-											class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-black/0 p-4 text-white">
+											class="absolute bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/80 via-[#513954]/70 to-transparent'}">
 											<h3
 												class="line-clamp-2 text-xl font-bold tracking-tight">
 												{item.make}
 												{item.model}
 											</h3>
 											<div class="mt-2 flex items-center justify-between">
-												<p class="text-sm text-gray-300">
+												<p class="text-sm {$theme === 'dark' ? 'text-gray-300' : 'text-white'}">
 													{#if isYacht(item)}
-													{item.specs.length} | {item.specs.guests} Guests
-
+														{item.specs.length} | {item.specs.guests} Guests
 													{:else}
 														{item.year}
 													{/if}
 												</p>
-												<p class="font-semibold text-[#0bd3d3]">
-													${item.pricePerDay}/day
+												<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#8393AA]'}">
+													${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 												</p>
 											</div>
 										</div>
@@ -156,7 +155,12 @@
 				{/each}
 			</div>
 			<div in:fade={{ duration: 800, delay: 1200 }} class="flex justify-center">
-				<SecondaryButton href={viewAllLink} type="submit" text="View All" />
+				<SecondaryButton 
+					href={viewAllLink} 
+					type="submit" 
+					text="View All" 
+					colorScheme={$theme === 'dark' ? 'dark' : 'dark'}
+				/>
 			</div>
 		{/if}
 	</div>
