@@ -56,7 +56,7 @@
 				</a>
 				<div class="flex items-center gap-4">
 					<button
-						class="p-2 rounded-full {$theme === 'dark' ? 'bg-white text-primary-dark' : 'bg-primary-accent text-white'}"
+						class="p-2 rounded-full hidden  {$theme === 'dark' ? 'bg-white text-primary-dark' : 'bg-primary-accent text-white'}"
 						onclick={toggleTheme}
 						aria-label="Toggle theme"
 					>
