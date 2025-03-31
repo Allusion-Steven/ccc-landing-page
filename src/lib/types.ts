@@ -63,6 +63,12 @@ export interface VehicleImage {
     public_id: string;
     alt?: string;
     isPrimary?: boolean;
+    urls?: {
+        small?: string;
+        medium?: string;
+        large?: string;
+        thumbnail?: string;
+    };
 }
 
 export type VehicleTag = 'Comfort' | 'Performance' | 'Coupe' | 'Supercar' | 'Convertible' | 'SUV';

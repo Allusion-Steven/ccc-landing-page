@@ -1,3 +1,5 @@
+import type { VehicleImage } from "$lib/types";
+
 interface BaseItem {
     specs: any;
     userId: any;
@@ -5,8 +7,9 @@ interface BaseItem {
     make: string;
     model: string;
     pricePerDay: number;
+    year: number;
     tags: string[];
-    images: { url: string; alt: string; }[];
+    images: VehicleImage[];
 }
 
 interface Vehicle extends BaseItem {

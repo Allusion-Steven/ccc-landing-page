@@ -95,7 +95,7 @@
 									<p class="{$theme === 'dark' ? 'text-white/95' : 'text-primary-accent/95'}">I'm Looking For</p>
 									<button
 										class="w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Car'
-											? 'bg-gradient-to-r from-miami-pink to-miami-light-pink text-white'
+											? 'bg-gradient-to-r from-primary-light to-primary-accent text-white'
 											: `${$theme === 'dark' ? 'bg-white/10 text-white/90 hover:bg-white/20' : 'bg-primary-accent/10 text-primary-accent/90 hover:bg-primary-accent/20'}`}"
 										on:click={() => {
 											vehicleType = 'Car';
@@ -104,7 +104,7 @@
 
 									<button
 										class="w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Yacht'
-											? 'bg-gradient-to-r from-miami-pink to-miami-light-pink text-white'
+											? 'bg-gradient-to-r from-primary-light to-primary-accent text-white'
 											: `${$theme === 'dark' ? 'bg-white/10 text-white/90 hover:bg-white/20' : 'bg-primary-accent/10 text-primary-accent/90 hover:bg-primary-accent/20'}`}"
 										on:click={() => {
 											vehicleType = 'Yacht';
@@ -196,7 +196,7 @@
 
 										<!-- Search button -->
 										<button
-											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
+											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-primary-light to-primary-accent px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
 											on:click={() => {
 												const baseUrl =
 													vehicleType === 'Yacht'
@@ -206,9 +206,7 @@
 													location: location,
 													pickupDate: pickupDate,
 													dropoffDate: dropoffDate,
-													...(vehicleType === 'Yacht' && {
-														vehicleType: 'yacht'
-													})
+													vehicleType: vehicleType === 'Yacht' ? 'yacht' : 'car'
 												});
 												window.location.href = `${baseUrl}?${params.toString()}`;
 											}}

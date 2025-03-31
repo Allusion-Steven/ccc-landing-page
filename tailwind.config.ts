@@ -15,7 +15,7 @@ export default {
 				primary: {
 					light: '#f890e7',  // light pink
 					dark: '#1C1C1C',   // dark background
-					accent: '#c23f5b',  // rose
+					accent: '#513954',  // purple
 					muted: '#9f7c9d'    // mauve
 				},
 				miami: {

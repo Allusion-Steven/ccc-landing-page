@@ -64,7 +64,7 @@
 						text="Become a host"
 						href="https://my.macroexotics.com/"
 						width="w-full" />
-					<SecondaryButton text="Book a vehicle" href="/vehicles" width="w-full" />
+					<SecondaryButton text="Book a vehicle" href="/vehicles" width="w-full" colorScheme={$theme === 'dark' ? 'light' : 'dark'} />
 				</div>
 			</div>
 

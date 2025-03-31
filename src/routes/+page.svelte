@@ -5,7 +5,6 @@
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
 	import Experience from '$lib/assets/components/Home/Experience.svelte';
 	import { faqData } from '$lib/data/faq';
-	import { yachts } from '$lib/constants/Yachts';
 	import type { Vehicle, Yacht } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { fade, fly, scale, slide } from 'svelte/transition';
@@ -19,7 +18,7 @@
 	let experienceVisible = false;
 
 	export let data;
-	const { featuredVehicles } = data;
+	const { featuredVehicles, featuredYachts } = data;
 
 	function intersectionObserver(node: HTMLElement, callback: (isVisible: boolean) => void) {
 		const observer = new IntersectionObserver(
@@ -103,11 +102,18 @@
 					duration: 3000,
 					easing: quintOut
 				}}>
-				<VehicleCarousel
-					items={featuredVehicles.vehicles}
-					title="Featured Vehicles"
-					viewAllLink="/vehicles"
-					itemType="vehicle" />
+				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
+					<VehicleCarousel
+						items={featuredVehicles.vehicles}
+						title="Featured Vehicles"
+						viewAllLink="/vehicles"
+						itemType="car" />
+				{:else}
+					<div class="container mx-auto py-16 text-center">
+						<h3 class="mb-4 text-3xl font-bold text-white">Featured Vehicles</h3>
+						<p class="text-white/70">No featured vehicles available at the moment.</p>
+					</div>
+				{/if}
 			</div>
 		{/if}
 	</div>
@@ -133,11 +139,18 @@
 					duration: 3000,
 					easing: quintOut
 				}}>
-				<VehicleCarousel
-					items={yachts as Yacht[]}
-					title="Featured Yachts"
-					viewAllLink="/yachts"
-					itemType="yacht" />
+				{#if featuredYachts && featuredYachts.vehicles && featuredYachts.vehicles.length > 0}
+					<VehicleCarousel
+						items={featuredYachts.vehicles}
+						title="Featured Yachts"
+						viewAllLink="/yachts"
+						itemType="yacht" />
+				{:else}
+					<div class="container mx-auto py-16 text-center">
+						<h3 class="mb-4 text-3xl font-bold text-white">Featured Yachts</h3>
+						<p class="text-white/70">No featured yachts available at the moment.</p>
+					</div>
+				{/if}
 			</div>
 		{/if}
 	</div>

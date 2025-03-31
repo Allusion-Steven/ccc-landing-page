@@ -39,7 +39,7 @@
 							vehicles through the vibrant streets across the world.
 						</p>
 						<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
-						<SecondaryButton href="/vehicles" text="Explore Cars" width="w-full" />
+						<SecondaryButton href="/vehicles" text="Explore Cars" width="w-full" colorScheme="light" />
 					</div>
 				</div>
 
@@ -61,7 +61,8 @@
 							className="whitespace-nowrap"
 							href="/yachts"
 							text="Discover Yachts"
-							width="w-full" />
+							width="w-full"
+							colorScheme="light" />
 					</div>
 				</div>
 				<div
@@ -81,7 +82,8 @@
 							className="whitespace-nowrap"
 							href="https://my.macroexotics.com/"
 							text="Become a host"
-							width="w-full" />
+							width="w-full"
+							colorScheme="light" />
 					</div>
 				</div>
 			</div>
@@ -92,9 +94,9 @@
 				<h3 class="mb-6 text-center text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Rental Benefits</h3>
 				<div class="mx-auto my-0 grid gap-6 text-left md:grid-cols-2">
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-pink-200 p-3">
+						<div class="rounded-full bg-[#513954] p-3">
 							<svg
-								class="h-6 w-6 text-[#f890e7]"
+								class="h-6 w-6 text-[#F0E1E1]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24">
@@ -112,9 +114,9 @@
 					</div>
 
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-pink-200 p-3">
+						<div class="rounded-full bg-[#513954] p-3">
 							<svg
-								class="h-6 w-6 text-[#f890e7]"
+								class="h-6 w-6 text-[#F0E1E1]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24">
@@ -132,9 +134,9 @@
 					</div>
 
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-pink-200 p-3">
+						<div class="rounded-full bg-[#513954] p-3">
 							<svg
-								class="h-6 w-6 text-[#f890e7]"
+								class="h-6 w-6 text-[#F0E1E1]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24">
@@ -152,9 +154,9 @@
 					</div>
 
 					<div class="flex items-center space-x-4">
-						<div class="rounded-full bg-pink-200 p-3">
+						<div class="rounded-full bg-[#513954] p-3">
 							<svg
-								class="h-6 w-6 text-[#f890e7]"
+								class="h-6 w-6 text-[#F0E1E1]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24">
@@ -173,7 +175,7 @@
 				</div>
 			</div>
 			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-8 flex justify-center">
-				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" />
+				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
 			</div>
 		</div>
 	</div>

@@ -27,7 +27,7 @@
 				class="rounded-xl {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-6">
 				<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
 					<svg
-						class="h-6 w-6 text-[#f890e7]"
+						class="h-6 w-6 text-[#B54959]"
 						fill="none"
 						stroke="currentColor"
 						viewBox="0 0 24 24">
@@ -240,7 +240,7 @@
 				</div>
 			</div>
 			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-[5rem] flex justify-center">
-				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" />
+				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" colorScheme={$theme === 'dark' ? 'dark' : 'dark'} />
 			</div>
 		</div>
 	</div>

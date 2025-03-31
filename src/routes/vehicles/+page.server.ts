@@ -8,11 +8,12 @@ export const load: PageServerLoad = async ({ url }) => {
 
     const response = await fetch(`${apiUrl}/vehicles`);
     const vehicles = await response.json();
+    const filteredVehicles = vehicles.vehicles.filter((vehicle: any) => !vehicle.vehicleType || vehicle.vehicleType !== 'yacht');
 
     return {
         pickupDate,
         dropoffDate,
         location,
-        vehicles: vehicles.vehicles
+        vehicles: filteredVehicles
     };
 }; 

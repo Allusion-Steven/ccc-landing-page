@@ -236,7 +236,9 @@
 
 								<button
 									type="button"
-									class="w-full rounded-xl bg-gradient-to-r from-miami-pink to-miami-light-pink px-6 py-4 font-bold text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] disabled:cursor-not-allowed disabled:opacity-50"
+									class="w-full rounded-xl bg-gradient-to-r {$theme === 'dark' 
+										? 'from-miami-pink to-miami-light-pink hover:shadow-[0_0_20px_rgba(255,27,107,0.3)]' 
+										: 'from-primary-light to-primary-accent hover:shadow-[0_0_20px_rgba(126,212,172,0.3)]'} px-6 py-4 font-bold text-white transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
 									on:click={handleSendButton}
 									disabled={contactFormSending}
 								>
