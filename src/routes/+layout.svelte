@@ -125,21 +125,21 @@
 					>
 						<a
 							href="/"
-							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2 text-primary-light' : 'px-4 py-2'}"
+							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2' : 'px-4 py-2'}"
 						>
 							Home
 						</a>
 
 						<a
 							href="/pricing"
-							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/pricing' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2 text-primary-light' : 'px-4 py-2'}"
+							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/pricing' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2 ' : 'px-4 py-2'}"
 						>
 							VIP
 						</a>
 
 						<a
 							href="/contact"
-							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/contact' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2 text-primary-light' : 'px-4 py-2'}"
+							class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] {$page.url.pathname === '/contact' ? 'relative before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm px-4 py-2' : 'px-4 py-2'}"
 						>
 							Contact
 						</a>
@@ -165,7 +165,7 @@
 		</div>
 	</nav>
 
-	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? 'bg-dark-gradient' : 'bg-light-gradient'}">
+	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? 'bg-dark-gradient' : 'bg-white'}">
 		{@render children()}
 	</main>
 

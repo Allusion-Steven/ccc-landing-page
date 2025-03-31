@@ -85,7 +85,7 @@
 														{/if}
 													</p>
 													<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#08D3D3]'}">
-														${item.pricePerDay}/day
+														${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 													</p>
 												</div>
 											</div>
@@ -118,7 +118,7 @@
 													{/if}
 												</p>
 												<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#08D3D3]'}">
-													${item.pricePerDay}/day
+													${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 												</p>
 											</div>
 										</div>
@@ -143,7 +143,7 @@
 													{/if}
 												</p>
 												<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#8393AA]'}">
-													${item.pricePerDay}/day
+													${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 												</p>
 											</div>
 										</div>

@@ -39,7 +39,7 @@
 							vehicles through the vibrant streets across the world.
 						</p>
 						<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
-						<SecondaryButton href="/vehicles" text="Explore Cars" width="w-full" colorScheme="light" />
+						<SecondaryButton href="/vehicles" text="Explore Cars" width="w-full" colorScheme="light" hoverTextColor="text-white" />
 					</div>
 				</div>
 
@@ -62,7 +62,8 @@
 							href="/yachts"
 							text="Discover Yachts"
 							width="w-full"
-							colorScheme="light" />
+							colorScheme="light"
+							hoverTextColor="text-white" />
 					</div>
 				</div>
 				<div
@@ -83,7 +84,8 @@
 							href="https://my.macroexotics.com/"
 							text="Become a host"
 							width="w-full"
-							colorScheme="light" />
+							colorScheme="light"
+							hoverTextColor="text-white" />
 					</div>
 				</div>
 			</div>
@@ -175,7 +177,7 @@
 				</div>
 			</div>
 			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-8 flex justify-center">
-				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
+				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" colorScheme={$theme === 'dark' ? 'light' : 'dark'} />
 			</div>
 		</div>
 	</div>

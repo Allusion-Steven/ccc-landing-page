@@ -20,11 +20,13 @@
 	}
 
 	console.log('Page received yacht data:', yacht);
-	
+
 	// Make sure userId is available for links and APIs
 	const userId = yacht.userId || $page.url.searchParams.get('userId') || '';
 	// Use the vehicleType from URL or default to "yacht" and ensure proper typing
-	const vehicleType = ($page.url.searchParams.get('vehicleType') || 'yacht') as "yacht" | "vehicle";
+	const vehicleType = ($page.url.searchParams.get('vehicleType') || 'yacht') as
+		| 'yacht'
+		| 'vehicle';
 
 	if (userId && !yacht.userId) {
 		yacht.userId = userId;
@@ -52,21 +54,19 @@
 
 	// Extract description safely
 	const description = yacht.description || '';
-	
+
 	// Ensure we have valid images array
-	const yachtImages = yacht.images && Array.isArray(yacht.images) 
-		? yacht.images.filter((img: VehicleImage) => img && img.isActive) 
-		: [];
+	const yachtImages =
+		yacht.images && Array.isArray(yacht.images)
+			? yacht.images.filter((img: VehicleImage) => img && img.isActive)
+			: [];
 
-	
 	// Get the best quality image URL for SEO
-	const seoImageUrl = yachtImages.length > 0 && yachtImages[0].urls?.large 
-		? yachtImages[0].urls.large 
-		: (yacht.images?.[0]?.url ?? 'https://macroexotics.com/favicon.png');
+	const seoImageUrl =
+		yachtImages.length > 0 && yachtImages[0].urls?.large
+			? yachtImages[0].urls.large
+			: (yacht.images?.[0]?.url ?? 'https://macroexotics.com/favicon.png');
 </script>
-
-
-
 
 <VehicleSEO
 	make={yacht.make || ''}
@@ -74,61 +74,72 @@
 	year={yacht.year?.toString() || ''}
 	canonical={`${yacht.id}${userId ? `?userId=${userId}` : ''}`}
 	imageUrl={seoImageUrl}
-	vehicleType="yacht" 
-/>
+	vehicleType="yacht" />
 
 <div
-	class="container mx-auto min-h-screen px-4 py-8"
+	class="min-h-screen bg-gray-50 dark:bg-transparent px-4 py-8"
 	in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 	<div
-		class="grid grid-cols-1 gap-8 lg:grid-cols-10"
+		class="container mx-auto grid grid-cols-1 gap-8 lg:grid-cols-10"
 		in:fly={{ y: 50, duration: 1000, delay: 400 }}>
 		<div class="md:col-span-1 lg:col-span-6" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
 			<ImageGallery images={yachtImages} />
 		</div>
 
 		<!-- Right side - Yacht Information -->
-		<div class="md:col-span-1 lg:col-span-4 flex flex-col justify-start space-y-8">
+		<div class="flex flex-col justify-start space-y-8 md:col-span-1 lg:col-span-4">
 			<div>
-				<h1 class="text-4xl font-bold text-white">
+				<h1 class="text-4xl font-bold text-primary-accent dark:text-white">
 					{yacht.make || ''}
 					{yacht.model || ''}
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
-					<span class="text-xl text-gray-300">{yacht.year}</span>
-					<span class="text-3xl font-bold text-miami-pink">${yacht.pricePerDay}/day</span>
+					<span class="text-xl text-primary-accent/80 dark:text-gray-300">{yacht.year}</span>
+					<span class="text-3xl font-bold text-[#BF4959] dark:text-miami-pink">
+						${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
+					</span>
 				</div>
 			</div>
 
 			<!-- Yacht Specifications -->
 			<div class="space-y-6">
-				<h2 class="text-2xl font-semibold text-white">Specifications</h2>
+				<h2 class="text-2xl font-semibold text-primary-accent dark:text-white">Specifications</h2>
 				<div class="grid grid-cols-2 gap-4">
-					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Length</span>
-						<p class="text-lg font-medium text-white">{getYachtInfo(yacht, 'length')}</p>
+					<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						<span class="text-sm text-gray-500 dark:text-gray-400">Length</span>
+						<p class="text-lg font-medium text-primary-accent dark:text-white">
+							{getYachtInfo(yacht, 'length')}
+						</p>
 					</div>
 
-<!-- 				TODO: Add beam to the yacht form on backend	
+					<!-- 				TODO: Add beam to the yacht form on backend	
 					<div class="rounded-lg bg-white/5 p-4">
 						<span class="text-sm text-gray-400">Beam</span>
 						<p class="text-lg font-medium text-white">{getYachtInfo(yacht, 'beam')}</p>
 					</div> -->
-					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Guests</span>
-						<p class="text-lg font-medium text-white">{getYachtInfo(yacht, 'guests', 0)}</p>
+					<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						<span class="text-sm text-gray-500 dark:text-gray-400">Guests</span>
+						<p class="text-lg font-medium text-primary-accent dark:text-white">
+							{getYachtInfo(yacht, 'guests', 0)}
+						</p>
 					</div>
-					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Cabins</span>
-						<p class="text-lg font-medium text-white">{getYachtInfo(yacht, 'cabins', 0)}</p>
+					<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						<span class="text-sm text-gray-500 dark:text-gray-400">Cabins</span>
+						<p class="text-lg font-medium text-primary-accent dark:text-white">
+							{getYachtInfo(yacht, 'cabins', 0)}
+						</p>
 					</div>
-					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Crew</span>
-						<p class="text-lg font-medium text-white">{getYachtInfo(yacht, 'crew', 0)}</p>
+					<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						<span class="text-sm text-gray-500 dark:text-gray-400">Crew</span>
+						<p class="text-lg font-medium text-primary-accent dark:text-white">
+							{getYachtInfo(yacht, 'crew', 0)}
+						</p>
 					</div>
-					<div class="rounded-lg bg-white/5 p-4">
-						<span class="text-sm text-gray-400">Daily Rate</span>
-						<p class="text-lg font-medium text-miami-pink">${yacht.pricePerDay}</p>
+					<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						<span class="text-sm text-gray-500 dark:text-gray-400">Daily Rate</span>
+						<p class="text-lg font-medium text-[#BF4959] dark:text-miami-pink">
+							${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
+						</p>
 					</div>
 				</div>
 			</div>
@@ -136,7 +147,7 @@
 			<!-- Action Buttons -->
 			<div class="flex flex-col space-y-4">
 				<button
-					class="w-full rounded-lg bg-miami-pink px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-miami-pink/80"
+					class="w-full rounded-lg bg-[#BF4959] dark:bg-miami-pink px-6 py-3 font-semibold text-white shadow-sm hover:shadow-md transition-all duration-300 hover:opacity-90"
 					on:click={() => (showDatePicker = !showDatePicker)}>
 					Book Now
 				</button>
@@ -147,12 +158,11 @@
 					{dropoffDate}
 					{location}
 					id={yacht.id}
-					vehicleType={vehicleType}
-				/>
-					
+					{vehicleType} />
+
 				<a
 					href={`/contact${userId ? `?userId=${userId}` : ''}`}
-					class="w-full rounded-lg border border-[#0bd3d3] px-6 py-3 text-center font-semibold text-[#0bd3d3] transition-all duration-300 hover:bg-[#0bd3d3]/10">
+					class="w-full rounded-lg border border-[#BF4959] dark:border-[#0bd3d3] px-6 py-3 text-center font-semibold text-[#BF4959] dark:text-[#0bd3d3] transition-all duration-300 hover:bg-[#BF4959]/10 dark:hover:bg-[#0bd3d3]/10 shadow-sm hover:shadow-md dark:shadow-none dark:hover:shadow-none">
 					Contact Us
 				</a>
 			</div>
@@ -160,17 +170,24 @@
 	</div>
 
 	<!-- Yacht Description -->
-	<h2 class="mt-20 text-3xl font-bold uppercase text-white">Description</h2>
-	<div class="mt-8 rounded-lg bg-white/5 p-6 shadow-md">
-		<p class="mt-2 text-lg text-gray-200">
-			{#if description}
-				{description}
-			{:else}
-				Experience luxury on the water with the {yacht.year || 'modern'}
-				{yacht.make || ''} {yacht.model || ''}. This stunning {getYachtInfo(yacht, 'length')} yacht offers exceptional comfort and style,
-				accommodating up to {getYachtInfo(yacht, 'guests', 0)} guests in {getYachtInfo(yacht, 'cabins', 0)} luxurious cabins.
-				With a professional crew of {getYachtInfo(yacht, 'crew', 0)}, your journey will be nothing short of extraordinary.
-			{/if}
-		</p>
+	<div class="container mx-auto">
+		<h2 class="mt-20 text-3xl font-bold uppercase text-primary-accent dark:text-white">Description</h2>
+		<div class="mt-8 rounded-lg bg-white shadow-md hover:shadow-lg transition-shadow dark:bg-white/5 dark:hover:shadow-none p-6">
+			<p class="mt-2 text-lg text-primary-accent dark:text-gray-200">
+				{#if description}
+					{description}
+				{:else}
+					Experience luxury on the water with the {yacht.year || 'modern'}
+					{yacht.make || ''}
+					{yacht.model || ''}. This stunning {getYachtInfo(yacht, 'length')} yacht offers exceptional
+					comfort and style, accommodating up to {getYachtInfo(yacht, 'guests', 0)} guests in {getYachtInfo(
+						yacht,
+						'cabins',
+						0
+					)} luxurious cabins. With a professional crew of {getYachtInfo(yacht, 'crew', 0)},
+					your journey will be nothing short of extraordinary.
+				{/if}
+			</p>
+		</div>
 	</div>
 </div>
