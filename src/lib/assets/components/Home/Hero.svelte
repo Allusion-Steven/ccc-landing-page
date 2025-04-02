@@ -68,7 +68,7 @@
 				></div>
 				<div class="container mx-auto h-full px-4">
 					<div class="flex h-full items-center justify-center">
-						<div class="mx-auto max-w-4xl text-center {$theme === 'dark' ? '' : 'rounded-3xl bg-white/40 p-8 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.15)]'}">
+						<div class="mx-auto max-w-4xl text-center {$theme === 'dark' ? '' : 'rounded-3xl bg-white/20 p-8 backdrop-blur-sm shadow-[0_8px_32px_rgba(0,0,0,0.15)]'}">
 							<h1
 								in:fly={{ y: 50, duration: 1000, delay: 200 }}
 								class="mb-8 text-4xl font-bold tracking-tight {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}  md:text-6xl"
