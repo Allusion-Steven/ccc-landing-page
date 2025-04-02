@@ -22,6 +22,8 @@ export default {
 				miami: {
 					pink: '#ff1b6b',
 					blue: '#45caff',
+					'bright-blue': '#08D3D3',
+
 					dark: '#1e1e1e',
 					purple: '#2d1b2a',
 					'hot-pink': '#ff0080',
