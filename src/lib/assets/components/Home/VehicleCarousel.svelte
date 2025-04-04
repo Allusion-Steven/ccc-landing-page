@@ -117,7 +117,7 @@
 														{item.year}
 													{/if}
 												</p>
-												<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#08D3D3]'}">
+												<p class="font-semibold {$theme === 'dark' ? 'text-miami-bright-blue' : 'text-miami-bright-blue'}">
 													${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 												</p>
 											</div>
@@ -142,7 +142,7 @@
 														{item.year}
 													{/if}
 												</p>
-												<p class="font-semibold {$theme === 'dark' ? 'text-miami-pink' : 'text-[#8393AA]'}">
+												<p class="font-semibold {$theme === 'dark' ? 'text-miami-bright-blue' : 'text-[#8393AA]'}">
 													${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
 												</p>
 											</div>

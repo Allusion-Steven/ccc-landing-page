@@ -155,7 +155,7 @@
 															value="Los Angeles, CA"
 															disabled
 															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
-															>Los Angeles, CA</option
+															>Tampa, FL</option
 														>
 														<option
 															value="New York, NY"
@@ -163,12 +163,7 @@
 															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
 															>New York, NY</option
 														>
-														<option
-															value="Columbus, OH"
-															disabled
-															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
-															>Columbus, OH</option
-														>
+
 													</select>
 												</div>
 											</div>
