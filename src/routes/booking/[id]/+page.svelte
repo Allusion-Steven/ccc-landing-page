@@ -172,31 +172,31 @@
 <!-- TODO: Verify  your email address-->
 <!-- TODO: Verify Your Phone Number-->
 
-<div class="container mx-auto min-h-screen px-4 py-8">
+<div class="container mx-auto min-h-screen px-4 py-8 bg-white dark:bg-gray-900 transition-colors duration-200">
     <div class="mx-auto max-w-2xl">
         <!-- TODO: Check if user exists and is loged in -->
-        <h1 class="mb-8 text-3xl font-bold text-white">Complete Your Booking</h1>
+        <h1 class="mb-8 text-3xl font-bold text-gray-800 dark:text-white">Complete Your Booking</h1>
 
         <!-- TODO: Request parameters from URL (PICKUPDATE IS NOT WORKING)-->
         <!-- Booking Summary -->
-        <div class="mb-8 rounded-lg bg-white/5 p-6 backdrop-blur-sm border border-white/10">
-            <h2 class="mb-4 text-xl font-semibold text-white">Booking Details</h2>
-            <div class="grid grid-cols-2 gap-4 text-gray-300">
+        <div class="mb-8 rounded-lg bg-white dark:bg-gray-800 p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+            <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Booking Details</h2>
+            <div class="grid grid-cols-2 gap-4 text-gray-600 dark:text-gray-300">
                 <div>
-                    <p class="text-sm">Pickup Date</p>
-                    <p class="font-medium text-white">{pickupDate ? new Date(pickupDate).toLocaleDateString() : 'Not specified'}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pickup Date</p>
+                    <p class="font-medium text-gray-800 dark:text-white">{pickupDate ? new Date(pickupDate).toLocaleDateString() : 'Not specified'}</p>
                 </div>
                 <div>
-                    <p class="text-sm">Dropoff Date</p>
-                    <p class="font-medium text-white">{dropoffDate ? new Date(dropoffDate).toLocaleDateString() : 'Not specified'}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Dropoff Date</p>
+                    <p class="font-medium text-gray-800 dark:text-white">{dropoffDate ? new Date(dropoffDate).toLocaleDateString() : 'Not specified'}</p>
                 </div>
                 <div>
-                    <p class="text-sm">Location</p>
-                    <p class="font-medium text-white">{location || 'Not specified'}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Location</p>
+                    <p class="font-medium text-gray-800 dark:text-white">{location || 'Not specified'}</p>
                 </div>
                 <div>
-                    <p class="text-sm">Vehicle</p>
-                    <p class="font-medium text-white">{vehicle?.year} {vehicle?.make} {vehicle?.model}</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Vehicle</p>
+                    <p class="font-medium text-gray-800 dark:text-white">{vehicle?.year} {vehicle?.make} {vehicle?.model}</p>
                 </div>
             </div>
         </div>
@@ -206,25 +206,25 @@
             <div class="flex items-center">
                 <button
                     on:click={() => step = 1}
-                    class="flex h-10 w-10 items-center justify-center rounded-full {step >= 1 ? 'bg-[#0bd3d3]' : 'bg-gray-600'} text-black hover:opacity-80 cursor-pointer"
+                    class="flex h-10 w-10 items-center justify-center rounded-full {step >= 1 ? 'bg-miami-bright-blue' : 'bg-gray-300 dark:bg-gray-600'} text-white hover:opacity-80 cursor-pointer"
                     type="button"
                 >
                     1
                 </button>
-                <div class="mx-4 h-1 w-16 {step >= 2 ? 'bg-[#0bd3d3]' : 'bg-gray-600'}"></div>
-                <div class="flex h-10 w-10 items-center justify-center rounded-full {step >= 2 ? 'bg-[#0bd3d3]' : 'bg-gray-600'} text-black">2</div>
+                <div class="mx-4 h-1 w-16 {step >= 2 ? 'bg-miami-bright-blue' : 'bg-gray-300 dark:bg-gray-600'}"></div>
+                <div class="flex h-10 w-10 items-center justify-center rounded-full {step >= 2 ? 'bg-miami-bright-blue' : 'bg-gray-300 dark:bg-gray-600'} text-white">2</div>
             </div>
         </div>
 
         {#if step === 1}
             <!-- User Information Form -->
-            <div class="rounded-lg bg-white/5 p-8 backdrop-blur-sm border border-white/10 shadow-xl">
-                <h2 class="text-2xl font-semibold text-white mb-6">Personal Information</h2>
+            <div class="rounded-lg bg-white dark:bg-gray-800 p-8 shadow-md border border-gray-200 dark:border-gray-700">
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6">Personal Information</h2>
                 <form on:submit|preventDefault={handleSubmit} class="space-y-6">
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div class="space-y-2">
-                            <label for="firstName" class="text-sm font-medium text-gray-300">
-                                First Name <span class="text-red-500">*</span>
+                            <label for="firstName" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                First Name <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="text"
@@ -232,27 +232,27 @@
                                 bind:value={formData.firstName}
                                 placeholder="John"
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.firstName ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.firstName ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.firstName}
-                                <p class="text-sm text-red-500">{errors.firstName}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.firstName}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="middleName" class="text-sm font-medium text-gray-300">Middle Name</label>
+                            <label for="middleName" class="text-sm font-medium text-gray-700 dark:text-gray-300">Middle Name</label>
                             <input
                                 type="text"
                                 id="middleName"
                                 bind:value={formData.middleName}
                                 placeholder="Optional"
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3]"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600"
                             />
                         </div>
 
                         <div class="space-y-2">
-                            <label for="lastName" class="text-sm font-medium text-gray-300">
-                                Last Name <span class="text-red-500">*</span>
+                            <label for="lastName" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Last Name <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="text"
@@ -260,16 +260,16 @@
                                 bind:value={formData.lastName}
                                 placeholder="Doe"
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.lastName ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.lastName ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.lastName}
-                                <p class="text-sm text-red-500">{errors.lastName}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.lastName}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="phoneNumber" class="text-sm font-medium text-gray-300">
-                                Phone Number <span class="text-red-500">*</span>
+                            <label for="phoneNumber" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Phone Number <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="tel"
@@ -277,16 +277,16 @@
                                 bind:value={formData.phoneNumber}
                                 placeholder="(123) 456-7890"
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.phoneNumber ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.phoneNumber ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.phoneNumber}
-                                <p class="text-sm text-red-500">{errors.phoneNumber}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.phoneNumber}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="email" class="text-sm font-medium text-gray-300">
-                                Email Address <span class="text-red-500">*</span>
+                            <label for="email" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Email Address <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="email"
@@ -294,58 +294,58 @@
                                 bind:value={formData.email}
                                 placeholder="john.doe@example.com"
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.email ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.email ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.email}
-                                <p class="text-sm text-red-500">{errors.email}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.email}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="countryOfCitizenship" class="text-sm font-medium text-gray-300">
-                                Country <span class="text-red-500">*</span>
+                            <label for="countryOfCitizenship" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Country <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <select
                                 id="countryOfCitizenship"
                                 bind:value={formData.countryOfCitizenship}
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.countryOfCitizenship ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.countryOfCitizenship ? 'border-red-500 dark:border-red-400' : ''}"
                             >
-                                <option value="" class="bg-gray-800">Select a country</option>
+                                <option value="" class="bg-white dark:bg-gray-700">Select a country</option>
                                 {#each countries as country}
-                                    <option value={country} class="bg-gray-800">{country}</option>
+                                    <option value={country} class="bg-white dark:bg-gray-700">{country}</option>
                                 {/each}
                             </select>
                             {#if errors.countryOfCitizenship}
-                                <p class="text-sm text-red-500">{errors.countryOfCitizenship}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.countryOfCitizenship}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="state" class="text-sm font-medium text-gray-300">
-                                State <span class="text-red-500">*</span>
+                            <label for="state" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                State <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <select
                                 id="state"
                                 bind:value={formData.state}
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.state ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.state ? 'border-red-500 dark:border-red-400' : ''}"
                             >
-                                <option value="" class="bg-gray-800">Select a state</option>
+                                <option value="" class="bg-white dark:bg-gray-700">Select a state</option>
                                 {#if formData.countryOfCitizenship === "United States"}
                                     {#each usStates as state}
-                                        <option value={state} class="bg-gray-800">{state}</option>
+                                        <option value={state} class="bg-white dark:bg-gray-700">{state}</option>
                                     {/each}
                                 {/if}
                             </select>
                             {#if errors.state}
-                                <p class="text-sm text-red-500">{errors.state}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.state}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="licenseNumber" class="text-sm font-medium text-gray-300">
-                                License Number <span class="text-red-500">*</span>
+                            <label for="licenseNumber" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                License Number <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="text"
@@ -353,16 +353,16 @@
                                 bind:value={formData.licenseNumber}
                                 placeholder="Enter your driver's license number"
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.licenseNumber ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.licenseNumber ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.licenseNumber}
-                                <p class="text-sm text-red-500">{errors.licenseNumber}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.licenseNumber}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="licenseExpiration" class="text-sm font-medium text-gray-300">
-                                License Expiration <span class="text-red-500">*</span>
+                            <label for="licenseExpiration" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                License Expiration <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="date"
@@ -370,16 +370,16 @@
                                 bind:value={formData.licenseExpiration}
                                 min={new Date().toISOString().split('T')[0]}
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.licenseExpiration ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.licenseExpiration ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.licenseExpiration}
-                                <p class="text-sm text-red-500">{errors.licenseExpiration}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.licenseExpiration}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="dateOfBirth" class="text-sm font-medium text-gray-300">
-                                Date of Birth <span class="text-red-500">*</span>
+                            <label for="dateOfBirth" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Date of Birth <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="date"
@@ -387,16 +387,16 @@
                                 bind:value={formData.dateOfBirth}
                                 max={new Date(new Date().setFullYear(new Date().getFullYear() - 21)).toISOString().split('T')[0]}
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white focus:outline-none focus:ring-2 focus:ring-[#0bd3d3] {errors.dateOfBirth ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-miami-bright-blue border border-gray-200 dark:border-gray-600 {errors.dateOfBirth ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.dateOfBirth}
-                                <p class="text-sm text-red-500">{errors.dateOfBirth}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.dateOfBirth}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="licenseFront" class="text-sm font-medium text-gray-300">
-                                Driver's License (Front) <span class="text-red-500">*</span>
+                            <label for="licenseFront" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Driver's License (Front) <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="file"
@@ -404,16 +404,16 @@
                                 accept="image/*"
                                 on:change={(e) => handleFileUpload(e, 'front', formData, errors)}
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#0bd3d3] file:text-black hover:file:bg-[#0bd3d3]/80 {errors.licenseFrontImage ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-miami-bright-blue file:text-white hover:file:bg-miami-bright-blue/80 border border-gray-200 dark:border-gray-600 {errors.licenseFrontImage ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.licenseFrontImage}
-                                <p class="text-sm text-red-500">{errors.licenseFrontImage}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.licenseFrontImage}</p>
                             {/if}
                         </div>
 
                         <div class="space-y-2">
-                            <label for="licenseBack" class="text-sm font-medium text-gray-300">
-                                Driver's License (Back) <span class="text-red-500">*</span>
+                            <label for="licenseBack" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Driver's License (Back) <span class="text-red-500 dark:text-red-400">*</span>
                             </label>
                             <input
                                 type="file"
@@ -421,17 +421,17 @@
                                 accept="image/*"
                                 on:change={(e) => handleFileUpload(e, 'back', formData, errors)}
                                 required
-                                class="w-full rounded-lg bg-white/10 p-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#0bd3d3] file:text-black hover:file:bg-[#0bd3d3]/80 {errors.licenseBackImage ? 'border-red-500' : ''}"
+                                class="w-full rounded-lg bg-white dark:bg-gray-700 p-3 text-gray-800 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-miami-bright-blue file:text-white hover:file:bg-miami-bright-blue/80 border border-gray-200 dark:border-gray-600 {errors.licenseBackImage ? 'border-red-500 dark:border-red-400' : ''}"
                             />
                             {#if errors.licenseBackImage}
-                                <p class="text-sm text-red-500">{errors.licenseBackImage}</p>
+                                <p class="text-sm text-red-500 dark:text-red-400">{errors.licenseBackImage}</p>
                             {/if}
                         </div>
                     </div>
 
                     <button
                         type="submit"
-                        class="mt-8 w-full rounded-lg bg-[#0bd3d3] px-6 py-3 font-semibold text-black transition-all duration-300 hover:bg-[#0bd3d3]/80 disabled:opacity-50"
+                        class="mt-8 w-full rounded-lg bg-miami-bright-blue px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-miami-bright-blue/80 disabled:opacity-50"
                         disabled={loading}
                     >
                         {loading ? 'Processing...' : 'Continue to Payment'}
@@ -440,9 +440,9 @@
             </div>
         {:else}
             <!-- Payment Section -->
-            <div class="rounded-lg bg-white/5 p-6">
-                <h2 class="mb-6 text-2xl font-semibold text-white">Payment Information</h2>
-                <p class="mb-6 text-sm text-gray-400 flex items-center gap-2">
+            <div class="rounded-lg bg-white dark:bg-gray-800 p-6 shadow-md border border-gray-200 dark:border-gray-700">
+                <h2 class="mb-6 text-2xl font-semibold text-gray-800 dark:text-white">Payment Information</h2>
+                <p class="mb-6 text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
@@ -451,13 +451,13 @@
                 <form class="space-y-4">
                     <!-- Card Holder Name -->
                     <div>
-                        <label for="cardName" class="mb-2 block text-sm font-medium text-gray-300">
+                        <label for="cardName" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Cardholder Name
                         </label>
                         <input
                             type="text"
                             id="cardName"
-                            class="w-full rounded-lg border border-white/10 bg-white/5 p-2.5 text-white placeholder-gray-400"
+                            class="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-2.5 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                             placeholder="John Doe"
                             required
                         />
@@ -465,13 +465,13 @@
 
                     <!-- Card Number -->
                     <div>
-                        <label for="cardNumber" class="mb-2 block text-sm font-medium text-gray-300">
+                        <label for="cardNumber" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Card Number
                         </label>
                         <input
                             type="text"
                             id="cardNumber"
-                            class="w-full rounded-lg border border-white/10 bg-white/5 p-2.5 text-white placeholder-gray-400"
+                            class="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-2.5 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                             placeholder="1234 5678 9012 3456"
                             maxlength="19"
                             required
@@ -481,26 +481,26 @@
                     <!-- Expiration Date and CVV -->
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label for="expDate" class="mb-2 block text-sm font-medium text-gray-300">
+                            <label for="expDate" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Expiration Date
                             </label>
                             <input
                                 type="text"
                                 id="expDate"
-                                class="w-full rounded-lg border border-white/10 bg-white/5 p-2.5 text-white placeholder-gray-400"
+                                class="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-2.5 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                                 placeholder="MM/YY"
                                 maxlength="5"
                                 required
                             />
                         </div>
                         <div>
-                            <label for="cvv" class="mb-2 block text-sm font-medium text-gray-300">
+                            <label for="cvv" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 CVV
                             </label>
                             <input
                                 type="text"
                                 id="cvv"
-                                class="w-full rounded-lg border border-white/10 bg-white/5 p-2.5 text-white placeholder-gray-400"
+                                class="w-full rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-2.5 text-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                                 placeholder="123"
                                 maxlength="4"
                                 required
@@ -510,7 +510,7 @@
 
                     <button
                         type="submit"
-                        class="mt-6 w-full rounded-lg bg-gradient-to-r from-miami-pink to-miami-light-pink px-5 py-2.5 text-center text-sm font-medium text-white hover:shadow-[0_0_20px_rgba(255,27,107,0.3)]"
+                        class="mt-6 w-full rounded-lg bg-miami-bright-blue px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-miami-bright-blue/80 hover:shadow-lg transition-all"
                     >
                         Pay Now
                     </button>

@@ -95,7 +95,7 @@
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-primary-accent/80 dark:text-gray-300">{yacht.year}</span>
-					<span class="text-3xl font-bold text-[#BF4959] dark:text-miami-pink">
+					<span class="text-3xl font-bold text-[#BF4959] dark:text-miami-blue">
 						${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
 					</span>
 				</div>
@@ -137,7 +137,7 @@
 					</div>
 					<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Daily Rate</span>
-						<p class="text-lg font-medium text-[#BF4959] dark:text-miami-pink">
+						<p class="text-lg font-medium text-[#BF4959] dark:text-miami-blue">
 							${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
 						</p>
 					</div>
