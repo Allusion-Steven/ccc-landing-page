@@ -7,6 +7,8 @@
 	import { onMount } from 'svelte';
 	import SortingOptions from '$lib/components/SortingOptions.svelte';
 	import { theme } from '$lib/stores/theme';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import {
 		getUniqueTypes,
 		getMinMaxPrice,
@@ -16,10 +18,23 @@
 	} from '$lib/utils/filtering';
 
 	export let data: PageData;
-	const { pickupDate, dropoffDate, location, vehicles } = data;
+	const { pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation, vehicles } = data;
 
 	let contentVisible = false;
 	let currentSort = 'default';
+
+	// Initialize pickupDate, dropoffDate, and location with data from URL or defaults
+	let pickupDate = initialPickupDate || '';
+	let dropoffDate = initialDropoffDate || '';
+	let location = initialLocation || 'Miami, FL';
+
+	// Handle URL parameters when the page loads
+	$: {
+		const searchParams = $page.url.searchParams;
+		location = searchParams.get('location') || initialLocation || 'Miami, FL';
+		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
+		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
+	}
 
 	onMount(() => {
 		setTimeout(() => {
@@ -76,10 +91,49 @@
 		maxYear = maxYearAvailable;
 		selectedTypes = [];
 		currentSort = 'default';
+		// Keep date and location values
+		updateURL();
 	}
 
 	function handleSort(sortOption: string) {
 		currentSort = sortOption;
+	}
+
+	// Update URL with date parameters
+	function updateURL() {
+		const url = new URL(window.location.href);
+		
+		// Update or remove parameters
+		if (pickupDate) {
+			url.searchParams.set('pickupDate', pickupDate);
+		} else {
+			url.searchParams.delete('pickupDate');
+		}
+		
+		if (dropoffDate) {
+			url.searchParams.set('dropoffDate', dropoffDate);
+		} else {
+			url.searchParams.delete('dropoffDate');
+		}
+		
+		if (location) {
+			url.searchParams.set('location', location);
+		} else {
+			url.searchParams.delete('location');
+		}
+		
+		// Update browser history without full page reload
+		goto(url.toString(), { replaceState: true, keepFocus: true, noScroll: true });
+	}
+
+	// Handle date changes
+	function handleDateChange() {
+		updateURL();
+	}
+
+	// Handle location changes
+	function handleLocationChange() {
+		updateURL();
 	}
 </script>
 
@@ -127,7 +181,7 @@
 			<div class="flex flex-col gap-4 lg:hidden">
 				<!-- Mobile Search Input -->
 				<div class="relative w-full">
-					<div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
+					<div class="absolute right-4 top-1/2 z-10 -translate-y-1/2">
 						<svg
 							class="h-5 w-5 {$theme === 'dark' ? 'text-white/70' : 'text-gray-500'}"
 							fill="none"
@@ -204,6 +258,49 @@
 						</div>
 
 						<div class="flex flex-col gap-6">
+							<!-- Date Range Selector for Mobile -->
+							<div class="w-full">
+								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+									>Rental Dates</label>
+								<div class="flex flex-col space-y-3">
+									<div>
+										<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Location</label>
+										<select
+											id="location-mobile"
+											bind:value={location}
+											on:change={handleLocationChange}
+											class="mt-1 w-full rounded-lg border {$theme === 'dark' 
+											? 'border-white/20 bg-white/5 text-white' 
+											: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
+											<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+											<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
+											<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
+										</select>
+									</div>
+									<div>
+										<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Date</label>
+										<input 
+											type="date" 
+											bind:value={pickupDate} 
+											on:change={handleDateChange}
+											class="mt-1 w-full rounded-lg border {$theme === 'dark' 
+												? 'border-white/20 bg-white/5 text-white placeholder-white/50' 
+												: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
+									</div>
+									<div>
+										<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Dropoff Date</label>
+										<input 
+											type="date" 
+											bind:value={dropoffDate} 
+											on:change={handleDateChange}
+											min={pickupDate}
+											class="mt-1 w-full rounded-lg border {$theme === 'dark' 
+												? 'border-white/20 bg-white/5 text-white placeholder-white/50' 
+												: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
+									</div>
+								</div>
+							</div>
+
 							<!-- Price Range -->
 							<div class="w-full">
 								<label
@@ -219,8 +316,8 @@
 									bind:value={maxPrice}
 									class="w-full" />
 								<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
-									<span>${minPriceAvailable}</span>
-									<span>${maxPrice}</span>
+									<span>${new Intl.NumberFormat('en-US').format(minPriceAvailable)}</span>
+									<span>${new Intl.NumberFormat('en-US').format(maxPrice)}</span>
 								</div>
 							</div>
 
@@ -274,7 +371,11 @@
 								{#if isAnyFilterActive}
 									<Button color={$theme === 'dark' ? 'dark' : 'light'} on:click={clearFilters}>Clear All</Button>
 								{/if}
-								<Button color="primary" on:click={() => (showFiltersModal = false)}>
+								<Button color="primary" on:click={() => {
+									// Always update URL to ensure date and location are included
+									updateURL();
+									showFiltersModal = false;
+								}}>
 									Apply Filters
 								</Button>
 							</div>
@@ -324,6 +425,49 @@
 									: '!bg-white text-gray-800 placeholder-gray-500'}" />
 						</div>
 
+						<!-- Date Range Selector -->
+						<div class="w-full">
+							<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+								>Rental Dates</label>
+							<div class="flex flex-col space-y-3">
+								<div>
+									<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Location</label>
+									<select
+										id="location-desktop"
+										bind:value={location}
+										on:change={handleLocationChange}
+										class="mt-1 w-full rounded-lg border {$theme === 'dark' 
+										? 'border-white/20 bg-white/5 text-white' 
+										: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
+										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
+										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
+									</select>
+								</div>
+								<div>
+									<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Date</label>
+									<input 
+										type="date" 
+										bind:value={pickupDate} 
+										on:change={handleDateChange}
+										class="mt-1 w-full rounded-lg border {$theme === 'dark' 
+											? 'border-white/20 bg-white/5 text-white placeholder-white/50' 
+											: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
+								</div>
+								<div>
+									<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Dropoff Date</label>
+									<input 
+										type="date" 
+										bind:value={dropoffDate} 
+										on:change={handleDateChange}
+										min={pickupDate}
+										class="mt-1 w-full rounded-lg border {$theme === 'dark' 
+											? 'border-white/20 bg-white/5 text-white placeholder-white/50' 
+											: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
+								</div>
+							</div>
+						</div>
+
 						<!-- Price Range -->
 						<div class="w-full">
 							<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
@@ -336,8 +480,8 @@
 								bind:value={maxPrice}
 								class="w-full" />
 							<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
-								<span>${minPriceAvailable}</span>
-								<span>${maxPrice}</span>
+								<span>${new Intl.NumberFormat('en-US').format(minPriceAvailable)}</span>
+								<span>${new Intl.NumberFormat('en-US').format(maxPrice)}</span>
 							</div>
 						</div>
 

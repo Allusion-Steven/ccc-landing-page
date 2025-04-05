@@ -7,6 +7,9 @@
 	import { onMount } from 'svelte';
 	import SortingOptions from '$lib/components/SortingOptions.svelte';
 	import { theme } from '$lib/stores/theme';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { getTomorrow, validateDates } from '$lib/utils/dateUtils';
 	import {
 		getUniqueTypes,
 		getMinMaxPrice,
@@ -16,7 +19,7 @@
 	} from '$lib/utils/filtering';
 
 	export let data: PageData;
-	const { pickupDate, dropoffDate, location, yachts } = data;
+	const { pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation, yachts } = data;
 
 	let contentVisible = false;
 	let currentSort = 'default';
@@ -33,6 +36,18 @@
 	let minGuests: number;
 	let maxGuests: number;
 	let showFiltersModal = false;
+	let pickupDate: string = initialPickupDate;
+	let dropoffDate: string = initialDropoffDate;
+	let location: string = initialLocation;
+	let dateError: string = '';
+
+	// Handle URL parameters when the page loads
+	$: {
+		const searchParams = $page.url.searchParams;
+		location = searchParams.get('location') || initialLocation;
+		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
+		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
+	}
 
 	// Get unique tags from yachts array
 	const yachtTypes = getUniqueTypes(yachts);
@@ -68,7 +83,43 @@
 		}
 	);
 
-	// Clear filters function
+	// Watch for changes to date and location filters and update URL
+	$: if (contentVisible) {
+		// Debounce to avoid too many URL updates
+		const timer = setTimeout(() => {
+			updateUrlParams();
+		}, 300);
+	}
+
+	// Update URL when filter values change
+	function updateUrlParams() {
+		const currentUrl = new URL($page.url);
+		const params = currentUrl.searchParams;
+
+		// Update or clear params based on filter values
+		if (pickupDate) {
+			params.set('pickupDate', pickupDate);
+		} else {
+			params.delete('pickupDate');
+		}
+
+		if (dropoffDate) {
+			params.set('dropoffDate', dropoffDate);
+		} else {
+			params.delete('dropoffDate');
+		}
+
+		if (location) {
+			params.set('location', location);
+		} else {
+			params.delete('location');
+		}
+
+		// Navigate to the updated URL without a page reload
+		goto(`?${params.toString()}`, { replaceState: true, keepFocus: true, noScroll: true });
+	}
+
+	// Clear filters function - update to also update URL
 	function clearFilters() {
 		searchQuery = '';
 		maxPrice = maxPriceAvailable;
@@ -76,10 +127,30 @@
 		maxGuests = maxGuestsAvailable;
 		selectedTypes = [];
 		currentSort = 'default';
+		// Keep date and location values
+		updateUrlParams();
 	}
 
 	function handleSort(sortOption: string) {
 		currentSort = sortOption;
+	}
+
+	// Validate dates when they change
+	$: {
+		if (pickupDate && dropoffDate) {
+			const validation = validateDates(pickupDate, dropoffDate);
+			if (!validation.isValid) {
+				dateError = validation.error || '';
+			} else {
+				dateError = '';
+				// Only update URL when dates are valid
+				if (contentVisible) {
+					const timer = setTimeout(() => {
+						updateUrlParams();
+					}, 300);
+				}
+			}
+		}
 	}
 </script>
 
@@ -203,6 +274,54 @@
 						</div>
 
 						<div class="flex flex-col gap-6">
+							<!-- Date Range - Mobile -->
+							<div class="w-full">
+								<div>
+									<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+										>Pickup Location</label>
+									<select
+										id="location-mobile"
+										bind:value={location}
+										class="w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
+										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
+										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="w-full">
+								<div>
+									<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+										>Pickup Date</label>
+									<input
+										type="date"
+										id="pickupDate-mobile"
+										bind:value={pickupDate}
+										min={new Date().toISOString().split('T')[0]}
+										class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
+								</div>
+							</div>
+
+							<div class="w-full">
+								<div>
+									<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+										>Dropoff Date</label>
+									<input
+										type="date"
+										id="dropoffDate-mobile"
+										bind:value={dropoffDate}
+										min={pickupDate ? getTomorrow(pickupDate) : getTomorrow(new Date().toISOString().split('T')[0])}
+										class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
+								</div>
+							</div>
+
+							{#if dateError}
+								<div class="text-sm text-red-500 p-2 bg-red-50 dark:bg-red-900/20 rounded">
+									{dateError}
+								</div>
+							{/if}
+
 							<!-- Price Range -->
 							<div class="w-full">
 								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
@@ -215,8 +334,8 @@
 									bind:value={maxPrice}
 									class="w-full" />
 								<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
-									<span>${minPriceAvailable}</span>
-									<span>${maxPrice}</span>
+									<span>${new Intl.NumberFormat('en-US').format(minPriceAvailable)}</span>
+									<span>${new Intl.NumberFormat('en-US').format(maxPrice)}</span>
 								</div>
 							</div>
 
@@ -270,8 +389,11 @@
 								{#if isAnyFilterActive}
 									<Button color={$theme === 'dark' ? 'dark' : 'light'} on:click={clearFilters}>Clear All</Button>
 								{/if}
-								<Button color="primary" on:click={() => (showFiltersModal = false)}
-									>Apply Filters</Button>
+								<Button color="primary" on:click={() => {
+									// Always update URL to ensure date and location are included
+									updateUrlParams();
+									showFiltersModal = false;
+								}}>Apply Filters</Button>
 							</div>
 						</div>
 					</div>
@@ -319,6 +441,54 @@
 									: '!bg-white text-gray-800 placeholder-gray-500'}" />
 						</div>
 
+						<!-- Date Range - Desktop -->
+						<div class="w-full">
+							<div>
+								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+									>Pickup Location</label>
+								<select
+									id="location-desktop"
+									bind:value={location}
+									class="w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
+									<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+									<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
+									<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="w-full">
+							<div>
+								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+									>Pickup Date</label>
+								<input
+									type="date"
+									id="pickupDate-desktop"
+									bind:value={pickupDate}
+									min={new Date().toISOString().split('T')[0]}
+									class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
+							</div>
+						</div>
+
+						<div class="w-full">
+							<div>
+								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+									>Dropoff Date</label>
+								<input
+									type="date"
+									id="dropoffDate-desktop"
+									bind:value={dropoffDate}
+									min={pickupDate ? getTomorrow(pickupDate) : getTomorrow(new Date().toISOString().split('T')[0])}
+									class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
+							</div>
+						</div>
+
+						{#if dateError}
+							<div class="text-sm text-red-500 p-2 bg-red-50 dark:bg-red-900/20 rounded">
+								{dateError}
+							</div>
+						{/if}
+
 						<!-- Price Range -->
 						<div class="w-full">
 							<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
@@ -331,8 +501,8 @@
 								bind:value={maxPrice}
 								class="w-full" />
 							<div class="mt-2 flex justify-between text-sm {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}">
-								<span>${minPriceAvailable}</span>
-								<span>${maxPrice}</span>
+								<span>${new Intl.NumberFormat('en-US').format(minPriceAvailable)}</span>
+								<span>${new Intl.NumberFormat('en-US').format(maxPrice)}</span>
 							</div>
 						</div>
 

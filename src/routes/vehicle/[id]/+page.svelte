@@ -54,7 +54,7 @@
 
 		<div class="flex flex-col justify-start space-y-8 md:col-span-1 lg:col-span-4">
 			<div>
-				<h1 class="text-4xl font-bold text-primary-accent dark:text-primary-light">
+				<h1 class="text-4xl font-bold text-primary-accent dark:text-gray-300">
 					{vehicle.make}
 					{vehicle.model}
 				</h1>
