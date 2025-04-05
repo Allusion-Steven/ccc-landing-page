@@ -40,7 +40,7 @@
 	<div class="max-w-8xl container mx-auto px-4 py-16">
 		{#if visible}
 			<h3
-				in:fly={{ duration: 800, delay: 0, x: -50 }}
+				in:fly={{ y: 50, duration: 1000, delay: 200 }}
 				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
 				{title}
 			</h3>
@@ -52,7 +52,7 @@
 							class="group relative blockGallery h-72 w-full transform overflow-hidden rounded-xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl {$theme === 'dark' ? 'bg-white/5' : 'bg-[#8393AA]/10'}">
 							<div
 								class="aspect-[16/10] w-full overflow-hidden"
-								in:fly={{ duration: 800, delay: index * 200, x: -50 }}>
+								in:fly={{ y: 50, duration: 1000, delay: 400 + (index * 200) }}>
 								{#if item.images && item.images.length > 0}
 									{#if item.images.length > 1}
 										<Carousel
@@ -154,7 +154,7 @@
 					{/if}
 				{/each}
 			</div>
-			<div in:fade={{ duration: 800, delay: 1200 }} class="flex justify-center">
+			<div in:fly={{ y: 50, duration: 1000, delay: 1200 }} class="flex justify-center">
 				<SecondaryButton 
 					href={viewAllLink} 
 					type="submit" 
