@@ -147,7 +147,7 @@
 			<!-- Action Buttons -->
 			<div class="flex flex-col space-y-4">
 				<button
-					class="w-full rounded-lg bg-[#BF4959] dark:bg-miami-pink px-6 py-3 font-semibold text-white shadow-sm hover:shadow-md transition-all duration-300 hover:opacity-90"
+					class="w-full rounded-lg bg-[#BF4959] dark:bg-miami-blue dark:bg-miami-blue px-6 py-3 font-semibold text-white shadow-sm hover:shadow-md transition-all duration-300 hover:opacity-90"
 					on:click={() => (showDatePicker = !showDatePicker)}>
 					Book Now
 				</button>
