@@ -601,7 +601,7 @@
 
 									<div
 										class="absolute bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-black/90 to-black/0 p-4 text-white">
-										<h3 class="line-clamp-2 text-xl font-bold tracking-tight">
+										<h3 class="line-clamp-2 text-xl font-bold tracking-tight text-shadow-sm text-shadow-black-500">
 											{yacht.make}
 											{yacht.model}
 										</h3>

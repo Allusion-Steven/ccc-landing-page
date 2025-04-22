@@ -11,3 +11,7 @@ export const baseUrl = import.meta.env.DEV
 export const apiUrl = isLive
   ? 'https://my.macroexotics.com/api'
   : 'http://localhost:5174/api';
+
+export const dashboardUrl = isLive
+  ? 'https://my.macroexotics.com'
+  : 'http://localhost:5174';

@@ -46,7 +46,7 @@
 		{#if contentVisible}
 			<!-- Header Section -->
 
-			<div class="mb-16 text-center" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+			<div class="sm:mb-16 text-center" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
 				<h1 class="mb-4 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">Choose Your Membership</h1>
 				<p class="text-xl {$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">
 					Select the perfect plan for your luxury driving experience
@@ -58,7 +58,7 @@
 				{#each pricingTiers as tier, i}
 					<div
 						class="relative flex flex-col {tier.highlighted
-							? 'scale-105 transform'
+							? 'md:scale-105 transform'
 							: ''} z-0 mt-6 hover:z-10"
 						onclick={() => handleTierSelect(tier.name)}
 						onkeydown={(e) => e.key === 'Enter' && handleTierSelect(tier.name)}
@@ -107,23 +107,23 @@
 									: 'bg-gradient-to-br from-miami-pink/10 via-miami-light-pink/10 to-miami-pink/10'
 								: $theme === 'dark'
 									? 'bg-gray-800'
-									: 'bg-white'} cursor-pointer p-8 shadow-xl transition-all duration-300 hover:scale-105"
+									: 'bg-white'} cursor-pointer p-4 md:p-8 shadow-xl transition-all duration-300 md:hover:scale-105 hover:scale-100"
 						>
-							<div class="mb-8">
-								<h2 class="mb-2 text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{tier.name}</h2>
+							<div class="mb-6 md:mb-8">
+								<h2 class="mb-2 text-xl md:text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{tier.name}</h2>
 								<div class="mb-4">
-									<span class="text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{tier.price}</span>
+									<span class="text-3xl md:text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{tier.price}</span>
 									<span class="{$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">/month</span>
 								</div>
-								<p class="{$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">{tier.description}</p>
+								<p class="text-sm md:text-base {$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">{tier.description}</p>
 							</div>
 
-							<div class="mb-8 flex-grow">
-								<ul class="space-y-4">
+							<div class="mb-6 md:mb-8 flex-grow">
+								<ul class="space-y-3 md:space-y-4">
 									{#each tier.features as feature}
-										<li class="flex items-center {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+										<li class="flex items-center text-sm md:text-base {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
 											<svg
-												class="mr-3 h-5 w-5 text-miami-pink"
+												class="mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5 text-miami-pink"
 												fill="none"
 												stroke="currentColor"
 												viewBox="0 0 24 24"
@@ -146,7 +146,7 @@
 									? 'bg-miami-pink text-white hover:bg-miami-pink/80'
 									: $theme === 'dark'
 										? 'bg-gray-700 text-white hover:bg-gray-600'
-										: 'bg-gray-100 text-primary-accent hover:bg-gray-200'} py-3 text-center font-semibold transition-colors"
+										: 'bg-gray-100 text-primary-accent hover:bg-gray-200'} py-2 md:py-3 text-center text-sm md:text-base font-semibold transition-colors"
 								href="https://my.macroexotics.com/login"
 							>
 								{selectedTier === tier.name ? `Join The ${tier.name} Club` : 'Get Started'}

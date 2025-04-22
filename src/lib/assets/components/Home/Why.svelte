@@ -59,7 +59,7 @@
 					your next adventure, we make the connection seamless and secure through our
 					comprehensive verification process and dedication to exce
 				</p>
-				<div class="flex flex-wrap gap-4" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
+				<div class="flex flex-col sm:flex-row gap-4" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
 					<PrimaryButton
 						text="Become a host"
 						href="https://my.macroexotics.com/"

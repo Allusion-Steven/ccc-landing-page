@@ -51,7 +51,7 @@
 							href={`/${itemType === 'car' ? 'vehicle' : "yacht"}/${item.id}${item.userId ? `?userId=${item.userId}` : ''}`}
 							class="group relative blockGallery h-72 w-full transform overflow-hidden rounded-xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl {$theme === 'dark' ? 'bg-white/5' : 'bg-[#8393AA]/10'}">
 							<div
-								class="aspect-[16/10] w-full overflow-hidden"
+								class=" w-full overflow-hidden"
 								in:fly={{ y: 50, duration: 1000, delay: 400 + (index * 200) }}>
 								{#if item.images && item.images.length > 0}
 									{#if item.images.length > 1}
@@ -62,17 +62,17 @@
 											duration={Math.floor(
 												Math.random() * (5000 - 3000 + 1)
 											) + 3000}
-											images={item.images.map((img) => {
+											images={item.images.filter((img) => img?.isActive).map((img) => {
 												return {
 													src: `${img?.urls ? img?.urls.large : img?.url}`,
 													alt: img?.alt || `${item.make} ${item.model}`
 												};
 											})}
-											style="width: 100px; object-fit: cover; height:18rem; width: 100%; position: fixed; pointer-events: none;">
+											style="width: 100px; object-fit: contain; height:18rem; width: 100%; position: fixed; pointer-events: none;">
 											<div
-												class="fixed bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/80 via-[#513954]/70 to-transparent'}">
+												class="fixed bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/90 to-black/0'}">
 												<h3
-													class="line-clamp-2 text-xl font-bold tracking-tight ">
+													class="line-clamp-2 text-xl font-bold tracking-tight  text-shadow-sm text-shadow-black-500">
 													{item.make}
 													{item.model}
 												</h3>
@@ -103,9 +103,9 @@
 												);
 											}} />
 										<div
-											class="fixed bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/80 via-[#513954]/70 to-transparent'}">
+											class="fixed bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/90 to-black/0'}">
 											<h3
-												class="line-clamp-2 text-xl font-bold tracking-tight">
+												class="line-clamp-2 text-xl font-bold tracking-tight text-shadow-sm text-shadow-black-500">
 												{item.make}
 												{item.model}
 											</h3>
@@ -130,7 +130,7 @@
 										<div
 											class="absolute bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t {$theme === 'dark' ? 'from-black/90 to-black/0' : 'from-black/80 via-[#513954]/70 to-transparent'}">
 											<h3
-												class="line-clamp-2 text-xl font-bold tracking-tight">
+												class="line-clamp-2 text-xl font-bold tracking-tight text-shadow-sm text-shadow-black-500">
 												{item.make}
 												{item.model}
 											</h3>
