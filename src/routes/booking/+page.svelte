@@ -2,7 +2,9 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { vehicles } from '$lib/constants/Vehicles';
+	import { apiUrl } from '$lib';
 
+	// TODO: This page is not used anymore, it is replaced by the BookingForm.svelte component
 	let selectedVehicle: string = '';
 	let pickupDate: string = '';
 	let dropoffDate: string = '';
@@ -52,9 +54,11 @@
 		error = '';
 
 		// Navigate to the booking form with the selected vehicle ID
-		goto(
+/* 		goto(
 			`/booking/${selectedVehicle}?pickup=${pickupDate}&dropoff=${dropoffDate}&location=${location}`
-		);
+		); */
+
+		window.location.href = `${apiUrl}/booking/${selectedVehicle}?pickupDate=${pickupDate}&dropoffDate=${dropoffDate}&location=${location}`
 	};
 </script>
 

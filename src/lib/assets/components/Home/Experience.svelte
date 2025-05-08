@@ -5,6 +5,7 @@
 	import conciergeHeroBg from '$lib/assets/images/concierge-service.avif';
 	import heroBg from '$lib/assets/images/rr-culinan-interior.webp';
 	import { theme } from '$lib/stores/theme';
+	import { dashboardUrl, loginUrl } from '$lib';
 </script>
 
 <section class="overflow-hidden bg-gradient-to-br py-16 {$theme === 'dark' ? 'from-primary-dark to-[#2d1b2a]' : 'from-white to-white/90'}">
@@ -81,7 +82,7 @@
 						</p>
 						<SecondaryButton
 							className="whitespace-nowrap"
-							href="https://my.macroexotics.com/"
+							href={dashboardUrl}
 							text="Become a host"
 							width="w-full"
 							colorScheme="light"
@@ -177,7 +178,7 @@
 				</div>
 			</div>
 			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-8 flex justify-center">
-				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" colorScheme={$theme === 'dark' ? 'light' : 'dark'} />
+				<SecondaryButton href={loginUrl} text="Join the club" colorScheme={$theme === 'dark' ? 'light' : 'dark'} />
 			</div>
 		</div>
 	</div>

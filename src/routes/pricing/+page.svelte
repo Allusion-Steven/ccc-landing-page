@@ -4,6 +4,7 @@
 	import { pricingTiers } from '$lib/constants/Pricing';
 	import { fly, fade } from 'svelte/transition';
 	import { theme } from '$lib/stores/theme';
+	import { loginUrl } from '$lib';
 
 	let selectedTier = $state<string | null>('VIP');
 	let contentVisible = $state(false);
@@ -147,7 +148,7 @@
 									: $theme === 'dark'
 										? 'bg-gray-700 text-white hover:bg-gray-600'
 										: 'bg-gray-100 text-primary-accent hover:bg-gray-200'} py-2 md:py-3 text-center text-sm md:text-base font-semibold transition-colors"
-								href="https://my.macroexotics.com/login"
+								href={loginUrl}
 							>
 								{selectedTier === tier.name ? `Join The ${tier.name} Club` : 'Get Started'}
 							</Button>

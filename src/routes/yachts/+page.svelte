@@ -286,6 +286,7 @@
 										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
 										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
 										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
+										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Charleston, SC</option>
 									</select>
 								</div>
 							</div>

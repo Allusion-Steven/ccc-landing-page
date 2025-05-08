@@ -11,6 +11,7 @@
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
 	import { page } from '$app/stores';
 	import { theme, toggleTheme } from '$lib/stores/theme';
+	import { loginUrl } from '$lib';
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
@@ -72,7 +73,7 @@
 					</button>
 					{#if !$page.data.user}
 						<a
-							href="https://my.macroexotics.com/login"
+							href={loginUrl}
 							class="flex items-center gap-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] sm:hidden"
 						>
 							<AccountIcon className="w-6 h-6 pointer-events-none" />
@@ -152,7 +153,7 @@
 
 						{#if !$page.data.user}
 							<a
-								href="https://my.macroexotics.com/login"
+								href={loginUrl}
 								class="flex items-center justify-center gap-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]"
 							>
 								<AccountIcon className="w-6 h-6 sm:flex hidden" />

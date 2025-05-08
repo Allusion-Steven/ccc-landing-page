@@ -3,6 +3,7 @@
     import { getTomorrow, validateDates } from '$lib/utils/dateUtils';
     import { goto } from '$app/navigation';
     import { page } from '$app/stores';
+	import { apiUrl, dashboardUrl } from '$lib';
 
     export let id: string;
     export let showDatePicker: boolean;
@@ -24,13 +25,23 @@
         error = '';
 
         const userId = $page.url.searchParams.get('userId') || '';
-        const userIdParam = userId ? `&userId=${userId}` : '';
+        const userIdParam = userId ? `userId=${userId}` : '';
+
+        // Set cookies with proper attributes for cross-site sharing
+        const cookieOptions = '; SameSite=None; Secure; Path=/';
+        const bookingData = {
+            userId,
+            pickupDate,
+            dropoffDate,
+            location,
+            vehicleType,
+            vehicleId: id
+        };
+        document.cookie = `bookingData=${JSON.stringify(bookingData)}${cookieOptions}`;
         
         // Navigate to the booking form with the dates and location
         const vehicleTypeParam = vehicleType === 'yacht' ? '&vehicleType=yacht' : '';
-        goto(
-            `/booking/${id}?pickupDate=${encodeURIComponent(pickupDate)}&dropoffDate=${encodeURIComponent(dropoffDate)}&location=${encodeURIComponent(location)}${vehicleTypeParam}${userIdParam}`
-        );
+        window.location.href = `${dashboardUrl}/booking/${id}?${userIdParam}&pickupDate=${pickupDate}&dropoffDate=${dropoffDate}&location=${location}${vehicleTypeParam}`;
     };
 </script>
 
@@ -50,6 +61,7 @@
                     <option value="Miami, FL" class="bg-white dark:bg-gray-800">Miami, FL</option>
                     <option value="Tampa, FL" class="bg-white dark:bg-gray-800" disabled>Los Angeles, CA</option>
                     <option value="New York, NY" class="bg-white dark:bg-gray-800" disabled>New York, NY</option>
+                    <option value="Charleston, SC" class="bg-white dark:bg-gray-800" disabled>Charleston, SC</option>
                 </select>
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">You will receive exact pickup location when booking is confirmed</p>
             </div>
