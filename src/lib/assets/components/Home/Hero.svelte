@@ -163,6 +163,12 @@
 															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
 															>New York, NY</option
 														>
+														<option
+															value="Charleston, SC"
+															disabled
+															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
+															>Charleston, SC</option
+														>
 
 													</select>
 												</div>

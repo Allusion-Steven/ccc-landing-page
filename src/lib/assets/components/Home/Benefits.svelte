@@ -2,6 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import { theme } from '$lib/stores/theme';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
+	import { loginUrl } from '$lib';
 </script>
 
 <section class="overflow-hidden bg-gradient-to-br py-16 {$theme === 'dark' ? 'from-primary-dark to-[#2d1b2a]' : 'from-white to-white/90'}">
@@ -240,7 +241,7 @@
 				</div>
 			</div>
 			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-[5rem] flex justify-center">
-				<SecondaryButton href="https://my.macroexotics.com/login" text="Join the club" colorScheme={$theme === 'dark' ? 'dark' : 'dark'} />
+				<SecondaryButton href={loginUrl} text="Join the club" colorScheme={$theme === 'dark' ? 'dark' : 'dark'} />
 			</div>
 		</div>
 	</div>
