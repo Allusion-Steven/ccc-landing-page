@@ -15,34 +15,35 @@
     let error: string = '';
 
     const handleBooking = () => {
-        const validation = validateDates(pickupDate, dropoffDate);
-        if (!validation.isValid) {
-            error = validation.error || '';
-            return;
-        }
+    const validation = validateDates(pickupDate, dropoffDate);
+    if (!validation.isValid) {
+        error = validation.error || '';
+        return;
+    }
 
-        // Clear any existing errors
-        error = '';
+    // Clear any existing errors
+    error = '';
 
-        const userId = $page.url.searchParams.get('userId') || '';
-        const userIdParam = userId ? `userId=${userId}` : '';
+    const userId = $page.url.searchParams.get('userId') || '';
+    const userIdParam = userId ? `userId=${userId}` : '';
 
-        // Set cookies with proper attributes for cross-site sharing
-        const cookieOptions = '; SameSite=None; Secure; Path=/';
-        const bookingData = {
-            userId,
-            pickupDate,
-            dropoffDate,
-            location,
-            vehicleType,
-            vehicleId: id
-        };
-        document.cookie = `bookingData=${JSON.stringify(bookingData)}${cookieOptions}`;
-        
-        // Navigate to the booking form with the dates and location
-        const vehicleTypeParam = vehicleType === 'yacht' ? '&vehicleType=yacht' : '';
-        window.location.href = `${dashboardUrl}/booking/${id}?${userIdParam}&pickupDate=${pickupDate}&dropoffDate=${dropoffDate}&location=${location}${vehicleTypeParam}`;
+    // Set cookies with proper attributes for cross-site sharing
+    const cookieDomain = '.macroexotics.com'; // Ensures cookie is shared with subdomains
+    const cookieOptions = `; Domain=${cookieDomain}; SameSite=None; Secure; Path=/`;
+    const bookingData = {
+        userId,
+        pickupDate,
+        dropoffDate,
+        location,
+        vehicleType,
+        vehicleId: id
     };
+    document.cookie = `bookingData=${encodeURIComponent(JSON.stringify(bookingData))}${cookieOptions}`;
+    
+    // Navigate to the booking form with the dates and location
+    const vehicleTypeParam = vehicleType === 'yacht' ? '&vehicleType=yacht' : '';
+    window.location.href = `${dashboardUrl}/booking/${id}?${userIdParam}&pickupDate=${pickupDate}&dropoffDate=${dropoffDate}&location=${location}${vehicleTypeParam}`;
+};
 </script>
 
 {#if showDatePicker}
