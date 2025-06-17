@@ -28,8 +28,9 @@
 	<div class="relative h-[400px] overflow-hidden rounded-xl {$theme === 'dark' ? 'bg-white/5' : 'bg-white shadow-md'} sm:h-[500px]">
 		{#if images && images.length > 0}
 			{#key selectedImageIndex}
+			<!-- in:fly={{ duration: 100, x: -transitionDirection * 10 }}
+				out:fly={{ duration: 100, x: transitionDirection * 10 }} -->
 				<img
-					transition:fly={{ duration: 300, x: transitionDirection * 300 }}
 					src={getImageUrl(images[selectedImageIndex])}
 					alt={images[selectedImageIndex].alt}
 					class="h-full w-full object-cover"
@@ -112,7 +113,7 @@
 		{/if}
 	</div>
 	<!-- Thumbnail Section -->
-	<div class="mt-4 grid grid-cols-3 gap-4">
+	<div class="mt-4 grid grid-cols-4 gap-4">
 		{#each images as image, index}
 			<button
 				class="h-full w-full cursor-pointer rounded-lg overflow-hidden {$theme === 'dark' ? '' : 'shadow-sm hover:shadow-md transition-shadow'}"

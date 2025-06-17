@@ -91,22 +91,22 @@
 			<div>
 				<h1 class="text-4xl font-bold text-primary-accent dark:text-white">
 					{yacht.make || ''}
-					{yacht.model || ''}
+					"<span class="text-gray-500 dark:text-sky-300">{yacht.model || ''}</span>"
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-primary-accent/80 dark:text-gray-300">{yacht.year}</span>
 					<div class="text-right">
 						{#if yacht.yachtPricing}
 							<div class="space-y-1">
-								<div class="text-lg font-semibold text-[#BF4959] dark:text-miami-blue">
-									4hrs: ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.fourHours)}
+<!-- 								<div class="text-lg font-semibold text-[#BF4959] dark:text-miami-blue">
+									<span class="text-gray-500 dark:text-gray-300">4 hours:</span> ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.fourHours)}
 								</div>
 								<div class="text-lg font-semibold text-[#BF4959] dark:text-miami-blue">
-									6hrs: ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.sixHours)}
+									<span class="text-gray-500 dark:text-gray-300">6 hours:</span> ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.sixHours)}
 								</div>
 								<div class="text-lg font-semibold text-[#BF4959] dark:text-miami-blue">
-									8hrs: ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.eightHours)}
-								</div>
+									<span class="text-gray-500 dark:text-gray-300">8 hours:</span> ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.eightHours)}
+								</div> -->
 							</div>
 						{:else}
 							<span class="text-3xl font-bold text-[#BF4959] dark:text-miami-blue">
@@ -157,22 +157,28 @@
 							<div class="mt-2 space-y-2">
 								<div class="flex justify-between items-center">
 									<span class="text-base font-medium text-primary-accent dark:text-white">4 Hours:</span>
-									<span class="text-lg font-bold text-[#BF4959] dark:text-miami-blue">
+									<span class="text-lg font-bold text-primary-accent dark:text-miami-blue">
 										${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.fourHours)}
 									</span>
 								</div>
 								<div class="flex justify-between items-center">
 									<span class="text-base font-medium text-primary-accent dark:text-white">6 Hours:</span>
-									<span class="text-lg font-bold text-[#BF4959] dark:text-miami-blue">
+									<span class="text-lg font-bold text-primary-accent dark:text-miami-blue">
 										${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.sixHours)}
 									</span>
 								</div>
 								<div class="flex justify-between items-center">
 									<span class="text-base font-medium text-primary-accent dark:text-white">8 Hours:</span>
-									<span class="text-lg font-bold text-[#BF4959] dark:text-miami-blue">
+									<span class="text-lg font-bold text-primary-accent dark:text-miami-blue">
 										${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.eightHours)}
 									</span>
 								</div>
+								<br>
+								{#if vehicleType === 'yacht'}
+								<span class="text-sm text-gray-500 dark:text-gray-300">
+									* Rates are ALL IN (captain fee, gratuity, fuel, etc...)
+								</span><br>
+								{/if}
 							</div>
 						</div>
 					{:else}
