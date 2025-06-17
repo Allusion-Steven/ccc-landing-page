@@ -14,6 +14,7 @@
 	let vehicleType = 'Car';
 	let currentBgImage = heroImage;
 	let previousBgImage = heroImage;
+	let isSearching = false;
 
 	$: {
 		if (currentBgImage !== (vehicleType === 'Car' ? heroImage : yachtHeroBg)) {
@@ -44,6 +45,18 @@
 				console.error('Error preloading images:', error);
 			});
 	});
+
+	function handleSearch() {
+		isSearching = true;
+		const baseUrl = vehicleType === 'Yacht' ? '/yachts' : '/vehicles';
+		const params = new URLSearchParams({
+			location: location,
+			pickupDate: pickupDate,
+			dropoffDate: dropoffDate,
+			vehicleType: vehicleType === 'Yacht' ? 'yacht' : 'car'
+		});
+		window.location.href = `${baseUrl}?${params.toString()}`;
+	}
 </script>
 
 <div class="relative h-[100vh]">
@@ -153,19 +166,16 @@
 														>
 														<option
 															value="Los Angeles, CA"
-															disabled
 															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
 															>Tampa, FL</option
 														>
 														<option
 															value="New York, NY"
-															disabled
 															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
 															>New York, NY</option
 														>
 														<option
 															value="Charleston, SC"
-															disabled
 															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
 															>Charleston, SC</option
 														>
@@ -197,22 +207,20 @@
 
 										<!-- Search button -->
 										<button
-											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-primary-light to-primary-accent px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto"
-											on:click={() => {
-												const baseUrl =
-													vehicleType === 'Yacht'
-														? '/yachts'
-														: '/vehicles';
-												const params = new URLSearchParams({
-													location: location,
-													pickupDate: pickupDate,
-													dropoffDate: dropoffDate,
-													vehicleType: vehicleType === 'Yacht' ? 'yacht' : 'car'
-												});
-												window.location.href = `${baseUrl}?${params.toString()}`;
-											}}
+											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-primary-light to-primary-accent px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto disabled:cursor-not-allowed disabled:opacity-50"
+											on:click={handleSearch}
+											disabled={isSearching}
 										>
-											Search
+											{#if isSearching}
+												<div class="flex items-center justify-center gap-2">
+													<span
+														class="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"
+													></span>
+													Searching...
+												</div>
+											{:else}
+												Search
+											{/if}
 										</button>
 									</div>
 								</div>
