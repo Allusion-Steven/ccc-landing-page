@@ -95,9 +95,25 @@
 				</h1>
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-primary-accent/80 dark:text-gray-300">{yacht.year}</span>
-					<span class="text-3xl font-bold text-[#BF4959] dark:text-miami-blue">
-						${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
-					</span>
+					<div class="text-right">
+						{#if yacht.yachtPricing}
+							<div class="space-y-1">
+								<div class="text-lg font-semibold text-[#BF4959] dark:text-miami-blue">
+									4hrs: ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.fourHours)}
+								</div>
+								<div class="text-lg font-semibold text-[#BF4959] dark:text-miami-blue">
+									6hrs: ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.sixHours)}
+								</div>
+								<div class="text-lg font-semibold text-[#BF4959] dark:text-miami-blue">
+									8hrs: ${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.eightHours)}
+								</div>
+							</div>
+						{:else}
+							<span class="text-3xl font-bold text-[#BF4959] dark:text-miami-blue">
+								${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
+							</span>
+						{/if}
+					</div>
 				</div>
 			</div>
 
@@ -135,12 +151,38 @@
 							{getYachtInfo(yacht, 'crew', 0)}
 						</p>
 					</div>
-					<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
-						<span class="text-sm text-gray-500 dark:text-gray-400">Daily Rate</span>
-						<p class="text-lg font-medium text-[#BF4959] dark:text-miami-blue">
-							${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
-						</p>
-					</div>
+					{#if yacht.yachtPricing}
+						<div class="col-span-2 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+							<span class="text-sm text-gray-500 dark:text-gray-400">Pricing Options</span>
+							<div class="mt-2 space-y-2">
+								<div class="flex justify-between items-center">
+									<span class="text-base font-medium text-primary-accent dark:text-white">4 Hours:</span>
+									<span class="text-lg font-bold text-[#BF4959] dark:text-miami-blue">
+										${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.fourHours)}
+									</span>
+								</div>
+								<div class="flex justify-between items-center">
+									<span class="text-base font-medium text-primary-accent dark:text-white">6 Hours:</span>
+									<span class="text-lg font-bold text-[#BF4959] dark:text-miami-blue">
+										${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.sixHours)}
+									</span>
+								</div>
+								<div class="flex justify-between items-center">
+									<span class="text-base font-medium text-primary-accent dark:text-white">8 Hours:</span>
+									<span class="text-lg font-bold text-[#BF4959] dark:text-miami-blue">
+										${new Intl.NumberFormat('en-US').format(yacht.yachtPricing.eightHours)}
+									</span>
+								</div>
+							</div>
+						</div>
+					{:else}
+						<div class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+							<span class="text-sm text-gray-500 dark:text-gray-400">Daily Rate</span>
+							<p class="text-lg font-medium text-[#BF4959] dark:text-miami-blue">
+								${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
+							</p>
+						</div>
+					{/if}
 				</div>
 			</div>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import { getTomorrow, validateDates } from '$lib/utils/dateUtils';
+	import { getTomorrow, validateDates, get24HoursFromNow } from '$lib/utils/dateUtils';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { apiUrl, dashboardUrl } from '$lib';
@@ -13,9 +13,18 @@
 	export let vehicleType: 'vehicle' | 'yacht' = 'vehicle';
 
 	let error: string = '';
+	let selectedDuration: '4' | '6' | '8' = '4'; // Default to 4 hours for yachts
+
+	// Calculate minimum date based on vehicle type
+	$: minDate = vehicleType === 'yacht' 
+		? get24HoursFromNow() 
+		: new Date().toISOString().split('T')[0];
 
 	const handleBooking = () => {
-		const validation = validateDates(pickupDate, dropoffDate);
+		const validation = vehicleType === 'yacht' 
+			? validateDates(pickupDate, dropoffDate, true) // Pass yacht flag for 24-hour validation
+			: validateDates(pickupDate, dropoffDate);
+			
 		if (!validation.isValid) {
 			error = validation.error || '';
 			return;
@@ -29,22 +38,23 @@
 
 		// Set cookies with proper attributes for cross-site sharing
 		const cookieOptions = `; SameSite=None; Secure; Path=/`;
-		// In your other app where you're setting the booking data
+		
+		// Build booking data with duration for yachts
 		const bookingData = {
 			userId,
 			pickupDate,
 			dropoffDate,
 			location,
 			vehicleType,
-			vehicleId: id
+			vehicleId: id,
+			...(vehicleType === 'yacht' && { duration: selectedDuration }) // Add duration for yachts
 		};
         document.cookie = `bookingData=${JSON.stringify(bookingData)}${cookieOptions}`;
 
-		// Encode the booking data for the URL
-	
 		// Navigate to the dashboard with the booking data in the URL
 		const vehicleTypeParam = vehicleType === 'yacht' ? '&vehicleType=yacht' : '';
-		window.location.href = `${dashboardUrl}/booking/${id}?${userIdParam}&pickupDate=${pickupDate}&dropoffDate=${dropoffDate}&location=${location}${vehicleTypeParam}`;
+		const durationParam = vehicleType === 'yacht' ? `&duration=${selectedDuration}` : '';
+		window.location.href = `${dashboardUrl}/booking/${id}?${userIdParam}&pickupDate=${pickupDate}&dropoffDate=${dropoffDate}&location=${location}${vehicleTypeParam}${durationParam}`;
 	};
 </script>
 
@@ -77,37 +87,81 @@
 				</p>
 			</div>
 
+			{#if vehicleType === 'yacht'}
+				<div>
+					<label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+						Charter Duration <span class="text-red-500">*</span>
+					</label>
+					<div class="grid grid-cols-3 gap-3">
+						<label class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration === '4' ? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue' : 'text-gray-700 dark:text-gray-300'}">
+							<input
+								type="radio"
+								bind:group={selectedDuration}
+								value="4"
+								class="sr-only"
+							/>
+							<span class="font-medium">4 Hours</span>
+						</label>
+						<label class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration === '6' ? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue' : 'text-gray-700 dark:text-gray-300'}">
+							<input
+								type="radio"
+								bind:group={selectedDuration}
+								value="6"
+								class="sr-only"
+							/>
+							<span class="font-medium">6 Hours</span>
+						</label>
+						<label class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration === '8' ? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue' : 'text-gray-700 dark:text-gray-300'}">
+							<input
+								type="radio"
+								bind:group={selectedDuration}
+								value="8"
+								class="sr-only"
+							/>
+							<span class="font-medium">8 Hours</span>
+						</label>
+					</div>
+				</div>
+			{/if}
+
 			<div>
 				<label
 					for="pickupDate"
 					class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-					Pickup Date <span class="text-red-500">*</span>
+					{vehicleType === 'yacht' ? 'Charter Date' : 'Pickup Date'} <span class="text-red-500">*</span>
 				</label>
 				<input
 					type="date"
 					id="pickupDate"
 					bind:value={pickupDate}
-					min={new Date().toISOString().split('T')[0]}
+					min={minDate}
 					class="relative w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-gray-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-accent dark:border-gray-700 dark:bg-white/10 dark:text-white [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0"
 					required />
+				{#if vehicleType === 'yacht'}
+					<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+						Yacht charters must be booked at least 24 hours in advance
+					</p>
+				{/if}
 			</div>
 
-			<div>
-				<label
-					for="dropoffDate"
-					class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-					Dropoff Date <span class="text-red-500">*</span>
-				</label>
-				<input
-					type="date"
-					id="dropoffDate"
-					bind:value={dropoffDate}
-					min={pickupDate
-						? getTomorrow(pickupDate)
-						: getTomorrow(new Date().toISOString().split('T')[0])}
-					class="relative w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-gray-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-accent dark:border-gray-700 dark:bg-white/10 dark:text-white [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0"
-					required />
-			</div>
+			{#if vehicleType === 'vehicle'}
+				<div>
+					<label
+						for="dropoffDate"
+						class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+						Dropoff Date <span class="text-red-500">*</span>
+					</label>
+					<input
+						type="date"
+						id="dropoffDate"
+						bind:value={dropoffDate}
+						min={pickupDate
+							? getTomorrow(pickupDate)
+							: getTomorrow(new Date().toISOString().split('T')[0])}
+						class="relative w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-gray-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-accent dark:border-gray-700 dark:bg-white/10 dark:text-white [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0"
+						required />
+				</div>
+			{/if}
 
 			{#if error}
 				<div class="rounded bg-red-50 p-2 text-sm text-red-500 dark:bg-red-900/20">

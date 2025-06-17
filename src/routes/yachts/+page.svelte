@@ -69,7 +69,8 @@
 		maxPrice,
 		selectedTypes,
 		currentSort,
-		(yacht) => yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests
+		(yacht) => yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests,
+		location
 	);
 
 	// Check if any filters are active

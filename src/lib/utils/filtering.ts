@@ -10,6 +10,7 @@ interface BaseItem {
     year: number;
     tags: string[];
     images: VehicleImage[];
+    location?: string;
 }
 
 interface Vehicle extends BaseItem {
@@ -55,7 +56,8 @@ export function filterItems<T extends BaseItem>(
     maxPrice: number,
     selectedTypes: string[],
     currentSort: string,
-    additionalFilter?: (item: T) => boolean
+    additionalFilter?: (item: T) => boolean,
+    location?: string
 ): T[] {
     return items
         .filter((item) => {
@@ -65,8 +67,10 @@ export function filterItems<T extends BaseItem>(
             const matchesPrice = item.pricePerDay <= maxPrice;
             const matchesType = selectedTypes.length === 0 ||
                 item.tags.some(tag => selectedTypes.includes(tag));
+            const matchesLocation = !location || 
+                (item.location && item.location.toLowerCase().includes(location.toLowerCase()));
 
-            return matchesSearch && matchesPrice && matchesType &&
+            return matchesSearch && matchesPrice && matchesType && matchesLocation &&
                 (additionalFilter ? additionalFilter(item) : true);
         })
         .sort((a, b) => {
