@@ -5,7 +5,7 @@
 	//TODO: Implement light v dark logo
 	import logo from '$lib/assets/logos/macro-exotics-light-logo.png';
 	import darkLogo from '$lib/assets/logos/macro-exotics-dark-logo.png';
-
+	import Banner from '$lib/components/Banner.svelte';
 	import '../app.css';
 	import { quintOut } from 'svelte/easing';
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
@@ -37,6 +37,11 @@
 <svelte:window bind:innerWidth on:resize={() => (isMenuOpen = false)} on:scroll={handleScroll} />
 
 <div class={$theme}>
+	<Banner
+		title="Macro Exotics is under development"
+		description="Please check back soon for updates about launch!"
+		link="/"
+		linkText="Hide" />
 	<nav
 		class="sticky top-0 z-50 transition-colors duration-300 {isScrolled
 			? 'sm:bg-opacity-50'
