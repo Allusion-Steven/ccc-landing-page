@@ -6,11 +6,16 @@ interface BaseItem {
     id: string;
     make: string;
     model: string;
-    pricePerDay: number;
+    pricePerDay: number | null;
     year: number;
     tags: string[];
     images: VehicleImage[];
     location?: string;
+    yachtPricing?: {
+        fourHours: number;
+        sixHours: number;
+        eightHours: number;
+    };
 }
 
 interface Vehicle extends BaseItem {
@@ -30,23 +35,61 @@ export function getUniqueTypes<T extends BaseItem>(items: T[]): string[] {
 }
 
 export function getMinMaxPrice<T extends BaseItem>(items: T[]): { min: number; max: number } {
+    const allPrices: number[] = [];
+    
+    items.forEach(item => {
+        if (item.pricePerDay !== null && item.pricePerDay !== undefined && !isNaN(item.pricePerDay)) {
+            allPrices.push(item.pricePerDay);
+        }
+        
+        // For yachts with hourly pricing, use the minimum hourly rate
+        if (item.yachtPricing) {
+            const minHourlyRate = Math.min(
+                item.yachtPricing.fourHours,
+                item.yachtPricing.sixHours,
+                item.yachtPricing.eightHours
+            );
+            allPrices.push(minHourlyRate);
+        }
+    });
+    
+    if (allPrices.length === 0) {
+        return { min: 0, max: 0 };
+    }
+    
     return {
-        min: Math.min(...items.map(item => item.pricePerDay)),
-        max: Math.max(...items.map(item => item.pricePerDay))
+        min: Math.min(...allPrices),
+        max: Math.max(...allPrices)
     };
 }
 
 export function getMinMaxYear(vehicles: Vehicle[]): { min: number; max: number } {
+    const validYears = vehicles
+        .map(v => v.year)
+        .filter(year => year !== null && year !== undefined && !isNaN(year));
+        
+    if (validYears.length === 0) {
+        return { min: 2000, max: new Date().getFullYear() };
+    }
+    
     return {
-        min: Math.min(...vehicles.map(v => v.year)),
-        max: Math.max(...vehicles.map(v => v.year))
+        min: Math.min(...validYears),
+        max: Math.max(...validYears)
     };
 }
 
 export function getMinMaxGuests(yachts: Yacht[]): { min: number; max: number } {
+    const validGuests = yachts
+        .map(y => y.specs.guests)
+        .filter(guests => guests !== null && guests !== undefined && !isNaN(guests));
+    
+    if (validGuests.length === 0) {
+        return { min: 0, max: 12 };
+    }
+    
     return {
-        min: Math.min(...yachts.map(y => y.specs.guests)),
-        max: Math.max(...yachts.map(y => y.specs.guests))
+        min: Math.min(...validGuests),
+        max: Math.max(...validGuests)
     };
 }
 
@@ -64,7 +107,22 @@ export function filterItems<T extends BaseItem>(
             const matchesSearch = (item.make + ' ' + item.model)
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());
-            const matchesPrice = item.pricePerDay <= maxPrice;
+            const matchesPrice = (() => {
+                // If item has daily pricing, check against maxPrice
+                if (item.pricePerDay !== null && item.pricePerDay !== undefined) {
+                    return item.pricePerDay <= maxPrice;
+                }
+                
+                // If item has yacht pricing, check if any duration option is within maxPrice
+                if (item.yachtPricing) {
+                    return item.yachtPricing.fourHours <= maxPrice ||
+                           item.yachtPricing.sixHours <= maxPrice ||
+                           item.yachtPricing.eightHours <= maxPrice;
+                }
+                
+                // If no pricing info, include by default
+                return true;
+            })();
             const matchesType = selectedTypes.length === 0 ||
                 item.tags.some(tag => selectedTypes.includes(tag));
             const matchesLocation = !location || 
@@ -80,9 +138,13 @@ export function filterItems<T extends BaseItem>(
                 case 'name-desc':
                     return (b.make + b.model).localeCompare(a.make + a.model);
                 case 'price-asc':
-                    return a.pricePerDay - b.pricePerDay;
+                    const priceA = a.pricePerDay || (a.yachtPricing ? Math.min(a.yachtPricing.fourHours, a.yachtPricing.sixHours, a.yachtPricing.eightHours) : 0);
+                    const priceB = b.pricePerDay || (b.yachtPricing ? Math.min(b.yachtPricing.fourHours, b.yachtPricing.sixHours, b.yachtPricing.eightHours) : 0);
+                    return priceA - priceB;
                 case 'price-desc':
-                    return b.pricePerDay - a.pricePerDay;
+                    const priceADesc = a.pricePerDay || (a.yachtPricing ? Math.min(a.yachtPricing.fourHours, a.yachtPricing.sixHours, a.yachtPricing.eightHours) : 0);
+                    const priceBDesc = b.pricePerDay || (b.yachtPricing ? Math.min(b.yachtPricing.fourHours, b.yachtPricing.sixHours, b.yachtPricing.eightHours) : 0);
+                    return priceBDesc - priceADesc;
                 default:
                     return 0;
             }

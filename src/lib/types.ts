@@ -116,6 +116,12 @@ export interface YachtSpecs {
     crew: number;
 }
 
+export interface YachtPricing {
+    fourHours: number;
+    sixHours: number;
+    eightHours: number;
+}
+
 export interface Yacht {
     id: string;
     make: string;
@@ -126,6 +132,7 @@ export interface Yacht {
     tags: YachtTag[];
     userId: string;
     specs: YachtSpecs;
+    yachtPricing?: YachtPricing;
     isAvailable?: boolean;
     createdAt?: Date;
     updatedAt?: Date;
