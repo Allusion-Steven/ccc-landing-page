@@ -35,7 +35,7 @@
 						<h3 class="mb-3 text-2xl font-bold text-white">
 							Exotic Car Collection
 						</h3>
-						<p class="mb-4 text-gray-300">
+						<p class="mb-4 text-gray-200">
 							Experience the thrill of driving the world's most prestigious
 							vehicles through the vibrant streets across the world.
 						</p>
@@ -54,7 +54,7 @@
 					<div
 						class="absolute inset-0 flex flex-col justify-end bg-gradient-to-b from-black/90 via-black/60 to-transparent p-8 sm:p-4">
 						<h3 class="mb-3 text-2xl font-bold text-white">Yacht Adventures</h3>
-						<p class="mb-4 text-gray-300">
+						<p class="mb-4 text-gray-200">
 							Set sail on crystal-clear waters with premium yachts, perfectly
 							suited for adventures wherever your journey leads.
 						</p>
@@ -76,7 +76,7 @@
 						class="absolute inset-0 h-full w-full object-cover" />
 					<div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-8 sm:p-4">
 						<h3 class="mb-3 text-2xl font-bold text-white">Become a host</h3>
-						<p class="mb-4 text-gray-300">
+						<p class="mb-4 text-gray-200">
 							Boost your entrepreneurial journey and start building your own
 							luxury vehicle rental business on Macro Exotics.
 						</p>

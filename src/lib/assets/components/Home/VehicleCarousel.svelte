@@ -4,7 +4,7 @@
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 	import { fly, fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import type { Vehicle, Yacht, VehicleTag, YachtTag } from '$lib/types';
+	import type { Vehicle, Yacht, VehicleTag, YachtTag, YachtPricing } from '$lib/types';
 	import { theme } from '$lib/stores/theme';
 	import { page } from '$app/stores';
 
@@ -81,6 +81,7 @@
 			</h3>
 			<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 				{#each items as item, index}
+
 					{#if itemType === 'car' ? index < 8 : index < 4}
 						<a
 							href={buildItemLink(item)}
@@ -132,14 +133,22 @@
 															{item.year}
 														{/if}
 													</p>
-													<p
+													<div
 														class="font-semibold {$theme === 'dark'
 															? 'text-miami-bright-blue'
 															: 'text-[#08D3D3]'}">
-														${new Intl.NumberFormat('en-US').format(
-															item.pricePerDay
-														)}/day
-													</p>
+														{#if isYacht(item) && item.yachtPricing}
+															<div class="text-xs space-y-0.5">
+																<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
+																<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
+																<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
+															</div>
+														{:else}
+															${new Intl.NumberFormat('en-US').format(
+																item.pricePerDay
+															)}/day
+														{/if}
+													</div>
 												</div>
 											</div>
 										</Carousel>
@@ -176,14 +185,22 @@
 														{item.year}
 													{/if}
 												</p>
-												<p
+												<div
 													class="font-semibold {$theme === 'dark'
 														? 'text-miami-bright-blue'
 														: 'text-miami-bright-blue'}">
-													${new Intl.NumberFormat('en-US').format(
-														item.pricePerDay
-													)}/day
-												</p>
+													{#if isYacht(item) && item.yachtPricing}
+														<div class="text-xs space-y-0.5">
+															<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
+															<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
+															<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
+														</div>
+													{:else}
+														${new Intl.NumberFormat('en-US').format(
+															item.pricePerDay
+														)}/day
+													{/if}
+												</div>
 											</div>
 										</div>
 									{/if}
@@ -218,14 +235,22 @@
 														{item.year}
 													{/if}
 												</p>
-												<p
+												<div
 													class="font-semibold {$theme === 'dark'
 														? 'text-miami-bright-blue'
 														: 'text-[#8393AA]'}">
-													${new Intl.NumberFormat('en-US').format(
-														item.pricePerDay
-													)}/day
-												</p>
+													{#if isYacht(item) && item.yachtPricing}
+														<div class="text-xs space-y-0.5">
+															<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
+															<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
+															<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
+														</div>
+													{:else}
+														${new Intl.NumberFormat('en-US').format(
+															item.pricePerDay
+														)}/day
+													{/if}
+												</div>
 											</div>
 										</div>
 									</div>

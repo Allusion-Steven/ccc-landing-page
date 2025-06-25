@@ -18,11 +18,13 @@
 		isAnyFilterActive as checkFiltersActive
 	} from '$lib/utils/filtering';
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 	const { pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation, yachts } = data;
 
-	let contentVisible = false;
-	let currentSort = 'default';
+	console.log('Yacht-------------s', data);
+
+	let contentVisible = $state(false);
+	let currentSort = $state('default');
 
 	onMount(() => {
 		setTimeout(() => {
@@ -31,27 +33,27 @@
 	});
 
 	// Filter states
-	let searchQuery = '';
-	let maxPrice: number;
-	let minGuests: number;
-	let maxGuests: number;
-	let showFiltersModal = false;
-	let pickupDate: string = initialPickupDate;
-	let dropoffDate: string = initialDropoffDate;
-	let location: string = initialLocation;
-	let dateError: string = '';
+	let searchQuery = $state('');
+	let maxPrice = $state(0);
+	let minGuests = $state(0);
+	let maxGuests = $state(0);
+	let showFiltersModal = $state(false);
+	let pickupDate = $state(initialPickupDate);
+	let dropoffDate = $state(initialDropoffDate);
+	let location = $state(initialLocation);
+	let dateError = $state('');
 
 	// Handle URL parameters when the page loads
-	$: {
+	$effect(() => {
 		const searchParams = $page.url.searchParams;
 		location = searchParams.get('location') || initialLocation;
 		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
-	}
+	});
 
 	// Get unique tags from yachts array
 	const yachtTypes = getUniqueTypes(yachts);
-	let selectedTypes: string[] = [];
+	let selectedTypes = $state<string[]>([]);
 
 	// Get min and max values for the filters
 	const { min: minPriceAvailable, max: maxPriceAvailable } = getMinMaxPrice(yachts);
@@ -62,19 +64,18 @@
 	minGuests = minGuestsAvailable;
 	maxGuests = maxGuestsAvailable;
 
-	// Update filteredYachts to include sorting
-	$: filteredYachts = filterItems(
+	// Update filteredYachts to include sorting (not filtering by location/dates)
+	const filteredYachts = $derived(filterItems(
 		yachts,
 		searchQuery,
 		maxPrice,
 		selectedTypes,
 		currentSort,
-		(yacht) => yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests,
-		location
-	);
+		(yacht) => yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests
+	));
 
 	// Check if any filters are active
-	$: isAnyFilterActive = checkFiltersActive(
+	const isAnyFilterActive = $derived(checkFiltersActive(
 		searchQuery,
 		maxPrice,
 		maxPriceAvailable,
@@ -82,15 +83,19 @@
 		{
 			guestRange: minGuests !== minGuestsAvailable || maxGuests !== maxGuestsAvailable
 		}
-	);
+	));
 
 	// Watch for changes to date and location filters and update URL
-	$: if (contentVisible) {
-		// Debounce to avoid too many URL updates
-		const timer = setTimeout(() => {
-			updateUrlParams();
-		}, 300);
-	}
+	$effect(() => {
+		if (contentVisible) {
+			// Debounce to avoid too many URL updates
+			const timer = setTimeout(() => {
+				updateUrlParams();
+			}, 300);
+			
+			return () => clearTimeout(timer);
+		}
+	});
 
 	// Update URL when filter values change
 	function updateUrlParams() {
@@ -137,7 +142,7 @@
 	}
 
 	// Validate dates when they change
-	$: {
+	$effect(() => {
 		if (pickupDate && dropoffDate) {
 			const validation = validateDates(pickupDate, dropoffDate);
 			if (!validation.isValid) {
@@ -152,7 +157,7 @@
 				}
 			}
 		}
-	}
+	});
 </script>
 
 <svelte:head>
@@ -326,8 +331,8 @@
 
 							<!-- Price Range -->
 							<div class="w-full">
-								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-									>Maximum Price ($/day)</label>
+														<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
+							>Maximum Price ($)</label>
 								<input
 									type="range"
 									id="price-range-mobile"
@@ -494,7 +499,7 @@
 						<!-- Price Range -->
 						<div class="w-full">
 							<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-								>Maximum Price ($/day)</label>
+								>Maximum Price ($)</label>
 							<input
 								type="range"
 								id="price-range"
@@ -616,7 +621,13 @@
 													>{yacht.specs.guests} Guests</span>
 											</div>
 											<p class="font-semibold text-[#0bd3d3]">
-												${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
+												{#if yacht.pricePerDay !== null && yacht.pricePerDay !== undefined}
+													${new Intl.NumberFormat('en-US').format(yacht.pricePerDay)}/day
+												{:else if yacht.yachtPricing}
+													From ${new Intl.NumberFormat('en-US').format(Math.min(yacht.yachtPricing.fourHours, yacht.yachtPricing.sixHours, yacht.yachtPricing.eightHours))}/4hrs
+												{:else}
+													Price on request
+												{/if}
 											</p>
 										</div>
 									</div>

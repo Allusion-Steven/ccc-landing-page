@@ -61,7 +61,7 @@
 				<div class="mt-4 flex items-center justify-between">
 					<span class="text-xl text-primary-accent/80 dark:text-gray-300"
 						>{vehicle.year}</span>
-					<span class="text-3xl font-bold text-[#BF4959] dark:text-[#0bd3d3]"
+					<span class="text-3xl font-bold text-[#0bd3d3] dark:text-[#0bd3d3]"
 						>${new Intl.NumberFormat('en-US').format(vehicle.pricePerDay)}/day</span>
 				</div>
 			</div>
@@ -70,33 +70,44 @@
 				<h2 class="text-2xl font-semibold text-primary-accent dark:text-white">Features</h2>
 				<div class="grid grid-cols-2 gap-4">
 					<div
-						class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Make</span>
 						<p class="text-lg font-medium text-primary-accent dark:text-white">
 							{vehicle.make}
 						</p>
 					</div>
 					<div
-						class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Model</span>
 						<p class="text-lg font-medium text-primary-accent dark:text-white">
 							{vehicle.model}
 						</p>
 					</div>
 					<div
-						class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Year</span>
 						<p class="text-lg font-medium text-primary-accent dark:text-white">
 							{vehicle.year}
 						</p>
 					</div>
 					<div
-						class="rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:bg-white/5 dark:shadow-none dark:hover:shadow-none">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Daily Rate</span>
 						<p class="text-lg font-medium text-[#BF4959] dark:text-[#0bd3d3]">
 							${new Intl.NumberFormat('en-US').format(vehicle.pricePerDay)}/day
 						</p>
 					</div>
+				</div>
+			</div>
+
+			<!-- Description -->
+			<div class="space-y-6">
+				<h2 class="text-2xl font-semibold text-primary-accent dark:text-white">Description</h2>
+				<div
+					class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+					<p class="text-lg text-primary-accent dark:text-white leading-relaxed">
+						{vehicle.description}
+					</p>
 				</div>
 			</div>
 
@@ -121,21 +132,6 @@
 					Contact Us
 				</a>
 			</div>
-		</div>
-	</div>
-
-	<!-- New Full Width Description Section -->
-	<div class="container mx-auto">
-		<h2 class="mt-20 text-3xl font-bold uppercase text-primary-accent dark:text-white">
-			Description
-		</h2>
-
-		<!-- Description section -->
-		<div
-			class="mt-8 rounded-lg bg-white p-6 shadow-md transition-shadow hover:shadow-lg dark:bg-white/5 dark:hover:shadow-none">
-			<p class="mt-2 text-lg text-primary-accent dark:text-gray-200">
-				{vehicle.description}
-			</p>
 		</div>
 	</div>
 </div>
