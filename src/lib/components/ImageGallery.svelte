@@ -2,12 +2,16 @@
 	import type { VehicleImage } from '$lib/types';
 	import { fly } from 'svelte/transition';
 	import { theme } from '$lib/stores/theme';
+	import { onMount } from 'svelte';
 
 	// Updated type to handle both direct URLs and urls object structure
 	export let images: VehicleImage[];
 
 	let selectedImageIndex = 0;
 	let transitionDirection = 1; // 1 for right-to-left, -1 for left-to-right
+
+	// Store for image positions
+	let imagePositions: Record<number, string> = {};
 
 	// Helper function to get the image URL regardless of format, preferring large URL when available
 	function getImageUrl(image: any): string {
@@ -22,10 +26,39 @@
 		if (image.urls?.small) return image.urls.small;
 		return image.small || image.src || image.url || '';
 	}
+
+	// Function to detect if an image is portrait and get appropriate object positioning
+	function getImageObjectPosition(imageUrl: string): Promise<string> {
+		return new Promise((resolve) => {
+			const img = new Image();
+			img.onload = () => {
+				// If image is portrait (height > width), position it to show top portion
+				if (img.height > img.width) {
+					resolve('object-center');
+				} else {
+					resolve('object-center');
+				}
+			};
+			img.onerror = () => {
+				resolve('object-center'); // Default fallback
+			};
+			img.src = imageUrl;
+		});
+	}
+
+	// Preload image positions when component mounts
+	onMount(async () => {
+		for (let i = 0; i < images.length; i++) {
+			const imageUrl = getImageUrl(images[i]);
+			if (imageUrl) {
+				imagePositions[i] = await getImageObjectPosition(imageUrl);
+			}
+		}
+	});
 </script>
 
 <div class="container">
-	<div class="relative h-[400px] overflow-hidden rounded-xl {$theme === 'dark' ? 'bg-white/5' : 'bg-white shadow-md'} sm:h-[500px]">
+	<div class="relative h-[500px] overflow-hidden rounded-xl {$theme === 'dark' ? 'bg-white/5' : 'bg-white shadow-md'} sm:h-[700px]">
 		{#if images && images.length > 0}
 			{#key selectedImageIndex}
 			<!-- in:fly={{ duration: 100, x: -transitionDirection * 10 }}
@@ -33,7 +66,7 @@
 				<img
 					src={getImageUrl(images[selectedImageIndex])}
 					alt={images[selectedImageIndex].alt}
-					class="h-full w-full object-cover"
+					class="h-full w-full object-cover {imagePositions[selectedImageIndex] || 'object-center'}"
 				/>
 			{/key}
 			<!-- Left Arrow -->
@@ -126,7 +159,7 @@
 				<img
 					src={getSmallUrl(image)}
 					alt={image.alt}
-					class={`h-full w-full rounded-lg object-cover ${
+					class={`h-full w-full rounded-lg object-cover ${imagePositions[index] || 'object-center'} ${
 						selectedImageIndex === index 
 							? $theme === 'dark' 
 								? 'border-4 border-[#0bd3d3]' 

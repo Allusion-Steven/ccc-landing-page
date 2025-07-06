@@ -41,7 +41,7 @@
             style:background-color={$theme === 'dark' ? '#1C1C1C' : 'white'}
         >
             {#each sortOptions as option}
-                <option value={option.value} class="{$theme === 'dark' ? 'bg-[#1C1C1C] text-primary-accent' : 'bg-white text-primary-accent'}">{option.label}</option>
+                <option value={option.value} class="{$theme === 'dark' ? 'bg-[#1C1C1C] text-white' : 'bg-gray-100 text-primary-accent'}">{option.label}</option>
             {/each}
         </select>
         <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">

@@ -85,7 +85,7 @@
 					{#if itemType === 'car' ? index < 8 : index < 4}
 						<a
 							href={buildItemLink(item)}
-							class="blockGallery group relative h-72 w-full transform overflow-hidden rounded-xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl {$theme ===
+							class="blockGallery group relative h-72 w-full transform overflow-hidden rounded-xl shadow-xl transition-all duration-300  hover:scale-105 {$theme ===
 							'dark'
 								? 'bg-white/5'
 								: 'bg-[#8393AA]/10'}">
@@ -138,7 +138,7 @@
 															? 'text-miami-bright-blue'
 															: 'text-[#08D3D3]'}">
 														{#if isYacht(item) && item.yachtPricing}
-															<div class="text-xs space-y-0.5">
+															<div class="text-sm space-y-0.5">
 																<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
 																<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
 																<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
@@ -165,7 +165,7 @@
 												);
 											}} />
 										<div
-											class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white {$theme ===
+											class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white text-shadow-md text-shadow-black-200 {$theme ===
 											'dark'
 												? 'from-black/90 to-black/0'
 												: 'from-black/90 to-black/0'}">
@@ -190,7 +190,7 @@
 														? 'text-miami-bright-blue'
 														: 'text-miami-bright-blue'}">
 													{#if isYacht(item) && item.yachtPricing}
-														<div class="text-xs space-y-0.5">
+														<div class="text-sm space-y-0.5">
 															<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
 															<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
 															<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
@@ -220,7 +220,7 @@
 												? 'from-black/90 to-black/0'
 												: 'from-black/80 via-[#513954]/70 to-transparent'}">
 											<h3
-												class="text-shadow-sm text-shadow-black-500 line-clamp-2 text-xl font-bold tracking-tight">
+												class="text-shadow-sm text-shadow-black-200 line-clamp-2 text-xl font-bold tracking-tight text-shadow-md text-shadow-black-200">
 												{item.make}
 												{item.model}
 											</h3>
@@ -240,7 +240,7 @@
 														? 'text-miami-bright-blue'
 														: 'text-[#8393AA]'}">
 													{#if isYacht(item) && item.yachtPricing}
-														<div class="text-xs space-y-0.5">
+														<div class="text-sm space-y-0.5">
 															<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
 															<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
 															<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>

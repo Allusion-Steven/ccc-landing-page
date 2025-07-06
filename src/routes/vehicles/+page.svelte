@@ -17,6 +17,29 @@
 		isAnyFilterActive as checkFiltersActive
 	} from '$lib/utils/filtering';
 
+	//TODO: PROBABLY FIX THIS AND MAKE IMAGES BETTER
+	// Function to detect if an image is portrait and get appropriate object positioning
+	function getImageObjectPosition(imageUrl: string): Promise<string> {
+		return new Promise((resolve) => {
+			const img = new Image();
+			img.onload = () => {
+				// If image is portrait (height > width), position it to show top portion
+				if (img.height > img.width) {
+					resolve('object-top');
+				} else {
+					resolve('object-center');
+				}
+			};
+			img.onerror = () => {
+				resolve('object-center'); // Default fallback
+			};
+			img.src = imageUrl;
+		});
+	}
+
+	// Store for image positions
+	let imagePositions: Record<string, string> = {};
+
 	export let data: PageData;
 	const { pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation, vehicles } = data;
 
@@ -141,6 +164,21 @@
 	function handleLocationChange() {
 		updateURL();
 	}
+
+	// Preload image positions when component mounts
+	onMount(async () => {
+		for (const vehicle of vehicles) {
+			if (vehicle.images && vehicle.images.length > 0) {
+				const firstImage = vehicle.images.find((img: any) => img.isActive) || vehicle.images[0];
+				if (firstImage) {
+					const imageUrl = firstImage.urls?.large || firstImage.url || '';
+					if (imageUrl) {
+						imagePositions[vehicle.id] = await getImageObjectPosition(imageUrl);
+					}
+				}
+			}
+		}
+	});
 </script>
 
 <svelte:head>
@@ -277,8 +315,8 @@
 										? 'border-white/20 bg-white/5 text-white' 
 										: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
 										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
-										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
+										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Los Angeles, CA</option>
+										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >New York, NY</option>
 									</select>
 								</div>
 								<div>
@@ -584,7 +622,7 @@
 											src={`${vehicle.images[0]?.urls ? vehicle.images[0]?.urls.large : vehicle.images[0]?.url}`}
 
 											alt={`${vehicle.make} ${vehicle.model}`}
-											class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110" />
+											class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110 {imagePositions[vehicle.id] || 'object-center'}" />
 									{/if}
 								{:else}
 									<div
@@ -602,7 +640,7 @@
 									<div class="mt-2 flex items-center justify-between">
 										<p class="text-sm {$theme === 'dark' ? 'text-gray-200' : 'text-gray-200'}">{vehicle.year}</p>
 										<p class="font-semibold text-[#0bd3d3]">
-											${new Intl.NumberFormat('en-US').format(vehicle.pricePerDay)}/day
+											${vehicle.pricePerDay ? new Intl.NumberFormat('en-US').format(vehicle.pricePerDay) : 'N/A'}/day
 
 										</p>
 									</div>

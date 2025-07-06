@@ -289,10 +289,11 @@
 										id="location-mobile"
 										bind:value={location}
 										class="w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
+										<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
 										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
-										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
-										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Charleston, SC</option>
+										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Los Angeles, CA</option>
+										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
+										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Charleston, SC</option>
 									</select>
 								</div>
 							</div>
@@ -457,9 +458,11 @@
 									id="location-desktop"
 									bind:value={location}
 									class="w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
+									<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
 									<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-									<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
-									<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
+									<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >New York, NY</option>
+									<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Los Angeles, CA</option>
+									<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Charleston, SC</option>
 								</select>
 							</div>
 						</div>
