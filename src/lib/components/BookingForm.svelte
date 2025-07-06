@@ -16,15 +16,15 @@
 	let selectedDuration: '4' | '6' | '8' = '4'; // Default to 4 hours for yachts
 
 	// Calculate minimum date based on vehicle type
-	$: minDate = vehicleType === 'yacht' 
-		? get24HoursFromNow() 
-		: new Date().toISOString().split('T')[0];
+	$: minDate =
+		vehicleType === 'yacht' ? get24HoursFromNow() : new Date().toISOString().split('T')[0];
 
 	const handleBooking = () => {
-		const validation = vehicleType === 'yacht' 
-			? validateDates(pickupDate, dropoffDate, true) // Pass yacht flag for 24-hour validation
-			: validateDates(pickupDate, dropoffDate);
-			
+		const validation =
+			vehicleType === 'yacht'
+				? validateDates(pickupDate, dropoffDate, true) // Pass yacht flag for 24-hour validation
+				: validateDates(pickupDate, dropoffDate);
+
 		if (!validation.isValid) {
 			error = validation.error || '';
 			return;
@@ -38,7 +38,7 @@
 
 		// Set cookies with proper attributes for cross-site sharing
 		const cookieOptions = `; SameSite=None; Secure; Path=/`;
-		
+
 		// Build booking data with duration for yachts
 		const bookingData = {
 			userId,
@@ -49,7 +49,7 @@
 			vehicleId: id,
 			...(vehicleType === 'yacht' && { duration: selectedDuration }) // Add duration for yachts
 		};
-        document.cookie = `bookingData=${JSON.stringify(bookingData)}${cookieOptions}`;
+		document.cookie = `bookingData=${JSON.stringify(bookingData)}${cookieOptions}`;
 
 		// Navigate to the dashboard with the booking data in the URL
 		const vehicleTypeParam = vehicleType === 'yacht' ? '&vehicleType=yacht' : '';
@@ -75,11 +75,11 @@
 					class="w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-gray-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-accent dark:border-gray-700 dark:bg-white/10 dark:text-white"
 					required>
 					<option value="Miami, FL" class="bg-white dark:bg-gray-800">Miami, FL</option>
-					<option value="Tampa, FL" class="bg-white dark:bg-gray-800" disabled
+					<option value="Tampa, FL" class="bg-white dark:bg-gray-800"
 						>Los Angeles, CA</option>
-					<option value="New York, NY" class="bg-white dark:bg-gray-800" disabled
+					<option value="New York, NY" class="bg-white dark:bg-gray-800"
 						>New York, NY</option>
-					<option value="Charleston, SC" class="bg-white dark:bg-gray-800" disabled
+					<option value="Charleston, SC" class="bg-white dark:bg-gray-800"
 						>Charleston, SC</option>
 				</select>
 				<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -93,31 +93,40 @@
 						Charter Duration <span class="text-red-500">*</span>
 					</label>
 					<div class="grid grid-cols-3 gap-3">
-						<label class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration === '4' ? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue' : 'text-gray-700 dark:text-gray-300'}">
+						<label
+							class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration ===
+							'4'
+								? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue'
+								: 'text-gray-700 dark:text-gray-300'}">
 							<input
 								type="radio"
 								bind:group={selectedDuration}
 								value="4"
-								class="sr-only"
-							/>
+								class="sr-only" />
 							<span class="font-medium">4 Hours</span>
 						</label>
-						<label class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration === '6' ? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue' : 'text-gray-700 dark:text-gray-300'}">
+						<label
+							class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration ===
+							'6'
+								? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue'
+								: 'text-gray-700 dark:text-gray-300'}">
 							<input
 								type="radio"
 								bind:group={selectedDuration}
 								value="6"
-								class="sr-only"
-							/>
+								class="sr-only" />
 							<span class="font-medium">6 Hours</span>
 						</label>
-						<label class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration === '8' ? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue' : 'text-gray-700 dark:text-gray-300'}">
+						<label
+							class="flex cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-3 text-center transition-all hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-white/5 {selectedDuration ===
+							'8'
+								? 'border-primary-accent bg-primary-accent/10 text-primary-accent dark:border-miami-blue dark:bg-miami-blue/10 dark:text-miami-blue'
+								: 'text-gray-700 dark:text-gray-300'}">
 							<input
 								type="radio"
 								bind:group={selectedDuration}
 								value="8"
-								class="sr-only"
-							/>
+								class="sr-only" />
 							<span class="font-medium">8 Hours</span>
 						</label>
 					</div>
@@ -128,7 +137,8 @@
 				<label
 					for="pickupDate"
 					class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-					{vehicleType === 'yacht' ? 'Charter Date' : 'Pickup Date'} <span class="text-red-500">*</span>
+					{vehicleType === 'yacht' ? 'Charter Date' : 'Pickup Date'}
+					<span class="text-red-500">*</span>
 				</label>
 				<input
 					type="date"

@@ -32,6 +32,7 @@
 		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
 	}
+
 </script>
 
 <VehicleSEO
@@ -70,42 +71,80 @@
 				<h2 class="text-2xl font-semibold text-primary-accent dark:text-white">Features</h2>
 				<div class="grid grid-cols-2 gap-4">
 					<div
-						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:shadow-white/30 dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Make</span>
 						<p class="text-lg font-medium text-primary-accent dark:text-white">
 							{vehicle.make}
 						</p>
 					</div>
 					<div
-						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:shadow-white/30 dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Model</span>
 						<p class="text-lg font-medium text-primary-accent dark:text-white">
 							{vehicle.model}
 						</p>
 					</div>
 					<div
-						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:shadow-white/30 dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Year</span>
 						<p class="text-lg font-medium text-primary-accent dark:text-white">
 							{vehicle.year}
 						</p>
 					</div>
 					<div
-						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+						class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:shadow-white/30 dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
 						<span class="text-sm text-gray-500 dark:text-gray-400">Daily Rate</span>
 						<p class="text-lg font-medium text-[#BF4959] dark:text-[#0bd3d3]">
 							${new Intl.NumberFormat('en-US').format(vehicle.pricePerDay)}/day
 						</p>
 					</div>
+					{#if vehicle.specifications}
+						{#each Object.entries(vehicle.specifications) as [key, value]}
+							{#if key !== 'engine' && value !== null && value !== '' && value !== undefined}
+								<!-- Regular specifications (excluding engine object) -->
+								<div
+									class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:shadow-white/30 dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+									<span
+										class="text-sm capitalize text-gray-500 dark:text-gray-400"
+										>{key}</span>
+									<p
+										class="text-lg font-medium text-primary-accent dark:text-white">
+										{value}
+									</p>
+								</div>
+							{/if}
+						{/each}
+						
+						<!-- Handle engine specifications if engine exists as an object -->
+						 <!-- LEGACY VEHICLES USING vehicle.specifications.engine as an object-->
+						{#if vehicle.specifications.engine && typeof vehicle.specifications.engine === 'object'}
+							{#each Object.entries(vehicle.specifications.engine) as [engineKey, engineValue]}
+								{#if engineValue !== null && engineValue !== '' && engineValue !== undefined}
+									<div
+										class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:shadow-white/30 dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+										<span
+											class="text-sm capitalize text-gray-500 dark:text-gray-400"
+											>{engineKey}</span>
+										<p
+											class="text-lg font-medium text-primary-accent dark:text-white">
+											{engineValue}
+										</p>
+									</div>
+								{/if}
+							{/each}
+						{/if}
+					{/if}
 				</div>
 			</div>
 
 			<!-- Description -->
 			<div class="space-y-6">
-				<h2 class="text-2xl font-semibold text-primary-accent dark:text-white">Description</h2>
+				<h2 class="text-2xl font-semibold text-primary-accent dark:text-white">
+					Description
+				</h2>
 				<div
-					class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:hover:shadow-white/30 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
-					<p class="text-lg text-primary-accent dark:text-white leading-relaxed">
+					class="rounded-lg bg-white p-4 shadow-md drop-shadow-lg transition-shadow hover:shadow-lg hover:drop-shadow-xl dark:bg-white/5 dark:shadow-white/20 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.15)] dark:hover:shadow-white/30 dark:hover:drop-shadow-[0_8px_16px_rgba(255,255,255,0.2)]">
+					<p class="text-lg leading-relaxed text-primary-accent dark:text-white">
 						{vehicle.description}
 					</p>
 				</div>
