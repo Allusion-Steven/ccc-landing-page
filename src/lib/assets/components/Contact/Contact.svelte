@@ -110,16 +110,16 @@
 	class="min-h-screen {$theme === 'dark'
 		? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
 		: 'bg-gradient-to-br from-white via-gray-50 to-white'} py-16">
-	<div class="container mx-auto sm:px-4" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+	<div class="container mx-auto sm:px-4" in:fly={{ y: 50, duration: 400, delay: 200 }}>
 		<div
 			class="rounded-lg {$theme === 'dark'
 				? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10'
 				: 'bg-gradient-to-br from-miami-pink/5 to-miami-blue/5'} p-8 shadow-2xl backdrop-blur-sm"
-			in:fly={{ y: 50, duration: 1000, delay: 400 }}>
+			in:fly={{ y: 50, duration: 400, delay: 400 }}>
 			<div class="space-y-8">
 				<div
 					class="overflow-hidden rounded-xl"
-					in:fly={{ y: 50, duration: 1000, delay: 600 }}
+					in:fly={{ y: 50, duration: 400, delay: 600 }}
 					style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url({heroBg}); background-position: center; background-repeat: no-repeat; background-size: cover;">
 					<div class="px-8 py-16">
 						<h1 class="mb-12 text-center">

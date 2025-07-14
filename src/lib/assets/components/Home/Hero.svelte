@@ -83,14 +83,14 @@
 					<div class="flex h-full items-center justify-center">
 						<div class="mx-auto max-w-4xl text-center {$theme === 'dark' ? '' : 'rounded-3xl bg-white/20 p-8 backdrop-blur-sm shadow-[0_8px_32px_rgba(0,0,0,0.15)]'}">
 							<h1
-								in:fly={{ y: 50, duration: 1000, delay: 200 }}
+								in:fly={{ y: 50, duration: 400, delay: 200 }}
 								class="mb-8 text-4xl font-bold tracking-tight {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}  md:text-6xl"
 							>
 								Premium Cars & Yachts, Your Way
 							</h1>
 
 							<p
-								in:fly={{ y: 50, duration: 1000, delay: 400 }}
+								in:fly={{ y: 50, duration: 400, delay: 400 }}
 								class="mx-auto mb-12 max-w-3xl text-center text-xl leading-relaxed {$theme === 'dark' ? 'text-white/95' : 'text-primary-accent/95'} drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
 							>
 								Connect with luxury vehicle owners and experience the extraordinary.
@@ -99,7 +99,7 @@
 							</p>
 
 							<div
-								in:fly={{ y: 50, duration: 1000, delay: 600 }}
+								in:fly={{ y: 50, duration: 400, delay: 600 }}
 								class="mx-auto mb-12 max-w-4xl"
 							>
 								<div
@@ -107,18 +107,18 @@
 								>
 									<p class="{$theme === 'dark' ? 'text-white/95' : 'text-primary-accent/95'}">I'm Looking For</p>
 									<button
-										class="w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Car'
-											? 'bg-gradient-to-r from-primary-light to-primary-accent text-white'
-											: `${$theme === 'dark' ? 'bg-white/10 text-white/90 hover:bg-white/20' : 'bg-primary-accent/10 text-primary-accent/90 hover:bg-primary-accent/20'}`}"
+										class="relative w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Car'
+											? `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:scale-105' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_30px_rgba(194,63,91,0.5)] hover:scale-105'}`
+											: `${$theme === 'dark' ? 'bg-white/10 text-white/90 hover:bg-white/25 hover:scale-105' : 'bg-primary-accent/10 text-primary-accent/90 hover:bg-primary-accent/25 hover:scale-105'}`}"
 										on:click={() => {
 											vehicleType = 'Car';
 										}}>Cars</button
 									>
 
 									<button
-										class="w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Yacht'
-											? 'bg-gradient-to-r from-primary-light to-primary-accent text-white'
-											: `${$theme === 'dark' ? 'bg-white/10 text-white/90 hover:bg-white/20' : 'bg-primary-accent/10 text-primary-accent/90 hover:bg-primary-accent/20'}`}"
+										class="relative w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Yacht'
+											? `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:scale-105' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_30px_rgba(194,63,91,0.5)] hover:scale-105'}`
+											: `${$theme === 'dark' ? 'bg-white/10 text-white/90 hover:bg-white/25 hover:scale-105' : 'bg-primary-accent/10 text-primary-accent/90 hover:bg-primary-accent/25 hover:scale-105'}`}"
 										on:click={() => {
 											vehicleType = 'Yacht';
 										}}>Yachts</button
@@ -165,7 +165,7 @@
 															>Miami, FL</option
 														>
 														<option
-															value="Los Angeles, CA"
+															value="Tampa, FL"
 															class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20"
 															>Tampa, FL</option
 														>
@@ -207,7 +207,9 @@
 
 										<!-- Search button -->
 										<button
-											class="!h-12 w-full rounded-2xl bg-gradient-to-r from-primary-light to-primary-accent px-8 font-medium text-white transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,27,107,0.3)] md:w-auto disabled:cursor-not-allowed disabled:opacity-50"
+											class="!h-12 w-full rounded-2xl px-8 font-medium transition-all duration-300 ease-in-out md:w-auto disabled:cursor-not-allowed disabled:opacity-50 {$theme === 'dark' 
+												? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]' 
+												: 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_30px_rgba(194,63,91,0.4)]'}"
 											on:click={handleSearch}
 											disabled={isSearching}
 										>

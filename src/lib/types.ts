@@ -88,6 +88,12 @@ export interface Vehicle {
     updatedAt: Date;
     isActive: boolean;
     userDeleted: boolean;
+    location?: string;
+    pickupLocation?: {
+        state: string;
+        city?: string;
+        address?: string;
+    };
 }
 
 // Booking related types (for reference)
@@ -138,4 +144,10 @@ export interface Yacht {
     updatedAt?: Date;
     isActive?: boolean;
     userDeleted?: boolean;
+    location?: string;
+    pickupLocation?: {
+        state: string;
+        city?: string;
+        address?: string;
+    };
 }

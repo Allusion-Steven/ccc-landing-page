@@ -31,11 +31,11 @@
 	});
 </script>
 
-<div class="min-h-screen bg-[#1C1C1C]" in:fly={{ y: 50, duration: 1000 }}>
+	<div class="min-h-screen bg-[#1C1C1C]" in:fly={{ y: 50, duration: 400 }}>
 	<div class="container mx-auto px-4 py-12">
 		<h1
 			class="mb-8 text-center text-4xl font-bold text-white"
-			in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+			in:fly={{ y: 50, duration: 400, delay: 200 }}>
 			Our Vehicle Collection
 		</h1>
 

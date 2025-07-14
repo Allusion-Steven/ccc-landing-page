@@ -10,12 +10,23 @@ interface BaseItem {
     year: number;
     tags: string[];
     images: VehicleImage[];
-    location?: string;
+    pickupLocation?: {
+        state: string;
+        city?: string;
+        address?: string;
+    };
     yachtPricing?: {
         fourHours: number;
         sixHours: number;
         eightHours: number;
     };
+}
+
+// Helper function to extract state from location string (e.g., "Miami, FL" -> "FL")
+function extractStateFromLocation(location: string): string | null {
+    if (!location) return null;
+    const parts = location.split(',').map(part => part.trim());
+    return parts.length >= 2 ? parts[parts.length - 1] : null;
 }
 
 interface Vehicle extends BaseItem {
@@ -125,8 +136,11 @@ export function filterItems<T extends BaseItem>(
             })();
             const matchesType = selectedTypes.length === 0 ||
                 item.tags.some(tag => selectedTypes.includes(tag));
-            const matchesLocation = !location || 
-                (item.location && item.location.toLowerCase().includes(location.toLowerCase()));
+            const matchesLocation = !location || (() => {
+                const targetState = extractStateFromLocation(location);
+                return targetState && item.pickupLocation?.state && 
+                       item.pickupLocation.state.toLowerCase() === targetState.toLowerCase();
+            })();
 
             return matchesSearch && matchesPrice && matchesType && matchesLocation &&
                 (additionalFilter ? additionalFilter(item) : true);

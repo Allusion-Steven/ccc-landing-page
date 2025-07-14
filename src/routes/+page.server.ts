@@ -1,4 +1,3 @@
-import { vehicles } from '$lib/constants/Vehicles';
 import { error } from '@sveltejs/kit';
 import { apiUrl } from '$lib/index';
 import type { PageServerLoad } from './$types';
