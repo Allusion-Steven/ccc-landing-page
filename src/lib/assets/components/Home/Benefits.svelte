@@ -9,12 +9,12 @@
 	<div class="container mx-auto px-4">
 		<div class="text-center">
 			<h2
-				in:fly={{ y: 50, duration: 1000, delay: 200 }}
+				in:fly={{ y: 50, duration: 400, delay: 200 }}
 				class="mb-8 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">
 				Why Choose Macro Exotics?
 			</h2>
 			<p
-				in:fly={{ y: 50, duration: 1000, delay: 300 }}
+				in:fly={{ y: 50, duration: 400, delay: 300 }}
 				class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
 				Experience unparalleled luxury and service with our premium vehicle and yacht
 				rental platform. We offer more than just rentals - we create unforgettable
@@ -24,7 +24,7 @@
 
 		<div class="grid gap-8 md:grid-cols-3">
 			<div
-				in:fly={{ x: -50, duration: 1000, delay: 400 }}
+				in:fly={{ x: -50, duration: 400, delay: 400 }}
 				class="rounded-xl {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-6">
 				<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
 					<svg
@@ -49,7 +49,7 @@
 			</div>
 
 			<div
-				in:fly={{ y: 50, duration: 1000, delay: 500 }}
+				in:fly={{ y: 50, duration: 400, delay: 500 }}
 				class="rounded-xl {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-6">
 				<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
 					<svg
@@ -74,7 +74,7 @@
 			</div>
 
 			<div
-				in:fly={{ x: 50, duration: 1000, delay: 600 }}
+				in:fly={{ x: 50, duration: 400, delay: 600 }}
 				class="rounded-xl {$theme === 'dark' ? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-6">
 				<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-pink-200">
 					<svg
@@ -105,13 +105,13 @@
 	<div class="container mx-auto px-4">
 		<div class="mx-auto max-w-4xl text-center">
 			<h2
-				in:fly={{ y: 50, duration: 1000, delay: 200 }}
+				in:fly={{ y: 50, duration: 400, delay: 200 }}
 				class="mb-8 text-4xl font-bold leading-tight text-white md:text-5xl"
 			>
 				Luxury Vehicle & Yacht Rentals
 			</h2>
 			<p
-				in:fly={{ y: 50, duration: 1000, delay: 400 }}
+				in:fly={{ y: 50, duration: 400, delay: 400 }}
 				class="mb-8 text-lg leading-relaxed text-gray-300 text-center"
 			>
 				With Macro Exotics, experience the ultimate in luxury transportation. Whether by land or
@@ -119,7 +119,7 @@
 				performance.
 			</p>
 
-			<div in:fly={{ y: 50, duration: 1000, delay: 600 }} class="mb-16 grid gap-8 md:grid-cols-3">
+			<div in:fly={{ y: 50, duration: 400, delay: 600 }} class="mb-16 grid gap-8 md:grid-cols-3">
 				<div
 					class="rounded-lg bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-6 backdrop-blur-sm transition-all duration-300 hover:from-miami-pink/20 hover:to-miami-blue/20"
 				>
@@ -146,7 +146,7 @@
 				</div>
 			</div>
 			<div
-				in:fly={{ y: 50, duration: 1000, delay: 800 }}
+				in:fly={{ y: 50, duration: 400, delay: 800 }}
 				class="mx-auto max-w-4xl rounded-lg border border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10 p-8 shadow-xl"
 			>
 				<h3 class="mb-6 text-2xl font-bold text-white">Rental Benefits</h3>
@@ -240,7 +240,7 @@
 					</div>
 				</div>
 			</div>
-			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-[5rem] flex justify-center">
+			<div in:fly={{ y: 50, duration: 400, delay: 1000 }} class="mt-[5rem] flex justify-center">
 				<SecondaryButton href={loginUrl} text="Join the club" colorScheme={$theme === 'dark' ? 'dark' : 'dark'} />
 			</div>
 		</div>

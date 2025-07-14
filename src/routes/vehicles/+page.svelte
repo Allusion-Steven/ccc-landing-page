@@ -38,39 +38,39 @@
 	}
 
 	// Store for image positions
-	let imagePositions: Record<string, string> = {};
+	let imagePositions = $state<Record<string, string>>({});
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 	const { pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation, vehicles } = data;
 
-	let currentSort = 'default';
+	let currentSort = $state('default');
 
 	// Initialize pickupDate, dropoffDate, and location with data from URL or defaults
-	let pickupDate = initialPickupDate || '';
-	let dropoffDate = initialDropoffDate || '';
-	let location = initialLocation || 'Miami, FL';
+	let pickupDate = $state(initialPickupDate || '');
+	let dropoffDate = $state(initialDropoffDate || '');
+	let location = $state(initialLocation || 'Miami, FL');
 
 	// Calculate minimum date (24 hours from now)
-	$: minPickupDate = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+	const minPickupDate = $derived(new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
 
 	// Handle URL parameters when the page loads
-	$: {
+	$effect(() => {
 		const searchParams = $page.url.searchParams;
 		location = searchParams.get('location') || initialLocation || 'Miami, FL';
 		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
-	}
+	});
 
 	// Filter states
-	let searchQuery = '';
-	let maxPrice: number;
-	let minYear: number;
-	let maxYear: number;
-	let showFiltersModal = false;
+	let searchQuery = $state('');
+	let maxPrice = $state(0);
+	let minYear = $state(0);
+	let maxYear = $state(0);
+	let showFiltersModal = $state(false);
 
 	// Get unique tags from vehicles array
 	const vehicleTypes = getUniqueTypes(vehicles);
-	let selectedTypes: string[] = [];
+	let selectedTypes = $state<string[]>([]);
 
 	// Get min and max values for the filters
 	const { min: minPriceAvailable, max: maxPriceAvailable } = getMinMaxPrice(vehicles);
@@ -81,18 +81,18 @@
 	minYear = minYearAvailable;
 	maxYear = maxYearAvailable;
 
-	// Update filteredVehicles to include sorting
-	$: filteredVehicles = filterItems(
+	// Update filteredVehicles to include sorting (location filtering now handled server-side)
+	const filteredVehicles = $derived(filterItems(
 		vehicles,
 		searchQuery,
 		maxPrice,
 		selectedTypes,
 		currentSort,
 		(vehicle) => vehicle.year >= minYear && vehicle.year <= maxYear
-	);
+	));
 
 	// Check if any filters are active
-	$: isAnyFilterActive = checkFiltersActive(
+	const isAnyFilterActive = $derived(checkFiltersActive(
 		searchQuery,
 		maxPrice,
 		maxPriceAvailable,
@@ -100,7 +100,7 @@
 		{
 			yearRange: minYear !== minYearAvailable || maxYear !== maxYearAvailable
 		}
-	);
+	));
 
 	// Clear filters function
 	function clearFilters() {
@@ -160,9 +160,43 @@
 		updateURL();
 	}
 
-	// Handle location changes
+	// Search button states
+	let isLocationSearching = $state(false);
+	let locationChanged = $state(false);
+	
+	// Track location changes
+	$effect(() => {
+		if (location !== initialLocation) {
+			locationChanged = true;
+		}
+	});
+
+	// Handle location changes - trigger page navigation to refetch data
 	function handleLocationChange() {
-		updateURL();
+		isLocationSearching = true;
+		const url = new URL(window.location.href);
+		
+		// Update parameters
+		if (pickupDate) {
+			url.searchParams.set('pickupDate', pickupDate);
+		} else {
+			url.searchParams.delete('pickupDate');
+		}
+		
+		if (dropoffDate) {
+			url.searchParams.set('dropoffDate', dropoffDate);
+		} else {
+			url.searchParams.delete('dropoffDate');
+		}
+		
+		if (location) {
+			url.searchParams.set('location', location);
+		} else {
+			url.searchParams.delete('location');
+		}
+		
+		// Navigate to trigger server refetch
+		window.location.href = url.toString();
 	}
 
 	// Preload image positions when component mounts
@@ -307,17 +341,45 @@
 							<div class="flex flex-col space-y-3">
 								<div>
 									<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Location</label>
-									<select
-										id="location-mobile"
-										bind:value={location}
-										on:change={handleLocationChange}
-										class="mt-1 w-full rounded-lg border {$theme === 'dark' 
-										? 'border-white/20 bg-white/5 text-white' 
-										: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
-										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Los Angeles, CA</option>
-										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >New York, NY</option>
-									</select>
+									<div class="flex gap-2">
+										<select
+											id="location-mobile"
+											bind:value={location}
+											class="flex-1 mt-1 rounded-lg border {$theme === 'dark' 
+											? 'border-white/20 bg-white/5 text-white' 
+											: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
+											<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+											<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Tampa, FL</option>
+											<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
+											<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
+										</select>
+																			<button
+										on:click={handleLocationChange}
+										disabled={isLocationSearching}
+										class="mt-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 {
+											isLocationSearching 
+												? 'bg-gray-400 cursor-not-allowed text-white' 
+												: locationChanged 
+													? 'bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] animate-pulse text-white' 
+													: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`
+										}">
+											{#if isLocationSearching}
+												<div class="flex items-center gap-2">
+													<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+													Loading...
+												</div>
+											{:else if locationChanged}
+												<div class="flex items-center gap-1">
+													<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+													</svg>
+													Update
+												</div>
+											{:else}
+												Search
+											{/if}
+										</button>
+									</div>
 								</div>
 								<div>
 									<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Date</label>
@@ -477,18 +539,45 @@
 						<div class="flex flex-col space-y-3">
 							<div>
 								<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Location</label>
-								<select
-									id="location-desktop"
-									bind:value={location}
-									on:change={handleLocationChange}
-									class="mt-1 w-full rounded-lg border {$theme === 'dark' 
-									? 'border-white/20 bg-white/5 text-white' 
-									: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
-									<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-									<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Los Angeles, CA</option>
-									<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>New York, NY</option>
-									<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" disabled>Charleston, SC</option>
-								</select>
+								<div class="flex gap-2">
+									<select
+										id="location-desktop"
+										bind:value={location}
+										class="flex-1 mt-1 rounded-lg border {$theme === 'dark' 
+										? 'border-white/20 bg-white/5 text-white' 
+										: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
+										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Tampa, FL</option>
+										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
+										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
+									</select>
+									<button
+										on:click={handleLocationChange}
+										disabled={isLocationSearching}
+										class="mt-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 {
+											isLocationSearching 
+												? 'bg-gray-400 cursor-not-allowed text-white' 
+												: locationChanged 
+													? 'bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] animate-pulse text-white' 
+													: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`
+										}">
+										{#if isLocationSearching}
+											<div class="flex items-center gap-2">
+												<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+												Loading...
+											</div>
+										{:else if locationChanged}
+											<div class="flex items-center gap-1">
+												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+												</svg>
+												Update
+											</div>
+										{:else}
+											Search
+										{/if}
+									</button>
+								</div>
 							</div>
 							<div>
 								<label class="text-xs {$theme === 'dark' ? 'text-white/50' : 'text-gray-600'}">Pickup Date</label>

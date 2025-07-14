@@ -38,14 +38,14 @@
 					class="mb-6 text-4xl font-bold {$theme === 'dark'
 						? 'text-white'
 						: 'text-primary-accent'} md:text-5xl"
-					in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+					in:fly={{ y: 50, duration: 400, delay: 200 }}>
 					Why Choose Macro Exotics?
 				</h2>
 				<p
 					class="mb-4 text-lg {$theme === 'dark'
 						? 'text-gray-300'
 						: 'text-primary-muted'}"
-					in:fly={{ y: 50, duration: 1000, delay: 400 }}>
+					in:fly={{ y: 50, duration: 400, delay: 400 }}>
 					In today's sharing economy, we connect luxury vehicle owners with discerning
 					clients seeking premium experiences. Our peer-to-peer platform creates
 					opportunities for both owners and renters in the world of exotic vehicles and
@@ -59,7 +59,7 @@
 					your next adventure, we make the connection seamless and secure through our
 					comprehensive verification process and dedication to exce
 				</p>
-				<div class="flex flex-col sm:flex-row gap-4" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
+				<div class="flex flex-col sm:flex-row gap-4" in:fly={{ y: 50, duration: 400, delay: 600 }}>
 					<PrimaryButton
 						text="Become a host"
 						href="https://my.macroexotics.com/"
@@ -76,7 +76,7 @@
 						class="rounded-xl {$theme === 'dark'
 							? 'bg-white/5'
 							: 'bg-primary-accent/5'} p-6"
-						in:fly={{ y: 50, duration: 1000, delay: 800 }}>
+						in:fly={{ y: 50, duration: 400, delay: 800 }}>
 						<div class="mb-4">
 							<svg
 								class="h-8 w-8 {$theme === 'dark'
@@ -108,7 +108,7 @@
 						class="rounded-xl {$theme === 'dark'
 							? 'bg-white/5'
 							: 'bg-primary-accent/5'} p-6"
-						in:fly={{ y: 50, duration: 1000, delay: 1000 }}>
+						in:fly={{ y: 50, duration: 400, delay: 1000 }}>
 						<div class="mb-4">
 							<svg
 								class="h-8 w-8 {$theme === 'dark'
@@ -140,7 +140,7 @@
 						class="rounded-xl {$theme === 'dark'
 							? 'bg-white/5'
 							: 'bg-primary-accent/5'} p-6"
-						in:fly={{ y: 50, duration: 1000, delay: 1200 }}>
+						in:fly={{ y: 50, duration: 400, delay: 1200 }}>
 						<div class="mb-4">
 							<svg
 								class="h-8 w-8 {$theme === 'dark'
@@ -172,7 +172,7 @@
 						class="rounded-xl {$theme === 'dark'
 							? 'bg-white/5'
 							: 'bg-primary-accent/5'} p-6"
-						in:fly={{ y: 50, duration: 1000, delay: 1400 }}>
+						in:fly={{ y: 50, duration: 400, delay: 1400 }}>
 						<div class="mb-4">
 							<svg
 								class="h-8 w-8 {$theme === 'dark'

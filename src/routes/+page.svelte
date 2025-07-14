@@ -77,7 +77,7 @@
 </svelte:head>
 
 <div>
-	<div in:fade={{ duration: 1000 }}>
+	<div in:fade={{ duration: 400 }}>
 		<Hero />
 	</div>
 
@@ -86,7 +86,7 @@
 			<div
 				in:fly={{
 					x: -100,
-					duration: 1000,
+					duration: 400,
 					easing: quintOut
 				}}>
 				<Experience />
@@ -99,7 +99,7 @@
 			<div
 				in:fly={{
 					x: -100,
-					duration: 3000,
+					duration: 800,
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
@@ -123,7 +123,7 @@
 			<div
 				in:fly={{
 					y: 50,
-					duration: 800,
+					duration: 300,
 					easing: quintOut
 				}}>
 				<Why />
@@ -136,7 +136,7 @@
 			<div
 				in:fly={{
 					x: -100,
-					duration: 3000,
+					duration: 800,
 					easing: quintOut
 				}}>
 				{#if featuredYachts && featuredYachts.vehicles && featuredYachts.vehicles.length > 0}
@@ -160,7 +160,7 @@
 			<div
 				in:fly={{
 					y: 100,
-					duration: 2000,
+					duration: 600,
 					easing: quintOut
 				}}>
 				<div class="relative">

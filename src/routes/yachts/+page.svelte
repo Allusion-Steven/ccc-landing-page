@@ -64,7 +64,7 @@
 	minGuests = minGuestsAvailable;
 	maxGuests = maxGuestsAvailable;
 
-	// Update filteredYachts to include sorting (not filtering by location/dates)
+	// Update filteredYachts to include sorting (location filtering now handled server-side)
 	const filteredYachts = $derived(filterItems(
 		yachts,
 		searchQuery,
@@ -141,6 +141,45 @@
 		currentSort = sortOption;
 	}
 
+	// Search button states
+	let isLocationSearching = $state(false);
+	let locationChanged = $state(false);
+	
+	// Track location changes
+	$effect(() => {
+		if (location !== initialLocation) {
+			locationChanged = true;
+		}
+	});
+
+	// Handle location search - trigger page navigation to refetch data
+	function handleLocationSearch() {
+		isLocationSearching = true;
+		const url = new URL($page.url);
+		
+		// Update parameters
+		if (pickupDate) {
+			url.searchParams.set('pickupDate', pickupDate);
+		} else {
+			url.searchParams.delete('pickupDate');
+		}
+		
+		if (dropoffDate) {
+			url.searchParams.set('dropoffDate', dropoffDate);
+		} else {
+			url.searchParams.delete('dropoffDate');
+		}
+		
+		if (location) {
+			url.searchParams.set('location', location);
+		} else {
+			url.searchParams.delete('location');
+		}
+		
+		// Navigate to trigger server refetch
+		window.location.href = url.toString();
+	}
+
 	// Validate dates when they change
 	$effect(() => {
 		if (pickupDate && dropoffDate) {
@@ -190,7 +229,7 @@
 	{#if contentVisible}
 		<h1
 			class="mb-8 text-center text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}"
-			in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+			in:fly={{ y: 50, duration: 400, delay: 200 }}>
 			Available Yachts
 		</h1>
 
@@ -198,7 +237,7 @@
 			<SortingOptions onSort={handleSort} {currentSort} />
 		</div>
 
-		<div class="flex flex-col gap-8 lg:flex-row" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
+		<div class="flex flex-col gap-8 lg:flex-row" in:fly={{ y: 50, duration: 400, delay: 400 }}>
 			<!-- Mobile Search and Filters -->
 			<div class="flex flex-col gap-4 lg:hidden">
 				<!-- Mobile Search Input -->
@@ -285,16 +324,44 @@
 								<div>
 									<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 										>Pickup Location</label>
-									<select
-										id="location-mobile"
-										bind:value={location}
-										class="w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
-										<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
-										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Los Angeles, CA</option>
-										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
-										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Charleston, SC</option>
-									</select>
+									<div class="flex gap-2">
+										<select
+											id="location-mobile"
+											bind:value={location}
+											class="flex-1 rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
+											<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
+											<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+											<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Tampa, FL</option>
+											<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
+											<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
+										</select>
+										<button
+											on:click={handleLocationSearch}
+											disabled={isLocationSearching}
+											class="px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 {
+												isLocationSearching 
+													? 'bg-gray-400 cursor-not-allowed text-white' 
+													: locationChanged 
+														? 'bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] animate-pulse text-white' 
+														: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`
+											}">
+											{#if isLocationSearching}
+												<div class="flex items-center gap-2">
+													<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+													Loading...
+												</div>
+											{:else if locationChanged}
+												<div class="flex items-center gap-1">
+													<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+													</svg>
+													Update
+												</div>
+											{:else}
+												Search
+											{/if}
+										</button>
+									</div>
 								</div>
 							</div>
 
@@ -454,16 +521,44 @@
 							<div>
 								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
 									>Pickup Location</label>
-								<select
-									id="location-desktop"
-									bind:value={location}
-									class="w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
-									<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
-									<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-									<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >New York, NY</option>
-									<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Los Angeles, CA</option>
-									<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}" >Charleston, SC</option>
-								</select>
+								<div class="flex gap-2">
+									<select
+										id="location-desktop"
+										bind:value={location}
+										class="flex-1 rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
+										<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
+										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
+										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Tampa, FL</option>
+										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
+										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
+									</select>
+									<button
+										on:click={handleLocationSearch}
+										disabled={isLocationSearching}
+										class="px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 {
+											isLocationSearching 
+												? 'bg-gray-400 cursor-not-allowed text-white' 
+												: locationChanged 
+													? 'bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] animate-pulse text-white' 
+													: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`
+										}">
+										{#if isLocationSearching}
+											<div class="flex items-center gap-2">
+												<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+												Loading...
+											</div>
+										{:else if locationChanged}
+											<div class="flex items-center gap-1">
+												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+												</svg>
+												Update
+											</div>
+										{:else}
+											Search
+										{/if}
+									</button>
+								</div>
 							</div>
 						</div>
 

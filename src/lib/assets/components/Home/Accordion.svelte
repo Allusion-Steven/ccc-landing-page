@@ -34,11 +34,11 @@
 			<div class="mb-16 text-center">
 				<h2
 					class="mb-4 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl"
-					in:fly={{ y: 50, duration: 1000, delay: 200 }}
+					in:fly={{ y: 50, duration: 400, delay: 200 }}
 				>
 					Frequently Asked Questions
 				</h2>
-				<p class="text-lg {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
+				<p class="text-lg {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}" in:fly={{ y: 50, duration: 400, delay: 400 }}>
 					Find answers to common questions about our luxury car rental service
 				</p>
 			</div>
@@ -50,7 +50,7 @@
 					{#each leftColumnFaqs as faq, index}
 						<div
 							class="overflow-hidden rounded-lg {$theme === 'dark' ? 'bg-white/5' : 'bg-primary-accent/5'} transition-all duration-300"
-							in:fly={{ y: 50, duration: 1000, delay: 600 + index * 100 }}
+							in:fly={{ y: 50, duration: 400, delay: 600 + index * 100 }}
 						>
 							<button
 								class="flex w-full items-center justify-between p-4 text-left"
@@ -93,7 +93,7 @@
 					{#each rightColumnFaqs as faq, index}
 						<div
 							class="overflow-hidden rounded-lg {$theme === 'dark' ? 'bg-white/5' : 'bg-primary-accent/5'} transition-all duration-300"
-							in:fly={{ y: 50, duration: 1000, delay: 600 + index * 100 }}
+							in:fly={{ y: 50, duration: 400, delay: 600 + index * 100 }}
 						>
 							<button
 								class="flex w-full items-center justify-between p-4 text-left"

@@ -72,7 +72,7 @@
 	<div class="max-w-8xl container mx-auto px-4 py-16">
 		{#if visible}
 			<h3
-				in:fly={{ y: 50, duration: 1000, delay: 200 }}
+				in:fly={{ y: 50, duration: 400, delay: 200 }}
 				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme ===
 				'dark'
 					? 'text-white'
@@ -91,7 +91,7 @@
 								: 'bg-[#8393AA]/10'}">
 							<div
 								class=" w-full overflow-hidden"
-								in:fly={{ y: 50, duration: 1000, delay: 400 + index * 200 }}>
+								in:fly={{ y: 50, duration: 400, delay: 400 + index * 200 }}>
 								{#if item.images && item.images.length > 0}
 									{#if item.images.length > 1}
 										<Carousel
@@ -112,12 +112,12 @@
 												})}
 											style="width: 100px; object-fit: contain; height:18rem; width: 100%; position: fixed; pointer-events: none;">
 											<div
-												class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white {$theme ===
+												class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-2 text-white {$theme ===
 												'dark'
-													? 'from-black/90 to-black/0'
-													: 'from-black/90 to-black/0'}">
+													? 'from-black/90  to-black/10'
+													: 'from-black/90  to-black/10'}">
 												<h3
-													class="text-shadow-sm text-shadow-black-500 line-clamp-2 text-xl font-bold tracking-tight">
+													class="text-shadow-lg text-shadow-black-500 line-clamp-2 text-xl font-bold tracking-tight">
 													{item.make}
 													{item.model}
 												</h3>
@@ -170,7 +170,7 @@
 												? 'from-black/90 to-black/0'
 												: 'from-black/90 to-black/0'}">
 											<h3
-												class="text-shadow-sm text-shadow-black-500 line-clamp-2 text-xl font-bold tracking-tight">
+												class="text-shadow-lg text-shadow-black line-clamp-2 text-xl font-bold tracking-tight">
 												{item.make}
 												{item.model}
 											</h3>
@@ -220,7 +220,7 @@
 												? 'from-black/90 to-black/0'
 												: 'from-black/80 via-[#513954]/70 to-transparent'}">
 											<h3
-												class="text-shadow-sm text-shadow-black-200 line-clamp-2 text-xl font-bold tracking-tight text-shadow-md text-shadow-black-200">
+												class="text-shadow-lg text-shadow-black line-clamp-2 text-xl font-bold tracking-tight text-shadow-md text-shadow-black">
 												{item.make}
 												{item.model}
 											</h3>
@@ -260,7 +260,7 @@
 					{/if}
 				{/each}
 			</div>
-			<div in:fly={{ y: 50, duration: 1000, delay: 1200 }} class="flex justify-center">
+			<div in:fly={{ y: 50, duration: 400, delay: 1200 }} class="flex justify-center">
 				<SecondaryButton
 					href={viewAllLink}
 					type="submit"

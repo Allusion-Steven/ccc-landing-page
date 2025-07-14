@@ -47,7 +47,7 @@
 		{#if contentVisible}
 			<!-- Header Section -->
 
-			<div class="sm:mb-16 text-center" in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+			<div class="sm:mb-16 text-center" in:fly={{ y: 50, duration: 400, delay: 200 }}>
 				<h1 class="mb-4 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">Choose Your Membership</h1>
 				<p class="text-xl {$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">
 					Select the perfect plan for your luxury driving experience
@@ -55,7 +55,7 @@
 			</div>
 
 			<!-- Pricing Cards Container -->
-			<div class="grid gap-8 md:grid-cols-3" in:fly={{ y: 50, duration: 1000, delay: 400 }}>
+			<div class="grid gap-8 md:grid-cols-3" in:fly={{ y: 50, duration: 400, delay: 400 }}>
 				{#each pricingTiers as tier, i}
 					<div
 						class="relative flex flex-col {tier.highlighted
@@ -65,7 +65,7 @@
 						onkeydown={(e) => e.key === 'Enter' && handleTierSelect(tier.name)}
 						role="button"
 						tabindex="0"
-						in:fly={{ x: 50, duration: 800, delay: 600 + i * 150 }}
+						in:fly={{ x: 50, duration: 300, delay: 600 + i * 150 }}
 					>
 						<!-- Highlight badge for premium plan -->
 						{#if tier.highlighted}
@@ -158,7 +158,7 @@
 			</div>
 
 			<!-- Additional Info -->
-			<div class="mt-16 text-center" in:fly={{ y: 50, duration: 1000, delay: 1200 }}>
+			<div class="mt-16 text-center" in:fly={{ y: 50, duration: 400, delay: 1200 }}>
 				<p class="{$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">
 					All plans include access to our mobile app and 24/7 customer service.
 					<br />

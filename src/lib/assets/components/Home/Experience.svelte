@@ -12,12 +12,12 @@
 	<div class="px-4">
 		<div class="container mx-auto">
 			<h2
-				in:fly={{ y: 50, duration: 1000, delay: 200 }}
+				in:fly={{ y: 50, duration: 400, delay: 200 }}
 				class="mb-8 text-center text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">
 				Luxury Vehicle & Yacht Rentals
 			</h2>
 			<p
-				in:fly={{ y: 50, duration: 1000, delay: 300 }}
+				in:fly={{ y: 50, duration: 400, delay: 300 }}
 				class="mb-8 text-center text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
 				With Macro Exotics, indulge in the pinnacle of luxury transportation. Whether on
 				land or at sea, our exclusive selection of vehicles and yachts offers unmatched
@@ -25,7 +25,7 @@
 			</p>
 			<div class="mb-8 grid gap-8 md:grid-cols-3">
 				<div
-					in:fly={{ x: -50, duration: 1000, delay: 400 }}
+					in:fly={{ x: -50, duration: 400, delay: 400 }}
 					class="group relative h-[400px] transform overflow-hidden rounded-xl transition-all duration-500 hover:scale-[1.02]">
 					<img
 						src={heroBg}
@@ -45,7 +45,7 @@
 				</div>
 
 				<div
-					in:fly={{ x: 50, duration: 1000, delay: 600 }}
+					in:fly={{ x: 50, duration: 400, delay: 600 }}
 					class="group relative h-[400px] transform overflow-hidden rounded-xl transition-all duration-500 hover:scale-[1.02]">
 					<img
 						src={yachtHeroBg}
@@ -68,7 +68,7 @@
 					</div>
 				</div>
 				<div
-					in:fly={{ x: 50, duration: 1000, delay: 600 }}
+					in:fly={{ x: 50, duration: 400, delay: 600 }}
 					class="group relative h-[400px] transform overflow-hidden rounded-xl transition-all duration-500 hover:scale-[1.02]">
 					<img
 						src={conciergeHeroBg}
@@ -92,7 +92,7 @@
 			</div>
 
 			<div
-				in:fly={{ y: 50, duration: 1000, delay: 800 }}
+				in:fly={{ y: 50, duration: 400, delay: 800 }}
 				class="mx-auto rounded-xl border {$theme === 'dark' ? 'border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'border-primary-accent/20 bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-8 shadow-xl">
 				<h3 class="mb-6 text-center text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Rental Benefits</h3>
 				<div class="mx-auto my-0 grid gap-6 text-left md:grid-cols-2">
@@ -177,7 +177,7 @@
 					</div>
 				</div>
 			</div>
-			<div in:fly={{ y: 50, duration: 1000, delay: 1000 }} class="mt-8 flex justify-center">
+			<div in:fly={{ y: 50, duration: 400, delay: 1000 }} class="mt-8 flex justify-center">
 				<SecondaryButton href={loginUrl} text="Join the club" colorScheme={$theme === 'dark' ? 'light' : 'dark'} />
 			</div>
 		</div>

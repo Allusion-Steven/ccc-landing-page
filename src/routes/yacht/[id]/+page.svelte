@@ -78,11 +78,11 @@
 
 <div
 	class="min-h-screen bg-gray-50 dark:bg-transparent px-4 py-8"
-	in:fly={{ y: 50, duration: 1000, delay: 200 }}>
+	in:fly={{ y: 50, duration: 400, delay: 200 }}>
 	<div
 		class="container mx-auto grid grid-cols-1 gap-8 lg:grid-cols-10"
-		in:fly={{ y: 50, duration: 1000, delay: 400 }}>
-		<div class="md:col-span-1 lg:col-span-6" in:fly={{ y: 50, duration: 1000, delay: 600 }}>
+		in:fly={{ y: 50, duration: 400, delay: 400 }}>
+		<div class="md:col-span-1 lg:col-span-6" in:fly={{ y: 50, duration: 400, delay: 600 }}>
 			<ImageGallery images={yachtImages} />
 		</div>
 
