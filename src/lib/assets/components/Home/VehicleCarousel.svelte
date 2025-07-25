@@ -114,10 +114,10 @@
 											<div
 												class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-2 text-white {$theme ===
 												'dark'
-													? 'from-black/90  to-black/10'
-													: 'from-black/90  to-black/10'}">
+													? 'from-black/95 via-black/70 via-black/40 to-transparent'
+													: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
 												<h3
-													class="text-shadow-lg text-shadow-black-500 line-clamp-2 text-xl font-bold tracking-tight">
+													class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
 													{item.make}
 													{item.model}
 												</h3>
@@ -165,12 +165,12 @@
 												);
 											}} />
 										<div
-											class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white text-shadow-md text-shadow-black-200 {$theme ===
+											class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white {$theme ===
 											'dark'
-												? 'from-black/90 to-black/0'
-												: 'from-black/90 to-black/0'}">
+												? 'from-black/95 via-black/70 via-black/40 to-transparent'
+												: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
 											<h3
-												class="text-shadow-lg text-shadow-black line-clamp-2 text-xl font-bold tracking-tight">
+												class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
 												{item.make}
 												{item.model}
 											</h3>
@@ -217,10 +217,10 @@
 										<div
 											class="absolute bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white {$theme ===
 											'dark'
-												? 'from-black/90 to-black/0'
-												: 'from-black/80 via-[#513954]/70 to-transparent'}">
+												? 'from-black/95 via-black/70 via-black/40 to-transparent'
+												: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
 											<h3
-												class="text-shadow-lg text-shadow-black line-clamp-2 text-xl font-bold tracking-tight text-shadow-md text-shadow-black">
+												class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
 												{item.make}
 												{item.model}
 											</h3>
