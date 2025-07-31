@@ -61,7 +61,8 @@
 {#if showDatePicker}
 	<div
 		class="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
-		transition:slide={{ duration: 300 }}>
+		transition:slide={{ duration: 300 }}
+		>
 		<div class="space-y-4">
 			<div>
 				<label
@@ -69,7 +70,8 @@
 					class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
 					Pickup Location <span class="text-red-500">*</span>
 				</label>
-				<select
+				<h3 class="text-md text-sky-300 dark:text-sky-300">{location}</h3>
+<!-- 				<select
 					id="location"
 					bind:value={location}
 					class="w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-gray-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-accent dark:border-gray-700 dark:bg-white/10 dark:text-white"
@@ -81,7 +83,7 @@
 						>New York, NY</option>
 					<option value="Charleston, SC" class="bg-white dark:bg-gray-800"
 						>Charleston, SC</option>
-				</select>
+				</select> -->
 				<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
 					You will receive exact pickup location when booking is confirmed
 				</p>

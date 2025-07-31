@@ -13,17 +13,26 @@ const CACHE_EXPIRATION = 5 * 60 * 1000;
 
 export const load: PageServerLoad = async ({ fetch }) => {
   console.log('Loading featured vehicles and yachts');
-  if(cache.featuredVehicles.data && cache.featuredYachts.data) {
+  
+  // Check cache expiration for both
+  const now = Date.now();
+  const vehiclesCacheValid = cache.featuredVehicles.data && (now - cache.featuredVehicles.timestamp) < CACHE_EXPIRATION;
+  const yachtsCacheValid = cache.featuredYachts.data && (now - cache.featuredYachts.timestamp) < CACHE_EXPIRATION;
+  
+  if(vehiclesCacheValid && yachtsCacheValid) {
     console.log('Returning cached featured vehicles and yachts');
     return {
       featuredVehicles: cache.featuredVehicles.data,
       featuredYachts: cache.featuredYachts.data
     };
   }
-  const featuredVehicles = await getFeaturedVehicles(fetch);
-  const featuredYachts = await getFeaturedYachts(fetch);
-  //console.log('Featured vehicles loaded', featuredVehicles);
-  //console.log('Featured yachts loaded', featuredYachts);
+  
+  // Fetch both in parallel for better performance
+  const [featuredVehicles, featuredYachts] = await Promise.all([
+    getFeaturedVehicles(fetch),
+    getFeaturedYachts(fetch)
+  ]);
+  
   return {
     featuredVehicles,
     featuredYachts

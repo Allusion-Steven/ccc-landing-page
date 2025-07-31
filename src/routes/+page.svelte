@@ -9,6 +9,8 @@
 	import { onMount } from 'svelte';
 	import { fade, fly, scale, slide } from 'svelte/transition';
 	import { elasticOut, quintOut } from 'svelte/easing';
+	import heroImage from '$lib/assets/images/lambo-performante.jpg';
+	import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
 
 	let mounted = false;
 	let whyVisible = false;
@@ -26,11 +28,13 @@
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
 						callback(true);
+						observer.unobserve(entry.target);
 					}
 				});
 			},
 			{
-				threshold: 0.5
+				threshold: 0.1,
+				rootMargin: '50px'
 			}
 		);
 
@@ -74,6 +78,8 @@
 
 	<!-- Need to replace this favicon with real images-->
 	<link rel="icon" href="https://macroexotics.com/favicon.png" />
+	<link rel="preload" as="image" href={heroImage} />
+	<link rel="preload" as="image" href={yachtHeroBg} />
 </svelte:head>
 
 <div>
@@ -85,8 +91,8 @@
 		{#if experienceVisible}
 			<div
 				in:fly={{
-					x: -100,
-					duration: 400,
+					x: -50,
+					duration: 200,
 					easing: quintOut
 				}}>
 				<Experience />
@@ -98,8 +104,8 @@
 		{#if vehicleCarouselVisible}
 			<div
 				in:fly={{
-					x: -100,
-					duration: 800,
+					x: -50,
+					duration: 300,
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
@@ -122,8 +128,8 @@
 		{#if whyVisible}
 			<div
 				in:fly={{
-					y: 50,
-					duration: 300,
+					y: 30,
+					duration: 200,
 					easing: quintOut
 				}}>
 				<Why />
@@ -135,8 +141,8 @@
 		{#if yachtCarouselVisible}
 			<div
 				in:fly={{
-					x: -100,
-					duration: 800,
+					x: -50,
+					duration: 300,
 					easing: quintOut
 				}}>
 				{#if featuredYachts && featuredYachts.vehicles && featuredYachts.vehicles.length > 0}
@@ -159,8 +165,8 @@
 		{#if accordionVisible}
 			<div
 				in:fly={{
-					y: 100,
-					duration: 600,
+					y: 50,
+					duration: 300,
 					easing: quintOut
 				}}>
 				<div class="relative">

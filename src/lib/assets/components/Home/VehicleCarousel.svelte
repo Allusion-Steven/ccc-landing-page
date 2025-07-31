@@ -72,7 +72,7 @@
 	<div class="max-w-8xl container mx-auto px-4 py-16">
 		{#if visible}
 			<h3
-				in:fly={{ y: 50, duration: 400, delay: 200 }}
+				in:fly={{ y: 30, duration: 200, delay: 50 }}
 				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme ===
 				'dark'
 					? 'text-white'
@@ -91,7 +91,7 @@
 								: 'bg-[#8393AA]/10'}">
 							<div
 								class=" w-full overflow-hidden"
-								in:fly={{ y: 50, duration: 400, delay: 400 + index * 200 }}>
+								in:fly={{ y: 30, duration: 200, delay: 100 + index * 50 }}>
 								{#if item.images && item.images.length > 0}
 									{#if item.images.length > 1}
 										<Carousel
@@ -103,6 +103,7 @@
 											) + 3000}
 											images={item.images
 												.filter((img) => img?.isActive)
+												.slice(0, 3)
 												.map((img) => {
 													return {
 														src: `${img?.urls ? img?.urls.large : img?.url}`,
@@ -156,6 +157,7 @@
 										<img
 											src={`${item.images[0]?.urls ? item.images[0]?.urls.large : item.images[0]?.url}`}
 											alt={`${item.make} ${item.model}`}
+											loading="lazy"
 											class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
 											on:error={(e) => {
 												const target = e.target as HTMLImageElement;
@@ -260,7 +262,7 @@
 					{/if}
 				{/each}
 			</div>
-			<div in:fly={{ y: 50, duration: 400, delay: 1200 }} class="flex justify-center">
+			<div in:fly={{ y: 30, duration: 200, delay: 400 }} class="flex justify-center">
 				<SecondaryButton
 					href={viewAllLink}
 					type="submit"
