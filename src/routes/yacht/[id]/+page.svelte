@@ -184,10 +184,10 @@
 
 				<!-- Sophisticated Gradient Overlays -->
 				<div
-					class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+					class="absolute inset-0 bg-gradient-to-t from-black-80 via-black/20 to-transparent">
 				</div>
 				<div
-					class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40">
+					class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/40">
 				</div>
 
 				<!-- Floating Action Buttons -->
@@ -974,15 +974,10 @@
 			</button>
 
 			<!-- Image Info Bar -->
-			<div
-				class="absolute left-4 top-4 z-20 rounded-full bg-black/50 px-4 py-2 text-white backdrop-blur-md">
+			<div class="fixed left-1/2 top-6 z-20 -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-white backdrop-blur-md shadow-lg sm:left-4 sm:top-4 sm:translate-x-0">
 				<div class="flex items-center gap-2">
 					<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
 					</svg>
 					<span class="text-sm font-medium">
 						{currentImageIndex + 1} of {activeImages.length}
