@@ -24,7 +24,11 @@
 	}
 
 	onMount(() => {
-		// Preload both images
+		// Show content immediately, preload images in background
+		contentVisible = true;
+		imageLoaded = true;
+		
+		// Preload images for smooth transitions
 		const preloadImages = [heroImage, yachtHeroBg].map((src) => {
 			return new Promise((resolve, reject) => {
 				const img = new Image();
@@ -34,16 +38,9 @@
 			});
 		});
 
-		Promise.all(preloadImages)
-			.then(() => {
-				imageLoaded = true;
-				setTimeout(() => {
-					contentVisible = true;
-				}, 300);
-			})
-			.catch((error) => {
-				console.error('Error preloading images:', error);
-			});
+		Promise.all(preloadImages).catch((error) => {
+			console.error('Error preloading images:', error);
+		});
 	});
 
 	function handleSearch() {
@@ -83,14 +80,14 @@
 					<div class="flex h-full items-center justify-center">
 						<div class="mx-auto max-w-4xl text-center {$theme === 'dark' ? '' : 'rounded-3xl bg-white/20 p-8 backdrop-blur-sm shadow-[0_8px_32px_rgba(0,0,0,0.15)]'}">
 							<h1
-								in:fly={{ y: 50, duration: 400, delay: 200 }}
+								in:fly={{ y: 30, duration: 200, delay: 100 }}
 								class="mb-8 text-4xl font-bold tracking-tight {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}  md:text-6xl"
 							>
 								Premium Cars & Yachts, Your Way
 							</h1>
 
 							<p
-								in:fly={{ y: 50, duration: 400, delay: 400 }}
+								in:fly={{ y: 30, duration: 200, delay: 200 }}
 								class="mx-auto mb-12 max-w-3xl text-center text-xl leading-relaxed {$theme === 'dark' ? 'text-white/95' : 'text-primary-accent/95'} drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]"
 							>
 								Connect with luxury vehicle owners and experience the extraordinary.
@@ -99,7 +96,7 @@
 							</p>
 
 							<div
-								in:fly={{ y: 50, duration: 400, delay: 600 }}
+								in:fly={{ y: 30, duration: 200, delay: 300 }}
 								class="mx-auto mb-12 max-w-4xl"
 							>
 								<div

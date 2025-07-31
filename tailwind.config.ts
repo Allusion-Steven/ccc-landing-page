@@ -33,6 +33,13 @@ export default {
 					'light-pink': '#f890e7'
 				}
 			},
+			screens: {
+				// Custom max-width media query
+				max500: { raw: '(max-width: 500px)' }, // Creates a `max500:` prefix
+				max768: { raw: '(max-width: 768px)' }, // Creates a `max768:` prefix
+				max900: { raw: '(max-width: 900px)' }, // Creates a `max900:` prefix
+				max1024: { raw: '(max-width: 1024px)' } // Creates a `max1024:` prefix
+			},
 			backgroundImage: {
 				'miami-gradient': 'linear-gradient(to right, #ff1b6b, #45caff)',
 				'miami-dark': 'linear-gradient(to bottom, #1e1e1e, #2d1b2a)',

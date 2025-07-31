@@ -30,6 +30,11 @@ This is a SvelteKit application for Macro Exotics, a luxury car and yacht rental
 - `src/routes/+page.svelte` - Home page with intersection observer animations
 - `src/routes/+page.server.ts` - Server-side data loading with caching for featured vehicles/yachts
 
+### Back end infrastructure
+- `../macroexotics-customer-dashboard`- The back end server for this app
+- `../macroexotics-customer-dashboard`- We will reference files /macroexotics-customer-dashboard this repository
+- `../macroexotics-customer-dashboard/src/lib/components` Back end Components
+
 #### Key Features
 - **Theme System**: Light/dark mode toggle with localStorage persistence (`src/lib/stores/theme.ts`)
 - **Vehicle/Yacht Management**: Dual content system for both cars and yachts
@@ -52,9 +57,14 @@ This is a SvelteKit application for Macro Exotics, a luxury car and yacht rental
 - `/` - Home page with featured vehicles/yachts
 - `/vehicles` & `/vehicle/[id]` - Vehicle listings and details
 - `/yachts` & `/yacht/[id]` - Yacht listings and details
-- `/contact` - Contact form
+- `/contact` - Contact form with server-side validation
+- `/faq` - Frequently asked questions
 - `/pricing` - VIP pricing (development only)
+- `/privacy` - Privacy policy
+- `/login` - Authentication page (uses custom layout)
 - `/api/email/contact/` - Email submission endpoint
+- `/api/stripe/` - Payment processing endpoints (checkout, payment intent, verification)
+- `/api/admin/cleanup-vehicles/` - Admin utility for vehicle management
 
 ### Development Notes
 
@@ -63,10 +73,11 @@ This is a SvelteKit application for Macro Exotics, a luxury car and yacht rental
 - `EMAIL_PASSWORD` - Gmail app-specific password
 
 #### Theme Colors
-The application uses a Miami Vice-inspired color palette:
-- Miami Blue: `#0bd3d3` (bg-[#0bd3d3])
-- Custom gradients: `miami-gradient`, `miami-dark`, `miami-glow`, etc.
-- Primary colors: light pink (`#f890e7`), dark (`#1C1C1C`), accent purple (`#513954`)
+The application uses a Miami Vice-inspired color palette defined in `tailwind.config.js`:
+- **Primary colors**: light pink (`#f890e7`), dark (`#1C1C1C`), accent purple (`#513954`)
+- **Miami palette**: bright blue (`#08D3D3`), hot pink (`#ff0080`), teal (`#00ffff`), deep purple (`#6a0dad`)
+- **Custom gradients**: `miami-gradient`, `miami-dark`, `miami-glow`, `miami-sunset`, `miami-night`
+- **Dark mode**: Uses Tailwind's class-based dark mode switching
 
 #### Key Development Patterns
 - **Intersection Observer**: Used for scroll-triggered animations on home page
@@ -82,4 +93,13 @@ The application uses a Miami Vice-inspired color palette:
 - Email functionality: `src/lib/email/emailService.ts`
 
 ### API Integration
-The application fetches data from an external API (`apiUrl` from `src/lib/index.ts`) and includes vehicle type filtering to separate cars from yachts. Yacht data is transformed to include a `specs` object for display purposes.
+The application fetches data from an external API with environment-based URL configuration:
+- **Development**: `http://localhost:5174/api`
+- **Production**: `https://my.macroexotics.com/api`
+- **Vehicle type filtering**: Separates cars from yachts in data processing
+- **Data transformation**: Yacht data includes `specs` object for display purposes
+- **Authentication**: Integrates with dashboard at `my.macroexotics.com` for user login
+
+### Payment Integration
+- **Stripe**: Payment processing with checkout sessions and payment intents
+- **Payment flows**: Success/cancel redirect pages for completed transactions
