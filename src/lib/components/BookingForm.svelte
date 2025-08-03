@@ -53,16 +53,18 @@
 
 		// Navigate to the dashboard with the booking data in the URL
 		const vehicleTypeParam = vehicleType === 'yacht' ? '&vehicleType=yacht' : '';
-		const durationParam = vehicleType === 'yacht' ? `&duration=${selectedDuration}` : '';
-		window.location.href = `${dashboardUrl}/booking/${id}?${userIdParam}&pickupDate=${pickupDate}&dropoffDate=${dropoffDate}&location=${location}${vehicleTypeParam}${durationParam}`;
+		let url = `${dashboardUrl}/booking?vehicleId=${id}&pickupDate=${pickupDate}&dropoffDate=${dropoffDate}`;
+		if (vehicleType === 'yacht') {
+			url += `&duration=${selectedDuration}`;
+		}
+		window.location.href = url;
 	};
 </script>
 
 {#if showDatePicker}
 	<div
 		class="space-y-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/5 dark:shadow-none"
-		transition:slide={{ duration: 300 }}
-		>
+		transition:slide={{ duration: 300 }}>
 		<div class="space-y-4">
 			<div>
 				<label
@@ -71,7 +73,7 @@
 					Pickup Location <span class="text-red-500">*</span>
 				</label>
 				<h3 class="text-md text-sky-300 dark:text-sky-300">{location}</h3>
-<!-- 				<select
+				<!-- 				<select
 					id="location"
 					bind:value={location}
 					class="w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-gray-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-accent dark:border-gray-700 dark:bg-white/10 dark:text-white"
