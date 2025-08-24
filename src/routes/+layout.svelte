@@ -11,7 +11,7 @@
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
 	import { page } from '$app/stores';
 	import { theme, toggleTheme } from '$lib/stores/theme';
-	import { isLive, loginUrl } from '$lib';
+	import { dashboardUrl, isLive, loginUrl } from '$lib';
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
@@ -32,8 +32,9 @@
 
 <svelte:head>
 	<meta name="color-scheme" content={$theme} />
-<!-- 	<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin="" />
- -->	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<!-- 	<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin="" />
+ -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" />
 	<link rel="preconnect" href="https://my.macroexotics.com" />
 </svelte:head>
@@ -162,6 +163,11 @@
 								? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm hover:before:bg-primary-light/20'
 								: 'px-4 py-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]'}">
 							Contact
+						</a>
+						<a
+							href={dashboardUrl}
+							class="text-lg font-medium transition-colors duration-300 px-4 py-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]">
+							Become a Host
 						</a>
 
 						{#if !$page.data.user}
