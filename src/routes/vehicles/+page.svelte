@@ -45,6 +45,7 @@
 		pickupDate: initialPickupDate,
 		dropoffDate: initialDropoffDate,
 		location: initialLocation,
+		make: initialMake,
 		vehicles
 	} = data;
 
@@ -66,6 +67,10 @@
 		location = searchParams.get('location') || initialLocation || 'Miami, FL';
 		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
+		const makeParam = searchParams.get('make') || initialMake || '';
+		if (makeParam && !searchQuery) {
+			searchQuery = makeParam;
+		}
 	});
 
 	// Filter states

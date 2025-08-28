@@ -2,6 +2,7 @@
 	import Hero from '$lib/assets/components/Home/Hero.svelte';
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import VehicleCarousel from '$lib/assets/components/Home/VehicleCarousel.svelte';
+	import ShopByMake from '$lib/assets/components/Home/ShopByMake.svelte';
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
 	import Experience from '$lib/assets/components/Home/Experience.svelte';
 	import { faqData } from '$lib/data/faq';
@@ -15,6 +16,7 @@
 	let mounted = false;
 	let whyVisible = false;
 	let vehicleCarouselVisible = false;
+	let shopByMakeVisible = false;
 	let yachtCarouselVisible = false;
 	let accordionVisible = false;
 	let experienceVisible = false;
@@ -133,6 +135,19 @@
 					easing: quintOut
 				}}>
 				<Why />
+			</div>
+		{/if}
+	</div>
+
+	<div use:intersectionObserver={(isVisible) => (shopByMakeVisible = isVisible)}>
+		{#if shopByMakeVisible}
+			<div
+				in:fly={{
+					y: 30,
+					duration: 300,
+					easing: quintOut
+				}}>
+				<ShopByMake />
 			</div>
 		{/if}
 	</div>

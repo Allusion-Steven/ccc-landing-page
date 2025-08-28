@@ -37,6 +37,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" />
 	<link rel="preconnect" href="https://my.macroexotics.com" />
+	
 </svelte:head>
 
 <svelte:window bind:innerWidth on:resize={() => (isMenuOpen = false)} on:scroll={handleScroll} />

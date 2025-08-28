@@ -12,6 +12,7 @@ export const load: PageServerLoad = async ({ url }) => {
     const pickupDate = url.searchParams.get('pickupDate') || '';
     const dropoffDate = url.searchParams.get('dropoffDate') || '';
     const location = url.searchParams.get('location') || '';
+    const make = url.searchParams.get('make') || '';
 
     const response = await fetch(`${apiUrl}/vehicles`);
     const vehicles = await response.json();
@@ -32,6 +33,7 @@ export const load: PageServerLoad = async ({ url }) => {
         pickupDate,
         dropoffDate,
         location,
+        make,
         vehicles: filteredVehicles
     };
 }; 
