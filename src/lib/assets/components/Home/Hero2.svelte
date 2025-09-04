@@ -70,7 +70,7 @@
             </div>
 
             <div class="container mx-auto h-full px-4 lg:px-16 relative z-10">
-                <div class="max500:justify-between flex flex-col h-full justify-center px-4 lg:flex-row lg:items-center lg:justify-between py-8 lg:py-0">
+                <div class="max500:justify-start flex flex-col h-full justify-center px-4 lg:flex-row lg:items-center lg:justify-between py-8 lg:py-0">
                     <!-- Left Side - Content -->
                     <div class="w-full lg:w-1/2 space-y-6 lg:space-y-8 mb-8 lg:mb-0">
                         <div class="space-y-4 lg:space-y-6">
