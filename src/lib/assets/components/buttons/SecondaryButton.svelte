@@ -19,7 +19,7 @@
 				buttonStyle = 'border-[#8393AA]/20 bg-[#8393AA]/5 text-[#513954] hover:bg-[#8393AA]/20 hover:border-[#8393AA]/40 hover:text-[#513954] hover:shadow-md';
 			} else if (colorScheme === 'light') {
 				const hoverText = hoverTextColor ? `hover:${hoverTextColor}` : 'hover:text-[#513954]';
-				buttonStyle = `border-white/30 bg-white/80 text-[#513954] hover:bg-[#D0E1E1]/30 hover:border-[#8393AA]/40 hover:shadow-md ${hoverText}`;
+				buttonStyle = `border-black/30 border-white/30 bg-white/80 text-[#513954] hover:bg-[#D0E1E1]/30 hover:border-[#8393AA]/40 hover:shadow-md ${hoverText}`;
 			} else if (colorScheme === 'dark') {
 				buttonStyle = 'border-[#513954]/20 bg-[#513954] text-white hover:bg-[#B54959] hover:border-[#B54959]/70 hover:shadow-md hover:shadow-[#B54959]/20';
 			}

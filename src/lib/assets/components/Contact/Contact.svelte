@@ -108,221 +108,299 @@
 
 <div
 	class="min-h-screen {$theme === 'dark'
-		? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
-		: 'bg-gradient-to-br from-white via-gray-50 to-white'} py-16">
-	<div class="container mx-auto sm:px-4" in:fly={{ y: 50, duration: 400, delay: 200 }}>
-		<div
-			class="rounded-lg {$theme === 'dark'
-				? 'bg-gradient-to-br from-miami-pink/10 to-miami-blue/10'
-				: 'bg-gradient-to-br from-miami-pink/5 to-miami-blue/5'} p-8 shadow-2xl backdrop-blur-sm"
-			in:fly={{ y: 50, duration: 400, delay: 400 }}>
-			<div class="space-y-8">
-				<div
-					class="overflow-hidden rounded-xl"
-					in:fly={{ y: 50, duration: 400, delay: 600 }}
-					style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url({heroBg}); background-position: center; background-repeat: no-repeat; background-size: cover;">
-					<div class="px-8 py-16">
-						<h1 class="mb-12 text-center">
-							<span
-								class="text-shadow-lg text-shadow-black text-5xl font-bold tracking-tighter text-white md:text-6xl">
-								Contact Us
-							</span>
-						</h1>
-						<div class="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
-							<div
-								class="rounded-xl bg-white/10 p-8 text-center backdrop-blur-md transition-all hover:bg-white/20">
-								<h2 class="mb-4 text-2xl font-bold text-white">Sales Support</h2>
-								<p class="mb-4 text-gray-200">
-									Contact us by phone at<br />
-									<a
-										href="tel:+18888675309"
-										class="text-white transition-colors hover:text-miami-pink"
-										>(888) 867-5309</a>
-									<br />or by email
-								</p>
-								<a
-									href="mailto:sales@macroexotics.com"
-									class="text-miami-light-pink transition-colors hover:text-white"
-									>sales@macroexotics.com</a>
+		? 'bg-[#1c1c1c'
+		: 'bg-gray-50'} py-12 md:py-16">
+	<div class="container mx-auto px-4 md:px-8" in:fly={{ y: 30, duration: 600, delay: 100 }}>
+		<div class="mx-auto max-w-6xl">
+			<!-- Header Section -->
+			<div class="mb-16 text-center" in:fly={{ y: 20, duration: 600, delay: 200 }}>
+				<h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-light {$theme === 'dark'
+					? 'text-white'
+					: 'text-gray-900'} tracking-tight">
+					Contact Us
+				</h1>
+				<p class="mx-auto max-w-2xl text-lg md:text-xl {$theme === 'dark'
+					? 'text-gray-300'
+					: 'text-gray-600'} leading-relaxed">
+					Experience luxury service with personalized attention. We're here to assist you with your premium vehicle and yacht needs.
+				</p>
+			</div>
+
+			<!-- Contact Info Cards -->
+			<div class="mb-16 grid gap-8 md:grid-cols-2" in:fly={{ y: 30, duration: 600, delay: 300 }}>
+				<div class="group">
+					<div class="h-full rounded-2xl border {$theme === 'dark'
+						? 'border-gray-800 bg-[#232528]'
+						: 'border-gray-200 bg-white'} p-8 transition-all duration-300 group-hover:shadow-lg {$theme === 'dark'
+						? 'group-hover:shadow-gray-900/25'
+						: 'group-hover:shadow-gray-200/50'}">
+						<div class="mb-6">
+							<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full {$theme === 'dark'
+								? 'bg-gray-700'
+								: 'bg-gray-100'}">
+								<svg class="h-6 w-6 {$theme === 'dark'
+									? 'text-gray-300'
+									: 'text-gray-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+								</svg>
 							</div>
-							<div
-								class="rounded-xl bg-white/10 p-8 text-center backdrop-blur-md transition-all hover:bg-white/20">
-								<h2 class="mb-4 text-2xl font-bold text-white">Member Support</h2>
-								<p class="mb-4 text-gray-200">
-									Contact us by phone at<br />
-									<a
-										href="tel:+18888675309"
-										class="text-white transition-colors hover:text-miami-pink"
-										>(888) 867-5309</a>
-									<br />or by email
-								</p>
-								<a
-									href="mailto:members@macroexotics.com"
-									class="text-miami-light-pink transition-colors hover:text-white"
-									>members@macroexotics.com</a>
+							<h3 class="mb-3 text-xl font-medium {$theme === 'dark'
+								? 'text-white'
+								: 'text-gray-900'}">
+								Sales Support
+							</h3>
+						</div>
+						<div class="space-y-3">
+							<p class="text-base {$theme === 'dark'
+								? 'text-gray-300'
+								: 'text-gray-600'}">
+								Ready to experience luxury? Our sales team is here to help you find the perfect vehicle or yacht for your needs.
+							</p>
+							<div class="space-y-2">
+								<p class="text-sm {$theme === 'dark'
+									? 'text-gray-400'
+									: 'text-gray-500'}">Phone:</p>
+								<a href="tel:+18888675309" class="block text-lg font-medium {$theme === 'dark'
+									? 'text-white hover:text-gray-300'
+									: 'text-gray-900 hover:text-gray-700'} transition-colors">
+									(888) 867-5309
+								</a>
+							</div>
+							<div class="space-y-2">
+								<p class="text-sm {$theme === 'dark'
+									? 'text-gray-400'
+									: 'text-gray-500'}">Email:</p>
+								<a href="mailto:support@macroexotics.com" class="block text-lg font-medium {$theme === 'dark'
+									? 'text-white hover:text-gray-300'
+									: 'text-gray-900 hover:text-gray-700'} transition-colors">
+									support@macroexotics.com
+								</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="mx-auto max-w-3xl">
-					<div
-						class="overflow-hidden rounded-xl {$theme === 'dark'
-							? 'border-white/10 bg-[#1C1C1C]/90'
-							: 'border-primary-accent/10 bg-white'} border shadow-xl backdrop-blur-sm">
-						<div class="p-8">
-							<h2
-								class="mb-8 text-center text-3xl font-bold {$theme === 'dark'
-									? 'text-white'
-									: 'text-primary-accent'}">
+				<div class="group">
+					<div class="h-full rounded-2xl border {$theme === 'dark'
+						? 'border-gray-800 bg-[#232528]'
+						: 'border-gray-200 bg-white'} p-8 transition-all duration-300 group-hover:shadow-lg {$theme === 'dark'
+						? 'group-hover:shadow-gray-900/25'
+						: 'group-hover:shadow-gray-200/50'}">
+						<div class="mb-6">
+							<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full {$theme === 'dark'
+								? 'bg-gray-700'
+								: 'bg-gray-100'}">
+								<svg class="h-6 w-6 {$theme === 'dark'
+									? 'text-gray-300'
+									: 'text-gray-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+								</svg>
+							</div>
+							<h3 class="mb-3 text-xl font-medium {$theme === 'dark'
+								? 'text-white'
+								: 'text-gray-900'}">
+								Member Support
+							</h3>
+						</div>
+						<div class="space-y-3">
+							<p class="text-base {$theme === 'dark'
+								? 'text-gray-300'
+								: 'text-gray-600'}">
+								Exclusive support for our valued members. Get priority assistance with your bookings and account management.
+							</p>
+							<div class="space-y-2">
+								<p class="text-sm {$theme === 'dark'
+									? 'text-gray-400'
+									: 'text-gray-500'}">Phone:</p>
+								<a href="tel:+18888675309" class="block text-lg font-medium {$theme === 'dark'
+									? 'text-white hover:text-gray-300'
+									: 'text-gray-900 hover:text-gray-700'} transition-colors">
+									(888) 867-5309
+								</a>
+							</div>
+							<div class="space-y-2">
+								<p class="text-sm {$theme === 'dark'
+									? 'text-gray-400'
+									: 'text-gray-500'}">Email:</p>
+								<a href="mailto:admin@macroexotics.com" class="block text-lg font-medium {$theme === 'dark'
+									? 'text-white hover:text-gray-300'
+									: 'text-gray-900 hover:text-gray-700'} transition-colors">
+									admin@macroexotics.com
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Contact Form -->
+			<div class="mx-auto max-w-3xl" in:fly={{ y: 30, duration: 600, delay: 400 }}>
+				<div class="rounded-2xl border {$theme === 'dark'
+					? 'border-gray-800 bg-[#232528]'
+					: 'border-gray-200 bg-white'} shadow-lg">
+					<div class="p-8 md:p-12">
+						<div class="mb-8 text-center">
+							<h2 class="mb-4 text-2xl md:text-3xl font-light {$theme === 'dark'
+								? 'text-white'
+								: 'text-gray-900'} tracking-tight">
 								Send us a message
 							</h2>
-
-							<form class="space-y-6">
-								<div class="grid gap-6 md:grid-cols-2">
-									<label class="block">
-										<span
-											class="mb-2 block font-medium {$theme === 'dark'
-												? 'text-white/90'
-												: 'text-primary-accent'}">First Name</span>
-										<input
-											required
-											class="w-full rounded-lg {$theme === 'dark'
-												? 'border-white/10 bg-white/10 text-white placeholder-white/50'
-												: 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
-											type="text"
-											placeholder="Jane"
-											bind:value={f_name} />
-									</label>
-									<label class="block">
-										<span
-											class="mb-2 block font-medium {$theme === 'dark'
-												? 'text-white/90'
-												: 'text-primary-accent'}">Last Name</span>
-										<input
-											class="w-full rounded-lg {$theme === 'dark'
-												? 'border-white/10 bg-white/10 text-white placeholder-white/50'
-												: 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
-											type="text"
-											placeholder="Doe"
-											bind:value={l_name} />
-									</label>
-								</div>
-								<div class="grid gap-6 md:grid-cols-2">
-									<label class="block">
-										<span
-											class="mb-2 block font-medium {$theme === 'dark'
-												? 'text-white/90'
-												: 'text-primary-accent'}">Phone Number</span>
-										<input
-											class="w-full rounded-lg {$theme === 'dark'
-												? 'border-white/10 bg-white/10 text-white placeholder-white/50'
-												: 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
-											type="tel"
-											placeholder="800-867-5309"
-											bind:value={phone} />
-									</label>
-									<label class="block">
-										<span
-											class="mb-2 block font-medium {$theme === 'dark'
-												? 'text-white/90'
-												: 'text-primary-accent'}">Email Address</span>
-										<input
-											required
-											class="w-full rounded-lg {$theme === 'dark'
-												? 'border-white/10 bg-white/10 text-white placeholder-white/50'
-												: 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
-											type="email"
-											placeholder="john@example.com"
-											autocomplete="email"
-											bind:value={email} />
-									</label>
-								</div>
-								<label class="block">
-									<span
-										class="mb-2 block font-medium {$theme === 'dark'
-											? 'text-white/90'
-											: 'text-primary-accent'}">Message</span>
-									<textarea
-										required
-										class="w-full rounded-lg {$theme === 'dark'
-											? 'border-white/10 bg-white/10 text-white placeholder-white/50'
-											: 'border-primary-accent/10 bg-primary-accent/5 text-primary-accent placeholder-primary-accent/50'} px-4 py-3 transition-all focus:border-miami-pink focus:ring-2 focus:ring-miami-pink/20"
-										rows="6"
-										placeholder="How can we help you?"
-										bind:value={message}></textarea>
-								</label>
-
-								{#if sendingWarnText}
-									<div
-										class="rounded-lg border border-red-500/50 bg-red-900/50 p-4 text-center text-red-200">
-										{sendingWarnText}
-									</div>
-								{/if}
-
-								<button
-									type="button"
-									class="w-full rounded-xl bg-gradient-to-r {$theme === 'dark'
-										? 'from-miami-pink to-miami-light-pink hover:shadow-[0_0_20px_rgba(255,27,107,0.3)]'
-										: 'from-primary-light to-primary-accent hover:shadow-[0_0_20px_rgba(126,212,172,0.3)]'} px-6 py-4 font-bold text-white transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50"
-									onclick={handleSendButton}
-									disabled={contactFormSending}>
-									{#if contactFormSending}
-										<div class="flex items-center justify-center gap-2">
-											<span
-												class="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"
-											></span>
-											Sending...
-										</div>
-									{:else if contactFormSent}
-										<div class="flex items-center justify-center gap-2">
-											<svg
-												class="h-5 w-5"
-												fill="none"
-												stroke="currentColor"
-												viewBox="0 0 24 24">
-												<path
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
-													d="M5 13l4 4L19 7"></path>
-											</svg>
-											Sent!
-										</div>
-									{:else}
-										Send Message
-									{/if}
-								</button>
-
-								{#if sendFeedback}
-									<div
-										class="rounded-lg border border-green-500/50 bg-green-900/50 p-4 text-center text-green-200">
-										{sendFeedback}
-									</div>
-								{/if}
-							</form>
-						</div>
-
-						<div
-							class="{$theme === 'dark'
-								? 'border-white/10 bg-[#1C1C1C]'
-								: 'border-primary-accent/10 bg-primary-accent/5'} border-t px-8 py-6 text-center">
-							<p
-								class="text-sm {$theme === 'dark'
-									? 'text-white/70'
-									: 'text-primary-muted'}">
-								By clicking "Send Message", I understand that I will receive email,
-								text or phone updates regarding my inquiries, subscription, and/or
-								related services. I have read and agree to the
-								<a
-									href="/privacy"
-									target="_blank"
-									rel="noreferrer"
-									class="text-miami-light-pink transition-colors hover:text-miami-pink">
-									Privacy Policy
-								</a>.
+							<p class="text-base {$theme === 'dark'
+								? 'text-gray-300'
+								: 'text-gray-600'}">
+								We'll get back to you within 24 hours
 							</p>
 						</div>
+
+						<form class="space-y-6">
+							<div class="grid gap-6 md:grid-cols-2">
+								<div class="space-y-2">
+									<label class="text-sm font-medium {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}">
+										First Name
+									</label>
+									<input
+										required
+										class="w-full rounded-lg border {$theme === 'dark'
+											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
+											: 'border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-500 focus:border-gray-400'} px-4 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
+											? 'focus:ring-gray-500'
+											: 'focus:ring-gray-600'}"
+										type="text"
+										placeholder="Jane"
+										bind:value={f_name} />
+								</div>
+								<div class="space-y-2">
+									<label class="text-sm font-medium {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}">
+										Last Name
+									</label>
+									<input
+										class="w-full rounded-lg border {$theme === 'dark'
+											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
+											: 'border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-500 focus:border-gray-400'} px-4 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
+											? 'focus:ring-gray-500'
+											: 'focus:ring-gray-600'}"
+										type="text"
+										placeholder="Doe"
+										bind:value={l_name} />
+								</div>
+							</div>
+							<div class="grid gap-6 md:grid-cols-2">
+								<div class="space-y-2">
+									<label class="text-sm font-medium {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}">
+										Phone Number
+									</label>
+									<input
+										class="w-full rounded-lg border {$theme === 'dark'
+											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
+											: 'border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-500 focus:border-gray-400'} px-4 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
+											? 'focus:ring-gray-500'
+											: 'focus:ring-gray-600'}"
+										type="tel"
+										placeholder="800-867-5309"
+										bind:value={phone} />
+								</div>
+								<div class="space-y-2">
+									<label class="text-sm font-medium {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}">
+										Email Address
+									</label>
+									<input
+										required
+										class="w-full rounded-lg border {$theme === 'dark'
+											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
+											: 'border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-500 focus:border-gray-400'} px-4 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
+											? 'focus:ring-gray-500'
+											: 'focus:ring-gray-600'}"
+										type="email"
+										placeholder="john@example.com"
+										autocomplete="email"
+										bind:value={email} />
+								</div>
+							</div>
+							<div class="space-y-2">
+								<label class="text-sm font-medium {$theme === 'dark'
+									? 'text-gray-300'
+									: 'text-gray-700'}">
+									Message
+								</label>
+								<textarea
+									required
+									class="w-full rounded-lg border {$theme === 'dark'
+										? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
+										: 'border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-500 focus:border-gray-400'} px-4 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
+										? 'focus:ring-gray-500'
+										: 'focus:ring-gray-600'} resize-none"
+									rows="6"
+									placeholder="How can we help you?"
+									bind:value={message}></textarea>
+							</div>
+
+							{#if sendingWarnText}
+								<div class="rounded-lg border {$theme === 'dark'
+									? 'border-red-800 bg-red-900/20 text-red-200'
+									: 'border-red-300 bg-red-50 text-red-700'} p-4 text-center">
+									{sendingWarnText}
+								</div>
+							{/if}
+
+							<button
+								type="button"
+								class="w-full rounded-lg {$theme === 'dark'
+									? 'bg-gray-700 hover:bg-gray-600 text-white'
+									: 'bg-gray-900 hover:bg-gray-800 text-white'} px-6 py-4 font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
+									? 'focus:ring-gray-500'
+									: 'focus:ring-gray-600'}"
+								onclick={handleSendButton}
+								disabled={contactFormSending}>
+								{#if contactFormSending}
+									<div class="flex items-center justify-center gap-2">
+										<div class="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+										Sending...
+									</div>
+								{:else if contactFormSent}
+									<div class="flex items-center justify-center gap-2">
+										<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+										</svg>
+										Sent!
+									</div>
+								{:else}
+									Send Message
+								{/if}
+							</button>
+
+							{#if sendFeedback}
+								<div class="rounded-lg border {$theme === 'dark'
+									? 'border-green-800 bg-green-900/20 text-green-200'
+									: 'border-green-300 bg-green-50 text-green-700'} p-4 text-center">
+									{sendFeedback}
+								</div>
+							{/if}
+						</form>
+						</div>
+
+					<div class="border-t {$theme === 'dark'
+						? 'border-gray-700 bg-[#232528]'
+						: 'border-gray-200 bg-gray-50'} px-8 py-6 text-center">
+						<p class="text-sm {$theme === 'dark'
+							? 'text-gray-400'
+							: 'text-gray-600'} leading-relaxed">
+							By clicking "Send Message", I understand that I will receive email,
+							text or phone updates regarding my inquiries, subscription, and/or
+							related services. I have read and agree to the
+							<a href="/privacy" target="_blank" rel="noreferrer" class="underline {$theme === 'dark'
+								? 'text-gray-300 hover:text-white'
+								: 'text-gray-700 hover:text-gray-900'} transition-colors">
+								Privacy Policy
+							</a>.
+						</p>
 					</div>
 				</div>
 			</div>
@@ -330,21 +408,3 @@
 	</div>
 </div>
 
-<style>
-	/* Remove all existing styles and replace with new ones */
-	.text-shadow-lg {
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-	}
-
-	@keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
-</style>

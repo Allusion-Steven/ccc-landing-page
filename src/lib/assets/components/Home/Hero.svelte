@@ -46,7 +46,7 @@
     }
 </script>
 
-<div class="relative h-[100vh]">
+<div class="relative h-[90vh]  md:pt-0">
     <!-- Background & Loading Placeholder -->
     <div class="loading-placeholder" class:hidden={imageLoaded} />
     {#if contentVisible}
@@ -67,145 +67,180 @@
                 : 'bg-gradient-to-t from-white/35 to-transparent'}">
             </div>
 
-            <div class="container mx-auto h-full px-4">
+            <div class="container mx-auto h-full px-4 sm:px-6 lg:px-8">
                 <div class="flex h-full items-center justify-center">
                     <div class="mx-auto max-w-4xl text-center {$theme === 'dark'
                         ? ''
-                        : 'rounded-3xl bg-white/20 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.15)] backdrop-blur-sm'}">
+                        : 'rounded-3xl bg-white/20 p-4 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.15)] backdrop-blur-sm'}">
                         <h1
                             in:fly={{ y: 30, duration: 200, delay: 100 }}
-                            class="mb-8 text-4xl font-bold tracking-tight {$theme === 'dark'
+                            class="mb-6 text-3xl font-bold tracking-tight {$theme === 'dark'
                                 ? 'text-white'
-                                : 'text-primary-accent'} md:text-6xl">
+                                : 'text-primary-accent'} sm:text-4xl md:text-6xl md:mb-8">
                             Premium Cars & Yachts, Your Way
                         </h1>
                         <p
                             in:fly={{ y: 30, duration: 200, delay: 200 }}
-                            class="mx-auto mb-8 max-w-3xl text-center text-xl leading-relaxed {$theme === 'dark'
+                            class="mx-auto mb-6 max-w-3xl text-center text-lg leading-relaxed {$theme === 'dark'
                                 ? 'text-white/95'
-                                : 'text-primary-accent/95'} drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
+                                : 'text-primary-accent/95'} drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] sm:text-xl md:mb-8">
                             Connect with luxury vehicle owners and experience the extraordinary.
                             From exotic cars to luxury yachts, Macro Exotics delivers
                             unparalleled rental experiences.
                         </p>
 
-                        <div in:fly={{ y: 30, duration: 200, delay: 300 }} class="mx-auto mb-12 max-w-4xl">
+                        <div in:fly={{ y: 30, duration: 200, delay: 300 }} class="mx-auto mb-8 max-w-5xl md:mb-12">
                             <!-- Vehicle type switcher -->
-                            <div class="mb-4 flex w-full items-center justify-center space-x-4 align-middle">
-                                <p class={$theme === 'dark' ? 'text-white/95' : 'text-primary-accent/95'}>
-                                    I'm Looking For
-                                </p>
-                                <button
-                                    class="relative w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Car'
-                                        ? ($theme === 'dark'
-                                            ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]'
-                                            : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:scale-105 hover:shadow-[0_0_30px_rgba(194,63,91,0.5)]')
-                                        : ($theme === 'dark'
-                                            ? 'bg-white/10 text-white/90 hover:scale-105 hover:bg-white/25'
-                                            : 'bg-primary-accent/10 text-primary-accent/90 hover:scale-105 hover:bg-primary-accent/25')}"
-                                    on:click={() => { vehicleType = 'Car'; }}>
-                                    Cars
-                                </button>
-                                <button
-                                    class="relative w-24 rounded-2xl p-2 backdrop-blur-sm transition-all duration-300 {vehicleType === 'Yacht'
-                                        ? ($theme === 'dark'
-                                            ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]'
-                                            : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:scale-105 hover:shadow-[0_0_30px_rgba(194,63,91,0.5)]')
-                                        : ($theme === 'dark'
-                                            ? 'bg-white/10 text-white/90 hover:scale-105 hover:bg-white/25'
-                                            : 'bg-primary-accent/10 text-primary-accent/90 hover:scale-105 hover:bg-primary-accent/25')}"
-                                    on:click={() => { vehicleType = 'Yacht'; }}>
-                                    Yachts
-                                </button>
+                            <div class="mb-4 flex items-center justify-center md:mb-6">
+                                <div class="vehicle-switcher inline-flex rounded-xl {$theme === 'dark' 
+                                    ? 'bg-black/30 backdrop-blur-md border border-white/10' 
+                                    : 'bg-white/90 backdrop-blur-md border border-gray-200/20 shadow-lg'} p-1">
+                                    <span class="mr-2 px-2 py-2 text-xs font-medium {$theme === 'dark' ? 'text-white/80' : 'text-gray-600'} sm:mr-3 sm:px-3 sm:text-sm">
+                                        I'm Looking For
+                                    </span>
+                                    <button
+                                        class="relative px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-300 {vehicleType === 'Car'
+                                            ? ($theme === 'dark' 
+                                                ? 'bg-white text-gray-900 shadow-sm' 
+                                                : 'bg-primary-accent text-white shadow-sm')
+                                            : ($theme === 'dark' 
+                                                ? 'text-white/70 hover:text-white hover:bg-white/10' 
+                                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50')} sm:px-6 sm:text-sm"
+                                        on:click={() => { vehicleType = 'Car'; }}>
+                                        Cars
+                                    </button>
+                                    <button
+                                        class="relative px-4 py-2 text-xs font-semibold rounded-lg transition-all duration-300 {vehicleType === 'Yacht'
+                                            ? ($theme === 'dark' 
+                                                ? 'bg-white text-gray-900 shadow-sm' 
+                                                : 'bg-primary-accent text-white shadow-sm')
+                                            : ($theme === 'dark' 
+                                                ? 'text-white/70 hover:text-white hover:bg-white/10' 
+                                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50')} sm:px-6 sm:text-sm"
+                                        on:click={() => { vehicleType = 'Yacht'; }}>
+                                        Yachts
+                                    </button>
+                                </div>
                             </div>
 
-                            <!-- Search widget with host action -->
-                            <div class="rounded-2xl {$theme === 'dark'
-                                ? 'bg-white/10'
-                                : 'bg-primary-accent/10'} p-2 backdrop-blur-sm">
-                                <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-2">
-                                    <!-- Left: Location select -->
-                                    <div class="relative flex w-full md:w-2/5">
-                                        <div class="flex w-full space-x-2">
-                                            <div class="relative w-full">
-                                                <div class="absolute left-4 top-1/2 z-10 -translate-y-1/2">
-                                                    <svg
-                                                        class="h-5 w-5 {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent/70'}"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    </svg>
-                                                </div>
-                                                <select
-                                                    bind:value={location}
-                                                    class="!h-12 w-full appearance-none !rounded-2xl !border-transparent {$theme === 'dark'
-                                                        ? '!bg-white/10 text-white placeholder-white/50'
-                                                        : '!bg-primary-accent/10 text-primary-accent placeholder-primary-accent/50'} !px-12 transition-all duration-300 hover:!bg-white/20 focus:!border-transparent focus:!ring-0">
-                                                    <option value="Miami, FL" class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20">Miami, FL</option>
-                                                    <option value="Tampa, FL" class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20">Tampa, FL</option>
-                                                    <option value="New York, NY" class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20">New York, NY</option>
-                                                    <option value="Charleston, SC" class="{$theme === 'dark' ? '!bg-[#1C1C1C] !text-white' : '!bg-white !text-primary-accent'} hover:!bg-white/20">Charleston, SC</option>
-                                                </select>
+                            <!-- Search widget -->
+                            <div class="search-container rounded-2xl {$theme === 'dark'
+                                ? 'bg-black/40 backdrop-blur-xl border border-white/10'
+                                : 'bg-white/95 backdrop-blur-xl border border-gray-200/30 shadow-2xl'} p-4">
+                                <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end">
+                                    <!-- Location -->
+                                    <div class="lg:col-span-3">
+                                        <label class="block text-xs font-medium mb-2 {$theme === 'dark' ? 'text-white/60' : 'text-gray-500'}">
+                                            Location
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                                <svg class="h-5 w-5 {$theme === 'dark' ? 'text-white/40' : 'text-gray-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
+                                            </div>
+                                            <select
+                                                bind:value={location}
+                                                class="w-full h-12 pl-10 pr-4 rounded-xl border-0 {$theme === 'dark'
+                                                    ? 'bg-white/10 text-white placeholder-white/40 focus:bg-white/15'
+                                                    : 'bg-gray-50 text-gray-900 placeholder-gray-400 focus:bg-white'} 
+                                                    font-medium transition-all duration-300 focus:ring-2 focus:ring-primary-accent/30 focus:outline-none">
+                                                <option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}">Miami, FL</option>
+                                                <option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}">Tampa, FL</option>
+                                                <option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}">New York, NY</option>
+                                                <option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}">Charleston, SC</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pickup Date -->
+                                    <div class="lg:col-span-3">
+                                        <label class="block text-xs font-medium mb-2 {$theme === 'dark' ? 'text-white/60' : 'text-gray-500'}">
+                                            Pickup Date
+                                        </label>
+                                        <div class="relative">
+                                            <input
+                                                type="date"
+                                                bind:value={pickupDate}
+                                                min={new Date().toISOString().split('T')[0]}
+                                                class="w-full h-12 pl-4 pr-12 rounded-xl border-0 {$theme === 'dark'
+                                                    ? 'bg-white/10 text-white focus:bg-white/15'
+                                                    : 'bg-gray-50 text-gray-900 focus:bg-white'}
+                                                    font-medium transition-all duration-300 focus:ring-2 focus:ring-primary-accent/30 focus:outline-none
+                                                    [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer" />
+                                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                                <svg class="h-5 w-5 {$theme === 'dark' ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-800'} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- Center: Dates -->
-                                    <div class="flex w-full space-x-2 md:w-3/5">
-                                        <div class="relative z-20 w-1/2">
+                                    <!-- Dropoff Date -->
+                                    <div class="lg:col-span-3">
+                                        <label class="block text-xs font-medium mb-2 {$theme === 'dark' ? 'text-white/60' : 'text-gray-500'}">
+                                            Dropoff Date
+                                        </label>
+                                        <div class="relative">
                                             <input
-                                                class="!h-12 w-full !rounded-2xl !border-transparent {$theme === 'dark'
-                                                    ? '!bg-white/10 text-white placeholder-white/50'
-                                                    : '!bg-primary-accent/10 text-primary-accent placeholder-primary-accent/50'} !px-4"
-                                                type="date"
-                                                bind:value={pickupDate}
-                                                min={new Date().toISOString().split('T')[0]} />
-                                        </div>
-                                        <div class="relative z-20 w-1/2">
-                                            <input
-                                                class="!h-12 w-full !rounded-2xl !border-transparent {$theme === 'dark'
-                                                    ? '!bg-white/10 text-white placeholder-white/50'
-                                                    : '!bg-primary-accent/10 text-primary-accent placeholder-primary-accent/50'} !px-4"
                                                 type="date"
                                                 bind:value={dropoffDate}
-                                                min={pickupDate || new Date().toISOString().split('T')[0]} />
+                                                min={pickupDate || new Date().toISOString().split('T')[0]}
+                                                class="w-full h-12 pl-4 pr-12 rounded-xl border-0 {$theme === 'dark'
+                                                    ? 'bg-white/10 text-white focus:bg-white/15'
+                                                    : 'bg-gray-50 text-gray-900 focus:bg-white'}
+                                                    font-medium transition-all duration-300 focus:ring-2 focus:ring-primary-accent/30 focus:outline-none
+                                                    [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer" />
+                                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                                <svg class="h-5 w-5 {$theme === 'dark' ? 'text-white/60 hover:text-white' : 'text-gray-600 hover:text-gray-800'} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Right: Actions -->
-                                    <div class="flex flex-col gap-2 w-full md:w-auto md:flex-row md:gap-2">
-                                        <!-- Search -->
+                                    <!-- Search Button -->
+                                    <div class="lg:col-span-3 flex gap-2">
                                         <button
-                                            class="!h-12 rounded-2xl font-medium px-8 transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 w-full md:w-auto {$theme === 'dark'
-                                                ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]'
-                                                : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_30px_rgba(194,63,91,0.4)]'}"
+                                            class="flex-1 h-12 rounded-xl font-semibold transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 
+                                            {$theme === 'dark'
+                                                ? 'bg-white text-gray-900 hover:bg-white/90 hover:scale-105 hover:-translate-y-0.5 shadow-lg hover:shadow-xl'
+                                                : 'bg-primary-accent text-white hover:bg-primary-accent/90 hover:scale-105 hover:-translate-y-0.5 shadow-lg hover:shadow-xl'}"
                                             on:click={handleSearch}
                                             disabled={isSearching}>
                                             {#if isSearching}
                                                 <div class="flex items-center justify-center gap-2">
-                                                    <span class="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
-                                                    Searching...
+                                                    <span class="h-4 w-4 animate-spin rounded-full border-2 {$theme === 'dark' ? 'border-gray-900 border-t-transparent' : 'border-white border-t-transparent'}"></span>
+                                                    <span class="hidden sm:inline">Searching...</span>
                                                 </div>
                                             {:else}
-                                                Search
+                                                <div class="flex items-center justify-center gap-2">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                    </svg>
+                                                    <span class="hidden sm:inline">Search</span>
+                                                </div>
                                             {/if}
                                         </button>
-                                        <!-- Host -->
-                                        <a
-                                            href={dashboardUrl}
-                                            target="_blank"
-                                            class="host-cta flex items-center justify-center gap-2 rounded-2xl font-semibold px-8 py-3 w-full md:w-auto shadow-none  text-primary-accent bg-white/80 hover:bg-primary-accent hover:text-white transition-all duration-300 ease-in-out whitespace-nowrap"
-                                            >
-                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                            </svg>
-                                            Become a Host
-                                        </a>
                                     </div>
+                                </div>
+
+                                <!-- Host CTA - Separate section below search -->
+                                <div class="mt-4 pt-4 border-t {$theme === 'dark' ? 'border-white/10' : 'border-gray-200/30'} flex justify-center">
+                                    <a
+                                        href={dashboardUrl}
+                                        target="_blank"
+                                        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-in-out whitespace-nowrap backdrop-blur-sm
+                                        {$theme === 'dark'
+                                            ? 'bg-white/5 text-white border border-white/20 hover:bg-white/10 hover:border-white/30 hover:-translate-y-0.5'
+                                            : 'bg-white text-primary-accent border border-gray-200 shadow-sm hover:shadow-md hover:border-primary-accent/30 hover:-translate-y-0.5'}"
+                                        >
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                        </svg>
+                                        Become a Host
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -224,23 +259,115 @@
             background-position: center;
         }
     }
+    
     @media screen and (max-width: 649px) {
         .hero-bg {
             min-height: 80vh;
         }
     }
+    
     .loading-placeholder {
         position: absolute;
         inset: 0;
         background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
     }
-    .host-cta {
-        box-shadow: 0 0 0 transparent !important; /* for contrast to search */
+    
+    .search-container {
+        position: relative;
+        border-radius: 1rem;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
     }
-    /* Responsive stacking for host button */
-    @media (max-width: 767px) {
-        .host-cta {
-            margin-top: 0 !important;
+    
+    /* Enhanced input focus states */
+    .search-container input:focus,
+    .search-container select:focus {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Custom select arrow styling */
+    .search-container select {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px;
+    }
+    
+    
+    
+    
+    /* Vehicle type switcher animation */
+    .vehicle-switcher button {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .vehicle-switcher button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+    
+    .vehicle-switcher button:hover::before {
+        left: 100%;
+    }
+    
+    /* Grid responsive behavior */
+    @media (max-width: 1023px) {
+        .search-container .grid {
+            gap: 1rem;
+        }
+    }
+    
+    /* Enhanced mobile responsiveness */
+    @media (max-width: 640px) {
+        .search-container {
+            padding: 1rem;
+            margin: 0 1rem;
+        }
+        
+        .search-container .grid {
+            gap: 0.75rem;
+        }
+        
+        .search-container input,
+        .search-container select,
+        .search-container button {
+            height: 3rem;
+        }
+        
+        /* Adjust hero height for mobile */
+        .hero-bg {
+            min-height: 90vh;
+        }
+    }
+    
+    /* Very small screens */
+    @media (max-width: 375px) {
+        .search-container {
+            margin: 0 0.5rem;
+            padding: 0.75rem;
+        }
+        
+        .vehicle-switcher {
+            font-size: 0.75rem;
+        }
+        
+        .vehicle-switcher span {
+            display: none; /* Hide "I'm Looking For" text on very small screens */
+        }
+    }
+    
+    /* Tablet adjustments */
+    @media (min-width: 641px) and (max-width: 1023px) {
+        .search-container {
+            padding: 1.5rem;
         }
     }
 </style>

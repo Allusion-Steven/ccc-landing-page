@@ -61,9 +61,8 @@
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
 	});
 
-	// Image navigation
-	const activeImages =
-		yacht?.images?.filter((img: VehicleImage) => img?.isActive !== false) || [];
+	// Image navigation - make it reactive
+	const activeImages = $derived(yacht?.images?.filter((img: VehicleImage) => img?.isActive !== false) || []);
 
 	function nextImage() {
 		if (activeImages.length > 1) {
@@ -162,37 +161,39 @@
 <svelte:window onkeydown={handleKeydown} />
 
 <div
-	class="min-h-screen {$theme === 'dark' ? 'bg-dark-gradient' : 'bg-light-gradient'}"
+	class="min-h-screen {$theme === 'dark' ? '' : ''}"
 	in:fade={{ duration: 500 }}>
-	<!-- Enhanced Hero Section with Modern Gallery -->
 	<div class="relative" in:fly={{ y: 30, duration: 600, delay: 200 }}>
 		{#if activeImages.length > 0}
-			<!-- Main Hero Image -->
 			<div
 				class="relative h-[60vh] min-h-[400px] overflow-hidden sm:h-[60vh] sm:min-h-[500px] lg:h-[70vh] lg:min-h-[600px] {$theme ===
 				'dark'
 					? 'bg-primary-dark'
 					: 'bg-gray-100'}">
 				{#key currentImageIndex}
-					<img
-						src={getImageUrl(activeImages[currentImageIndex], 'large')}
-						alt="{yacht.year} {yacht.make} {yacht.model}"
-						class="h-full w-full object-contain"
+					<div 
+						class="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 blur-md"
+						style="background-image: url('{getImageUrl(activeImages[currentImageIndex], 'large')}');"
 						in:fade={{ duration: 200, delay: 100 }}
-						out:fade={{ duration: 100 }} />
+						out:fade={{ duration: 100 }}
+					></div>
 				{/key}
-
-				<!-- Sophisticated Gradient Overlays -->
-				<div
-					class="absolute inset-0 bg-gradient-to-t from-black-80 via-black/20 to-transparent">
-				</div>
-				<div
-					class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/40">
+								
+				<div class="relative z-10 h-full w-full flex items-center justify-center px-4">
+					{#key currentImageIndex}
+						<img
+							src={getImageUrl(activeImages[currentImageIndex], 'large')}
+							alt="{yacht.year} {yacht.make} {yacht.model}"
+							class="max-h-full max-w-full object-contain shadow-2xl rounded-lg"
+							in:fade={{ duration: 200, delay: 100 }}
+							out:fade={{ duration: 100 }}
+						/>
+					{/key}
 				</div>
 
 				<!-- Floating Action Buttons -->
 				<div
-					class="absolute max500:flex-row right-3 top-3 flex flex-col gap-2 sm:right-6 sm:top-6 sm:gap-3">
+					class="absolute max500:flex-row right-3 top-3 flex flex-col gap-2 sm:right-6 sm:top-6 sm:gap-3 z-20">
 					<button
 						onclick={() => (favorited = !favorited)}
 						class="group rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-white/20 sm:p-3"
@@ -246,7 +247,7 @@
 
 				<!-- Image Counter Badge -->
 				{#if activeImages.length > 1}
-					<div class="absolute left-3 top-3 sm:left-6 sm:top-6">
+					<div class="absolute left-3 top-3 sm:left-6 sm:top-6 z-20">
 						<div
 							class="flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-xs font-medium text-white backdrop-blur-md sm:gap-2 sm:px-3 sm:text-sm">
 							<svg
@@ -269,7 +270,7 @@
 				{#if activeImages.length > 1}
 					<button
 						onclick={prevImage}
-						class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95 sm:left-4 sm:p-4"
+						class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95 sm:left-4 sm:p-4 z-20"
 						aria-label="Previous image">
 						<svg
 							class="h-4 w-4 sm:h-6 sm:w-6"
@@ -285,7 +286,7 @@
 					</button>
 					<button
 						onclick={nextImage}
-						class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95 sm:right-4 sm:p-4"
+						class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95 sm:right-4 sm:p-4 z-20"
 						aria-label="Next image">
 						<svg
 							class="h-4 w-4 sm:h-6 sm:w-6"
@@ -302,18 +303,14 @@
 				{/if}
 
 				<!-- Yacht Title and Info Overlay -->
-				<div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
+				<div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 z-20 bg-gradient-to-t from-black/60 via-black/40 to-transparent">
 					<div class="mx-auto max-w-7xl">
 						<div
 							class="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-end lg:justify-between">
 							<div class="space-y-2 sm:space-y-4">
 								<div in:fly={{ y: 20, duration: 500, delay: 400 }}>
-									<div
-										class="mb-2 inline-block rounded-full border-blue-500/30 bg-blue-600/20 px-2 py-1 text-xs font-medium text-blue-400 sm:mb-3 sm:px-3 sm:text-sm">
-										Luxury Yacht
-									</div>
 									<h1
-										class="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+										class="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl drop-shadow-lg">
 										{yacht.year}
 										<span class="text-blue-400">{yacht.make}</span>
 										{yacht.model}
@@ -321,7 +318,7 @@
 								</div>
 								{#if yacht.location}
 									<div
-										class="flex items-center text-sm text-gray-200 sm:text-base lg:text-xl"
+										class="flex items-center text-sm text-gray-200 sm:text-base lg:text-xl drop-shadow-md"
 										in:fly={{ y: 20, duration: 500, delay: 500 }}>
 										<svg
 											class="mr-2 h-4 w-4 text-blue-400 sm:mr-3 sm:h-5 sm:w-5 lg:h-6 lg:w-6"
@@ -403,35 +400,51 @@
 									: 'text-gray-900'}">
 								Gallery
 							</h3>
-							<button class="text-blue-400 transition-colors hover:text-blue-300">
+							<button 
+								onclick={() => openImageModal(currentImageIndex)}
+								class="text-blue-400 transition-colors hover:text-blue-300"
+							>
 								View All {activeImages.length} Photos
 							</button>
 						</div>
-						<div class="flex gap-3 overflow-x-auto pb-2">
-							{#each activeImages as image, index}
-								<button
-									onclick={() => (currentImageIndex = index)}
-									class="group relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200 {currentImageIndex ===
-									index
-										? 'scale-105 border-blue-500 shadow-lg shadow-blue-500/25'
-										: 'hover:scale-102 border-transparent hover:border-gray-500'}"
-									aria-label="View image {index + 1}">
-									<img
-										src={getImageUrl(image, 'thumbnail')}
-										alt="{yacht.year} {yacht.make} {yacht.model} - Thumbnail {index +
-											1}"
-										class="h-full w-full object-cover transition-all duration-300 group-hover:scale-110"
-										loading="lazy" />
-									<div
-										class="absolute inset-0 bg-black/20 transition-opacity group-hover:bg-black/10">
-									</div>
-									{#if currentImageIndex === index}
+						<div class="flex gap-3 overflow-hidden relative">
+							<!-- Left fade gradient -->
+							<div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-{$theme === 'dark' ? 'slate-800' : 'gray-100'} to-transparent z-10 pointer-events-none"></div>
+							<!-- Right fade gradient -->
+							<div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-{$theme === 'dark' ? 'slate-800' : 'gray-100'} to-transparent z-10 pointer-events-none"></div>
+							
+							<!-- Scrollable container without visible scrollbar -->
+							<div class="flex gap-3 overflow-x-auto scrollbar-hide" style="scrollbar-width: none; -ms-overflow-style: none;">
+								<style>
+									.scrollbar-hide::-webkit-scrollbar {
+										display: none;
+									}
+								</style>
+								{#each activeImages as image, index}
+									<button
+										onclick={() => (currentImageIndex = index)}
+										class="group relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200 {currentImageIndex ===
+										index
+											? 'scale-105 border-blue-500 shadow-lg shadow-blue-500/25'
+											: 'hover:scale-102 border-transparent hover:border-gray-500'}"
+										aria-label="View image {index + 1}">
+										<img
+											src={getImageUrl(image, 'thumbnail')}
+											alt="{yacht.year} {yacht.make} {yacht.model} - Thumbnail {index +
+												1}"
+											class="h-full w-full object-cover transition-all duration-300 group-hover:scale-110"
+											loading="lazy" />
 										<div
-											class="absolute inset-0 rounded-lg border-2 border-blue-500 bg-blue-500/20">
+											class="absolute inset-0 bg-black/20 transition-opacity group-hover:bg-black/10">
 										</div>
-									{/if}
-								</button>
-							{/each}
+										{#if currentImageIndex === index}
+											<div
+												class="absolute inset-0 rounded-lg border-2 border-blue-500 bg-blue-500/20">
+											</div>
+										{/if}
+									</button>
+								{/each}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -466,7 +479,7 @@
 	</div>
 
 	<!-- Main Content with Modern Layout -->
-	<div class={$theme === 'dark' ? 'bg-dark-gradient' : 'bg-light-gradient'}>
+	<div class={$theme === 'dark' ? '' : ''}>
 		<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
 			<div class="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-3">
 				<!-- Left Column: Enhanced Details & Specs -->
@@ -768,7 +781,7 @@
 													<svg
 														class="h-5 w-5 {$theme === 'dark'
 															? 'text-blue-400'
-															: 'text-blue-600'} mt-0.5 flex-shrink-0"
+															: 'text-gray-600'} mt-0.5 flex-shrink-0"
 														fill="currentColor"
 														viewBox="0 0 20 20">
 														<path
@@ -780,7 +793,7 @@
 														class="text-sm font-medium {$theme ===
 														'dark'
 															? 'text-blue-200'
-															: 'text-blue-800'}">
+															: 'text-gray-800'}">
 														* Rates are ALL IN (captain fee, gratuity,
 														fuel, etc...)
 													</span>

@@ -7,7 +7,7 @@
 	$: message = $page.error?.message || 'An unexpected error occurred';
 </script>
 
-<div class="min-h-screen bg-light-gradient dark:bg-dark-gradient flex items-center justify-center px-4" in:fade={{ duration: 500 }}>
+<div class="min-h-screen   flex items-center justify-center px-4" in:fade={{ duration: 500 }}>
 	<div class="max-w-md w-full text-center">
 		<div class="mb-8" in:fly={{ y: 20, duration: 600, delay: 200 }}>
 			<div class="mx-auto w-24 h-24 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mb-6">

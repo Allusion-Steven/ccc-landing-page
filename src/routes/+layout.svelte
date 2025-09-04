@@ -190,7 +190,7 @@
 		</div>
 	</nav>
 
-	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? 'bg-dark-gradient' : 'bg-white'}">
+	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? '' : 'bg-white'}">
 		{@render children()}
 	</main>
 

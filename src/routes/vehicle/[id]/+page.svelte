@@ -42,8 +42,8 @@
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
 	});
 
-	// Image navigation
-	const activeImages = vehicle?.images?.filter((img: VehicleImage) => img?.isActive !== false) || [];
+	// Image navigation - make it reactive
+	const activeImages = $derived(vehicle?.images?.filter((img: VehicleImage) => img?.isActive !== false) || []);
 
 	function nextImage() {
 		if (activeImages.length > 1) {
@@ -144,28 +144,34 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div class="min-h-screen {$theme === 'dark' ? 'bg-dark-gradient' : 'bg-light-gradient'}" in:fade={{ duration: 500 }}>
+<div class="min-h-screen {$theme === 'dark' ? '' : ''}" in:fade={{ duration: 500 }}>
 	<!-- Enhanced Hero Section with Modern Gallery -->
 	<div class="relative" in:fly={{ y: 30, duration: 600, delay: 200 }}>
 		{#if activeImages.length > 0}
-			<!-- Main Hero Image -->
 			<div class="relative h-[60vh] sm:h-[60vh] lg:h-[70vh] min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] overflow-hidden {$theme === 'dark' ? 'bg-primary-dark' : 'bg-gray-100'}">
 				{#key currentImageIndex}
-					<img
-						src={getImageUrl(activeImages[currentImageIndex], 'large')}
-						alt="{vehicle.year} {vehicle.make} {vehicle.model}"
-						class="h-full w-full object-contain"
+					<div 
+						class="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 blur-md"
+						style="background-image: url('{getImageUrl(activeImages[currentImageIndex], 'large')}');"
 						in:fade={{ duration: 200, delay: 100 }}
 						out:fade={{ duration: 100 }}
-					/>
+					></div>
 				{/key}
-
-				<!-- Sophisticated Gradient Overlays -->
-				<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
-				<div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40"></div>
+				
+				<div class="relative z-10 h-full w-full flex items-center justify-center px-4">
+					{#key currentImageIndex}
+						<img
+							src={getImageUrl(activeImages[currentImageIndex], 'large')}
+							alt="{vehicle.year} {vehicle.make} {vehicle.model}"
+							class="max-h-full max-w-full object-contain shadow-2xl rounded-lg"
+							in:fade={{ duration: 200, delay: 100 }}
+							out:fade={{ duration: 100 }}
+						/>
+					{/key}
+				</div>
 
 				<!-- Floating Action Buttons -->
-				<div class="absolute right-3 sm:right-6 top-3 sm:top-6 flex flex-col gap-2 sm:gap-3">
+				<div class="absolute right-3 sm:right-6 top-3 sm:top-6 flex flex-col gap-2 sm:gap-3 z-20">
 					<button
 						onclick={() => (favorited = !favorited)}
 						class="group rounded-full bg-white/10 p-2 sm:p-3 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-white/20"
@@ -196,7 +202,7 @@
 
 				<!-- Image Counter Badge -->
 				{#if activeImages.length > 1}
-					<div class="absolute left-3 sm:left-6 top-3 sm:top-6">
+					<div class="absolute left-3 sm:left-6 top-3 sm:top-6 z-20">
 						<div class="bg-black/50 text-white backdrop-blur-md px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2">
 							<svg class="h-2 w-2 sm:h-3 sm:w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -210,7 +216,7 @@
 				{#if activeImages.length > 1}
 					<button
 						onclick={prevImage}
-						class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 sm:p-4 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95"
+						class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 sm:p-4 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95 z-20"
 						aria-label="Previous image"
 					>
 						<svg class="h-4 w-4 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -219,7 +225,7 @@
 					</button>
 					<button
 						onclick={nextImage}
-						class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 sm:p-4 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95"
+						class="absolute right-2 sm:right-20 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-2 sm:p-4 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 hover:bg-white/20 active:scale-95 z-20"
 						aria-label="Next image"
 					>
 						<svg class="h-4 w-4 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,22 +235,20 @@
 				{/if}
 
 				<!-- Vehicle Title and Info Overlay -->
-				<div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
+				<div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 z-20 bg-gradient-to-t from-black/60 via-black/40 to-transparent">
 					<div class="mx-auto max-w-7xl">
 						<div class="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-end lg:justify-between">
 							<div class="space-y-2 sm:space-y-4">
 								<div in:fly={{ y: 20, duration: 500, delay: 400 }}>
-									<div class="mb-2 sm:mb-3 border-blue-500/30 bg-blue-600/20 text-blue-400 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium inline-block">
-										Premium Vehicle
-									</div>
-									<h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white lg:text-5xl xl:text-6xl">
+	
+									<h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white lg:text-5xl xl:text-6xl drop-shadow-lg">
 										{vehicle.year}
 										<span class="text-blue-400">{vehicle.make}</span>
 										{vehicle.model}
 									</h1>
 								</div>
 								{#if vehicle.location}
-									<div class="flex items-center text-sm sm:text-base lg:text-xl text-gray-200" in:fly={{ y: 20, duration: 500, delay: 500 }}>
+									<div class="flex items-center text-sm sm:text-base lg:text-xl text-gray-200 drop-shadow-md" in:fly={{ y: 20, duration: 500, delay: 500 }}>
 										<svg class="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -288,31 +292,47 @@
 					<div class="mx-auto max-w-7xl">
 						<div class="mb-4 flex items-center justify-between">
 							<h3 class="text-lg font-semibold {$theme === 'dark' ? 'text-white' : 'text-gray-900'}">Gallery</h3>
-							<button class="text-blue-400 transition-colors hover:text-blue-300">
+							<button 
+								onclick={() => openImageModal(currentImageIndex)}
+								class="text-blue-400 transition-colors hover:text-blue-300"
+							>
 								View All {activeImages.length} Photos
 							</button>
 						</div>
-						<div class="flex overflow-x-auto pb-2 gap-3">
-							{#each activeImages as image, index}
-								<button
-									onclick={() => (currentImageIndex = index)}
-									class="group relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200 {currentImageIndex === index
-										? 'scale-105 border-blue-500 shadow-lg shadow-blue-500/25'
-										: 'hover:scale-102 border-transparent hover:border-gray-500'}"
-									aria-label="View image {index + 1}"
-								>
-									<img
-										src={getImageUrl(image, 'thumbnail')}
-										alt="{vehicle.year} {vehicle.make} {vehicle.model} - Thumbnail {index + 1}"
-										class="h-full w-full object-cover transition-all duration-300 group-hover:scale-110"
-										loading="lazy"
-									/>
-									<div class="absolute inset-0 bg-black/20 transition-opacity group-hover:bg-black/10"></div>
-									{#if currentImageIndex === index}
-										<div class="absolute inset-0 rounded-lg border-2 border-blue-500 bg-blue-500/20"></div>
-									{/if}
-								</button>
-							{/each}
+						<div class="flex gap-3 overflow-hidden relative">
+							<!-- Left fade gradient -->
+							<div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-{$theme === 'dark' ? 'slate-800' : 'gray-100'} to-transparent z-10 pointer-events-none"></div>
+							<!-- Right fade gradient -->
+							<div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-{$theme === 'dark' ? 'slate-800' : 'gray-100'} to-transparent z-10 pointer-events-none"></div>
+							
+							<!-- Scrollable container without visible scrollbar -->
+							<div class="flex gap-3 overflow-x-auto scrollbar-hide" style="scrollbar-width: none; -ms-overflow-style: none;">
+								<style>
+									.scrollbar-hide::-webkit-scrollbar {
+										display: none;
+									}
+								</style>
+								{#each activeImages as image, index}
+									<button
+										onclick={() => (currentImageIndex = index)}
+										class="group relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-200 {currentImageIndex === index
+											? 'scale-105 border-blue-500 shadow-lg shadow-blue-500/25'
+											: 'hover:scale-102 border-transparent hover:border-gray-500'}"
+										aria-label="View image {index + 1}"
+									>
+										<img
+											src={getImageUrl(image, 'thumbnail')}
+											alt="{vehicle.year} {vehicle.make} {vehicle.model} - Thumbnail {index + 1}"
+											class="h-full w-full object-cover transition-all duration-300 group-hover:scale-110"
+											loading="lazy"
+										/>
+										<div class="absolute inset-0 bg-black/20 transition-opacity group-hover:bg-black/10"></div>
+										{#if currentImageIndex === index}
+											<div class="absolute inset-0 rounded-lg border-2 border-blue-500 bg-blue-500/20"></div>
+										{/if}
+									</button>
+								{/each}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -332,7 +352,7 @@
 	</div>
 
 	<!-- Main Content with Modern Layout -->
-	<div class="{$theme === 'dark' ? 'bg-dark-gradient' : 'bg-light-gradient'}">
+	<div class="{$theme === 'dark' ? '' : ''}">
 		<div class="mx-auto max-w-7xl px-6 py-12">
 			<div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
 				<!-- Left Column: Enhanced Details & Specs -->
@@ -340,7 +360,7 @@
 										
 					<!-- Description -->
 					{#if vehicle.description}
-						<div class="group rounded-xl border {$theme === 'dark' ? 'border-slate-600/30 bg-gradient-to-br from-slate-800/40 to-gray-800/80 hover:border-slate-500/40 hover:shadow-slate-500/10' : 'border-gray-300/30 bg-gradient-to-br from-white/80 to-gray-100/80 hover:border-gray-400/40 hover:shadow-gray-400/10'} p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+						<div class="group rounded-xl border {$theme === 'dark' ? 'border-slate-600/30 bg-gradient-to-br from-slate-800/40 to-gray-800/80 hover:border-slate-500/40 hover:shadow-slate-500/10' : 'border-gray-300/30  '} p-6 backdrop-blur-sm transition-all duration-300 ">
 							<div class="mb-4 flex items-center gap-3">
 								<div class="rounded-lg {$theme === 'dark' ? 'bg-slate-600/25' : 'bg-primary-accent/25'} p-2">
 									<svg class="h-5 w-5 {$theme === 'dark' ? 'text-slate-300' : 'text-primary-accent'}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -358,7 +378,7 @@
 					{/if}
 
 					<!-- Specifications -->
-					<div class="group rounded-xl border {$theme === 'dark' ? 'border-blue-600/25 bg-gradient-to-br from-blue-900/25 to-gray-800/80 hover:border-blue-500/40 hover:shadow-blue-500/10' : 'border-primary-accent/25 bg-gradient-to-br from-primary-accent/10 to-gray-100/80 hover:border-primary-accent/40 hover:shadow-primary-accent/10'} p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+					<div class="group rounded-xl border {$theme === 'dark' ? 'border-blue-600/25 bg-gradient-to-br from-slate-800/40 to-gray-800/80 ' : 'border-primary-accent/25  '} p-6 backdrop-blur-sm transition-all ">
 						<div class="mb-6 flex items-center gap-3">
 							<div class="rounded-lg {$theme === 'dark' ? 'bg-blue-600/25' : 'bg-primary-accent/25'} p-2">
 								<svg class="h-5 w-5 {$theme === 'dark' ? 'text-blue-300' : 'text-primary-accent'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">

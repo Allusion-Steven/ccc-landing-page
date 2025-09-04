@@ -1,10 +1,12 @@
 <script lang="ts">
 	import Hero from '$lib/assets/components/Home/Hero.svelte';
+	import Hero2 from '$lib/assets/components/Home/Hero2.svelte';
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import VehicleCarousel from '$lib/assets/components/Home/VehicleCarousel.svelte';
 	import ShopByMake from '$lib/assets/components/Home/ShopByMake.svelte';
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
 	import Experience from '$lib/assets/components/Home/Experience.svelte';
+	import Experience2 from '$lib/assets/components/Home/Experience2.svelte';
 	import { faqData } from '$lib/data/faq';
 	import type { Vehicle, Yacht } from '$lib/types';
 	import { onMount } from 'svelte';
@@ -86,7 +88,8 @@
 
 <div>
 	<div in:fade={{ duration: 400 }}>
-		<Hero />
+		<!-- <Hero /> -->
+		<Hero2 />
 	</div>
 
 	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
@@ -97,7 +100,7 @@
 					duration: 200,
 					easing: quintOut
 				}}>
-				<Experience />
+				<Experience2 />
 			</div>
 		{/if}
 	</div>
@@ -134,7 +137,8 @@
 					duration: 200,
 					easing: quintOut
 				}}>
-				<Why />
+				<ShopByMake />
+				
 			</div>
 		{/if}
 	</div>
@@ -147,7 +151,7 @@
 					duration: 300,
 					easing: quintOut
 				}}>
-				<ShopByMake />
+				<Why />
 			</div>
 		{/if}
 	</div>

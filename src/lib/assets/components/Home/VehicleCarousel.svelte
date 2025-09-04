@@ -267,7 +267,7 @@
 					href={viewAllLink}
 					type="submit"
 					text="View All"
-					colorScheme={$theme === 'dark' ? 'dark' : 'dark'} />
+					colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
 			</div>
 		{/if}
 	</div>

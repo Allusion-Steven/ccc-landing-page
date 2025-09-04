@@ -134,7 +134,7 @@
 
 			{#if !showAll && displayFaqs.length < faqs.length}
 				<div class="mt-12 text-center">
-					<SecondaryButton href="/faq" text="View All FAQs" colorScheme={$theme === 'dark' ? 'dark' : 'dark'} />
+					<SecondaryButton href="/faq" text="View All FAQs" colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
 				</div>
 			{/if}
 		{/if}

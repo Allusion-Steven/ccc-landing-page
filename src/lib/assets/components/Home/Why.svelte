@@ -18,9 +18,7 @@
 	<!-- Background decoration -->
 	<div
 		class="absolute left-0 top-0 h-[600px] w-[600px] opacity-15 blur-[150px]"
-		style="background: linear-gradient(45deg, {$theme === 'dark'
-			? '#f890e7 0%, #ff1b6b'
-			: '#ff1b6b 0%, #f890e7'} 100%);">
+		>
 	</div>
 	<div
 		class="absolute bottom-0 right-0 h-[400px] w-[400px] opacity-15 blur-[150px]"
@@ -57,14 +55,16 @@
 						: 'text-primary-muted'}">
 					Whether you're sharing your prized possession or seeking the perfect vehicle for
 					your next adventure, we make the connection seamless and secure through our
-					comprehensive verification process and dedication to exce
+					comprehensive verification process and dedication to excellence.
 				</p>
 				<div class="flex flex-col sm:flex-row gap-4" in:fly={{ y: 50, duration: 400, delay: 600 }}>
-					<PrimaryButton
+					<SecondaryButton
 						text="Become a host"
+						colorScheme="dark"
+						
 						href="https://my.macroexotics.com/"
 						width="w-full" />
-					<SecondaryButton text="Book a vehicle" href="/vehicles" width="w-full" colorScheme={$theme === 'dark' ? 'light' : 'dark'} />
+					<SecondaryButton text="Book a vehicle" href="/vehicles" width="w-full" colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
 				</div>
 			</div>
 

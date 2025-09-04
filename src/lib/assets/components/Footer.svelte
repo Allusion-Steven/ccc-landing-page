@@ -4,7 +4,7 @@
 
 </script>
 
-<footer class="{$theme === 'dark' ? 'bg-gradient-to-r from-miami-dark via-miami-purple to-miami-dark' : 'bg-gradient-to-r from-white via-gray-50 to-white'}">
+<footer class="{$theme === 'dark' ? '' : 'bg-gradient-to-r from-white via-gray-50 to-white'}">
 	<div class="container mx-auto px-4 py-12">
 		<div class="grid gap-8 md:grid-cols-4">
 			<div>
