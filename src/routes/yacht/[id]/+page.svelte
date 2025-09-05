@@ -489,14 +489,12 @@
 					<!-- Description -->
 					{#if description}
 						<div
-							class="group rounded-xl border {$theme === 'dark'
-								? 'border-slate-600/30 bg-gradient-to-br from-slate-800/40 to-gray-800/80 hover:border-slate-500/40 hover:shadow-slate-500/10'
-								: 'border-gray-300/30 bg-gradient-to-br from-white/80 to-gray-100/80 hover:border-gray-400/40 hover:shadow-gray-400/10'} p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+							class="group rounded-xl border-2 border-gray-300/30 {$theme === 'dark'
+								? 'border-slate-600/30  '
+								: 'border-gray-300/30 '} p-6 backdrop-blur-sm transition-all duration-300 ">
 							<div class="mb-4 flex items-center gap-3">
 								<div
-									class="rounded-lg {$theme === 'dark'
-										? 'bg-slate-600/25'
-										: 'bg-primary-accent/25'} p-2">
+									class="rounded-lg border border-gray-300/30 p-2">
 									<svg
 										class="h-5 w-5 {$theme === 'dark'
 											? 'text-slate-300'
@@ -529,14 +527,12 @@
 
 					<!-- Specifications -->
 					<div
-						class="group rounded-xl border {$theme === 'dark'
-							? 'border-blue-600/25 bg-gradient-to-br from-blue-900/25 to-gray-800/80 hover:border-blue-500/40 hover:shadow-blue-500/10'
-							: 'border-primary-accent/25 bg-gradient-to-br from-primary-accent/10 to-gray-100/80 hover:border-primary-accent/40 hover:shadow-primary-accent/10'} p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+						class="group rounded-xl border border-gray-300/30 {$theme === 'dark'
+							? 'border-blue-600/25 '
+							: 'border-gray-300/30  hover:border-primary-accent/40 hover:shadow-primary-accent/10'} p-6 backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
 						<div class="mb-6 flex items-center gap-3">
 							<div
-								class="rounded-lg {$theme === 'dark'
-									? 'bg-blue-600/25'
-									: 'bg-primary-accent/25'} p-2">
+								class="rounded-lg border-gray-300/30 border-2 p-2">
 								<svg
 									class="h-5 w-5 {$theme === 'dark'
 										? 'text-blue-300'
@@ -712,9 +708,7 @@
 								<!-- Yacht Pricing Options -->
 								<div class="col-span-2 max500:col-span-2 sm:col-span-2 lg:col-span-3">
 									<div
-										class="rounded-xl border {$theme === 'dark'
-											? 'border-blue-600/30 bg-gradient-to-br from-blue-900/20 to-gray-800/80'
-											: 'border-blue-300/30 bg-gradient-to-br from-blue-50/80 to-white/80'} p-6">
+										class="rounded-xl border border-gray-300/30} p-6">
 										<div class="mb-4 flex items-center gap-2">
 											<DollarOutline class="h-5 w-5 text-blue-400" />
 											<h4
@@ -774,10 +768,7 @@
 													? 'border-gray-700'
 													: 'border-gray-200'}">
 												<div
-													class="flex items-start space-x-2 p-3 {$theme ===
-													'dark'
-														? 'border-blue-800 bg-blue-900/20'
-														: 'border-blue-200 bg-blue-50'} rounded-lg border">
+													class="flex items-start space-x-2 p-3 ">
 													<svg
 														class="h-5 w-5 {$theme === 'dark'
 															? 'text-blue-400'
@@ -831,9 +822,7 @@
 				<div class="lg:col-span-1" in:fly={{ x: 30, duration: 600, delay: 500 }}>
 					<div class="sticky top-8" id="booking-section">
 						<div
-							class="border {$theme === 'dark'
-								? 'border-blue-600/30 bg-gradient-to-br from-slate-800/95 to-slate-900/95 shadow-blue-500/10 hover:border-blue-500/50 hover:shadow-blue-500/20'
-								: 'border-primary-accent/30 bg-gradient-to-br from-white/95 to-gray-100/95 shadow-primary-accent/10 hover:border-primary-accent/50 hover:shadow-primary-accent/20'} rounded-xl p-8 shadow-2xl backdrop-blur-md transition-all duration-300">
+							class="border border-gray-300/30  rounded-xl p-8 shadow-2xl backdrop-blur-md transition-all duration-300">
 							<!-- Enhanced Booking Header -->
 							<div class="mb-6 text-center">
 								<div
@@ -869,9 +858,7 @@
 							<!-- Action Buttons -->
 							<div class="mb-6 flex flex-col gap-3">
 								<button
-									class="w-full {$theme === 'dark'
-										? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800'
-										: 'bg-gradient-to-r from-primary-accent to-primary-muted hover:from-primary-muted hover:to-primary-accent'} flex transform items-center justify-center gap-3 rounded-xl px-6 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+									class="w-full border-2 border-gray-300/30 text-black dark:text-white flex transform items-center justify-center gap-3 rounded-xl px-6 py-4 font-semibold  shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
 									onclick={() => (showDatePicker = !showDatePicker)}>
 									<svg
 										class="h-5 w-5"
@@ -889,9 +876,9 @@
 
 								<a
 									href={`/contact${userId ? `?userId=${userId}` : ''}`}
-									class="w-full border-2 {$theme === 'dark'
+									class="w-full border border-gray-300/30 {$theme === 'dark'
 										? 'border-gray-600 text-gray-200 hover:border-blue-500 hover:text-blue-400'
-										: 'border-primary-accent text-primary-accent hover:border-primary-muted hover:text-primary-muted'} flex items-center justify-center gap-3 rounded-xl px-6 py-3 text-center font-semibold transition-all duration-300">
+										: 'border-primary-accent text-primary-accent '} flex items-center justify-center gap-3 rounded-xl px-6 py-3 text-center font-semibold transition-all duration-300">
 									<svg
 										class="h-5 w-5"
 										fill="none"

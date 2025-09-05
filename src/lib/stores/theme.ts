@@ -20,12 +20,26 @@ const theme = writable<Theme>(getInitialTheme());
 
 // Subscribe to theme changes and update localStorage and document class
 if (browser) {
+    // Align store with the class set early in app.html to avoid post-hydration flips
+    const root = document.documentElement;
+    const initialTheme = root.classList.contains('dark') ? 'dark' : 'light';
+
+    // Ensure the store reflects the actual DOM theme immediately
+    theme.set(initialTheme);
+
+    // Ensure the class is present/absent (no-op if already correct)
+    if (initialTheme === 'dark') {
+        root.classList.add('dark');
+    } else {
+        root.classList.remove('dark');
+    }
+
     theme.subscribe((value) => {
         localStorage.setItem('theme', value);
         if (value === 'dark') {
-            document.documentElement.classList.add('dark');
+            root.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            root.classList.remove('dark');
         }
     });
 }

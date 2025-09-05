@@ -95,6 +95,7 @@
 	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
 		{#if experienceVisible}
 			<div
+			class="max500:hidden"
 				in:fly={{
 					x: -50,
 					duration: 200,

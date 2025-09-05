@@ -41,6 +41,8 @@ This is a SvelteKit application for Macro Exotics, a luxury car and yacht rental
 - **Email Service**: Contact form integration using Gmail SMTP (`src/lib/email/emailService.ts`)
 - **Caching**: 5-minute cache for featured content to reduce API calls
 - **Responsive Design**: Mobile-first with hamburger menu and intersection observer animations
+- **Svelte 5**: Uses ruins for state management
+
 
 #### Component Organization
 - `src/lib/assets/components/` - Shared UI components (Footer, Navigation, buttons)

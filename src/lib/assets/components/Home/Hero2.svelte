@@ -6,6 +6,7 @@
     import { theme } from '$lib/stores/theme';
     import { dashboardUrl } from '$lib';
 
+
     let imageLoaded = false;
     let location = 'Miami, FL';
     let pickupDate = new Date().toISOString().split('T')[0];
@@ -69,20 +70,20 @@
                 : 'border-white/30'} rounded-3xl pointer-events-none luxury-frame">
             </div>
 
-            <div class="container mx-auto h-full px-4 lg:px-16 relative z-10">
+            <div class=" mx-auto h-full px-4 lg:px-16 relative z-10">
                 <div class="max500:justify-start flex flex-col h-full justify-center px-4 lg:flex-row lg:items-center lg:justify-between py-8 lg:py-0">
                     <!-- Left Side - Content -->
                     <div class="w-full lg:w-1/2 space-y-6 lg:space-y-8 mb-8 lg:mb-0">
                         <div class="space-y-4 lg:space-y-6">
                             <!-- Premium Badge -->
-                            <div 
+<!--                             <div 
                                 in:fly={{ x: -30, duration: 400, delay: 100 }}
                                 class="max500:hidden inline-flex items-center gap-3 px-6 py-3 rounded-full {$theme === 'dark'
                                     ? 'bg-white/10 border border-white/20 text-white/90'
                                     : 'bg-black/20 border border-white/30 text-white'} backdrop-blur-xl">
                                 <div class="w-2 h-2 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full"></div>
                                 <span class="text-sm font-medium tracking-wide">LUXURY COLLECTION</span>
-                            </div>
+                            </div> -->
 
                             <!-- Main Heading -->
                             <h1
@@ -124,26 +125,22 @@
                                     ? 'bg-white/5 border border-white/10'
                                     : 'bg-black/10 border border-white/20'}">
                                     <button
-                                        class="luxury-toggle relative py-4 px-6 rounded-xl font-semibold transition-all duration-300 {vehicleType === 'Car'
+                                        class="luxury-toggle relative p-4 rounded-xl font-semibold transition-all duration-300 {vehicleType === 'Car'
                                             ? 'bg-white/20 text-white shadow-lg border border-white/30'
                                             : 'text-white/70 hover:text-white hover:bg-white/10'}"
                                         on:click={() => { vehicleType = 'Car'; }}>
-                                        <div class="flex items-center justify-center gap-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                                        <div class="flex items-center justify-center gap-2 tracking-wider" >
+                                            
                                             Exotic Cars
                                         </div>
                                     </button>
                                     <button
-                                        class="luxury-toggle relative py-4 px-6 rounded-xl font-semibold transition-all duration-300 {vehicleType === 'Yacht'
+                                        class="luxury-toggle relative p-4 rounded-xl font-semibold transition-all duration-300 {vehicleType === 'Yacht'
                                             ? 'bg-white/20 text-white shadow-lg border border-white/30'
                                             : 'text-white/70 hover:text-white hover:bg-white/10'}"
                                         on:click={() => { vehicleType = 'Yacht'; }}>
-                                        <div class="flex items-center justify-center gap-2">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                            </svg>
+                                        <div class="flex items-center justify-center gap-2 tracking-wider">
+                                            
                                             Luxury Yachts
                                         </div>
                                     </button>

@@ -76,7 +76,7 @@
 				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme ===
 				'dark'
 					? 'text-white'
-					: 'text-primary-accent'}">
+					: 'text-black'}">
 				{title}
 			</h3>
 			<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

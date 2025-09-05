@@ -99,7 +99,7 @@
 				in:fly={{ y: 30, duration: 200, delay: 50 }}
 				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme === 'dark'
 					? 'text-white'
-					: 'text-primary-accent'}">
+					: 'text-black'}">
 				Browse by Make
 			</h3>
 

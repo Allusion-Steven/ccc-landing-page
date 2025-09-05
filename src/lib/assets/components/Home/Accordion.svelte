@@ -33,7 +33,7 @@
 			{#if isHomePage}
 			<div class="mb-16 text-center">
 				<h2
-					class="mb-4 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl"
+					class="mb-4 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-black'} md:text-5xl"
 					in:fly={{ y: 50, duration: 400, delay: 200 }}
 				>
 					Frequently Asked Questions
@@ -56,7 +56,7 @@
 								class="flex w-full items-center justify-between p-4 text-left"
 								on:click={() => toggleItem(index * 2)}
 							>
-								<span class="text-lg font-medium {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{faq.title}</span>
+								<span class="text-lg font-medium {$theme === 'dark' ? 'text-white' : 'text-black'}">{faq.title}</span>
 								<svg
 									class="h-6 w-6 transform {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} transition-transform duration-300 {activeIndex === index * 2
 										? 'rotate-180'
@@ -99,9 +99,9 @@
 								class="flex w-full items-center justify-between p-4 text-left"
 								on:click={() => toggleItem(index * 2 + 1)}
 							>
-								<span class="text-lg font-medium {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{faq.title}</span>
+								<span class="text-lg font-medium {$theme === 'dark' ? 'text-white' : 'text-black'}">{faq.title}</span>
 								<svg
-									class="h-6 w-6 transform {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} transition-transform duration-300 {activeIndex === index * 2 + 1
+									class="h-6 w-6 transform {$theme === 'dark' ? 'text-white' : 'text-black'} transition-transform duration-300 {activeIndex === index * 2 + 1
 										? 'rotate-180'
 										: ''}"
 									fill="none"

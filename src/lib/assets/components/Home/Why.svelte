@@ -22,9 +22,7 @@
 	</div>
 	<div
 		class="absolute bottom-0 right-0 h-[400px] w-[400px] opacity-15 blur-[150px]"
-		style="background: linear-gradient(45deg, {$theme === 'dark'
-			? '#ff1b6b 0%, #f890e7'
-			: '#f890e7 0%, #ff1b6b'} 100%);">
+		>
 	</div>
 
 	<div class="container relative mx-auto px-6">
@@ -35,14 +33,14 @@
 				<h2
 					class="mb-6 text-4xl font-bold {$theme === 'dark'
 						? 'text-white'
-						: 'text-primary-accent'} md:text-5xl"
+						: 'text-black'} md:text-5xl"
 					in:fly={{ y: 50, duration: 400, delay: 200 }}>
 					Why Choose Macro Exotics?
 				</h2>
 				<p
 					class="mb-4 text-lg {$theme === 'dark'
 						? 'text-gray-300'
-						: 'text-primary-muted'}"
+						: 'text-primary-accent'}"
 					in:fly={{ y: 50, duration: 400, delay: 400 }}>
 					In today's sharing economy, we connect luxury vehicle owners with discerning
 					clients seeking premium experiences. Our peer-to-peer platform creates
@@ -52,7 +50,7 @@
 				<p
 					class="mb-4 text-lg {$theme === 'dark'
 						? 'text-gray-300'
-						: 'text-primary-muted'}">
+						: 'text-primary-accent'}">
 					Whether you're sharing your prized possession or seeking the perfect vehicle for
 					your next adventure, we make the connection seamless and secure through our
 					comprehensive verification process and dedication to excellence.

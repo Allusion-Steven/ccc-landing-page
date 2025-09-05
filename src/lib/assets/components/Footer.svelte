@@ -8,7 +8,7 @@
 	<div class="container mx-auto px-4 py-12">
 		<div class="grid gap-8 md:grid-cols-4">
 			<div>
-				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-primary-accent'}">Macro Exotics</h3>
+				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-black'}">Macro Exotics</h3>
 				<p class="text-sm leading-relaxed {$theme === 'dark' ? 'text-white/80' : 'text-primary-muted'}">
 					Premium luxury vehicle and yacht rentals connecting owners and enthusiasts. Experience
 					extraordinary with Macro Exotics.
@@ -16,12 +16,12 @@
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-primary-accent'}">Quick Links</h3>
+				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-black'}">Quick Links</h3>
 				<ul class="space-y-2">
 					<li>
 						<a
 							href="/"
-							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						>
 							Home
 						</a>
@@ -29,7 +29,7 @@
 					<li>
 						<a
 							href="/contact"
-							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						>
 							Contact
 						</a>
@@ -37,7 +37,7 @@
 					<li>
 						<a
 							href="/privacy"
-							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						>
 							Privacy Policy
 						</a>
@@ -46,7 +46,7 @@
 						<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
 						<a
 							href="/ourVehicles"
-							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						>
 							Vehicles
 						</a>
@@ -55,20 +55,20 @@
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-primary-accent'}">Contact</h3>
+				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-black'}">Contact</h3>
 				<ul class="space-y-2 text-sm {$theme === 'dark' ? 'text-white/80' : 'text-primary-muted'}">
-					<li>cs@macroexotics.com</li>
+					<li><a href="mailto:support@macroexotics.com" class="hover:underline duration-300">support@macroexotics.com</a></li>
 					<li>21st Collins Ave</li>
 					<li>Miami, FL 33411</li>
 				</ul>
 			</div>
 
 			<div>
-				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-primary-accent'}">Connect With Us</h3>
+				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-miami-light-pink' : 'text-black'}">Connect With Us</h3>
 				<div class="flex space-x-4">
 					<a
 						href="#"
-						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						aria-label="Facebook"
 					>
 						<svg
@@ -82,7 +82,7 @@
 					</a>
 					<a
 						href="#"
-						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						aria-label="X (formerly Twitter)"
 					>
 						<svg
@@ -96,7 +96,7 @@
 					</a>
 					<a
 						href="https://www.instagram.com/macro_exotics/"
-						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						aria-label="Instagram"
 						target="_blank">
 						<svg
@@ -110,7 +110,7 @@
 					</a>
 					<a
 						href="#"
-						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-primary-accent'} transition-colors duration-300"
+						class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-primary-muted hover:text-black'} transition-colors duration-300"
 						aria-label="LinkedIn"
 					>
 						<svg

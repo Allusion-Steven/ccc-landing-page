@@ -13,7 +13,7 @@
 		<div class="container mx-auto">
 			<h2
 				in:fly={{ y: 50, duration: 400, delay: 200 }}
-				class="mb-8 text-center text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">
+				class="mb-8 text-center text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-black'} md:text-5xl">
 				Luxury Vehicle & Yacht Rentals
 			</h2>
 			<p
@@ -94,7 +94,7 @@
 			<div
 				in:fly={{ y: 50, duration: 400, delay: 800 }}
 				class="mx-auto rounded-xl border {$theme === 'dark' ? 'border-[#023131] bg-gradient-to-br from-miami-pink/10 to-miami-blue/10' : 'border-primary-accent/20 bg-gradient-to-br from-primary-accent/10 to-primary-light/10'} p-8 shadow-xl">
-				<h3 class="mb-6 text-center text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Rental Benefits</h3>
+				<h3 class="mb-6 text-center text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-black'}">Rental Benefits</h3>
 				<div class="mx-auto my-0 grid gap-6 text-left md:grid-cols-2">
 					<div class="flex items-center space-x-4">
 						<div class="rounded-full bg-[#513954] p-3">
@@ -111,7 +111,7 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Insurance Coverage</h4>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-black'}">Insurance Coverage</h4>
 							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Comprehensive coverage included</p>
 						</div>
 					</div>
@@ -131,7 +131,7 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Flexible Duration</h4>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-black'}">Flexible Duration</h4>
 							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Daily to monthly rentals available</p>
 						</div>
 					</div>
@@ -151,7 +151,7 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">Delivery Service</h4>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-black'}">Delivery Service</h4>
 							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Door-to-door delivery included</p>
 						</div>
 					</div>
@@ -171,7 +171,7 @@
 							</svg>
 						</div>
 						<div>
-							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">VIP Membership</h4>
+							<h4 class="font-semibold {$theme === 'dark' ? 'text-white' : 'text-black'}">VIP Membership</h4>
 							<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">Exclusive benefits for members</p>
 						</div>
 					</div>

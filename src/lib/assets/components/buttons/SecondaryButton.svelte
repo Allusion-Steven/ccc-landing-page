@@ -32,7 +32,7 @@
 		{href}
 		class="group relative inline-flex {width === ''
 			? 'min-w-48'
-			: width} {className} items-center justify-center rounded-lg border {buttonStyle} px-8 py-4 text-base font-medium backdrop-blur-sm transition-all duration-300 ease-in-out md:text-lg"
+			: width} {className} text-black items-center justify-center rounded-lg border {buttonStyle} px-8 py-4 text-base font-medium backdrop-blur-sm transition-all duration-300 ease-in-out md:text-lg"
 	>
 		{text}
 		<svg

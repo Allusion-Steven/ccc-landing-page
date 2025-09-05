@@ -10,7 +10,7 @@
 		<div class="text-center">
 			<h2
 				in:fly={{ y: 50, duration: 400, delay: 200 }}
-				class="mb-8 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} md:text-5xl">
+				class="mb-8 text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-black'} md:text-5xl">
 				Why Choose Macro Exotics?
 			</h2>
 			<p

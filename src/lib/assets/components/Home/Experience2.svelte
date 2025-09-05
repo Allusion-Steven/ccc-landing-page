@@ -31,11 +31,11 @@
 	];
 </script>
 
-<section class="relative overflow-hidden py-20 {$theme === 'dark' ? 'bg-primary-dark' : 'bg-light-gradient'}">
+<section class="relative overflow-hidden py-20 {$theme === 'dark' ? 'bg-primary-dark' : ''}">
 	<!-- Background Pattern for light theme only -->
 	{#if $theme === 'light'}
 		<div class="absolute inset-0 opacity-5">
-			<div class="absolute inset-0 bg-miami-gradient blur-3xl"></div>
+			<div class="absolute inset-0 "></div>
 		</div>
 	{/if}
 	
@@ -43,10 +43,10 @@
 		<div class="mx-auto max-w-7xl">
 			<!-- Header -->
 			<div class="mb-8 text-center" in:fly={{ y: 30, duration: 600, delay: 100 }}>
-				<h2 class="mb-6 text-4xl font-bold tracking-tight {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} lg:text-6xl" >
+				<h2 class="mb-6 text-4xl font-bold tracking-tight {$theme === 'dark' ? 'text-white' : 'text-black'} lg:text-6xl" >
 					Luxury Experience
 				</h2>
-				<p class="mx-auto max-w-3xl text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'} lg:text-xl">
+				<p class="mx-auto max-w-3xl text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-black/80'} lg:text-xl">
 					Elevate your journey with our exclusive collection of premium vehicles and yachts. 
 					Where luxury meets performance, creating unforgettable experiences.
 				</p>
@@ -57,7 +57,7 @@
 				<!-- Exotic Cars -->
 				<div 
 					in:fly={{ x: -50, duration: 600, delay: 200 }}
-					class="group relative overflow-hidden rounded-2xl bg-gradient-to-br {$theme === 'dark' ? 'from-gray-900/50 to-gray-800/30' : 'from-white/80 to-gray-50/60'} backdrop-blur-xl shadow-2xl transition-all duration-700 "
+					class="group relative overflow-hidden rounded-2xl  backdrop-blur-xl shadow-2xl transition-all duration-700 "
 				>
 					<div class="aspect-[4/5] overflow-hidden">
 						<img
@@ -164,7 +164,7 @@
 				{/if}
 				
 				<div class="relative">
-					<h3 class="mb-12 text-center text-3xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'} lg:text-4xl">
+					<h3 class="mb-12 text-center text-3xl font-bold {$theme === 'dark' ? 'text-white' : 'text-black'} lg:text-4xl">
 						Premium Benefits
 					</h3>
 					
@@ -174,7 +174,7 @@
 								in:scale={{ duration: 400, delay: 600 + i * 100 }}
 								class="group flex flex-col items-center text-center transition-all duration-500"
 							>
-								<div class="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary-accent shadow-lg transition-all duration-500 ">
+								<div class="mb-6 flex h-16 w-16 items-center justify-center rounded-full  bg-primary-accent dark:bg-black shadow-lg transition-all duration-500 ">
 									<svg
 										class="h-8 w-8 text-white"
 										fill="none"
@@ -184,8 +184,8 @@
 										{@html benefit.icon}
 									</svg>
 								</div>
-								<h4 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">{benefit.title}</h4>
-								<p class="text-sm leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">{benefit.description}</p>
+								<h4 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-black'}">{benefit.title}</h4>
+								<p class="text-sm leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}">{benefit.description}</p>
 							</div>
 						{/each}
 					</div>
@@ -204,7 +204,7 @@
 						colorScheme={$theme === 'dark' ? 'dark' : 'light'}
 					/>
 				</div>
-				<p class="mt-4 text-sm {$theme === 'dark' ? 'text-gray-400' : 'text-primary-muted'}">
+				<p class="mt-2 text-sm {$theme === 'dark' ? 'text-gray-400' : 'text-black/80'}">
 					Become part of an exclusive community of luxury enthusiasts
 				</p>
 			</div>

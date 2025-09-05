@@ -17,6 +17,8 @@
 	let innerWidth = $state(0);
 	let isScrolled = $state(false);
 
+	// Logo source reacts directly to the theme store via inline binding in markup
+
 	function closeMenu() {
 		isMenuOpen = false;
 	}
@@ -27,6 +29,15 @@
 
 	onNavigate(() => {
 		closeMenu();
+		// Ensure theme is properly applied after navigation
+		if (typeof window !== 'undefined') {
+			const currentTheme = $theme;
+			if (currentTheme === 'dark') {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		}
 	});
 </script>
 

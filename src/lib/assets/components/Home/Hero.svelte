@@ -76,14 +76,14 @@
                             in:fly={{ y: 30, duration: 200, delay: 100 }}
                             class="mb-6 text-3xl font-bold tracking-tight {$theme === 'dark'
                                 ? 'text-white'
-                                : 'text-primary-accent'} sm:text-4xl md:text-6xl md:mb-8">
+                                : 'text-black'} sm:text-4xl md:text-6xl md:mb-8">
                             Premium Cars & Yachts, Your Way
                         </h1>
                         <p
                             in:fly={{ y: 30, duration: 200, delay: 200 }}
                             class="mx-auto mb-6 max-w-3xl text-center text-lg leading-relaxed {$theme === 'dark'
                                 ? 'text-white/95'
-                                : 'text-primary-accent/95'} drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] sm:text-xl md:mb-8">
+                                : 'text-black/95'} drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)] sm:text-xl md:mb-8">
                             Connect with luxury vehicle owners and experience the extraordinary.
                             From exotic cars to luxury yachts, Macro Exotics delivers
                             unparalleled rental experiences.
@@ -234,7 +234,7 @@
                                         class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-in-out whitespace-nowrap backdrop-blur-sm
                                         {$theme === 'dark'
                                             ? 'bg-white/5 text-white border border-white/20 hover:bg-white/10 hover:border-white/30 hover:-translate-y-0.5'
-                                            : 'bg-white text-primary-accent border border-gray-200 shadow-sm hover:shadow-md hover:border-primary-accent/30 hover:-translate-y-0.5'}"
+                                            : 'bg-white text-black border border-gray-200 shadow-sm hover:shadow-md hover:border-primary-accent/30 hover:-translate-y-0.5'}"
                                         >
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

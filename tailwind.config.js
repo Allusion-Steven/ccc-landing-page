@@ -15,7 +15,7 @@ export default {
 				primary: {
 					light: '#f890e7',  // light pink
 					dark: '#1C1C1C',   // dark background
-					accent: '#513954',  // purple
+					accent: '#000000',  // purple
 					blue: '#8393AA',
 					rasberry: '#BF4959',
 					muted: '#9f7c9d'    // mauve
