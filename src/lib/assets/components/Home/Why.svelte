@@ -96,7 +96,7 @@
 								: 'text-primary-accent'}">
 							Premium Selection
 						</h3>
-						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}>
+						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}>
 							Access to the most exclusive and luxurious vehicles in the market.
 						</p>
 					</div>
@@ -128,7 +128,7 @@
 								: 'text-primary-accent'}">
 							24/7 Support
 						</h3>
-						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}>
+						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}>
 							Round-the-clock assistance for all your rental needs.
 						</p>
 					</div>
@@ -160,7 +160,7 @@
 								: 'text-primary-accent'}">
 							Flexible Payments
 						</h3>
-						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}>
+						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}>
 							Multiple payment options and transparent pricing.
 						</p>
 					</div>
@@ -192,7 +192,7 @@
 								: 'text-primary-accent'}">
 							VIP Experience
 						</h3>
-						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}>
+						<p class={$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}>
 							Personalized service and exclusive benefits for our clients.
 						</p>
 					</div>

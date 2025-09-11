@@ -151,7 +151,7 @@
                             <div class="space-y-6">
                                 <!-- Location -->
                                 <div class="luxury-field">
-                                    <label class="block text-white/60 text-sm font-medium mb-3 tracking-wide">DESTINATION</label>
+                                    <label for="hero-location" class="block text-white/60 text-sm font-medium mb-3 tracking-wide">DESTINATION</label>
                                     <div class="relative">
                                         <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
                                             <svg class="h-5 w-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,6 +160,7 @@
                                             </svg>
                                         </div>
                                         <select
+                                            id="hero-location"
                                             bind:value={location}
                                             class="w-full h-14 pl-12 pr-4 rounded-2xl border-0 {$theme === 'dark'
                                                 ? 'bg-white/5 text-white border border-white/10 focus:border-pink-400/50'
@@ -176,9 +177,10 @@
                                 <!-- Date Range -->
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="luxury-field">
-                                        <label class="block text-white/60 text-sm font-medium mb-3 tracking-wide">FROM</label>
+                                        <label for="hero-pickup-date" class="block text-white/60 text-sm font-medium mb-3 tracking-wide">FROM</label>
                                         <div class="relative">
                                             <input
+                                                id="hero-pickup-date"
                                                 type="date"
                                                 bind:value={pickupDate}
                                                 min={new Date().toISOString().split('T')[0]}
@@ -195,9 +197,10 @@
                                         </div>
                                     </div>
                                     <div class="luxury-field">
-                                        <label class="block text-white/60 text-sm font-medium mb-3 tracking-wide">TO</label>
+                                        <label for="hero-dropoff-date" class="block text-white/60 text-sm font-medium mb-3 tracking-wide">TO</label>
                                         <div class="relative">
                                             <input
+                                                id="hero-dropoff-date"
                                                 type="date"
                                                 bind:value={dropoffDate}
                                                 min={pickupDate || new Date().toISOString().split('T')[0]}
@@ -288,7 +291,9 @@
                             <div class="space-y-4">
                                 <!-- Location -->
                                 <select
+                                    id="hero-mobile-location"
                                     bind:value={location}
+                                    aria-label="Select location"
                                     class="w-full h-12 px-4 rounded-xl border-0 {$theme === 'dark'
                                         ? 'bg-white/5 text-white border border-white/10'
                                         : 'bg-black/10 text-white border border-white/20'}
@@ -302,17 +307,21 @@
                                 <!-- Date Range -->
                                 <div class="grid grid-cols-2 gap-3">
                                     <input
+                                        id="hero-mobile-pickup-date"
                                         type="date"
                                         bind:value={pickupDate}
                                         min={new Date().toISOString().split('T')[0]}
+                                        aria-label="Pickup date"
                                         class="h-12 px-3 rounded-xl border-0 {$theme === 'dark'
                                             ? 'bg-white/5 text-white border border-white/10'
                                             : 'bg-black/10 text-white border border-white/20'}
                                             font-medium transition-all duration-300 focus:ring-2 focus:ring-pink-400/30 focus:outline-none backdrop-blur-sm" />
                                     <input
+                                        id="hero-mobile-dropoff-date"
                                         type="date"
                                         bind:value={dropoffDate}
                                         min={pickupDate || new Date().toISOString().split('T')[0]}
+                                        aria-label="Dropoff date"
                                         class="h-12 px-3 rounded-xl border-0 {$theme === 'dark'
                                             ? 'bg-white/5 text-white border border-white/10'
                                             : 'bg-black/10 text-white border border-white/20'}

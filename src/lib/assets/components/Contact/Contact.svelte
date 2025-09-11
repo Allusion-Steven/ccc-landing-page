@@ -255,12 +255,13 @@
 						<form class="space-y-6">
 							<div class="grid gap-6 md:grid-cols-2">
 								<div class="space-y-2">
-									<label class="text-sm font-medium {$theme === 'dark'
+									<label for="contact-first-name" class="text-sm font-medium {$theme === 'dark'
 										? 'text-gray-300'
 										: 'text-gray-700'}">
 										First Name
 									</label>
 									<input
+										id="contact-first-name"
 										required
 										class="w-full rounded-lg border {$theme === 'dark'
 											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
@@ -272,12 +273,13 @@
 										bind:value={f_name} />
 								</div>
 								<div class="space-y-2">
-									<label class="text-sm font-medium {$theme === 'dark'
+									<label for="contact-last-name" class="text-sm font-medium {$theme === 'dark'
 										? 'text-gray-300'
 										: 'text-gray-700'}">
 										Last Name
 									</label>
 									<input
+										id="contact-last-name"
 										class="w-full rounded-lg border {$theme === 'dark'
 											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
 											: 'border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-500 focus:border-gray-400'} px-4 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
@@ -290,12 +292,13 @@
 							</div>
 							<div class="grid gap-6 md:grid-cols-2">
 								<div class="space-y-2">
-									<label class="text-sm font-medium {$theme === 'dark'
+									<label for="contact-phone" class="text-sm font-medium {$theme === 'dark'
 										? 'text-gray-300'
 										: 'text-gray-700'}">
 										Phone Number
 									</label>
 									<input
+										id="contact-phone"
 										class="w-full rounded-lg border {$theme === 'dark'
 											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
 											: 'border-gray-300 bg-gray-50 text-gray-900 placeholder-gray-500 focus:border-gray-400'} px-4 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
@@ -306,12 +309,13 @@
 										bind:value={phone} />
 								</div>
 								<div class="space-y-2">
-									<label class="text-sm font-medium {$theme === 'dark'
+									<label for="contact-email" class="text-sm font-medium {$theme === 'dark'
 										? 'text-gray-300'
 										: 'text-gray-700'}">
 										Email Address
 									</label>
 									<input
+										id="contact-email"
 										required
 										class="w-full rounded-lg border {$theme === 'dark'
 											? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'
@@ -325,12 +329,13 @@
 								</div>
 							</div>
 							<div class="space-y-2">
-								<label class="text-sm font-medium {$theme === 'dark'
+								<label for="contact-message" class="text-sm font-medium {$theme === 'dark'
 									? 'text-gray-300'
 									: 'text-gray-700'}">
 									Message
 								</label>
 								<textarea
+									id="contact-message"
 									required
 									class="w-full rounded-lg border {$theme === 'dark'
 										? 'border-gray-700 bg-[#232528] text-white placeholder-gray-400 focus:border-gray-600'

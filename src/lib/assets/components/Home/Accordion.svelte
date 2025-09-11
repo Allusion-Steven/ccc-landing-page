@@ -38,7 +38,7 @@
 				>
 					Frequently Asked Questions
 				</h2>
-				<p class="text-lg {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}" in:fly={{ y: 50, duration: 400, delay: 400 }}>
+				<p class="text-lg {$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}" in:fly={{ y: 50, duration: 400, delay: 400 }}>
 					Find answers to common questions about our luxury car rental service
 				</p>
 			</div>
@@ -81,7 +81,7 @@
 										easing: quintOut
 									}}
 								>
-									<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">{faq.answer}</p>
+									<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}">{faq.answer}</p>
 								</div>
 							{/if}
 						</div>
@@ -124,7 +124,7 @@
 										easing: quintOut
 									}}
 								>
-									<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">{faq.answer}</p>
+									<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}">{faq.answer}</p>
 								</div>
 							{/if}
 						</div>

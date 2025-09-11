@@ -15,7 +15,7 @@
 			</h2>
 			<p
 				in:fly={{ y: 50, duration: 400, delay: 300 }}
-				class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+				class="mx-auto mb-12 max-w-2xl text-lg leading-relaxed {$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}">
 				Experience unparalleled luxury and service with our premium vehicle and yacht
 				rental platform. We offer more than just rentals - we create unforgettable
 				experiences.
@@ -42,7 +42,7 @@
 				<h3 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
 					Premium Selection
 				</h3>
-				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}">
 					Access to an exclusive fleet of luxury vehicles and yachts, carefully curated
 					for the most discerning clients.
 				</p>
@@ -67,7 +67,7 @@
 				<h3 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
 					Flexible Options
 				</h3>
-				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}">
 					Customizable rental periods and services tailored to your specific needs and
 					preferences.
 				</p>
@@ -92,7 +92,7 @@
 				<h3 class="mb-3 text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}">
 					Concierge Service
 				</h3>
-				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-primary-muted'}">
+				<p class="{$theme === 'dark' ? 'text-gray-300' : 'text-black/80'}">
 					24/7 personalized assistance and support to ensure a seamless and luxurious
 					experience.
 				</p>
