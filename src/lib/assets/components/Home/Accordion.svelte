@@ -6,15 +6,19 @@
 	import { quintOut } from 'svelte/easing';
 	import { theme } from '$lib/stores/theme';
 
-	export let faqs: FAQItem[];
-	export let showAll = false;
-	export let isHomePage = false;
-	let activeIndex: number | null = null;
-	let contentVisible = false;
+	interface Props {
+		faqs: FAQItem[];
+		showAll?: boolean;
+		isHomePage?: boolean;
+	}
 
-	$: displayFaqs = showAll ? faqs : faqs.slice(0, 10);
-	$: leftColumnFaqs = displayFaqs.filter((_, i) => i % 2 === 0);
-	$: rightColumnFaqs = displayFaqs.filter((_, i) => i % 2 === 1);
+	let { faqs, showAll = false, isHomePage = false }: Props = $props();
+	let activeIndex: number | null = $state(null);
+	let contentVisible = $state(false);
+
+	let displayFaqs = $derived(showAll ? faqs : faqs.slice(0, 10));
+	let leftColumnFaqs = $derived(displayFaqs.filter((_, i) => i % 2 === 0));
+	let rightColumnFaqs = $derived(displayFaqs.filter((_, i) => i % 2 === 1));
 
 	function toggleItem(index: number) {
 		activeIndex = activeIndex === index ? null : index;
@@ -54,7 +58,7 @@
 						>
 							<button
 								class="flex w-full items-center justify-between p-4 text-left"
-								on:click={() => toggleItem(index * 2)}
+								onclick={() => toggleItem(index * 2)}
 							>
 								<span class="text-lg font-medium {$theme === 'dark' ? 'text-white' : 'text-black'}">{faq.title}</span>
 								<svg
@@ -97,7 +101,7 @@
 						>
 							<button
 								class="flex w-full items-center justify-between p-4 text-left"
-								on:click={() => toggleItem(index * 2 + 1)}
+								onclick={() => toggleItem(index * 2 + 1)}
 							>
 								<span class="text-lg font-medium {$theme === 'dark' ? 'text-white' : 'text-black'}">{faq.title}</span>
 								<svg

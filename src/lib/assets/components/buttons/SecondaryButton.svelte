@@ -1,17 +1,31 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { theme } from '$lib/stores/theme';
-	export let href = '';
-	export let text = '';
-	export let type: 'button' | 'submit' | 'reset' = 'button';
-	export let width = '';
-	export let className = '';
-	export let colorScheme: 'default' | 'light' | 'dark' = 'default';
-	export let hoverTextColor = '';
+	interface Props {
+		href?: string;
+		text?: string;
+		type?: 'button' | 'submit' | 'reset';
+		width?: string;
+		className?: string;
+		colorScheme?: 'default' | 'light' | 'dark';
+		hoverTextColor?: string;
+	}
+
+	let {
+		href = '',
+		text = '',
+		type = 'button',
+		width = '',
+		className = '',
+		colorScheme = 'default',
+		hoverTextColor = ''
+	}: Props = $props();
 
 	// Color styles based on colorScheme and theme
-	let buttonStyle = '';
+	let buttonStyle = $state('');
 
-	$: {
+	run(() => {
 		if ($theme === 'dark') {
 			buttonStyle = 'border-white/10 bg-white/5 text-white hover:border-primary-light/30 hover:bg-primary-light/15 hover:text-white';
 		} else {
@@ -24,7 +38,7 @@
 				buttonStyle = 'border-[#513954]/20 bg-[#513954] text-white hover:bg-[#B54959] hover:border-[#B54959]/70 hover:shadow-md hover:shadow-[#B54959]/20';
 			}
 		}
-	}
+	});
 </script>
 
 {#if href}

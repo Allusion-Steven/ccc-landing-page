@@ -51,7 +51,7 @@
 	
 </svelte:head>
 
-<svelte:window bind:innerWidth on:resize={() => (isMenuOpen = false)} on:scroll={handleScroll} />
+<svelte:window bind:innerWidth onresize={() => (isMenuOpen = false)} onscroll={handleScroll} />
 
 <div class={$theme}>
 	<Banner

@@ -16,14 +16,14 @@
 	import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
 
 	let mounted = false;
-	let whyVisible = false;
-	let vehicleCarouselVisible = false;
-	let shopByMakeVisible = false;
-	let yachtCarouselVisible = false;
-	let accordionVisible = false;
-	let experienceVisible = false;
+	let whyVisible = $state(false);
+	let vehicleCarouselVisible = $state(false);
+	let shopByMakeVisible = $state(false);
+	let yachtCarouselVisible = $state(false);
+	let accordionVisible = $state(false);
+	let experienceVisible = $state(false);
 
-	export let data;
+	let { data } = $props();
 	const { featuredVehicles, featuredYachts } = data;
 
 	function intersectionObserver(node: HTMLElement, callback: (isVisible: boolean) => void) {

@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { createBubbler, stopPropagation } from 'svelte/legacy';
+
+	const bubble = createBubbler();
 	import { baseUrl } from '$lib/index';
 	import { Carousel, Input, Modal, Button } from 'flowbite-svelte';
 	import { fade, scale, fly } from 'svelte/transition';
@@ -286,15 +289,15 @@
 			{#if showFiltersModal}
 				<div
 					class="fixed inset-0 z-[60] {$theme === 'dark' ? 'bg-black/50' : 'bg-gray-800/50'} backdrop-blur-sm transition-opacity"
-					on:click={() => (showFiltersModal = false)}
-					on:keydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
+					onclick={() => (showFiltersModal = false)}
+					onkeydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
 					role="button"
 					tabindex="0">
 					<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 					<div
 						class="fixed right-0 top-0 h-full w-[90%] max-w-md transform overflow-y-auto {$theme === 'dark' ? 'bg-[#1c1c1c]' : 'bg-white'} p-6 shadow-xl transition-transform duration-300"
-						on:click|stopPropagation
-						on:keydown|stopPropagation
+						onclick={stopPropagation(bubble('click'))}
+						onkeydown={stopPropagation(bubble('keydown'))}
 						role="dialog"
 						tabindex="-1"
 						transition:fly={{ x: 300, duration: 300 }}>
@@ -302,7 +305,7 @@
 							<h3 class="text-xl font-bold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">Filters</h3>
 							<button
 								class="rounded-lg p-2 {$theme === 'dark' ? 'text-white/70 hover:bg-white/10' : 'text-primary-accent hover:bg-gray-100'}"
-								on:click={() => (showFiltersModal = false)}
+								onclick={() => (showFiltersModal = false)}
 								aria-label="Close filters">
 								<svg
 									class="h-6 w-6"
@@ -336,7 +339,7 @@
 											<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
 										</select>
 										<button
-											on:click={handleLocationSearch}
+											onclick={handleLocationSearch}
 											disabled={isLocationSearching}
 											class="px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 {
 												isLocationSearching 
@@ -484,7 +487,7 @@
 						<h2 class="text-xl font-semibold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">Filters</h2>
 						{#if isAnyFilterActive}
 							<button
-								on:click={clearFilters}
+								onclick={clearFilters}
 								class="text-sm text-[#0bd3d3] transition-colors hover:text-[#0bd3d3]/80">
 								Clear All
 							</button>
@@ -533,7 +536,7 @@
 										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
 									</select>
 									<button
-										on:click={handleLocationSearch}
+										onclick={handleLocationSearch}
 										disabled={isLocationSearching}
 										class="px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 {
 											isLocationSearching 

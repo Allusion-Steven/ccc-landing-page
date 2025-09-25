@@ -6,9 +6,9 @@
 	import { onMount } from 'svelte';
 	import { apiUrl } from '$lib/index';
 
-	let loading = true;
-	let error: string | null = null;
-	let vehicles: Vehicle[] = [];
+	let loading = $state(true);
+	let error: string | null = $state(null);
+	let vehicles: Vehicle[] = $state([]);
 
 	async function fetchData() {
 		loading = true;

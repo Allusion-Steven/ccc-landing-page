@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { createBubbler, stopPropagation } from 'svelte/legacy';
+
+	const bubble = createBubbler();
 	import { baseUrl } from '$lib/index';
 	import { Carousel, Input, Modal, Button } from 'flowbite-svelte';
 	import { fade, scale, fly } from 'svelte/transition';
@@ -321,8 +324,8 @@
 				class="fixed inset-0 z-[60] {$theme === 'dark'
 					? 'bg-black/50'
 					: 'bg-gray-800/50'} backdrop-blur-sm transition-opacity"
-				on:click={() => (showFiltersModal = false)}
-				on:keydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
+				onclick={() => (showFiltersModal = false)}
+				onkeydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
 				role="button"
 				tabindex="0">
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -331,8 +334,8 @@
 					'dark'
 						? 'bg-[#1c1c1c]'
 						: 'bg-white'} p-6 shadow-xl transition-transform duration-300"
-					on:click|stopPropagation
-					on:keydown|stopPropagation
+					onclick={stopPropagation(bubble('click'))}
+					onkeydown={stopPropagation(bubble('keydown'))}
 					role="dialog"
 					tabindex="-1"
 					transition:fly={{ x: 300, duration: 300 }}>
@@ -347,7 +350,7 @@
 							class="rounded-lg p-2 {$theme === 'dark'
 								? 'text-white/70 hover:bg-white/10'
 								: 'text-primary-accent hover:bg-gray-100'}"
-							on:click={() => (showFiltersModal = false)}
+							onclick={() => (showFiltersModal = false)}
 							aria-label="Close filters">
 							<svg
 								class="h-6 w-6"
@@ -405,7 +408,7 @@
 													: 'bg-white'}>Charleston, SC</option>
 										</select>
 										<button
-											on:click={handleLocationChange}
+											onclick={handleLocationChange}
 											disabled={isLocationSearching}
 											class="mt-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 {isLocationSearching
 												? 'cursor-not-allowed bg-gray-400 text-white'
@@ -449,8 +452,8 @@
 									<input
 										type="date"
 										bind:value={pickupDate}
-										on:change={handleDateChange}
-										on:blur={handleDateChange}
+										onchange={handleDateChange}
+										onblur={handleDateChange}
 										min={minPickupDate}
 										class="mt-1 w-full rounded-lg border {$theme === 'dark'
 											? 'border-white/20 bg-white/5 text-white placeholder-white/50'
@@ -464,8 +467,8 @@
 									<input
 										type="date"
 										bind:value={dropoffDate}
-										on:change={handleDateChange}
-										on:blur={handleDateChange}
+										onchange={handleDateChange}
+										onblur={handleDateChange}
 										min={pickupDate}
 										class="mt-1 w-full rounded-lg border {$theme === 'dark'
 											? 'border-white/20 bg-white/5 text-white placeholder-white/50'
@@ -591,7 +594,7 @@
 					</h2>
 					{#if isAnyFilterActive}
 						<button
-							on:click={clearFilters}
+							onclick={clearFilters}
 							class="text-sm text-[#0bd3d3] transition-colors hover:text-[#0bd3d3]/80">
 							Clear All
 						</button>
@@ -662,7 +665,7 @@
 											>Charleston, SC</option>
 									</select>
 									<button
-										on:click={handleLocationChange}
+										onclick={handleLocationChange}
 										disabled={isLocationSearching}
 										class="mt-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 {isLocationSearching
 											? 'cursor-not-allowed bg-gray-400 text-white'
@@ -706,8 +709,8 @@
 								<input
 									type="date"
 									bind:value={pickupDate}
-									on:change={handleDateChange}
-									on:blur={handleDateChange}
+									onchange={handleDateChange}
+									onblur={handleDateChange}
 									min={minPickupDate}
 									class="mt-1 w-full rounded-lg border {$theme === 'dark'
 										? 'border-white/20 bg-white/5 text-white placeholder-white/50'
@@ -721,8 +724,8 @@
 								<input
 									type="date"
 									bind:value={dropoffDate}
-									on:change={handleDateChange}
-									on:blur={handleDateChange}
+									onchange={handleDateChange}
+									onblur={handleDateChange}
 									min={pickupDate}
 									class="mt-1 w-full rounded-lg border {$theme === 'dark'
 										? 'border-white/20 bg-white/5 text-white placeholder-white/50'

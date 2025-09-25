@@ -4,14 +4,19 @@
 	import { theme } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
 
-	// Updated type to handle both direct URLs and urls object structure
-	export let images: VehicleImage[];
+	
+	interface Props {
+		// Updated type to handle both direct URLs and urls object structure
+		images: VehicleImage[];
+	}
 
-	let selectedImageIndex = 0;
-	let transitionDirection = 1; // 1 for right-to-left, -1 for left-to-right
+	let { images }: Props = $props();
+
+	let selectedImageIndex = $state(0);
+	let transitionDirection = $state(1); // 1 for right-to-left, -1 for left-to-right
 
 	// Store for image positions
-	let imagePositions: Record<number, string> = {};
+	let imagePositions: Record<number, string> = $state({});
 
 	// Helper function to get the image URL regardless of format, preferring large URL when available
 	function getImageUrl(image: any): string {
@@ -73,7 +78,7 @@
 			{#if images && images.length > 1}
 				<button
 					class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 p-3 text-white transition-all duration-300 hover:scale-110 backdrop-blur-sm"
-					on:click={() => {
+					onclick={() => {
 						transitionDirection = 1;
 						selectedImageIndex =
 							selectedImageIndex === 0 ? images.length - 1 : selectedImageIndex - 1;
@@ -98,7 +103,7 @@
 				<!-- Right Arrow -->
 				<button
 					class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 p-3 text-white transition-all duration-300 hover:scale-110 backdrop-blur-sm"
-					on:click={() => {
+					onclick={() => {
 						transitionDirection = -1;
 						selectedImageIndex =
 							selectedImageIndex === images.length - 1 ? 0 : selectedImageIndex + 1;
@@ -130,7 +135,7 @@
 							index
 								? 'bg-gradient-to-r from-cyan-400 to-blue-500 shadow-lg'
 								: 'bg-white/30 hover:bg-white/50'}"
-							on:click={() => {
+							onclick={() => {
 								transitionDirection = index > selectedImageIndex ? -1 : 1;
 								selectedImageIndex = index;
 							}}
@@ -150,7 +155,7 @@
 		{#each images as image, index}
 			<button
 				class="group relative h-20 w-full cursor-pointer rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl {selectedImageIndex === index ? 'ring-4 ring-cyan-400 shadow-2xl scale-105' : 'hover:scale-105'}"
-				on:click={() => {
+				onclick={() => {
 					transitionDirection = index > selectedImageIndex ? -1 : 1;
 					selectedImageIndex = index;
 				}}
