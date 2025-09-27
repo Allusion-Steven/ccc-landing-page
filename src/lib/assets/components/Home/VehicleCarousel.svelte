@@ -8,12 +8,21 @@
 	import { theme } from '$lib/stores/theme';
 	import { page } from '$app/stores';
 
-	export let items: Vehicle[] | Yacht[] = [];
-	export let title: string = '';
-	export let viewAllLink: string = '';
-	export let itemType: 'car' | 'yacht' = 'car';
+	interface Props {
+		items?: Vehicle[] | Yacht[];
+		title?: string;
+		viewAllLink?: string;
+		itemType?: 'car' | 'yacht';
+	}
 
-	let visible = false;
+	let {
+		items = [],
+		title = '',
+		viewAllLink = '',
+		itemType = 'car'
+	}: Props = $props();
+
+	let visible = $state(false);
 	onMount(() => {
 		visible = true;
 	});
@@ -96,8 +105,8 @@
 									{#if item.images.length > 1}
 										<Carousel
 											class="pointer-events-none;"
-											let:Controls
-											let:Indicators
+											
+											
 											duration={Math.floor(
 												Math.random() * (5000 - 3000 + 1)
 											) + 3000}
@@ -112,54 +121,56 @@
 													};
 												})}
 											style="width: 100px; object-fit: contain; height:18rem; width: 100%; position: fixed; pointer-events: none;">
-											<div
-												class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-2 text-white {$theme ===
-												'dark'
-													? 'from-black/95 via-black/70 via-black/40 to-transparent'
-													: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
-												<h3
-													class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
-													{item.make}
-													{item.model}
-												</h3>
-												<div class="mt-2 flex items-center justify-between">
-													<p
-														class="text-sm {$theme === 'dark'
-															? 'text-gray-300'
-															: 'text-white'}">
-														{#if isYacht(item)}
-															{item.specs.length} | {item.specs
-																.guests} Guests
-														{:else}
-															{item.year}
-														{/if}
-													</p>
-													<div
-														class="font-semibold {$theme === 'dark'
-															? 'text-miami-bright-blue'
-															: 'text-[#08D3D3]'}">
-														{#if isYacht(item) && item.yachtPricing}
-															<div class="text-sm space-y-0.5">
-																<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
-																<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
-																<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
-															</div>
-														{:else}
-															${new Intl.NumberFormat('en-US').format(
-																item.pricePerDay
-															)}/day
-														{/if}
+											{#snippet children({ Controls, Indicators })}
+																						<div
+													class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-2 text-white {$theme ===
+													'dark'
+														? 'from-black/95 via-black/70 via-black/40 to-transparent'
+														: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
+													<h3
+														class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
+														{item.make}
+														{item.model}
+													</h3>
+													<div class="mt-2 flex items-center justify-between">
+														<p
+															class="text-sm {$theme === 'dark'
+																? 'text-gray-300'
+																: 'text-white'}">
+															{#if isYacht(item)}
+																{item.specs.length} | {item.specs
+																	.guests} Guests
+															{:else}
+																{item.year}
+															{/if}
+														</p>
+														<div
+															class="font-semibold {$theme === 'dark'
+																? 'text-miami-bright-blue'
+																: 'text-[#08D3D3]'}">
+															{#if isYacht(item) && item.yachtPricing}
+																<div class="text-sm space-y-0.5">
+																	<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
+																	<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
+																	<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
+																</div>
+															{:else}
+																${new Intl.NumberFormat('en-US').format(
+																	item.pricePerDay
+																)}/day
+															{/if}
+														</div>
 													</div>
 												</div>
-											</div>
-										</Carousel>
+																																{/snippet}
+																				</Carousel>
 									{:else if item.images.length == 1}
 										<img
 											src={`${item.images[0]?.urls ? item.images[0]?.urls.large : item.images[0]?.url}`}
 											alt={`${item.make} ${item.model}`}
 											loading="lazy"
 											class="absolute h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
-											on:error={(e) => {
+											onerror={(e) => {
 												const target = e.target as HTMLImageElement;
 												target.style.display = 'none';
 												target.nextElementSibling?.classList.remove(

@@ -13,7 +13,7 @@
 	import porscheLogo from '$lib/assets/images/porsche.jpg';
 	import SecondaryButton from '../buttons/SecondaryButton.svelte';
 
-	let visible = false;
+	let visible = $state(false);
 	onMount(() => {
 		visible = true;
 	});

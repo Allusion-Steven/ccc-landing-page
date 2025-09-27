@@ -1,9 +1,18 @@
 <script lang="ts">
 	import { theme } from '$lib/stores/theme';
-	export let href = '';
-	export let text = '';
-	export let type: 'button' | 'submit' | 'reset' = 'button';
-	export let width = '';
+	interface Props {
+		href?: string;
+		text?: string;
+		type?: 'button' | 'submit' | 'reset';
+		width?: string;
+	}
+
+	let {
+		href = '',
+		text = '',
+		type = 'button',
+		width = ''
+	}: Props = $props();
 </script>
 
 {#if href}

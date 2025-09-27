@@ -5,19 +5,30 @@
 	import { page } from '$app/stores';
 	import { apiUrl, dashboardUrl } from '$lib';
 
-	export let id: string;
-	export let showDatePicker: boolean;
-	export let pickupDate: string;
-	export let dropoffDate: string;
-	export let location: string;
-	export let vehicleType: 'vehicle' | 'yacht' = 'vehicle';
+	interface Props {
+		id: string;
+		showDatePicker: boolean;
+		pickupDate: string;
+		dropoffDate: string;
+		location: string;
+		vehicleType?: 'vehicle' | 'yacht';
+	}
 
-	let error: string = '';
-	let selectedDuration: '4' | '6' | '8' = '4'; // Default to 4 hours for yachts
+	let {
+		id,
+		showDatePicker,
+		pickupDate = $bindable(),
+		dropoffDate = $bindable(),
+		location,
+		vehicleType = 'vehicle'
+	}: Props = $props();
+
+	let error: string = $state('');
+	let selectedDuration: '4' | '6' | '8' = $state('4'); // Default to 4 hours for yachts
 
 	// Calculate minimum date based on vehicle type
-	$: minDate =
-		vehicleType === 'yacht' ? get24HoursFromNow() : new Date().toISOString().split('T')[0];
+	let minDate =
+		$derived(vehicleType === 'yacht' ? get24HoursFromNow() : new Date().toISOString().split('T')[0]);
 
 	const handleBooking = () => {
 		const validation =
@@ -185,7 +196,7 @@
 
 			<button
 				type="button"
-				on:click={handleBooking}
+				onclick={handleBooking}
 				class="w-full rounded-lg bg-primary-accent px-6 py-3 font-semibold text-white transition-all duration-300 hover:bg-primary-accent/90 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2 dark:focus:ring-offset-gray-900">
 				Continue to Booking
 			</button>

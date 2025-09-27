@@ -1,4 +1,6 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import heroImage from '$lib/assets/images/lambo-performante.jpg';
     import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
     import { onMount } from 'svelte';
@@ -6,22 +8,22 @@
     import { theme } from '$lib/stores/theme';
     import { dashboardUrl } from '$lib';
 
-    let imageLoaded = false;
-    let location = 'Miami, FL';
-    let pickupDate = new Date().toISOString().split('T')[0];
-    let dropoffDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    let contentVisible = false;
-    let vehicleType = 'Car';
-    let currentBgImage = heroImage;
-    let previousBgImage = heroImage;
-    let isSearching = false;
+    let imageLoaded = $state(false);
+    let location = $state('Miami, FL');
+    let pickupDate = $state(new Date().toISOString().split('T')[0]);
+    let dropoffDate = $state(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+    let contentVisible = $state(false);
+    let vehicleType = $state('Car');
+    let currentBgImage = $state(heroImage);
+    let previousBgImage = $state(heroImage);
+    let isSearching = $state(false);
 
-    $: {
+    run(() => {
         if (currentBgImage !== (vehicleType === 'Car' ? heroImage : yachtHeroBg)) {
             previousBgImage = currentBgImage;
             currentBgImage = vehicleType === 'Car' ? heroImage : yachtHeroBg;
         }
-    }
+    });
 
     onMount(() => {
         contentVisible = true;
@@ -48,7 +50,7 @@
 
 <div class="relative h-[90vh]  md:pt-0">
     <!-- Background & Loading Placeholder -->
-    <div class="loading-placeholder" class:hidden={imageLoaded} />
+    <div class="loading-placeholder" class:hidden={imageLoaded}></div>
     {#if contentVisible}
         <div class="relative h-full overflow-hidden">
             {#key currentBgImage}
@@ -56,7 +58,7 @@
                     class="hero-bg absolute inset-0"
                     style="background-image: url('{currentBgImage}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
                     in:fade={{ duration: 400 }}
-                    out:fade={{ duration: 400 }} />
+                    out:fade={{ duration: 400 }}></div>
             {/key}
 
             <div class="absolute inset-0 {$theme === 'dark'
@@ -106,7 +108,7 @@
                                             : ($theme === 'dark' 
                                                 ? 'text-white/70 hover:text-white hover:bg-white/10' 
                                                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50')} sm:px-6 sm:text-sm"
-                                        on:click={() => { vehicleType = 'Car'; }}>
+                                        onclick={() => { vehicleType = 'Car'; }}>
                                         Cars
                                     </button>
                                     <button
@@ -117,7 +119,7 @@
                                             : ($theme === 'dark' 
                                                 ? 'text-white/70 hover:text-white hover:bg-white/10' 
                                                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50')} sm:px-6 sm:text-sm"
-                                        on:click={() => { vehicleType = 'Yacht'; }}>
+                                        onclick={() => { vehicleType = 'Yacht'; }}>
                                         Yachts
                                     </button>
                                 </div>
@@ -207,7 +209,7 @@
                                             {$theme === 'dark'
                                                 ? 'bg-white text-gray-900 hover:bg-white/90 hover:scale-105 hover:-translate-y-0.5 shadow-lg hover:shadow-xl'
                                                 : 'bg-primary-accent text-white hover:bg-primary-accent/90 hover:scale-105 hover:-translate-y-0.5 shadow-lg hover:shadow-xl'}"
-                                            on:click={handleSearch}
+                                            onclick={handleSearch}
                                             disabled={isSearching}>
                                             {#if isSearching}
                                                 <div class="flex items-center justify-center gap-2">

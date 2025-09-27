@@ -1,4 +1,6 @@
 <script>
+    import { run } from 'svelte/legacy';
+
     import heroImage from '$lib/assets/images/lambo-performante.jpg';
     import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
     import { onMount } from 'svelte';
@@ -7,22 +9,22 @@
     import { dashboardUrl } from '$lib';
 
 
-    let imageLoaded = false;
-    let location = 'Miami, FL';
-    let pickupDate = new Date().toISOString().split('T')[0];
-    let dropoffDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    let contentVisible = false;
-    let vehicleType = 'Car';
-    let currentBgImage = heroImage;
-    let previousBgImage = heroImage;
-    let isSearching = false;
+    let imageLoaded = $state(false);
+    let location = $state('Miami, FL');
+    let pickupDate = $state(new Date().toISOString().split('T')[0]);
+    let dropoffDate = $state(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+    let contentVisible = $state(false);
+    let vehicleType = $state('Car');
+    let currentBgImage = $state(heroImage);
+    let previousBgImage = $state(heroImage);
+    let isSearching = $state(false);
 
-    $: {
+    run(() => {
         if (currentBgImage !== (vehicleType === 'Car' ? heroImage : yachtHeroBg)) {
             previousBgImage = currentBgImage;
             currentBgImage = vehicleType === 'Car' ? heroImage : yachtHeroBg;
         }
-    }
+    });
 
     onMount(() => {
         contentVisible = true;
@@ -49,7 +51,7 @@
 
 <div class="relative h-[90vh] overflow-hidden">
     <!-- Background & Loading Placeholder -->
-    <div class="loading-placeholder" class:hidden={imageLoaded} />
+    <div class="loading-placeholder" class:hidden={imageLoaded}></div>
     {#if contentVisible}
         <div class="relative h-full">
             {#key currentBgImage}
@@ -57,7 +59,7 @@
                     class="hero-bg absolute inset-0 scale-105"
                     style="background-image: url('{currentBgImage}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
                     in:fade={{ duration: 600 }}
-                    out:fade={{ duration: 600 }} />
+                    out:fade={{ duration: 600 }}></div>
             {/key}
 
             <!-- Premium Overlay with Gradient -->
@@ -128,7 +130,7 @@
                                         class="luxury-toggle relative p-4 rounded-xl font-semibold transition-all duration-300 {vehicleType === 'Car'
                                             ? 'bg-white/20 text-white shadow-lg border border-white/30'
                                             : 'text-white/70 hover:text-white hover:bg-white/10'}"
-                                        on:click={() => { vehicleType = 'Car'; }}>
+                                        onclick={() => { vehicleType = 'Car'; }}>
                                         <div class="flex items-center justify-center gap-2 tracking-wider" >
                                             
                                             Exotic Cars
@@ -138,7 +140,7 @@
                                         class="luxury-toggle relative p-4 rounded-xl font-semibold transition-all duration-300 {vehicleType === 'Yacht'
                                             ? 'bg-white/20 text-white shadow-lg border border-white/30'
                                             : 'text-white/70 hover:text-white hover:bg-white/10'}"
-                                        on:click={() => { vehicleType = 'Yacht'; }}>
+                                        onclick={() => { vehicleType = 'Yacht'; }}>
                                         <div class="flex items-center justify-center gap-2 tracking-wider">
                                             
                                             Luxury Yachts
@@ -222,7 +224,7 @@
                                 <button
                                     class="w-full h-16 rounded-2xl font-bold text-lg transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 
                                     bg-white/20 text-white hover:bg-white/30 hover:-translate-y-0.5 shadow-2xl hover:shadow-white/25 border-2 border-white/30"
-                                    on:click={handleSearch}
+                                    onclick={handleSearch}
                                     disabled={isSearching}>
                                     {#if isSearching}
                                         <div class="flex items-center justify-center gap-3">
@@ -274,14 +276,14 @@
                                         class="py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 {vehicleType === 'Car'
                                             ? 'bg-white/20 text-white border border-white/30'
                                             : 'text-white/70 hover:text-white hover:bg-white/10'}"
-                                        on:click={() => { vehicleType = 'Car'; }}>
+                                        onclick={() => { vehicleType = 'Car'; }}>
                                         Cars
                                     </button>
                                     <button
                                         class="py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 {vehicleType === 'Yacht'
                                             ? 'bg-white/20 text-white border border-white/30'
                                             : 'text-white/70 hover:text-white hover:bg-white/10'}"
-                                        on:click={() => { vehicleType = 'Yacht'; }}>
+                                        onclick={() => { vehicleType = 'Yacht'; }}>
                                         Yachts
                                     </button>
                                 </div>
@@ -332,7 +334,7 @@
                                 <button
                                     class="w-full h-14 rounded-xl font-bold transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 
                                     bg-white/20 text-white hover:bg-white/30 hover:scale-105 shadow-xl border-2 border-white/30"
-                                    on:click={handleSearch}
+                                    onclick={handleSearch}
                                     disabled={isSearching}>
                                     {#if isSearching}
                                         <div class="flex items-center justify-center gap-2">

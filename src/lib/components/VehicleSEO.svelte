@@ -1,10 +1,21 @@
 <script lang="ts">
-    export let make: string;
-    export let model: string;
-    export let year: string;
-    export let imageUrl: string;
-    export let vehicleType: 'vehicle' | 'yacht' = 'vehicle';
-    export let canonical: string;
+    interface Props {
+        make: string;
+        model: string;
+        year: string;
+        imageUrl: string;
+        vehicleType?: 'vehicle' | 'yacht';
+        canonical: string;
+    }
+
+    let {
+        make,
+        model,
+        year,
+        imageUrl,
+        vehicleType = 'vehicle',
+        canonical
+    }: Props = $props();
     const vehicleTypeText = vehicleType === 'yacht' ? 'yacht' : 'car';
     const title = `${make} ${model} | Macro Exotics`;
     const description = `${year} ${make} ${model} - Luxury ${vehicleTypeText} rental in Miami. Book now at Macro Exotics.`;

@@ -1,7 +1,11 @@
 <script lang="ts">
     import { theme } from '$lib/stores/theme';
-    export let onSort: (sortOption: string) => void;
-    export let currentSort: string = 'default';
+    interface Props {
+        onSort: (sortOption: string) => void;
+        currentSort?: string;
+    }
+
+    let { onSort, currentSort = 'default' }: Props = $props();
 
     const sortOptions = [
         { value: 'default', label: 'Default' },
@@ -36,7 +40,7 @@
         <select
             id="sort"
             class="w-full rounded-lg border {$theme === 'dark' ? 'border-white/20 bg-white/5 text-white hover:border-white/40 hover:bg-white/10' : 'border-primary-accent/20 bg-primary-accent/5 text-primary-accent hover:border-primary-accent/40 hover:bg-primary-accent/10'} px-4 py-2 pr-10 transition-all focus:border-[#7ed4ac] focus:outline-none focus:ring-1 focus:ring-[#7ed4ac]"
-            on:change={handleSort}
+            onchange={handleSort}
             value={currentSort}
             style:background-color={$theme === 'dark' ? '#1C1C1C' : 'white'}
         >

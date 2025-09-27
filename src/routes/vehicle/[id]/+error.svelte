@@ -3,8 +3,8 @@
 	import { theme } from '$lib/stores/theme';
 	import { fade, fly } from 'svelte/transition';
 
-	$: status = $page.status;
-	$: message = $page.error?.message || 'An unexpected error occurred';
+	let status = $derived($page.status);
+	let message = $derived($page.error?.message || 'An unexpected error occurred');
 </script>
 
 <div class="min-h-screen   flex items-center justify-center px-4" in:fade={{ duration: 500 }}>

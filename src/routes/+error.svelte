@@ -1,11 +1,15 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { theme } from '$lib/stores/theme';
 
-	$: error = $page.error;
-	$: console.log('error: ', error);
+	let error = $derived($page.error);
+	run(() => {
+		console.log('error: ', error);
+	});
 
 	onMount(() => {
 		//set timeout

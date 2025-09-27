@@ -5,7 +5,7 @@
     import { fly } from 'svelte/transition';
     import { theme } from '$lib/stores/theme';
 
-    let contentVisible = false;
+    let contentVisible = $state(false);
 
     onMount(() => {
         setTimeout(() => {
