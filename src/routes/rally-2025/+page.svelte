@@ -5,7 +5,9 @@
 	import carImage1 from '$lib/assets/images/lamborghinis-nyc.png';
 	import carImage2 from '$lib/assets/images/macro-20205-rally.png';
 	import { Car, Clock, Users, MapPin, Utensils, Hotel } from '@lucide/svelte';
-    import ogImage from '$lib/assets/images/macro-annual-rally-og.png';
+    import ogImage from '$lib/assets/images/macro-nyc-skyline.png';
+	import Contact from '$lib/assets/components/Contact/Contact.svelte';
+	import CountdownTimer from '$lib/components/CountdownTimer.svelte';
 
 	let contentVisible = $state(false);
 	let ticketsVisible = $state(false);
@@ -27,17 +29,6 @@
 	const tickets = [
 		{
 			id: 1,
-			title: 'Secondary Rider',
-			image: carImage1,
-			price: '$1,000',
-			features: [
-				{ icon: Car, text: 'Premium Entry Pass' },
-				{ icon: Clock, text: 'Early Access & After Party' },
-				{ icon: Users, text: 'Co-driver (No parking included)' }
-			]
-		},
-		{
-			id: 2,
 
             title: 'Rally Participant',
 			image: carImage2,
@@ -48,6 +39,18 @@
 				{ icon: Hotel, text: 'Hotel Accomodations Included' },
 				{ icon: Utensils, text: 'Dinner Included' }
 			]
+		},
+		{
+			id: 2,
+			title: 'Secondary Rider',
+			image: carImage1,
+			price: '$1,000',
+			features: [
+				{ icon: Car, text: 'Premium Entry Pass' },
+				{ icon: Clock, text: 'Early Access & After Party' },
+				{ icon: Users, text: 'Co-driver (No parking included)' }
+			]
+
 		}
 	];
 </script>
@@ -95,10 +98,10 @@
 	{#if contentVisible}
 		<!-- Hero Content -->
 		<div
-			class="relative z-10 flex h-full min-h-[60vh] flex-col items-center justify-start px-4 pt-10 sm:px-6 lg:px-8 max500:justify-center">
+			class="relative z-10 flex h-full min-h-[60vh] flex-col items-center justify-start px-4 sm:pt-10 sm:px-6 lg:px-8 max500:justify-center">
 			<!-- Date -->
 			<div in:fade={{ duration: 800, delay: 200 }} class="mb-8 text-center">
-				<p class="date-text text-md tracking-[0.3em] text-white sm:text-base md:text-xl">
+				<p class="date-text text-2xl tracking-[0.3em] text-white  md:!text-3xl">
 					11-21-2025
 				</p>
 			</div>
@@ -134,11 +137,27 @@
 	{/if}
 </div>
 
+<!-- Countdown Section -->
+<section class="bg-[#e8e4dc] px-4 py-10 sm:py-12 sm:px-6 lg:px-8 border-b border-gray-300/30">
+	<div class="mx-auto max-w-4xl text-center">
+		{#if contentVisible}
+			<div in:fly={{ y: 20, duration: 600, delay: 300 }}>
+				<h2 class="mb-6 sm:mb-10 text-3xl sm:text-5xl font-light text-gray-900 tracking-tight">
+					Event Starts In
+				</h2>
+				<CountdownTimer 
+					targetDate="2025-11-21T00:00:00" 
+					className="text-gray-900" />
+			</div>
+		{/if}
+	</div>
+</section>
+
 <!-- Tickets Section -->
-<section id="tickets-section" class="bg-[#e8e4dc] px-4 py-20 sm:px-6 lg:px-8">
+<section id="tickets-section" class="bg-[#e8e4dc] px-4 py-10 sm:py-12 sm:px-6 lg:px-8">
 	<div class="mx-auto max-w-7xl">
 		<!-- Section Header -->
-		<div class="mb-16 text-center">
+		<div class="mb-6 sm:mb-16 text-center">
 			<h2
 				class="section-title mb-4 text-4xl font-light text-gray-900 sm:text-5xl md:text-6xl">
 				Ticket Options
@@ -186,11 +205,11 @@
 										<span class="feature-text text-base">{feature.text}</span>
 									</li>
 								{/each}
-								{#if i == 0}
+								{#if i > 0}
 									<li>
 										<span class="mt-4 gap-3 text-xs text-gray-600"
-											>* This ticket must be purchased with a Rally
-											Participant ticket</span>
+											><!-- <span class="text-red-500">***</span> -->** This ticket must be purchased with a Rally
+											Participant ticket **</span>
 									</li>
 								{/if}
 							</ul>
@@ -209,7 +228,18 @@
 				{/each}
 			</div>
 		{/if}
+        
 	</div>
+</section>
+
+<!-- Rally Contact Section -->
+<section>
+	<Contact 
+		showHeader={true}
+		showSalesSupport={false}
+		showMemberSupport={false}
+		customHeader="Questions About the Rally?"
+		customSubheader="Have questions about tickets, accommodations, or the event? Fill out the form below and our team will get back to you within 24 hours." />
 </section>
 
 <style>
@@ -219,22 +249,26 @@
 	.section-title,
 	.section-subtitle,
 	.ticket-title,
-	.ticket-price {
+	.ticket-price,
+	h2 {
 		font-family: 'Cormorant Garamond', serif;
 	}
 
 	.hero-title {
 		font-weight: 400;
 		letter-spacing: 0.02em;
+        text-shadow: 2px 2px 14px black;
 	}
 
 	.hero-subtitle {
 		font-weight: 300;
+        text-shadow: 6px 6px 8px black;
 	}
 
 	.date-text {
 		font-weight: 400;
 		text-transform: uppercase;
+        text-shadow: 2px 2px 4px black;
 	}
 
 	.section-title {
@@ -291,9 +325,9 @@
 	}
 
 	@media (max-width: 480px) {
-		.hero-title {
+/* 		.hero-title {
 			font-size: 2.5rem;
-		}
+		} */
 
 		.hero-subtitle {
 			font-size: 1.75rem;

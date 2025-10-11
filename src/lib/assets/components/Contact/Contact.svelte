@@ -5,6 +5,15 @@
 	import heroBg from '$lib/assets/images/contact-form-bg-img.png';
 	import { theme } from '$lib/stores/theme';
 
+	// Props for controlling which sections to display
+	let {
+		showHeader = true,
+		showSalesSupport = true,
+		showMemberSupport = true,
+		customHeader = '',
+		customSubheader = ''
+	} = $props();
+
 	let email = $state('');
 	let phone = $state('');
 	let f_name = $state('');
@@ -110,128 +119,136 @@
 	class="min-h-screen {$theme === 'dark'
 		? 'bg-[#1c1c1c'
 		: 'bg-gray-50'} py-12 md:py-16">
-	<div class="container mx-auto px-4 md:px-8" in:fly={{ y: 30, duration: 600, delay: 100 }}>
+	<div class="contact-form-typography container mx-auto px-4 md:px-8" in:fly={{ y: 30, duration: 600, delay: 100 }}>
 		<div class="mx-auto max-w-6xl">
 			<!-- Header Section -->
-			<div class="mb-16 text-center" in:fly={{ y: 20, duration: 600, delay: 200 }}>
-				<h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-light {$theme === 'dark'
-					? 'text-white'
-					: 'text-gray-900'} tracking-tight">
-					Contact Us
-				</h1>
-				<p class="mx-auto max-w-2xl text-lg md:text-xl {$theme === 'dark'
-					? 'text-gray-300'
-					: 'text-gray-600'} leading-relaxed">
-					Experience luxury service with personalized attention. We're here to assist you with your premium vehicle and yacht needs.
-				</p>
-			</div>
+			{#if showHeader}
+				<div class="mb-16 text-center" in:fly={{ y: 20, duration: 600, delay: 200 }}>
+					<h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-light {$theme === 'dark'
+						? 'text-white'
+						: 'text-gray-900'} tracking-tight">
+						{customHeader || 'Contact Us'}
+					</h1>
+					<p class="mx-auto max-w-2xl text-lg md:text-xl {$theme === 'dark'
+						? 'text-gray-300'
+						: 'text-gray-600'} leading-relaxed">
+						{customSubheader || "Experience luxury service with personalized attention. We're here to assist you with your premium vehicle and yacht needs."}
+					</p>
+				</div>
+			{/if}
 
 			<!-- Contact Info Cards -->
-			<div class="mb-16 grid gap-8 md:grid-cols-2" in:fly={{ y: 30, duration: 600, delay: 300 }}>
-				<div class="group">
-					<div class="h-full rounded-2xl border {$theme === 'dark'
-						? 'border-gray-800 bg-[#232528]'
-						: 'border-gray-200 bg-white'} p-8 transition-all duration-300 group-hover:shadow-lg {$theme === 'dark'
-						? 'group-hover:shadow-gray-900/25'
-						: 'group-hover:shadow-gray-200/50'}">
-						<div class="mb-6">
-							<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full {$theme === 'dark'
-								? 'bg-gray-700'
-								: 'bg-gray-100'}">
-								<svg class="h-6 w-6 {$theme === 'dark'
-									? 'text-gray-300'
-									: 'text-gray-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-								</svg>
+			{#if showSalesSupport || showMemberSupport}
+				<div class="mb-16 grid gap-8 {showSalesSupport && showMemberSupport ? 'md:grid-cols-2' : 'md:grid-cols-1'}" in:fly={{ y: 30, duration: 600, delay: 300 }}>
+					{#if showSalesSupport}
+						<div class="group">
+							<div class="h-full rounded-2xl border {$theme === 'dark'
+								? 'border-gray-800 bg-[#232528]'
+								: 'border-gray-200 bg-white'} p-8 transition-all duration-300 group-hover:shadow-lg {$theme === 'dark'
+								? 'group-hover:shadow-gray-900/25'
+								: 'group-hover:shadow-gray-200/50'}">
+								<div class="mb-6">
+									<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full {$theme === 'dark'
+										? 'bg-gray-700'
+										: 'bg-gray-100'}">
+										<svg class="h-6 w-6 {$theme === 'dark'
+											? 'text-gray-300'
+											: 'text-gray-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+										</svg>
+									</div>
+									<h3 class="mb-3 text-xl font-medium {$theme === 'dark'
+										? 'text-white'
+										: 'text-gray-900'}">
+										Sales Support
+									</h3>
+								</div>
+								<div class="space-y-3">
+									<p class="text-base {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-600'}">
+										Ready to experience luxury? Our sales team is here to help you find the perfect vehicle or yacht for your needs.
+									</p>
+									<div class="space-y-2">
+										<p class="text-sm {$theme === 'dark'
+											? 'text-gray-400'
+											: 'text-gray-500'}">Phone:</p>
+										<a href="tel:+18888675309" class="block text-lg font-medium {$theme === 'dark'
+											? 'text-white hover:text-gray-300'
+											: 'text-gray-900 hover:text-gray-700'} transition-colors">
+											(888) 867-5309
+										</a>
+									</div>
+									<div class="space-y-2">
+										<p class="text-sm {$theme === 'dark'
+											? 'text-gray-400'
+											: 'text-gray-500'}">Email:</p>
+										<a href="mailto:support@macroexotics.com" class="block text-lg font-medium {$theme === 'dark'
+											? 'text-white hover:text-gray-300'
+											: 'text-gray-900 hover:text-gray-700'} transition-colors">
+											support@macroexotics.com
+										</a>
+									</div>
+								</div>
 							</div>
-							<h3 class="mb-3 text-xl font-medium {$theme === 'dark'
-								? 'text-white'
-								: 'text-gray-900'}">
-								Sales Support
-							</h3>
 						</div>
-						<div class="space-y-3">
-							<p class="text-base {$theme === 'dark'
-								? 'text-gray-300'
-								: 'text-gray-600'}">
-								Ready to experience luxury? Our sales team is here to help you find the perfect vehicle or yacht for your needs.
-							</p>
-							<div class="space-y-2">
-								<p class="text-sm {$theme === 'dark'
-									? 'text-gray-400'
-									: 'text-gray-500'}">Phone:</p>
-								<a href="tel:+18888675309" class="block text-lg font-medium {$theme === 'dark'
-									? 'text-white hover:text-gray-300'
-									: 'text-gray-900 hover:text-gray-700'} transition-colors">
-									(888) 867-5309
-								</a>
-							</div>
-							<div class="space-y-2">
-								<p class="text-sm {$theme === 'dark'
-									? 'text-gray-400'
-									: 'text-gray-500'}">Email:</p>
-								<a href="mailto:support@macroexotics.com" class="block text-lg font-medium {$theme === 'dark'
-									? 'text-white hover:text-gray-300'
-									: 'text-gray-900 hover:text-gray-700'} transition-colors">
-									support@macroexotics.com
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+					{/if}
 
-				<div class="group">
-					<div class="h-full rounded-2xl border {$theme === 'dark'
-						? 'border-gray-800 bg-[#232528]'
-						: 'border-gray-200 bg-white'} p-8 transition-all duration-300 group-hover:shadow-lg {$theme === 'dark'
-						? 'group-hover:shadow-gray-900/25'
-						: 'group-hover:shadow-gray-200/50'}">
-						<div class="mb-6">
-							<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full {$theme === 'dark'
-								? 'bg-gray-700'
-								: 'bg-gray-100'}">
-								<svg class="h-6 w-6 {$theme === 'dark'
-									? 'text-gray-300'
-									: 'text-gray-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-								</svg>
+					{#if showMemberSupport}
+						<div class="group">
+							<div class="h-full rounded-2xl border {$theme === 'dark'
+								? 'border-gray-800 bg-[#232528]'
+								: 'border-gray-200 bg-white'} p-8 transition-all duration-300 group-hover:shadow-lg {$theme === 'dark'
+								? 'group-hover:shadow-gray-900/25'
+								: 'group-hover:shadow-gray-200/50'}">
+								<div class="mb-6">
+									<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full {$theme === 'dark'
+										? 'bg-gray-700'
+										: 'bg-gray-100'}">
+										<svg class="h-6 w-6 {$theme === 'dark'
+											? 'text-gray-300'
+											: 'text-gray-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+										</svg>
+									</div>
+									<h3 class="mb-3 text-xl font-medium {$theme === 'dark'
+										? 'text-white'
+										: 'text-gray-900'}">
+										Member Support
+									</h3>
+								</div>
+								<div class="space-y-3">
+									<p class="text-base {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-600'}">
+										Exclusive support for our valued members. Get priority assistance with your bookings and account management.
+									</p>
+									<div class="space-y-2">
+										<p class="text-sm {$theme === 'dark'
+											? 'text-gray-400'
+											: 'text-gray-500'}">Phone:</p>
+										<a href="tel:+18888675309" class="block text-lg font-medium {$theme === 'dark'
+											? 'text-white hover:text-gray-300'
+											: 'text-gray-900 hover:text-gray-700'} transition-colors">
+											(888) 867-5309
+										</a>
+									</div>
+									<div class="space-y-2">
+										<p class="text-sm {$theme === 'dark'
+											? 'text-gray-400'
+											: 'text-gray-500'}">Email:</p>
+										<a href="mailto:admin@macroexotics.com" class="block text-lg font-medium {$theme === 'dark'
+											? 'text-white hover:text-gray-300'
+											: 'text-gray-900 hover:text-gray-700'} transition-colors">
+											admin@macroexotics.com
+										</a>
+									</div>
+								</div>
 							</div>
-							<h3 class="mb-3 text-xl font-medium {$theme === 'dark'
-								? 'text-white'
-								: 'text-gray-900'}">
-								Member Support
-							</h3>
 						</div>
-						<div class="space-y-3">
-							<p class="text-base {$theme === 'dark'
-								? 'text-gray-300'
-								: 'text-gray-600'}">
-								Exclusive support for our valued members. Get priority assistance with your bookings and account management.
-							</p>
-							<div class="space-y-2">
-								<p class="text-sm {$theme === 'dark'
-									? 'text-gray-400'
-									: 'text-gray-500'}">Phone:</p>
-								<a href="tel:+18888675309" class="block text-lg font-medium {$theme === 'dark'
-									? 'text-white hover:text-gray-300'
-									: 'text-gray-900 hover:text-gray-700'} transition-colors">
-									(888) 867-5309
-								</a>
-							</div>
-							<div class="space-y-2">
-								<p class="text-sm {$theme === 'dark'
-									? 'text-gray-400'
-									: 'text-gray-500'}">Email:</p>
-								<a href="mailto:admin@macroexotics.com" class="block text-lg font-medium {$theme === 'dark'
-									? 'text-white hover:text-gray-300'
-									: 'text-gray-900 hover:text-gray-700'} transition-colors">
-									admin@macroexotics.com
-								</a>
-							</div>
-						</div>
-					</div>
+					{/if}
 				</div>
-			</div>
+			{/if}
 
 			<!-- Contact Form -->
 			<div class="mx-auto max-w-3xl" in:fly={{ y: 30, duration: 600, delay: 400 }}>
@@ -359,7 +376,7 @@
 								type="button"
 								class="w-full rounded-lg {$theme === 'dark'
 									? 'bg-gray-700 hover:bg-gray-600 text-white'
-									: 'bg-gray-900 hover:bg-gray-800 text-white'} px-6 py-4 font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
+									: 'bg-black hover:bg-black/80 text-white'} px-6 py-4 font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-opacity-20 {$theme === 'dark'
 									? 'focus:ring-gray-500'
 									: 'focus:ring-gray-600'}"
 								onclick={handleSendButton}
@@ -413,3 +430,12 @@
 	</div>
 </div>
 
+<style>
+	/* Apply Cormorant Garamond font to headings and labels */
+	:global(.contact-form-typography h1),
+	:global(.contact-form-typography h2),
+	:global(.contact-form-typography h3),
+	:global(.contact-form-typography label) {
+		font-family: 'Cormorant Garamond', serif;
+	}
+</style>
