@@ -99,7 +99,7 @@
 			<!-- Date -->
 			<div in:fade={{ duration: 800, delay: 200 }} class="mb-8 text-center">
 				<p class="date-text text-md tracking-[0.3em] text-white sm:text-base md:text-xl">
-					11-01-2025
+					11-21-2025
 				</p>
 			</div>
 
