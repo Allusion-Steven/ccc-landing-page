@@ -1,6 +1,23 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	let { title, description, link, linkText } = $props();
 	let show = $state(true);
+
+	const STORAGE_KEY = 'macro-exotics-banner-hidden';
+
+	onMount(() => {
+		// Check if banner was previously hidden
+		const wasHidden = localStorage.getItem(STORAGE_KEY);
+		if (wasHidden === 'true') {
+			show = false;
+		}
+	});
+
+	function hideBanner() {
+		show = false;
+		localStorage.setItem(STORAGE_KEY, 'true');
+	}
 </script>
 
 <div
@@ -12,7 +29,7 @@
 		<p>{description}</p>
 	</div>
 	<button
-		onclick={() => (show = false)}
+		onclick={hideBanner}
 		class="right-4 mt-4 w-full rounded-md bg-primary-dark/50 px-4 py-2 text-white hover:bg-primary-dark/80 dark:bg-primary-light/80 dark:hover:bg-primary-light/80 sm:absolute sm:mt-0 sm:w-[100px]">
 		{linkText}
 	</button>

@@ -7,6 +7,7 @@
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
 	import Experience from '$lib/assets/components/Home/Experience.svelte';
 	import Experience2 from '$lib/assets/components/Home/Experience2.svelte';
+	import RallySection from '$lib/assets/components/Home/RallySection.svelte';
 	import { faqData } from '$lib/data/faq';
 	import type { Vehicle, Yacht } from '$lib/types';
 	import { onMount } from 'svelte';
@@ -22,6 +23,7 @@
 	let yachtCarouselVisible = $state(false);
 	let accordionVisible = $state(false);
 	let experienceVisible = $state(false);
+	let rallyVisible = $state(false);
 
 	let { data } = $props();
 	const { featuredVehicles, featuredYachts } = data;
@@ -90,6 +92,19 @@
 	<div in:fade={{ duration: 400 }}>
 		<!-- <Hero /> -->
 		<Hero2 />
+	</div>
+
+	<div use:intersectionObserver={(isVisible) => (rallyVisible = isVisible)}>
+		{#if rallyVisible}
+			<div
+				in:fly={{
+					y: 30,
+					duration: 300,
+					easing: quintOut
+				}}>
+				<RallySection />
+			</div>
+		{/if}
 	</div>
 
 	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>

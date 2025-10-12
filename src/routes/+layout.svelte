@@ -63,8 +63,8 @@
 		class="sticky top-0 z-50 transition-colors duration-300 {isScrolled
 			? 'sm:bg-opacity-50'
 			: 'sm:bg-opacity-100'} {$theme === 'dark'
-			? 'bg-primary-dark text-white'
-			: 'bg-white text-primary-accent'}">
+			? 'bg-gray text-white'
+			: 'bg-gray-100 text-gray-900'}">
 		<div class="container mx-auto flex flex-col items-center md:flex-row md:justify-between">
 			<div class="flex w-full items-center justify-between px-4">
 				<a href="/" class="text-xl font-bold">
@@ -152,9 +152,26 @@
 							href="/"
 							class="text-lg font-medium transition-colors duration-300 {$page.url
 								.pathname === '/'
-								? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm hover:before:bg-primary-light/20'
-								: 'px-4 py-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]'}">
+								? $theme === 'dark'
+									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
+									: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
+								: $theme === 'dark'
+									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
+									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 							Home
+						</a>
+
+						<a
+							href="/rally-2025"
+							class="text-lg font-medium transition-colors duration-300 {$page.url
+								.pathname === '/rally-2025'
+								? $theme === 'dark'
+									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
+									: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
+								: $theme === 'dark'
+									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
+									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
+							2025 Rally
 						</a>
 
 						<!-- TODO: Implement pricing page for live site -->
@@ -163,8 +180,12 @@
 								href="/pricing"
 								class="text-lg font-medium transition-colors duration-300 {$page.url
 									.pathname === '/pricing'
-									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm hover:before:bg-primary-light/20'
-									: 'px-4 py-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]'}">
+									? $theme === 'dark'
+										? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
+										: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
+									: $theme === 'dark'
+										? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
+										: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 								VIP
 							</a>
 						{/if}
@@ -172,26 +193,36 @@
 							href="/contact"
 							class="text-lg font-medium transition-colors duration-300 {$page.url
 								.pathname === '/contact'
-								? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-primary-light/10 before:backdrop-blur-sm hover:before:bg-primary-light/20'
-								: 'px-4 py-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]'}">
+								? $theme === 'dark'
+									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
+									: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
+								: $theme === 'dark'
+									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
+									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 							Contact
 						</a>
 						<a
 							href={dashboardUrl}
-							class="text-lg font-medium transition-colors duration-300 px-4 py-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]">
+							class="text-lg font-medium transition-colors duration-300 {$theme === 'dark'
+								? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
+								: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 							Become a Host
 						</a>
 
 						{#if !$page.data.user}
 							<a
 								href={loginUrl}
-								class="flex items-center justify-center gap-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]">
+								class="flex items-center justify-center gap-2 {$theme === 'dark'
+									? 'hover:bg-gray-800 rounded-lg'
+									: 'hover:bg-gray-200 rounded-lg'}">
 								<AccountIcon className="w-6 h-6 sm:flex hidden" />
 							</a>
 						{:else}
 							<a
 								href="/logout"
-								class="text-lg font-medium transition-colors duration-300 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)]">
+								class="text-lg font-medium transition-colors duration-300 {$theme === 'dark'
+									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
+									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 								Logout
 							</a>
 						{/if}

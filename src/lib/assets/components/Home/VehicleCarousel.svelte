@@ -15,12 +15,7 @@
 		itemType?: 'car' | 'yacht';
 	}
 
-	let {
-		items = [],
-		title = '',
-		viewAllLink = '',
-		itemType = 'car'
-	}: Props = $props();
+	let { items = [], title = '', viewAllLink = '', itemType = 'car' }: Props = $props();
 
 	let visible = $state(false);
 	onMount(() => {
@@ -78,7 +73,7 @@
 	{itemType === 'yacht' && $theme === 'light' ? 'bg-white' : ''}
 	{$theme === 'dark' && itemType !== 'yacht' ? 'bg-transparent' : ''}
 	{$theme === 'light' && itemType !== 'yacht' ? 'bg-white' : ''}">
-	<div class="max-w-8xl container mx-auto px-4 py-16">
+	<div class="max-w-8xl container mx-auto px-4 sm:py-16">
 		{#if visible}
 			<h3
 				in:fly={{ y: 30, duration: 200, delay: 50 }}
@@ -90,11 +85,10 @@
 			</h3>
 			<div class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 				{#each items as item, index}
-
 					{#if itemType === 'car' ? index < 8 : index < 4}
 						<a
 							href={buildItemLink(item)}
-							class="blockGallery group relative h-72 w-full transform overflow-hidden rounded-xl shadow-xl transition-all duration-300  hover:scale-105 {$theme ===
+							class="blockGallery group relative h-72 w-full transform overflow-hidden rounded-xl shadow-xl transition-all duration-300 hover:scale-105 {$theme ===
 							'dark'
 								? 'bg-white/5'
 								: 'bg-[#8393AA]/10'}">
@@ -105,8 +99,6 @@
 									{#if item.images.length > 1}
 										<Carousel
 											class="pointer-events-none;"
-											
-											
 											duration={Math.floor(
 												Math.random() * (5000 - 3000 + 1)
 											) + 3000}
@@ -122,17 +114,18 @@
 												})}
 											style="width: 100px; object-fit: contain; height:18rem; width: 100%; position: fixed; pointer-events: none;">
 											{#snippet children({ Controls, Indicators })}
-																						<div
+												<div
 													class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-2 text-white {$theme ===
 													'dark'
-														? 'from-black/95 via-black/70 via-black/40 to-transparent'
-														: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
+														? 'from-black/95 via-black/40 via-black/70 to-transparent'
+														: 'from-black/95 via-black/40 via-black/70 to-transparent'}">
 													<h3
 														class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
 														{item.make}
 														{item.model}
 													</h3>
-													<div class="mt-2 flex items-center justify-between">
+													<div
+														class="mt-2 flex items-center justify-between">
 														<p
 															class="text-sm {$theme === 'dark'
 																? 'text-gray-300'
@@ -146,24 +139,45 @@
 														</p>
 														<div
 															class="font-semibold {$theme === 'dark'
-																? 'text-miami-bright-blue'
-																: 'text-[#08D3D3]'}">
+																? 'text-white'
+																: 'text-white'}">
 															{#if isYacht(item) && item.yachtPricing}
-																<div class="text-sm space-y-0.5">
-																	<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
-																	<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
-																	<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
+																<div class="space-y-0.5 text-sm">
+																	<div>
+																		4h: ${new Intl.NumberFormat(
+																			'en-US'
+																		).format(
+																			item.yachtPricing
+																				.fourHours
+																		)}
+																	</div>
+																	<div>
+																		6h: ${new Intl.NumberFormat(
+																			'en-US'
+																		).format(
+																			item.yachtPricing
+																				.sixHours
+																		)}
+																	</div>
+																	<div>
+																		8h: ${new Intl.NumberFormat(
+																			'en-US'
+																		).format(
+																			item.yachtPricing
+																				.eightHours
+																		)}
+																	</div>
 																</div>
 															{:else}
-																${new Intl.NumberFormat('en-US').format(
-																	item.pricePerDay
-																)}/day
+																${new Intl.NumberFormat(
+																	'en-US'
+																).format(item.pricePerDay)}/day
 															{/if}
 														</div>
 													</div>
 												</div>
-																																{/snippet}
-																				</Carousel>
+											{/snippet}
+										</Carousel>
 									{:else if item.images.length == 1}
 										<img
 											src={`${item.images[0]?.urls ? item.images[0]?.urls.large : item.images[0]?.url}`}
@@ -180,8 +194,8 @@
 										<div
 											class="fixed bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white {$theme ===
 											'dark'
-												? 'from-black/95 via-black/70 via-black/40 to-transparent'
-												: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
+												? 'from-black/95 via-black/40 via-black/70 to-transparent'
+												: 'from-black/95 via-black/40 via-black/70 to-transparent'}">
 											<h3
 												class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
 												{item.make}
@@ -200,13 +214,31 @@
 												</p>
 												<div
 													class="font-semibold {$theme === 'dark'
-														? 'text-miami-bright-blue'
-														: 'text-miami-bright-blue'}">
+														? 'text-white'
+														: 'text-white'}">
 													{#if isYacht(item) && item.yachtPricing}
-														<div class="text-sm space-y-0.5">
-															<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
-															<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
-															<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
+														<div class="space-y-0.5 text-sm">
+															<div>
+																4h: ${new Intl.NumberFormat(
+																	'en-US'
+																).format(
+																	item.yachtPricing.fourHours
+																)}
+															</div>
+															<div>
+																6h: ${new Intl.NumberFormat(
+																	'en-US'
+																).format(
+																	item.yachtPricing.sixHours
+																)}
+															</div>
+															<div>
+																8h: ${new Intl.NumberFormat(
+																	'en-US'
+																).format(
+																	item.yachtPricing.eightHours
+																)}
+															</div>
 														</div>
 													{:else}
 														${new Intl.NumberFormat('en-US').format(
@@ -230,8 +262,8 @@
 										<div
 											class="absolute bottom-0 left-0 right-0 bg-gradient-to-t p-4 text-white {$theme ===
 											'dark'
-												? 'from-black/95 via-black/70 via-black/40 to-transparent'
-												: 'from-black/95 via-black/70 via-black/40 to-transparent'}">
+												? 'from-black/95 via-black/40 via-black/70 to-transparent'
+												: 'from-black/95 via-black/40 via-black/70 to-transparent'}">
 											<h3
 												class="line-clamp-2 text-xl font-bold tracking-tight text-white drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)] [text-shadow:_1px_1px_2px_rgb(0_0_0_/_80%),_-1px_-1px_2px_rgb(0_0_0_/_80%),_1px_-1px_2px_rgb(0_0_0_/_80%),_-1px_1px_2px_rgb(0_0_0_/_80%)]">
 												{item.make}
@@ -253,10 +285,28 @@
 														? 'text-miami-bright-blue'
 														: 'text-[#8393AA]'}">
 													{#if isYacht(item) && item.yachtPricing}
-														<div class="text-sm space-y-0.5">
-															<div>4h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}</div>
-															<div>6h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.sixHours)}</div>
-															<div>8h: ${new Intl.NumberFormat('en-US').format(item.yachtPricing.eightHours)}</div>
+														<div class="space-y-0.5 text-sm">
+															<div>
+																4h: ${new Intl.NumberFormat(
+																	'en-US'
+																).format(
+																	item.yachtPricing.fourHours
+																)}
+															</div>
+															<div>
+																6h: ${new Intl.NumberFormat(
+																	'en-US'
+																).format(
+																	item.yachtPricing.sixHours
+																)}
+															</div>
+															<div>
+																8h: ${new Intl.NumberFormat(
+																	'en-US'
+																).format(
+																	item.yachtPricing.eightHours
+																)}
+															</div>
 														</div>
 													{:else}
 														${new Intl.NumberFormat('en-US').format(

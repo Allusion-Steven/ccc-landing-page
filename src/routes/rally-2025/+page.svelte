@@ -138,11 +138,11 @@
 </div>
 
 <!-- Countdown Section -->
-<section class="bg-[#e8e4dc] px-4 py-10 sm:py-12 sm:px-6 lg:px-8 border-b border-gray-300/30">
+<section class="bg-[#e8e4dc] px-4 pt-10 sm:py-12 sm:px-6 lg:px-8 border-b border-gray-300/30">
 	<div class="mx-auto max-w-4xl text-center">
 		{#if contentVisible}
 			<div in:fly={{ y: 20, duration: 600, delay: 300 }}>
-				<h2 class="mb-6 sm:mb-10 text-3xl sm:text-5xl font-light text-gray-900 tracking-tight">
+				<h2 class="section-title mb-6 sm:mb-10 text-3xl sm:text-5xl font-light text-gray-900 tracking-tight">
 					Event Starts In
 				</h2>
 				<CountdownTimer 

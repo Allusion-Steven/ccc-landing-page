@@ -58,7 +58,7 @@
 				<div class="flex flex-col sm:flex-row gap-4" in:fly={{ y: 50, duration: 400, delay: 600 }}>
 					<SecondaryButton
 						text="Become a host"
-						colorScheme="dark"
+						colorScheme="default"
 						
 						href="https://my.macroexotics.com/"
 						width="w-full" />

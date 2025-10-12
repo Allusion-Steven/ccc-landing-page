@@ -374,18 +374,7 @@
     }
     
     .luxury-frame {
-        background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-        background-size: 200% 200%;
-        animation: luxuryShimmer 3s ease-in-out infinite;
-    }
-    
-    @keyframes luxuryShimmer {
-        0%, 100% {
-            background-position: 0% 0%;
-        }
-        50% {
-            background-position: 100% 100%;
-        }
+        /* Removed animated gradient shimmer effect */
     }
     
     .luxury-search-card {
