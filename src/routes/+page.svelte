@@ -107,26 +107,12 @@
 		{/if}
 	</div>
 
-	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
-		{#if experienceVisible}
-			<div
-			class="max500:hidden"
-				in:fly={{
-					x: -50,
-					duration: 200,
-					easing: quintOut
-				}}>
-				<Experience2 />
-			</div>
-		{/if}
-	</div>
-
 	<div use:intersectionObserver={(isVisible) => (vehicleCarouselVisible = isVisible)}>
 		{#if vehicleCarouselVisible}
 			<div
 				in:fly={{
 					x: -50,
-					duration: 300,
+					duration: 200,
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
@@ -144,6 +130,22 @@
 			</div>
 		{/if}
 	</div>
+
+	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
+		{#if experienceVisible}
+			<div
+			class="max500:hidden"
+				in:fly={{
+					x: -50,
+					duration: 300,
+					easing: quintOut
+				}}>
+				<Experience2 />
+			</div>
+		{/if}
+	</div>
+
+
 
 	<div use:intersectionObserver={(isVisible) => (whyVisible = isVisible)}>
 		{#if whyVisible}
