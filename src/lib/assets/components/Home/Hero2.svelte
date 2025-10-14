@@ -7,10 +7,12 @@
     import { fade, fly } from 'svelte/transition';
     import { theme } from '$lib/stores/theme';
     import { dashboardUrl } from '$lib';
+    import { CITIES, DEFAULT_CITY } from '$lib/data/cities';
+    import { getClosestCity } from '$lib/utils/geolocation';
 
 
     let imageLoaded = $state(false);
-    let location = $state('Miami, FL');
+    let location = $state(DEFAULT_CITY);
     let pickupDate = $state(new Date().toISOString().split('T')[0]);
     let dropoffDate = $state(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
     let contentVisible = $state(false);
@@ -26,7 +28,7 @@
         }
     });
 
-    onMount(() => {
+    onMount(async () => {
         contentVisible = true;
         imageLoaded = true;
         // Preload images background
@@ -34,6 +36,15 @@
             const img = new window.Image();
             img.src = src;
         });
+
+        // Detect user's closest city
+        try {
+            const closestCity = await getClosestCity();
+            location = closestCity;
+        } catch (error) {
+            console.warn('Failed to detect user location:', error);
+            // Keep default city
+        }
     });
 
     function handleSearch() {
@@ -168,10 +179,9 @@
                                                 ? 'bg-white/5 text-white border border-white/10 focus:border-pink-400/50'
                                                 : 'bg-black/10 text-white border border-white/20 focus:border-pink-400/50'}
                                                 font-medium transition-all duration-300 focus:ring-2 focus:ring-pink-400/30 focus:outline-none backdrop-blur-sm">
-                                            <option value="Miami, FL" class="bg-black text-white">Miami, FL</option>
-                                            <option value="Tampa, FL" class="bg-black text-white">Tampa, FL</option>
-                                            <option value="New York, NY" class="bg-black text-white">New York, NY</option>
-                                            <option value="Charleston, SC" class="bg-black text-white">Charleston, SC</option>
+                                            {#each CITIES as city}
+                                                <option value={city.value} class="bg-black text-white">{city.label}</option>
+                                            {/each}
                                         </select>
                                     </div>
                                 </div>
@@ -300,10 +310,9 @@
                                         ? 'bg-white/5 text-white border border-white/10'
                                         : 'bg-black/10 text-white border border-white/20'}
                                         font-medium transition-all duration-300 focus:ring-2 focus:ring-pink-400/30 focus:outline-none backdrop-blur-sm">
-                                    <option value="Miami, FL" class="bg-black text-white">Miami, FL</option>
-                                    <option value="Tampa, FL" class="bg-black text-white">Tampa, FL</option>
-                                    <option value="New York, NY" class="bg-black text-white">New York, NY</option>
-                                    <option value="Charleston, SC" class="bg-black text-white">Charleston, SC</option>
+                                    {#each CITIES as city}
+                                        <option value={city.value} class="bg-black text-white">{city.label}</option>
+                                    {/each}
                                 </select>
 
                                 <!-- Date Range -->

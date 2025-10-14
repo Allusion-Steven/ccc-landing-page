@@ -5,7 +5,7 @@
 	import carImage1 from '$lib/assets/images/lamborghinis-nyc.png';
 	import carImage2 from '$lib/assets/images/macro-20205-rally.png';
 	import { Car, Clock, Users, MapPin, Utensils, Hotel } from '@lucide/svelte';
-    import ogImage from '$lib/assets/images/macro-nyc-skyline.png';
+	import ogImage from '$lib/assets/images/macro-nyc-skyline.png';
 	import Contact from '$lib/assets/components/Contact/Contact.svelte';
 	import CountdownTimer from '$lib/components/CountdownTimer.svelte';
 
@@ -30,7 +30,7 @@
 		{
 			id: 1,
 
-            title: 'Rally Participant',
+			title: 'Rally Participant',
 			image: carImage2,
 			price: '$1,500',
 			features: [
@@ -50,27 +50,32 @@
 				{ icon: Clock, text: 'Early Access & After Party' },
 				{ icon: Users, text: 'Co-driver (No parking included)' }
 			]
-
 		}
 	];
 </script>
 
 <svelte:head>
 	<title>Macro Annual Rally 2025 - New York City</title>
-	<meta name="description" content="Join us for the Macro Annual Rally 2025 in New York City on November 1st. Experience luxury exotic cars, exclusive after party, hotel accommodations, and fine dining." />
-	
+	<meta
+		name="description"
+		content="Join us for the Macro Annual Rally 2025 in New York City on November 1st. Experience luxury exotic cars, exclusive after party, hotel accommodations, and fine dining." />
+
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="Macro Annual Rally 2025 - New York City" />
-	<meta property="og:description" content="Join us for the Macro Annual Rally 2025 in New York City on November 1st. Experience luxury exotic cars, exclusive after party, hotel accommodations, and fine dining." />
+	<meta
+		property="og:description"
+		content="Join us for the Macro Annual Rally 2025 in New York City on November 1st. Experience luxury exotic cars, exclusive after party, hotel accommodations, and fine dining." />
 	<meta property="og:image" content={ogImage} />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
-	
+
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Macro Annual Rally 2025 - New York City" />
-	<meta name="twitter:description" content="Join us for the Macro Annual Rally 2025 in New York City on November 1st. Experience luxury exotic cars, exclusive after party, hotel accommodations, and fine dining." />
+	<meta
+		name="twitter:description"
+		content="Join us for the Macro Annual Rally 2025 in New York City on November 1st. Experience luxury exotic cars, exclusive after party, hotel accommodations, and fine dining." />
 	<meta name="twitter:image" content={ogImage} />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -98,10 +103,10 @@
 	{#if contentVisible}
 		<!-- Hero Content -->
 		<div
-			class="relative z-10 flex h-full min-h-[60vh] flex-col items-center justify-start px-4 sm:pt-10 sm:px-6 lg:px-8 max500:justify-center">
+			class="relative z-10 flex h-full min-h-[60vh] flex-col items-center justify-start px-4 sm:px-6 sm:pt-10 lg:px-8 max500:justify-center">
 			<!-- Date -->
 			<div in:fade={{ duration: 800, delay: 200 }} class="mb-8 text-center">
-				<p class="date-text text-2xl tracking-[0.3em] text-white  md:!text-3xl">
+				<p class="date-text text-2xl tracking-[0.3em] text-white md:!text-3xl">
 					11-21-2025
 				</p>
 			</div>
@@ -138,26 +143,25 @@
 </div>
 
 <!-- Countdown Section -->
-<section class="bg-[#e8e4dc] px-4 pt-10 sm:py-12 sm:px-6 lg:px-8 border-b border-gray-300/30">
+<section class="border-b border-gray-300/30 bg-[#e8e4dc] px-4 pt-10 sm:px-6 sm:py-12 lg:px-8">
 	<div class="mx-auto max-w-4xl text-center">
 		{#if contentVisible}
 			<div in:fly={{ y: 20, duration: 600, delay: 300 }}>
-				<h2 class="section-title mb-6 sm:mb-10 text-3xl sm:text-5xl font-light text-gray-900 tracking-tight">
+				<h2
+					class="section-title mb-6 text-3xl font-light tracking-tight text-gray-900 sm:mb-10 sm:text-5xl">
 					Event Starts In
 				</h2>
-				<CountdownTimer 
-					targetDate="2025-11-21T00:00:00" 
-					className="text-gray-900" />
+				<CountdownTimer targetDate="2025-11-21T00:00:00" className="text-gray-900" />
 			</div>
 		{/if}
 	</div>
 </section>
 
 <!-- Tickets Section -->
-<section id="tickets-section" class="bg-[#e8e4dc] px-4 py-10 sm:py-12 sm:px-6 lg:px-8">
+<section id="tickets-section" class="bg-[#e8e4dc] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
 	<div class="mx-auto max-w-7xl">
 		<!-- Section Header -->
-		<div class="mb-6 sm:mb-16 text-center">
+		<div class="mb-6 text-center sm:mb-16">
 			<h2
 				class="section-title mb-4 text-4xl font-light text-gray-900 sm:text-5xl md:text-6xl">
 				Ticket Options
@@ -173,7 +177,7 @@
 				{#each tickets as ticket, i}
 					<div
 						in:fly={{ y: 30, duration: 600, delay: 200 + i * 150 }}
-						class="ticket-card group relative overflow-hidden rounded-sm border border-gray-300/50 bg-white/40 backdrop-blur-sm transition-all duration-300 hover:border-gray-400 hover:shadow-2xl">
+						class="ticket-card group relative overflow-hidden rounded-sm border border-gray-300/50 bg-white/40 backdrop-blur-sm transition-all duration-300  hover:shadow-2xl">
 						<!-- Car Image -->
 						<div class="aspect-video w-full overflow-hidden">
 							<img
@@ -208,33 +212,30 @@
 								{#if i > 0}
 									<li>
 										<span class="mt-4 gap-3 text-xs text-gray-600"
-											><!-- <span class="text-red-500">***</span> -->** This ticket must be purchased with a Rally
-											Participant ticket **</span>
+											><!-- <span class="text-red-500">***</span> -->** This
+											ticket must be purchased with a Rally Participant ticket
+											**</span>
 									</li>
 								{/if}
 							</ul>
 
 							<!-- Purchase Button -->
 							<stripe-buy-button
-                                buy-button-id="buy_btn_1SGjaWG7g2texiO0NsUHXNiE"
+								buy-button-id="buy_btn_1SGjaWG7g2texiO0NsUHXNiE"
 								publishable-key="pk_live_51QjmHXG7g2texiO0K3rrwr4XKIYt8VLZiQZAox29UajhbEzRRIXtpbZ3bs0GaurK1Qk8vfXJarenmJKmR2FHMzg000er6WUAx9">
-
 								SELECT TICKET
 							</stripe-buy-button>
-
-
 						</div>
 					</div>
 				{/each}
 			</div>
 		{/if}
-        
 	</div>
 </section>
 
 <!-- Rally Contact Section -->
 <section>
-	<Contact 
+	<Contact
 		showHeader={true}
 		showSalesSupport={false}
 		showMemberSupport={false}
@@ -257,18 +258,18 @@
 	.hero-title {
 		font-weight: 400;
 		letter-spacing: 0.02em;
-        text-shadow: 2px 2px 14px black;
+		text-shadow: 2px 2px 14px black;
 	}
 
 	.hero-subtitle {
 		font-weight: 300;
-        text-shadow: 6px 6px 8px black;
+		text-shadow: 6px 6px 8px black;
 	}
 
 	.date-text {
 		font-weight: 400;
 		text-transform: uppercase;
-        text-shadow: 2px 2px 4px black;
+		text-shadow: 2px 2px 4px black;
 	}
 
 	.section-title {
@@ -325,7 +326,7 @@
 	}
 
 	@media (max-width: 480px) {
-/* 		.hero-title {
+		/* 		.hero-title {
 			font-size: 2.5rem;
 		} */
 
@@ -338,26 +339,4 @@
 		}
 	}
 
-	/* Override Stripe button default styles */
-	:global(stripe-buy-button) {
-		width: 100%;
-	}
-
-	:global(stripe-buy-button::part(button)) {
-		background-color: transparent !important;
-		border: 1px solid rgba(156, 163, 175, 0.5) !important;
-		color: rgb(55, 65, 81) !important;
-		padding: 0.75rem 1rem !important;
-		font-size: 0.875rem !important;
-		letter-spacing: 0.2em !important;
-		border-radius: 0.125rem !important;
-		transition: all 0.3s ease !important;
-		font-weight: 400 !important;
-	}
-
-	:global(stripe-buy-button::part(button):hover) {
-		background-color: rgb(0, 0, 0) !important;
-		border-color: rgb(0, 0, 0) !important;
-		color: rgb(255, 255, 255) !important;
-	}
 </style>

@@ -12,6 +12,8 @@
 	import { theme } from '$lib/stores/theme';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { CITIES, DEFAULT_CITY } from '$lib/data/cities';
+	import { getClosestCity } from '$lib/utils/geolocation';
 	import {
 		getUniqueTypes,
 		getMinMaxPrice,
@@ -57,7 +59,7 @@
 	// Initialize pickupDate, dropoffDate, and location with data from URL or defaults
 	let pickupDate = $state(initialPickupDate || '');
 	let dropoffDate = $state(initialDropoffDate || '');
-	let location = $state(initialLocation || 'Miami, FL');
+	let location = $state(initialLocation || DEFAULT_CITY);
 
 	// Calculate minimum date (24 hours from now)
 	const minPickupDate = $derived(
@@ -67,7 +69,7 @@
 	// Handle URL parameters when the page loads
 	$effect(() => {
 		const searchParams = $page.url.searchParams;
-		location = searchParams.get('location') || initialLocation || 'Miami, FL';
+		location = searchParams.get('location') || initialLocation || DEFAULT_CITY;
 		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
 		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
 		const makeParam = searchParams.get('make') || initialMake || '';
@@ -214,6 +216,18 @@
 
 	// Preload image positions when component mounts
 	onMount(async () => {
+		// Detect user's closest city if no location is set
+		if (!location || location === DEFAULT_CITY) {
+			try {
+				const closestCity = await getClosestCity();
+				location = closestCity;
+				// Update URL with detected location
+				updateURL();
+			} catch (error) {
+				console.warn('Failed to detect user location:', error);
+			}
+		}
+
 		for (const vehicle of vehicles) {
 			if (vehicle.images && vehicle.images.length > 0) {
 				const firstImage =
@@ -386,26 +400,13 @@
 											class="mt-1 flex-1 rounded-lg border {$theme === 'dark'
 												? 'border-white/20 bg-white/5 text-white'
 												: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
-											<option
-												value="Miami, FL"
-												class={$theme === 'dark'
-													? 'bg-gray-800'
-													: 'bg-white'}>Miami, FL</option>
-											<option
-												value="Tampa, FL"
-												class={$theme === 'dark'
-													? 'bg-gray-800'
-													: 'bg-white'}>Tampa, FL</option>
-											<option
-												value="New York, NY"
-												class={$theme === 'dark'
-													? 'bg-gray-800'
-													: 'bg-white'}>New York, NY</option>
-											<option
-												value="Charleston, SC"
-												class={$theme === 'dark'
-													? 'bg-gray-800'
-													: 'bg-white'}>Charleston, SC</option>
+											{#each CITIES as city}
+												<option
+													value={city.value}
+													class={$theme === 'dark'
+														? 'bg-gray-800'
+														: 'bg-white'}>{city.label}</option>
+											{/each}
 										</select>
 										<button
 											onclick={handleLocationChange}
@@ -647,22 +648,12 @@
 										class="mt-1 flex-1 rounded-lg border {$theme === 'dark'
 											? 'border-white/20 bg-white/5 text-white'
 											: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
-										<option
-											value="Miami, FL"
-											class={$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}
-											>Miami, FL</option>
-										<option
-											value="Tampa, FL"
-											class={$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}
-											>Tampa, FL</option>
-										<option
-											value="New York, NY"
-											class={$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}
-											>New York, NY</option>
-										<option
-											value="Charleston, SC"
-											class={$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}
-											>Charleston, SC</option>
+										{#each CITIES as city}
+											<option
+												value={city.value}
+												class={$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}
+												>{city.label}</option>
+										{/each}
 									</select>
 									<button
 										onclick={handleLocationChange}
@@ -899,10 +890,45 @@
 			{#if filteredVehicles.length === 0}
 				<div
 					in:fade={{ duration: 200 }}
-					class="mt-8 text-center {$theme === 'dark'
-						? 'text-gray-400'
-						: 'text-primary-accent'}">
-					<p>No vehicles match your search criteria.</p>
+					class="mt-8 rounded-xl {$theme === 'dark'
+						? 'bg-white/5 text-gray-300'
+						: 'bg-gray-100 text-gray-700'} p-8 text-center">
+					{#if vehicles.length === 0 && location}
+						<div class="mx-auto max-w-2xl">
+							<svg class="mx-auto h-16 w-16 {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'} mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+							</svg>
+							<h3 class="mb-3 text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+								No Vehicles Available in {location}
+							</h3>
+							<p class="mb-6 text-lg">
+								We currently don't have vehicles available in this location. If you would like to list your luxury vehicle in this area, please consider joining our platform or reach out to us directly.
+							</p>
+							<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+								<a
+									href="/contact"
+									class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 {$theme === 'dark'
+										? 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+										: 'bg-gray-200 text-gray-800 hover:bg-gray-300 border border-gray-300'}">
+									<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+									</svg>
+									Contact Us
+								</a>
+								<a
+									href="https://my.macroexotics.com"
+									target="_blank"
+									class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-[#0bd3d3] text-black hover:bg-[#0bd3d3]/80">
+									<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+									</svg>
+									List Your Vehicle
+								</a>
+							</div>
+						</div>
+					{:else}
+						<p class="text-lg">No vehicles match your search criteria.</p>
+					{/if}
 				</div>
 			{/if}
 		</div>

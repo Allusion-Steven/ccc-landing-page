@@ -13,6 +13,8 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { getTomorrow, validateDates } from '$lib/utils/dateUtils';
+	import { CITIES, DEFAULT_CITY } from '$lib/data/cities';
+	import { getClosestCity } from '$lib/utils/geolocation';
 	import {
 		getUniqueTypes,
 		getMinMaxPrice,
@@ -29,7 +31,19 @@
 	let contentVisible = $state(false);
 	let currentSort = $state('default');
 
-	onMount(() => {
+	onMount(async () => {
+		// Detect user's closest city if no location is set
+		if (!location || location === DEFAULT_CITY) {
+			try {
+				const closestCity = await getClosestCity();
+				location = closestCity;
+				// Update URL with detected location
+				updateUrlParams();
+			} catch (error) {
+				console.warn('Failed to detect user location:', error);
+			}
+		}
+
 		setTimeout(() => {
 			contentVisible = true;
 		}, 100);
@@ -332,11 +346,9 @@
 											id="location-mobile"
 											bind:value={location}
 											class="flex-1 rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
-											<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
-											<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-											<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Tampa, FL</option>
-											<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
-											<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
+											{#each CITIES as city}
+												<option value={city.value} class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">{city.label}</option>
+											{/each}
 										</select>
 										<button
 											onclick={handleLocationSearch}
@@ -529,11 +541,9 @@
 										id="location-desktop"
 										bind:value={location}
 										class="flex-1 rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
-										<option value="" disabled class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Select Location</option>
-										<option value="Miami, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Miami, FL</option>
-										<option value="Tampa, FL" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Tampa, FL</option>
-										<option value="New York, NY" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">New York, NY</option>
-										<option value="Charleston, SC" class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">Charleston, SC</option>
+										{#each CITIES as city}
+											<option value={city.value} class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">{city.label}</option>
+										{/each}
 									</select>
 									<button
 										onclick={handleLocationSearch}
@@ -739,8 +749,48 @@
 				</div>
 
 				{#if filteredYachts.length === 0}
-					<div in:fade={{ duration: 200 }} class="mt-8 text-center {$theme === 'dark' ? 'text-gray-400' : 'text-primary-accent'}">
-						<p>No yachts match your search criteria.</p>
+					<div
+						in:fade={{ duration: 200 }}
+						class="mt-8 rounded-xl {$theme === 'dark'
+							? 'bg-white/5 text-gray-300'
+							: 'bg-gray-100 text-gray-700'} p-8 text-center">
+						{#if yachts.length === 0 && location}
+							<div class="mx-auto max-w-2xl">
+								<svg class="mx-auto h-16 w-16 {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'} mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+									<circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle>
+								</svg>
+								<h3 class="mb-3 text-2xl font-bold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">
+									No Yachts Available in {location}
+								</h3>
+								<p class="mb-6 text-lg">
+									We currently don't have yachts available in this location. If you would like to list your luxury yacht in this area, please consider joining our platform or reach out to us directly.
+								</p>
+								<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+									<a
+										href="/contact"
+										class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 {$theme === 'dark'
+											? 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+											: 'bg-gray-200 text-gray-800 hover:bg-gray-300 border border-gray-300'}">
+										<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+										</svg>
+										Contact Us
+									</a>
+									<a
+										href="https://my.macroexotics.com"
+										target="_blank"
+										class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-[#0bd3d3] text-black hover:bg-[#0bd3d3]/80">
+										<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+										</svg>
+										List Your Yacht
+									</a>
+								</div>
+							</div>
+						{:else}
+							<p class="text-lg">No yachts match your search criteria.</p>
+						{/if}
 					</div>
 				{/if}
 			</div>
