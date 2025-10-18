@@ -13,10 +13,9 @@ export const load: PageServerLoad = async ({ url }) => {
     const dropoffDate = url?.searchParams?.get('dropoffDate') || '';
     const location = url?.searchParams?.get('location') || '';
 
-    const response = await fetch(`${apiUrl}/vehicles?vehicleType=yacht`);
+    const response = await fetch(`${apiUrl}/vehicles/yacht/getFeaturedYachts`);
     const vehicles = await response.json();
 
-    console.log('Vehicles-------------', vehicles);
 
     // Additional filtering to ensure only yacht type vehicles are included
     if (vehicles && vehicles.vehicles ) {
