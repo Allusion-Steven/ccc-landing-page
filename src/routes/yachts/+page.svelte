@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { createBubbler, stopPropagation } from 'svelte/legacy';
-
-	const bubble = createBubbler();
 	import { baseUrl } from '$lib/index';
 	import { Carousel, Input, Modal, Button } from 'flowbite-svelte';
 	import { fade, scale, fly } from 'svelte/transition';
@@ -12,7 +9,6 @@
 	import { theme } from '$lib/stores/theme';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { getTomorrow, validateDates } from '$lib/utils/dateUtils';
 	import { CITIES, DEFAULT_CITY } from '$lib/data/cities';
 	import { getClosestCity } from '$lib/utils/geolocation';
 	import {
@@ -24,125 +20,138 @@
 	} from '$lib/utils/filtering';
 
 	let { data }: { data: PageData } = $props();
-	const { pickupDate: initialPickupDate, dropoffDate: initialDropoffDate, location: initialLocation, yachts } = data;
 
 	console.log('Yacht-------------s', data);
 
-	let contentVisible = $state(false);
 	let currentSort = $state('default');
 
-	onMount(async () => {
-		// Detect user's closest city if no location is set
-		if (!location || location === DEFAULT_CITY) {
-			try {
-				const closestCity = await getClosestCity();
-				location = closestCity;
-				// Update URL with detected location
-				updateUrlParams();
-			} catch (error) {
-				console.warn('Failed to detect user location:', error);
-			}
-		}
+	const initialLocation = $state(data.location || DEFAULT_CITY);
 
-		setTimeout(() => {
-			contentVisible = true;
-		}, 100);
-	});
+	let pickupDate = $state(data.pickupDate || '');
+	let dropoffDate = $state(data.dropoffDate || '');
 
-	// Filter states
-	let searchQuery = $state('');
+	let location = $state(data.location || DEFAULT_CITY);
+	let yachts = $state(data.yachts || []);
+	let allYachts = $state(data.allYachts || []);
 	let maxPrice = $state(0);
 	let minGuests = $state(0);
 	let maxGuests = $state(0);
-	let showFiltersModal = $state(false);
-	let pickupDate = $state(initialPickupDate);
-	let dropoffDate = $state(initialDropoffDate);
-	let location = $state(initialLocation);
-	let dateError = $state('');
 
-	// Handle URL parameters when the page loads
-	$effect(() => {
-		const searchParams = $page.url.searchParams;
-		location = searchParams.get('location') || initialLocation;
-		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
-		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
-	});
+	// Filter states
+	let searchQuery = $state('');
+	let showFiltersModal = $state(false);
+
+	// Calculate minimum date (24 hours from now)
+	const minPickupDate = $derived(
+		new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+	);
 
 	// Get unique tags from yachts array
 	const yachtTypes = getUniqueTypes(yachts);
 	let selectedTypes = $state<string[]>([]);
 
-	// Get min and max values for the filters
-	const { min: minPriceAvailable, max: maxPriceAvailable } = getMinMaxPrice(yachts);
-	const { min: minGuestsAvailable, max: maxGuestsAvailable } = getMinMaxGuests(yachts);
+	// Filter yachts by location first
+	let yachtsByLocation = $derived.by(() => {
+		return allYachts.filter((yacht: any) => yacht.pickupLocation?.state === location.split(',')[1].trim());
+	});
 
-	// Initialize filters to their full ranges
-	maxPrice = maxPriceAvailable;
-	minGuests = minGuestsAvailable;
-	maxGuests = maxGuestsAvailable;
+	// Get min and max values for the filters (based on location-filtered yachts)
+	const minPriceAvailable = $derived(getMinMaxPrice(yachtsByLocation).min);
+	const maxPriceAvailable = $derived(getMinMaxPrice(yachtsByLocation).max);
+	const minGuestsAvailable = $derived(getMinMaxGuests(yachtsByLocation).min);
+	const maxGuestsAvailable = $derived(getMinMaxGuests(yachtsByLocation).max);
 
-	// Update filteredYachts to include sorting (location filtering now handled server-side)
-	const filteredYachts = $derived(filterItems(
-		yachts,
-		searchQuery,
-		maxPrice,
-		selectedTypes,
-		currentSort,
-		(yacht) => yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests
-	));
+	// Apply all filters (location, price, guests, search, types) and sorting
+	let filteredYachts = $derived.by(() => {
+		let filtered = yachtsByLocation;
 
-	// Check if any filters are active
-	const isAnyFilterActive = $derived(checkFiltersActive(
-		searchQuery,
-		maxPrice,
-		maxPriceAvailable,
-		selectedTypes,
-		{
-			guestRange: minGuests !== minGuestsAvailable || maxGuests !== maxGuestsAvailable
+		// Apply price filter - check both daily pricing and yacht hourly pricing
+		filtered = filtered.filter((yacht: any) => {
+			// If yacht has daily pricing, check against maxPrice
+			if (yacht.pricePerDay !== null && yacht.pricePerDay !== undefined) {
+				return yacht.pricePerDay <= maxPrice;
+			}
+
+			// If yacht has hourly pricing, check if the minimum rate is within maxPrice
+			if (yacht.yachtPricing) {
+				const minRate = Math.min(
+					yacht.yachtPricing.fourHours,
+					yacht.yachtPricing.sixHours,
+					yacht.yachtPricing.eightHours
+				);
+				return minRate <= maxPrice;
+			}
+
+			// If no pricing info, include by default
+			return true;
+		});
+		
+		// Apply guests filter
+		filtered = filtered.filter((yacht: any) => yacht.specs.guests >= minGuests && yacht.specs.guests <= maxGuests);
+		
+		// Apply search filter
+		if (searchQuery) {
+			filtered = filtered.filter((yacht: any) => 
+				yacht.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				yacht.model.toLowerCase().includes(searchQuery.toLowerCase())
+			);
 		}
-	));
+		
+		// Apply type filter
+		if (selectedTypes.length > 0) {
+			filtered = filtered.filter((yacht: any) => 
+				yacht.tags?.some((tag: string) => selectedTypes.includes(tag))
+			);
+		}
 
-	// Watch for changes to date and location filters and update URL
+		if (currentSort === 'price-asc') {
+			filtered = filtered.sort((a: any, b: any) => {
+				const priceA = a.pricePerDay || (a.yachtPricing ? Math.min(a.yachtPricing.fourHours, a.yachtPricing.sixHours, a.yachtPricing.eightHours) : 0);
+				const priceB = b.pricePerDay || (b.yachtPricing ? Math.min(b.yachtPricing.fourHours, b.yachtPricing.sixHours, b.yachtPricing.eightHours) : 0);
+				return priceA - priceB;
+			});
+		} else if (currentSort === 'price-desc') {
+			filtered = [...filtered].sort((a: any, b: any) => {
+				const priceA = a.pricePerDay || (a.yachtPricing ? Math.min(a.yachtPricing.fourHours, a.yachtPricing.sixHours, a.yachtPricing.eightHours) : 0);
+				const priceB = b.pricePerDay || (b.yachtPricing ? Math.min(b.yachtPricing.fourHours, b.yachtPricing.sixHours, b.yachtPricing.eightHours) : 0);
+				return priceB - priceA;
+			});
+		} else if (currentSort === 'name-asc') {
+			filtered = [...filtered].sort((a: any, b: any) => 
+				`${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)
+			);
+		} else if (currentSort === 'name-desc') {
+			filtered = [...filtered].sort((a: any, b: any) => 
+				`${b.make} ${b.model}`.localeCompare(`${a.make} ${a.model}`)
+			);
+		}
+		return filtered;
+	});
+
+	// Initialize filter values
 	$effect(() => {
-		if (contentVisible) {
-			// Debounce to avoid too many URL updates
-			const timer = setTimeout(() => {
-				updateUrlParams();
-			}, 300);
-			
-			return () => clearTimeout(timer);
+		if (!maxPrice) maxPrice = maxPriceAvailable;
+		if (!minGuests) minGuests = minGuestsAvailable;
+		if (!maxGuests) maxGuests = maxGuestsAvailable;
+	});
+
+	// Update filter ranges when location changes
+	$effect(() => {
+		if (location) {
+			maxPrice = maxPriceAvailable;
+			minGuests = minGuestsAvailable;
+			maxGuests = maxGuestsAvailable;
 		}
 	});
 
-	// Update URL when filter values change
-	function updateUrlParams() {
-		const currentUrl = new URL($page.url);
-		const params = currentUrl.searchParams;
+	// Check if any filters are active
+	const isAnyFilterActive = $derived(
+		checkFiltersActive(searchQuery, maxPrice, maxPriceAvailable, selectedTypes, {
+			guestRange: minGuests !== minGuestsAvailable || maxGuests !== maxGuestsAvailable
+		})
+	);
 
-		// Update or clear params based on filter values
-		if (pickupDate) {
-			params.set('pickupDate', pickupDate);
-		} else {
-			params.delete('pickupDate');
-		}
-
-		if (dropoffDate) {
-			params.set('dropoffDate', dropoffDate);
-		} else {
-			params.delete('dropoffDate');
-		}
-
-		if (location) {
-			params.set('location', location);
-		} else {
-			params.delete('location');
-		}
-
-		// Navigate to the updated URL without a page reload
-		goto(`?${params.toString()}`, { replaceState: true, keepFocus: true, noScroll: true });
-	}
-
-	// Clear filters function - update to also update URL
+	// Clear filters function
 	function clearFilters() {
 		searchQuery = '';
 		maxPrice = maxPriceAvailable;
@@ -151,66 +160,79 @@
 		selectedTypes = [];
 		currentSort = 'default';
 		// Keep date and location values
-		updateUrlParams();
+		updateURL();
 	}
 
 	function handleSort(sortOption: string) {
+		console.log("Sort option", sortOption);
 		currentSort = sortOption;
 	}
 
-	// Search button states
-	let isLocationSearching = $state(false);
-	let locationChanged = $state(false);
-	
-	// Track location changes
-	$effect(() => {
-		if (location !== initialLocation) {
-			locationChanged = true;
-		}
-	});
+	// Update URL with date parameters
+	function updateURL() {
+		const url = new URL(window.location.href);
 
-	// Handle location search - trigger page navigation to refetch data
-	function handleLocationSearch() {
-		isLocationSearching = true;
-		const url = new URL($page.url);
-		
-		// Update parameters
+		// Update or remove parameters
 		if (pickupDate) {
 			url.searchParams.set('pickupDate', pickupDate);
 		} else {
 			url.searchParams.delete('pickupDate');
 		}
-		
+
 		if (dropoffDate) {
 			url.searchParams.set('dropoffDate', dropoffDate);
 		} else {
 			url.searchParams.delete('dropoffDate');
 		}
-		
+
 		if (location) {
 			url.searchParams.set('location', location);
 		} else {
 			url.searchParams.delete('location');
 		}
-		
-		// Navigate to trigger server refetch
-		window.location.href = url.toString();
+
+		// Update browser history without full page reload
+		goto(url.toString(), { replaceState: true, keepFocus: true, noScroll: true });
 	}
 
-	// Validate dates when they change
+	// Handle date changes
+	function handleDateChange() {
+		// Validate pickup date is not before minimum date
+		if (pickupDate && pickupDate < minPickupDate) {
+			pickupDate = minPickupDate;
+		}
+
+		// Validate dropoff date is not before pickup date
+		if (dropoffDate && pickupDate && dropoffDate < pickupDate) {
+			dropoffDate = pickupDate;
+		}
+
+		updateURL();
+	}
+
+	// Search button states
+	let isLocationSearching = $state(false);
+	let locationChanged = $state(false);
+
+	// Track location changes
 	$effect(() => {
-		if (pickupDate && dropoffDate) {
-			const validation = validateDates(pickupDate, dropoffDate);
-			if (!validation.isValid) {
-				dateError = validation.error || '';
-			} else {
-				dateError = '';
-				// Only update URL when dates are valid
-				if (contentVisible) {
-					const timer = setTimeout(() => {
-						updateUrlParams();
-					}, 300);
-				}
+		if (location !== initialLocation) {
+			console.log("Location changed", location);
+			locationChanged = true;
+		}
+	});
+
+	// Detect user's location and initialize
+	onMount(async () => {
+		// Detect user's closest city if no location is set
+		if (!location || location === DEFAULT_CITY) {
+			try {
+				const closestCity = await getClosestCity();
+				location = closestCity;
+				// Update URL with detected location
+				updateURL();
+			} catch (error) {
+				console.warn('Failed to detect user location:', error);	
 			}
 		}
 	});
@@ -243,18 +265,18 @@
 </svelte:head>
 
 <div class="container mx-auto px-4 py-8">
-	{#if contentVisible}
-		<h1
-			class="mb-8 text-center text-4xl font-bold {$theme === 'dark' ? 'text-white' : 'text-primary-accent'}"
-			in:fly={{ y: 50, duration: 400, delay: 200 }}>
-			Available Yachts
-		</h1>
+	<h1
+		class="mb-8 text-center text-4xl font-bold {$theme === 'dark'
+			? 'text-white'
+			: 'text-primary-accent'}">
+		Available Yachts
+	</h1>
 
-		<div class="mb-6 flex sm:justify-end">
-			<SortingOptions onSort={handleSort} {currentSort} />
-		</div>
+	<div class="mb-6 flex sm:justify-end">
+		<SortingOptions onSort={handleSort} {currentSort} />
+	</div>
 
-		<div class="flex flex-col gap-8 lg:flex-row" in:fly={{ y: 50, duration: 400, delay: 400 }}>
+	<div class="flex flex-col gap-8 lg:flex-row">
 			<!-- Mobile Search and Filters -->
 			<div class="flex flex-col gap-4 lg:hidden">
 				<!-- Mobile Search Input -->
@@ -307,14 +329,15 @@
 					onkeydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
 					role="button"
 					tabindex="0">
-					<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-					<div
-						class="fixed right-0 top-0 h-full w-[90%] max-w-md transform overflow-y-auto {$theme === 'dark' ? 'bg-[#1c1c1c]' : 'bg-white'} p-6 shadow-xl transition-transform duration-300"
-						onclick={stopPropagation(bubble('click'))}
-						onkeydown={stopPropagation(bubble('keydown'))}
-						role="dialog"
-						tabindex="-1"
-						transition:fly={{ x: 300, duration: 300 }}>
+				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+				<div
+					class="fixed right-0 top-0 h-full w-[90%] max-w-md transform overflow-y-auto {$theme ===
+					'dark'
+						? 'bg-[#1c1c1c]'
+						: 'bg-white'} p-6 shadow-xl transition-transform duration-300"
+					role="dialog"
+					tabindex="-1"
+					transition:fly={{ x: 300, duration: 300 }}>
 						<div class="mb-4 flex items-center justify-between">
 							<h3 class="text-xl font-bold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">Filters</h3>
 							<button
@@ -336,86 +359,112 @@
 						</div>
 
 						<div class="flex flex-col gap-6">
-							<!-- Date Range - Mobile -->
+							<!-- Date Range Selector for Mobile -->
 							<div class="w-full">
-								<div>
-									<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-										>Pickup Location</label>
-									<div class="flex gap-2">
-										<select
-											id="location-mobile"
-											bind:value={location}
-											class="flex-1 rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
-											{#each CITIES as city}
-												<option value={city.value} class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">{city.label}</option>
-											{/each}
-										</select>
-										<button
-											onclick={handleLocationSearch}
-											disabled={isLocationSearching}
-											class="px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 {
-												isLocationSearching 
-													? 'bg-gray-400 cursor-not-allowed text-white' 
-													: locationChanged 
-														? 'bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] animate-pulse text-white' 
-														: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`
-											}">
-											{#if isLocationSearching}
-												<div class="flex items-center gap-2">
-													<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-													Loading...
-												</div>
-											{:else if locationChanged}
-												<div class="flex items-center gap-1">
-													<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-														<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-													</svg>
-													Update
-												</div>
-											{:else}
-												Search
-											{/if}
-										</button>
+								<label
+									class="mb-2 block text-sm font-medium {$theme === 'dark'
+										? 'text-white/70'
+										: 'text-primary-accent'}">Rental Dates</label>
+								<div class="flex flex-col space-y-3">
+									<div>
+										<label
+											class="text-xs {$theme === 'dark'
+												? 'text-white/50'
+												: 'text-gray-600'}">Pickup Location</label>
+										<div class="flex gap-2">
+											<select
+												id="location-mobile"
+												bind:value={location}
+												class="mt-1 flex-1 rounded-lg border {$theme === 'dark'
+													? 'border-white/20 bg-white/5 text-white'
+													: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
+												{#each CITIES as city}
+													<option
+														value={city.value}
+														class={$theme === 'dark'
+															? 'bg-gray-800'
+															: 'bg-white'}>{city.label}</option>
+												{/each}
+											</select>
+											<!-- <button
+												onclick={handleLocationChange}
+												disabled={isLocationSearching}
+												class="mt-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 {isLocationSearching
+													? 'cursor-not-allowed bg-gray-400 text-white'
+													: locationChanged
+														? 'animate-pulse bg-orange-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)]'
+														: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`}">
+												{#if isLocationSearching}
+													<div class="flex items-center gap-2">
+														<div
+															class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent">
+														</div>
+														Loading...
+													</div>
+												{:else if locationChanged}
+													<div class="flex items-center gap-1">
+														<svg
+															class="h-4 w-4"
+															fill="none"
+															stroke="currentColor"
+															viewBox="0 0 24 24">
+															<path
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+															></path>
+														</svg>
+														Update
+													</div>
+												{:else}
+													Search
+												{/if}
+											</button> -->
+										</div>
+									</div>
+									<div>
+										<label
+											class="text-xs {$theme === 'dark'
+												? 'text-white/50'
+												: 'text-gray-600'}">Pickup Date</label>
+										<input
+											type="date"
+											bind:value={pickupDate}
+											onchange={handleDateChange}
+											onblur={handleDateChange}
+											min={minPickupDate}
+											class="mt-1 w-full rounded-lg border {$theme === 'dark'
+												? 'border-white/20 bg-white/5 text-white placeholder-white/50'
+												: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
+									</div>
+									<div>
+										<label
+											class="text-xs {$theme === 'dark'
+												? 'text-white/50'
+												: 'text-gray-600'}">Dropoff Date</label>
+										<input
+											type="date"
+											bind:value={dropoffDate}
+											onchange={handleDateChange}
+											onblur={handleDateChange}
+											min={pickupDate}
+											class="mt-1 w-full rounded-lg border {$theme === 'dark'
+												? 'border-white/20 bg-white/5 text-white placeholder-white/50'
+												: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
 									</div>
 								</div>
 							</div>
 
-							<div class="w-full">
-								<div>
-									<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-										>Pickup Date</label>
-									<input
-										type="date"
-										id="pickupDate-mobile"
-										bind:value={pickupDate}
-										min={new Date().toISOString().split('T')[0]}
-										class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
-								</div>
-							</div>
-
-							<div class="w-full">
-								<div>
-									<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-										>Dropoff Date</label>
-									<input
-										type="date"
-										id="dropoffDate-mobile"
-										bind:value={dropoffDate}
-										min={pickupDate ? getTomorrow(pickupDate) : getTomorrow(new Date().toISOString().split('T')[0])}
-										class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-gray-50 text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
-								</div>
-							</div>
-
-							{#if dateError}
-								<div class="text-sm text-red-500 p-2 bg-red-50 dark:bg-red-900/20 rounded">
-									{dateError}
-								</div>
-							{/if}
-
 							<!-- Price Range -->
 							<div class="w-full">
-														<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-							>Maximum Price ($)</label>
+								<label
+									for="price-range-mobile"
+									class="mb-2 block text-sm font-medium {$theme === 'dark'
+										? 'text-white/70'
+										: 'text-primary-accent'}">
+									Maximum Price ($/day)
+								</label>
 								<input
 									type="range"
 									id="price-range-mobile"
@@ -477,13 +526,19 @@
 							<!-- Apply Filters Button -->
 							<div class="mt-auto flex justify-end gap-4">
 								{#if isAnyFilterActive}
-									<Button color={$theme === 'dark' ? 'dark' : 'light'} on:click={clearFilters}>Clear All</Button>
+									<Button
+										color={$theme === 'dark' ? 'dark' : 'light'}
+										on:click={clearFilters}>Clear All</Button>
 								{/if}
-								<Button color="primary" on:click={() => {
-									// Always update URL to ensure date and location are included
-									updateUrlParams();
-									showFiltersModal = false;
-								}}>Apply Filters</Button>
+								<Button
+									color="primary"
+									on:click={() => {
+										// Always update URL to ensure date and location are included
+										updateURL();
+										showFiltersModal = false;
+									}}>
+									Apply Filters
+								</Button>
 							</div>
 						</div>
 					</div>
@@ -531,86 +586,108 @@
 									: '!bg-white text-gray-800 placeholder-gray-500'}" />
 						</div>
 
-						<!-- Date Range - Desktop -->
+						<!-- Date Range Selector -->
 						<div class="w-full">
-							<div>
-								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-									>Pickup Location</label>
-								<div class="flex gap-2">
-									<select
-										id="location-desktop"
-										bind:value={location}
-										class="flex-1 rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent">
-										{#each CITIES as city}
-											<option value={city.value} class="{$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}">{city.label}</option>
-										{/each}
-									</select>
-									<button
-										onclick={handleLocationSearch}
-										disabled={isLocationSearching}
-										class="px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 {
-											isLocationSearching 
-												? 'bg-gray-400 cursor-not-allowed text-white' 
-												: locationChanged 
-													? 'bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)] animate-pulse text-white' 
-													: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`
-										}">
-										{#if isLocationSearching}
-											<div class="flex items-center gap-2">
-												<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-												Loading...
-											</div>
-										{:else if locationChanged}
-											<div class="flex items-center gap-1">
-												<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-												</svg>
-												Update
-											</div>
-										{:else}
-											Search
-										{/if}
-									</button>
+							<label
+								class="mb-2 block text-sm font-medium {$theme === 'dark'
+									? 'text-white/70'
+									: 'text-primary-accent'}">Rental Dates</label>
+							<div class="flex flex-col space-y-3">
+								<div>
+									<label
+										class="text-xs {$theme === 'dark'
+											? 'text-white/50'
+											: 'text-gray-600'}">Pickup Location</label>
+									<div class="flex gap-2">
+										<select
+											id="location-desktop"
+											bind:value={location}
+											class="mt-1 flex-1 rounded-lg border {$theme === 'dark'
+												? 'border-white/20 bg-white/5 text-white'
+												: 'border-gray-300 bg-white text-gray-800'} px-3 py-2 text-sm">
+											{#each CITIES as city}
+												<option
+													value={city.value}
+													class={$theme === 'dark' ? 'bg-gray-800' : 'bg-white'}
+													>{city.label}</option>
+											{/each}
+										</select>
+										<!-- <button
+											onclick={handleLocationChange}
+											disabled={isLocationSearching}
+											class="mt-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 {isLocationSearching
+												? 'cursor-not-allowed bg-gray-400 text-white'
+												: locationChanged
+													? 'animate-pulse bg-orange-500 text-white shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_15px_rgba(249,115,22,0.5)]'
+													: `${$theme === 'dark' ? 'bg-white text-gray-900 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_15px_rgba(255,255,255,0.35)]' : 'bg-primary-accent text-white shadow-[0_0_20px_rgba(194,63,91,0.3)] hover:shadow-[0_0_15px_rgba(194,63,91,0.4)]'}`}">
+											{#if isLocationSearching}
+												<div class="flex items-center gap-2">
+													<div
+														class="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent">
+													</div>
+													Loading...
+												</div>
+											{:else if locationChanged}
+												<div class="flex items-center gap-1">
+													<svg
+														class="h-4 w-4"
+														fill="none"
+														stroke="currentColor"
+														viewBox="0 0 24 24">
+														<path
+															stroke-linecap="round"
+															stroke-linejoin="round"
+															stroke-width="2"
+															d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+														></path>
+													</svg>
+													Update
+												</div>
+											{:else}
+												Search
+											{/if}
+										</button> -->
+									</div>
+								</div>
+								<div>
+									<label
+										class="text-xs {$theme === 'dark'
+											? 'text-white/50'
+											: 'text-gray-600'}">Pickup Date</label>
+									<input
+										type="date"
+										bind:value={pickupDate}
+										onchange={handleDateChange}
+										onblur={handleDateChange}
+										min={minPickupDate}
+										class="mt-1 w-full rounded-lg border {$theme === 'dark'
+											? 'border-white/20 bg-white/5 text-white placeholder-white/50'
+											: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
+								</div>
+								<div>
+									<label
+										class="text-xs {$theme === 'dark'
+											? 'text-white/50'
+											: 'text-gray-600'}">Dropoff Date</label>
+									<input
+										type="date"
+										bind:value={dropoffDate}
+										onchange={handleDateChange}
+										onblur={handleDateChange}
+										min={pickupDate}
+										class="mt-1 w-full rounded-lg border {$theme === 'dark'
+											? 'border-white/20 bg-white/5 text-white placeholder-white/50'
+											: 'border-gray-300 bg-white text-gray-800 placeholder-gray-500'} px-3 py-2 text-sm" />
 								</div>
 							</div>
 						</div>
 
-						<div class="w-full">
-							<div>
-								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-									>Pickup Date</label>
-								<input
-									type="date"
-									id="pickupDate-desktop"
-									bind:value={pickupDate}
-									min={new Date().toISOString().split('T')[0]}
-									class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
-							</div>
-						</div>
-
-						<div class="w-full">
-							<div>
-								<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-									>Dropoff Date</label>
-								<input
-									type="date"
-									id="dropoffDate-desktop"
-									bind:value={dropoffDate}
-									min={pickupDate ? getTomorrow(pickupDate) : getTomorrow(new Date().toISOString().split('T')[0])}
-									class="relative w-full rounded-lg {$theme === 'dark' ? 'bg-white/10 text-white border-gray-700' : 'bg-white text-gray-800 border-gray-200'} border p-3 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:border-transparent [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:bg-transparent [&::-webkit-calendar-picker-indicator]:opacity-0" />
-							</div>
-						</div>
-
-						{#if dateError}
-							<div class="text-sm text-red-500 p-2 bg-red-50 dark:bg-red-900/20 rounded">
-								{dateError}
-							</div>
-						{/if}
-
 						<!-- Price Range -->
 						<div class="w-full">
-							<label class="mb-2 block text-sm font-medium {$theme === 'dark' ? 'text-white/70' : 'text-primary-accent'}"
-								>Maximum Price ($)</label>
+							<label
+								class="mb-2 block text-sm font-medium {$theme === 'dark'
+									? 'text-white/70'
+									: 'text-primary-accent'}">Maximum Price ($/day)</label>
 							<input
 								type="range"
 								id="price-range"
@@ -699,7 +776,7 @@
 												duration={Math.floor(
 													Math.random() * (5000 - 3000 + 1)
 												) + 3000}
-												images={yacht.images.map((img) => ({
+												images={yacht.images.map((img: any) => ({
 													src: `${img.urls ? img.urls.large : img.url}`,
 													alt: `${yacht.make} ${yacht.model}`
 												}))}
@@ -754,7 +831,7 @@
 						class="mt-8 rounded-xl {$theme === 'dark'
 							? 'bg-white/5 text-gray-300'
 							: 'bg-gray-100 text-gray-700'} p-8 text-center">
-						{#if yachts.length === 0 && location}
+						{#if filteredYachts.length === 0 && location}
 							<div class="mx-auto max-w-2xl">
 								<svg class="mx-auto h-16 w-16 {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'} mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -795,7 +872,6 @@
 				{/if}
 			</div>
 		</div>
-	{/if}
 </div>
 
 <style lang="postcss">

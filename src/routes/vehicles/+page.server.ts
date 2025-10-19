@@ -15,8 +15,10 @@ export const load: PageServerLoad = async ({ url }) => {
     const make = url.searchParams.get('make') || '';
 
     const response = await fetch(`${apiUrl}/vehicles`);
-    const vehicles = await response.json();
-    let filteredVehicles = vehicles.vehicles.filter((vehicle: any) => !vehicle.vehicleType || vehicle.vehicleType !== 'yacht');
+    const data = await response.json();
+    const vehicles = data.vehicles;
+
+    let filteredVehicles = vehicles.filter((vehicle: any) => !vehicle.vehicleType || vehicle.vehicleType !== 'yacht');
 
     // Filter by location if provided
     if (location) {
@@ -34,6 +36,7 @@ export const load: PageServerLoad = async ({ url }) => {
         dropoffDate,
         location,
         make,
-        vehicles: filteredVehicles
+        vehicles: filteredVehicles,
+        allVehicles: vehicles
     };
 }; 

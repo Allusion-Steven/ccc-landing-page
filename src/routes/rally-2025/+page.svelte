@@ -143,7 +143,7 @@
 </div>
 
 <!-- Countdown Section -->
-<section class="border-b border-gray-300/30 bg-[#e8e4dc] px-4 pt-10 sm:px-6 sm:py-12 lg:px-8">
+<section class="border-b border-gray-300/30 bg-[#e8e4dc] px-4 pt-10 sm:px-6 sm:py-8 lg:px-8">
 	<div class="mx-auto max-w-4xl text-center">
 		{#if contentVisible}
 			<div in:fly={{ y: 20, duration: 600, delay: 300 }}>
@@ -158,7 +158,7 @@
 </section>
 
 <!-- Tickets Section -->
-<section id="tickets-section" class="bg-[#e8e4dc] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+<section id="tickets-section" class="bg-[#e8e4dc] px-4 py-4 sm:px-6 sm:py-8 lg:px-8">
 	<div class="mx-auto max-w-7xl">
 		<!-- Section Header -->
 		<div class="mb-6 text-center sm:mb-16">

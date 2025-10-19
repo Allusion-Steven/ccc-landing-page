@@ -18,24 +18,16 @@ export const load: PageServerLoad = async ({ url }) => {
 
 
     // Additional filtering to ensure only yacht type vehicles are included
+    let allYachts = [];
+    let filteredYachts = [];
+    
     if (vehicles && vehicles.vehicles ) {
-        let filteredYachts = vehicles.vehicles.filter((vehicle: any) => 
+        allYachts = vehicles.vehicles.filter((vehicle: any) => 
             vehicle.vehicleType && vehicle.vehicleType === 'yacht'
         );
         
-        // Filter by location if provided
-        if (location) {
-            const targetState = extractStateFromLocation(location);
-            if (targetState) {
-                filteredYachts = filteredYachts.filter((vehicle: any) => 
-                    vehicle.pickupLocation?.state && 
-                    vehicle.pickupLocation.state.toLowerCase() === targetState.toLowerCase()
-                );
-            }
-        }
-        
         // Transform yacht data to include specs object
-        filteredYachts.forEach((vehicle: any) => {
+        allYachts.forEach((vehicle: any) => {
             // Create specs object if it doesn't exist
             if (!vehicle.specs) {
                 vehicle.specs = {
@@ -50,13 +42,24 @@ export const load: PageServerLoad = async ({ url }) => {
             }
         });
         
-        vehicles.vehicles = filteredYachts;
+        // Filter by location if provided
+        filteredYachts = allYachts;
+        if (location) {
+            const targetState = extractStateFromLocation(location);
+            if (targetState) {
+                filteredYachts = allYachts.filter((vehicle: any) => 
+                    vehicle.pickupLocation?.state && 
+                    vehicle.pickupLocation.state.toLowerCase() === targetState.toLowerCase()
+                );
+            }
+        }
     }
 
     return {
         pickupDate,
         dropoffDate,
         location,
-        yachts: vehicles.vehicles
+        yachts: filteredYachts,
+        allYachts: allYachts
     };
 }; 

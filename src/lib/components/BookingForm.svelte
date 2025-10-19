@@ -19,7 +19,7 @@
 		showDatePicker,
 		pickupDate = $bindable(),
 		dropoffDate = $bindable(),
-		location,
+		location = $bindable(),
 		vehicleType = 'vehicle'
 	}: Props = $props();
 

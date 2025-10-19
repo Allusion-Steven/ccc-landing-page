@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { createBubbler, stopPropagation } from 'svelte/legacy';
 
-	const bubble = createBubbler();
 	import { baseUrl } from '$lib/index';
 	import { Carousel, Input, Modal, Button } from 'flowbite-svelte';
 	import { fade, scale, fly } from 'svelte/transition';
@@ -21,6 +19,7 @@
 		filterItems,
 		isAnyFilterActive as checkFiltersActive
 	} from '$lib/utils/filtering';
+	import { derived } from 'svelte/store';
 
 	//TODO: PROBABLY FIX THIS AND MAKE IMAGES BETTER
 	// Function to detect if an image is portrait and get appropriate object positioning
@@ -46,69 +45,119 @@
 	let imagePositions = $state<Record<string, string>>({});
 
 	let { data }: { data: PageData } = $props();
-	const {
-		pickupDate: initialPickupDate,
-		dropoffDate: initialDropoffDate,
-		location: initialLocation,
-		make: initialMake,
-		vehicles
-	} = data;
+
 
 	let currentSort = $state('default');
 
-	// Initialize pickupDate, dropoffDate, and location with data from URL or defaults
-	let pickupDate = $state(initialPickupDate || '');
-	let dropoffDate = $state(initialDropoffDate || '');
-	let location = $state(initialLocation || DEFAULT_CITY);
+	console.log("Data", data);
+
+	const initialLocation = $state(data.location || DEFAULT_CITY);
+
+	let pickupDate = $state(data.pickupDate || '');
+	let dropoffDate = $state(data.dropoffDate || '');
+
+	let location = $state(data.location || DEFAULT_CITY);
+	let vehicles = $state(data.vehicles || []);
+	let allVehicles = $state(data.allVehicles || []);
+	let maxPrice = $state(0);
+	let minYear = $state(0); 
+	let maxYear = $state(0);
+/* 	let maxPrice = $state(getMinMaxPrice(vehicles).max);
+	let minYear = $state(getMinMaxYear(vehicles).min); */
+	
+	$inspect("Location", location);
+	$inspect("Vehicles", vehicles);
+	$inspect("All Vehicles", allVehicles);
 
 	// Calculate minimum date (24 hours from now)
 	const minPickupDate = $derived(
 		new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 	);
 
-	// Handle URL parameters when the page loads
-	$effect(() => {
-		const searchParams = $page.url.searchParams;
-		location = searchParams.get('location') || initialLocation || DEFAULT_CITY;
-		pickupDate = searchParams.get('pickupDate') || initialPickupDate;
-		dropoffDate = searchParams.get('dropoffDate') || initialDropoffDate;
-		const makeParam = searchParams.get('make') || initialMake || '';
-		if (makeParam && !searchQuery) {
-			searchQuery = makeParam;
-		}
-	});
 
 	// Filter states
 	let searchQuery = $state('');
-	let maxPrice = $state(0);
-	let minYear = $state(0);
-	let maxYear = $state(0);
-	let showFiltersModal = $state(false);
 
+	let showFiltersModal = $state(false);
+	let locationFilter = $state(false);
+	
 	// Get unique tags from vehicles array
 	const vehicleTypes = getUniqueTypes(vehicles);
 	let selectedTypes = $state<string[]>([]);
 
-	// Get min and max values for the filters
-	const { min: minPriceAvailable, max: maxPriceAvailable } = getMinMaxPrice(vehicles);
-	const { min: minYearAvailable, max: maxYearAvailable } = getMinMaxYear(vehicles);
+	// Filter vehicles by location first
+	let vehiclesByLocation = $derived.by(() => {
+	
+		return allVehicles.filter((vehicle: any) => vehicle.pickupLocation?.state === location.split(',')[1].trim());
+	});
 
-	// Initialize filters to their full ranges
-	maxPrice = maxPriceAvailable;
-	minYear = minYearAvailable;
-	maxYear = maxYearAvailable;
+	// Get min and max values for the filters (based on location-filtered vehicles)
+	const minPriceAvailable = $derived(getMinMaxPrice(vehiclesByLocation).min);
+	const maxPriceAvailable = $derived(getMinMaxPrice(vehiclesByLocation).max);
+	const minYearAvailable = $derived(getMinMaxYear(vehiclesByLocation).min);
+	const maxYearAvailable = $derived(getMinMaxYear(vehiclesByLocation).max);
 
-	// Update filteredVehicles to include sorting (location filtering now handled server-side)
-	const filteredVehicles = $derived(
-		filterItems(
-			vehicles,
-			searchQuery,
-			maxPrice,
-			selectedTypes,
-			currentSort,
-			(vehicle) => vehicle.year >= minYear && vehicle.year <= maxYear
-		)
-	);
+	// Apply all filters (location, price, year, search, types) and sorting
+	let filteredVehicles = $derived.by(() => {
+		let filtered = vehiclesByLocation;
+		
+		// Apply price filter
+		filtered = filtered.filter((vehicle: any) => vehicle.pricePerDay <= maxPrice);
+		
+		// Apply year filter
+		filtered = filtered.filter((vehicle: any) => vehicle.year >= minYear && vehicle.year <= maxYear);
+		
+		// Apply search filter
+		if (searchQuery) {
+			filtered = filtered.filter((vehicle: any) => 
+				vehicle.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				vehicle.model.toLowerCase().includes(searchQuery.toLowerCase())
+			);
+		}
+		
+		// Apply type filter
+		if (selectedTypes.length > 0) {
+			filtered = filtered.filter((vehicle: any) => 
+				vehicle.tags?.some((tag: string) => selectedTypes.includes(tag))
+			);
+		}
+
+		if (currentSort === 'price-asc') {
+			filtered = filtered.sort((a: any, b: any) => a.pricePerDay - b.pricePerDay);
+		} else if (currentSort === 'price-desc') {
+			filtered = [...filtered].sort((a: any, b: any) => b.pricePerDay - a.pricePerDay);
+		} else if (currentSort === 'year-desc') {
+			filtered = [...filtered].sort((a: any, b: any) => b.year - a.year);
+		} else if (currentSort === 'year-asc') {
+			filtered = [...filtered].sort((a: any, b: any) => a.year - b.year);
+		} else if (currentSort === 'name-asc') {
+			filtered = [...filtered].sort((a: any, b: any) => 
+				`${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)
+			);
+		} else if (currentSort === 'name-desc') {
+			filtered = [...filtered].sort((a: any, b: any) => 
+				`${b.make} ${b.model}`.localeCompare(`${a.make} ${a.model}`)
+			);
+		}
+		return filtered;
+	});
+
+	// Initialize filter values
+	$effect(() => {
+		if (!maxPrice) maxPrice = maxPriceAvailable;
+		if (!minYear) minYear = minYearAvailable;
+		if (!maxYear) maxYear = maxYearAvailable;
+	});
+
+	// Update filter ranges when location changes
+	$effect(() => {
+		if (location) {
+			maxPrice = maxPriceAvailable;
+			minYear = minYearAvailable;
+			maxYear = maxYearAvailable;
+		}
+	});
+
 
 	// Check if any filters are active
 	const isAnyFilterActive = $derived(
@@ -130,6 +179,7 @@
 	}
 
 	function handleSort(sortOption: string) {
+		console.log("Sort option", sortOption);
 		currentSort = sortOption;
 	}
 
@@ -182,37 +232,11 @@
 	// Track location changes
 	$effect(() => {
 		if (location !== initialLocation) {
+			console.log("Location changed", location);
 			locationChanged = true;
 		}
 	});
 
-	// Handle location changes - trigger page navigation to refetch data
-	function handleLocationChange() {
-		isLocationSearching = true;
-		const url = new URL(window.location.href);
-
-		// Update parameters
-		if (pickupDate) {
-			url.searchParams.set('pickupDate', pickupDate);
-		} else {
-			url.searchParams.delete('pickupDate');
-		}
-
-		if (dropoffDate) {
-			url.searchParams.set('dropoffDate', dropoffDate);
-		} else {
-			url.searchParams.delete('dropoffDate');
-		}
-
-		if (location) {
-			url.searchParams.set('location', location);
-		} else {
-			url.searchParams.delete('location');
-		}
-
-		// Navigate to trigger server refetch
-		window.location.href = url.toString();
-	}
 
 	// Preload image positions when component mounts
 	onMount(async () => {
@@ -224,11 +248,11 @@
 				// Update URL with detected location
 				updateURL();
 			} catch (error) {
-				console.warn('Failed to detect user location:', error);
+				console.warn('Failed to detect user location:', error);	
 			}
 		}
 
-		for (const vehicle of vehicles) {
+		for (const vehicle of filteredVehicles) {
 			if (vehicle.images && vehicle.images.length > 0) {
 				const firstImage =
 					vehicle.images.find((img: any) => img.isActive) || vehicle.images[0];
@@ -348,8 +372,6 @@
 					'dark'
 						? 'bg-[#1c1c1c]'
 						: 'bg-white'} p-6 shadow-xl transition-transform duration-300"
-					onclick={stopPropagation(bubble('click'))}
-					onkeydown={stopPropagation(bubble('keydown'))}
 					role="dialog"
 					tabindex="-1"
 					transition:fly={{ x: 300, duration: 300 }}>
@@ -408,7 +430,7 @@
 														: 'bg-white'}>{city.label}</option>
 											{/each}
 										</select>
-										<button
+										<!-- <button
 											onclick={handleLocationChange}
 											disabled={isLocationSearching}
 											class="mt-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 {isLocationSearching
@@ -442,7 +464,7 @@
 											{:else}
 												Search
 											{/if}
-										</button>
+										</button> -->
 									</div>
 								</div>
 								<div>
@@ -655,7 +677,7 @@
 												>{city.label}</option>
 										{/each}
 									</select>
-									<button
+									<!-- <button
 										onclick={handleLocationChange}
 										disabled={isLocationSearching}
 										class="mt-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 {isLocationSearching
@@ -689,7 +711,7 @@
 										{:else}
 											Search
 										{/if}
-									</button>
+									</button> -->
 								</div>
 							</div>
 							<div>
@@ -824,15 +846,15 @@
 								: 'bg-gray-100 shadow-lg'} transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 							<div class="aspect-[16/10] w-full overflow-hidden">
 								{#if vehicle.images && vehicle.images.length > 0}
-									{#if vehicle.images.filter((img) => img.isActive).length > 1}
+									{#if vehicle.images.filter((img: any) => img.isActive).length > 1}
 										<Carousel
 											class="pointer-events-none z-10"
 											duration={Math.floor(
 												Math.random() * (5000 - 3000 + 1)
 											) + 3000}
 											images={vehicle.images
-												.filter((img) => img.isActive)
-												.map((img) => ({
+												.filter((img: any) => img.isActive)
+												.map((img: any) => ({
 													src: `${img?.urls ? img?.urls.large : img?.url}`,
 													alt: `${vehicle.make} ${vehicle.model}`
 												}))}
@@ -893,7 +915,7 @@
 					class="mt-8 rounded-xl {$theme === 'dark'
 						? 'bg-white/5 text-gray-300'
 						: 'bg-gray-100 text-gray-700'} p-8 text-center">
-					{#if vehicles.length === 0 && location}
+					{#if filteredVehicles.length === 0 && location}
 						<div class="mx-auto max-w-2xl">
 							<svg class="mx-auto h-16 w-16 {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'} mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
