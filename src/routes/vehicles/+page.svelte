@@ -1,24 +1,23 @@
 <script lang="ts">
-	import { baseUrl } from "$lib/index";
-	import { Carousel, Input, Modal, Button } from "flowbite-svelte";
-	import { fade, scale, fly } from "svelte/transition";
-	import { flip } from "svelte/animate";
-	import type { PageData } from "./$types";
-	import { onMount } from "svelte";
-	import SortingOptions from "$lib/components/SortingOptions.svelte";
-	import { theme } from "$lib/stores/theme";
-	import { goto } from "$app/navigation";
-	import { page } from "$app/stores";
-	import { CITIES, DEFAULT_CITY } from "$lib/data/cities";
-	import { getClosestCity } from "$lib/utils/geolocation";
+	import { baseUrl } from '$lib/index';
+	import { Carousel, Input, Modal, Button } from 'flowbite-svelte';
+	import { fade, scale, fly } from 'svelte/transition';
+	import { flip } from 'svelte/animate';
+	import type { PageData } from './$types';
+	import { onMount } from 'svelte';
+	import SortingOptions from '$lib/components/SortingOptions.svelte';
+	import { theme } from '$lib/stores/theme';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { CITIES, DEFAULT_CITY } from '$lib/data/cities';
+	import { getClosestCity } from '$lib/utils/geolocation';
 	import {
 		getUniqueTypes,
 		getMinMaxPrice,
 		getMinMaxYear,
 		filterItems,
 		isAnyFilterActive as checkFiltersActive
-	} from "$lib/utils/filtering";
-	import { derived } from "svelte/store";
+	} from '$lib/utils/filtering';
 
 	//TODO: PROBABLY FIX THIS AND MAKE IMAGES BETTER
 	// Function to detect if an image is portrait and get appropriate object positioning
@@ -28,13 +27,13 @@
 			img.onload = () => {
 				// If image is portrait (height > width), position it to show top portion
 				if (img.height > img.width) {
-					resolve("object-top");
+					resolve('object-top');
 				} else {
-					resolve("object-center");
+					resolve('object-center');
 				}
 			};
 			img.onerror = () => {
-				resolve("object-center"); // Default fallback
+				resolve('object-center'); // Default fallback
 			};
 			img.src = imageUrl;
 		});
@@ -45,16 +44,16 @@
 
 	let { data }: { data: PageData } = $props();
 
-	let currentSort = $state("default");
+	let currentSort = $state('default');
 
-	console.log("Data", data);
+	console.log('Data', data);
 
 	const initialLocation = $state(data.location || DEFAULT_CITY);
 
-	let pickupDate = $state(data.pickupDate || "");
-	let dropoffDate = $state(data.dropoffDate || "");
+	let pickupDate = $state(data.pickupDate || '');
+	let dropoffDate = $state(data.dropoffDate || '');
 
-	let location = $state(data.location || DEFAULT_CITY);
+	let location = $state(data.location || DEFAULT_CITY || 'all');
 	let vehicles = $state(data.vehicles || []);
 	let allVehicles = $state(data.allVehicles || []);
 	let maxPrice = $state(0);
@@ -63,17 +62,17 @@
 	/* 	let maxPrice = $state(getMinMaxPrice(vehicles).max);
 	let minYear = $state(getMinMaxYear(vehicles).min); */
 
-	$inspect("Location", location);
-	$inspect("Vehicles", vehicles);
-	$inspect("All Vehicles", allVehicles);
+	$inspect('Location', location);
+	$inspect('Vehicles', vehicles);
+	$inspect('All Vehicles', allVehicles);
 
 	// Calculate minimum date (24 hours from now)
 	const minPickupDate = $derived(
-		new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split("T")[0]
+		new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 	);
 
 	// Filter states
-	let searchQuery = $state("");
+	let searchQuery = $state('');
 
 	let showFiltersModal = $state(false);
 	let locationFilter = $state(false);
@@ -84,8 +83,11 @@
 
 	// Filter vehicles by location first
 	let vehiclesByLocation = $derived.by(() => {
+		if (location === 'all') {
+			return allVehicles;
+		}
 		return allVehicles.filter(
-			(vehicle: any) => vehicle.pickupLocation?.state === location.split(",")[1].trim()
+			(vehicle: any) => vehicle.pickupLocation?.state === location.split(',')[1].trim()
 		);
 	});
 
@@ -123,19 +125,19 @@
 			);
 		}
 
-		if (currentSort === "price-asc") {
+		if (currentSort === 'price-asc') {
 			filtered = filtered.sort((a: any, b: any) => a.pricePerDay - b.pricePerDay);
-		} else if (currentSort === "price-desc") {
+		} else if (currentSort === 'price-desc') {
 			filtered = [...filtered].sort((a: any, b: any) => b.pricePerDay - a.pricePerDay);
-		} else if (currentSort === "year-desc") {
+		} else if (currentSort === 'year-desc') {
 			filtered = [...filtered].sort((a: any, b: any) => b.year - a.year);
-		} else if (currentSort === "year-asc") {
+		} else if (currentSort === 'year-asc') {
 			filtered = [...filtered].sort((a: any, b: any) => a.year - b.year);
-		} else if (currentSort === "name-asc") {
+		} else if (currentSort === 'name-asc') {
 			filtered = [...filtered].sort((a: any, b: any) =>
 				`${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`)
 			);
-		} else if (currentSort === "name-desc") {
+		} else if (currentSort === 'name-desc') {
 			filtered = [...filtered].sort((a: any, b: any) =>
 				`${b.make} ${b.model}`.localeCompare(`${a.make} ${a.model}`)
 			);
@@ -168,18 +170,18 @@
 
 	// Clear filters function
 	function clearFilters() {
-		searchQuery = "";
+		searchQuery = '';
 		maxPrice = maxPriceAvailable;
 		minYear = minYearAvailable;
 		maxYear = maxYearAvailable;
 		selectedTypes = [];
-		currentSort = "default";
+		currentSort = 'default';
 		// Keep date and location values
 		updateURL();
 	}
 
 	function handleSort(sortOption: string) {
-		console.log("Sort option", sortOption);
+		console.log('Sort option', sortOption);
 		currentSort = sortOption;
 	}
 
@@ -189,21 +191,21 @@
 
 		// Update or remove parameters
 		if (pickupDate) {
-			url.searchParams.set("pickupDate", pickupDate);
+			url.searchParams.set('pickupDate', pickupDate);
 		} else {
-			url.searchParams.delete("pickupDate");
+			url.searchParams.delete('pickupDate');
 		}
 
 		if (dropoffDate) {
-			url.searchParams.set("dropoffDate", dropoffDate);
+			url.searchParams.set('dropoffDate', dropoffDate);
 		} else {
-			url.searchParams.delete("dropoffDate");
+			url.searchParams.delete('dropoffDate');
 		}
 
 		if (location) {
-			url.searchParams.set("location", location);
+			url.searchParams.set('location', location);
 		} else {
-			url.searchParams.delete("location");
+			url.searchParams.delete('location');
 		}
 
 		// Update browser history without full page reload
@@ -232,7 +234,7 @@
 	// Track location changes
 	$effect(() => {
 		if (location !== initialLocation) {
-			console.log("Location changed", location);
+			console.log('Location changed', location);
 			locationChanged = true;
 		}
 	});
@@ -247,7 +249,7 @@
 				// Update URL with detected location
 				updateURL();
 			} catch (error) {
-				console.warn("Failed to detect user location:", error);
+				console.warn('Failed to detect user location:', error);
 			}
 		}
 
@@ -256,7 +258,7 @@
 				const firstImage =
 					vehicle.images.find((img: any) => img.isActive) || vehicle.images[0];
 				if (firstImage) {
-					const imageUrl = firstImage.urls?.large || firstImage.url || "";
+					const imageUrl = firstImage.urls?.large || firstImage.url || '';
 					if (imageUrl) {
 						imagePositions[vehicle.id] = await getImageObjectPosition(imageUrl);
 					}
@@ -288,14 +290,14 @@
 		content="Browse our collection of luxury vehicles available for rent in Miami. From supercars to luxury SUVs, find your perfect ride at Macro Exotics." />
 	<meta
 		property="og:url"
-		content={`https://macroexotics.com/vehicles?${location ? `location=${location}&` : ""}${pickupDate ? `pickupDate=${pickupDate}&` : ""}${dropoffDate ? `dropoffDate=${dropoffDate}&` : ""}`} />
+		content={`https://macroexotics.com/vehicles?${location ? `location=${location}&` : ''}${pickupDate ? `pickupDate=${pickupDate}&` : ''}${dropoffDate ? `dropoffDate=${dropoffDate}&` : ''}`} />
 	<meta property="og:image" content="https://macroexotics.com/logo-square-768.png" />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:site_name" content="Macro Exotics" />
 	<link
 		rel="canonical"
-		href={`https://macroexotics.com/vehicles?${location ? `location=${location}&` : ""}${pickupDate ? `pickupDate=${pickupDate}&` : ""}${dropoffDate ? `dropoffDate=${dropoffDate}&` : ""}`} />
+		href={`https://macroexotics.com/vehicles?${location ? `location=${location}&` : ''}${pickupDate ? `pickupDate=${pickupDate}&` : ''}${dropoffDate ? `dropoffDate=${dropoffDate}&` : ''}`} />
 </svelte:head>
 
 <!-- TODO: Fetch all vehicles from the database -->
@@ -340,7 +342,7 @@
 			</div>
 			<!-- Mobile Filter Button -->
 			<Button
-				color={$theme === "dark" ? "dark" : "light"}
+				color={$theme === 'dark' ? 'dark' : 'light'}
 				class="w-full"
 				on:click={() => (showFiltersModal = true)}>
 				<svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -366,7 +368,7 @@
 					? 'bg-black/50'
 					: 'bg-gray-800/50'} backdrop-blur-sm transition-opacity"
 				onclick={() => (showFiltersModal = false)}
-				onkeydown={(e) => e.key === "Escape" && (showFiltersModal = false)}
+				onkeydown={(e) => e.key === 'Escape' && (showFiltersModal = false)}
 				role="button"
 				tabindex="0">
 				<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -431,9 +433,9 @@
 											{#each CITIES as city}
 												<option
 													value={city.value}
-													class={$theme === "dark"
-														? "bg-gray-800"
-														: "bg-white"}>{city.label}</option>
+													class={$theme === 'dark'
+														? 'bg-gray-800'
+														: 'bg-white'}>{city.label}</option>
 											{/each}
 										</select>
 										<!-- <button
@@ -527,10 +529,10 @@
 									? 'text-white/70'
 									: 'text-primary-accent'}">
 								<span
-									>${new Intl.NumberFormat("en-US").format(
+									>${new Intl.NumberFormat('en-US').format(
 										minPriceAvailable
 									)}</span>
-								<span>${new Intl.NumberFormat("en-US").format(maxPrice)}</span>
+								<span>${new Intl.NumberFormat('en-US').format(maxPrice)}</span>
 							</div>
 						</div>
 
@@ -590,7 +592,7 @@
 						<div class="mt-auto flex justify-end gap-4">
 							{#if isAnyFilterActive}
 								<Button
-									color={$theme === "dark" ? "dark" : "light"}
+									color={$theme === 'dark' ? 'dark' : 'light'}
 									on:click={clearFilters}>Clear All</Button>
 							{/if}
 							<Button
@@ -679,9 +681,9 @@
 										{#each CITIES as city}
 											<option
 												value={city.value}
-												class={$theme === "dark"
-													? "bg-gray-800"
-													: "bg-white"}>{city.label}</option>
+												class={$theme === 'dark'
+													? 'bg-gray-800'
+													: 'bg-white'}>{city.label}</option>
 										{/each}
 									</select>
 									<!-- <button
@@ -771,8 +773,8 @@
 							class="mt-2 flex justify-between text-sm {$theme === 'dark'
 								? 'text-white/70'
 								: 'text-primary-accent'}">
-							<span>${new Intl.NumberFormat("en-US").format(minPriceAvailable)}</span>
-							<span>${new Intl.NumberFormat("en-US").format(maxPrice)}</span>
+							<span>${new Intl.NumberFormat('en-US').format(minPriceAvailable)}</span>
+							<span>${new Intl.NumberFormat('en-US').format(maxPrice)}</span>
 						</div>
 					</div>
 
@@ -881,9 +883,9 @@
 											? 'bg-gray-800'
 											: 'bg-gray-300'}">
 										<span
-											class={$theme === "dark"
-												? "text-gray-400"
-												: "text-primary-accent"}>No image available</span>
+											class={$theme === 'dark'
+												? 'text-gray-400'
+												: 'text-primary-accent'}>No image available</span>
 									</div>
 								{/if}
 
@@ -903,10 +905,10 @@
 										</p>
 										<p class="font-semibold text-[#0bd3d3]">
 											${vehicle.pricePerDay
-												? new Intl.NumberFormat("en-US").format(
+												? new Intl.NumberFormat('en-US').format(
 														vehicle.pricePerDay
 													)
-												: "N/A"}/day
+												: 'N/A'}/day
 										</p>
 									</div>
 								</div>
@@ -1000,13 +1002,13 @@
 </div>
 
 <style lang="postcss">
-	input[type="range"] {
+	input[type='range'] {
 		@apply h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-white/10;
 	}
-	input[type="range"]::-webkit-slider-thumb {
+	input[type='range']::-webkit-slider-thumb {
 		@apply h-4 w-4 appearance-none rounded-full bg-[#0bd3d3] hover:bg-[#0bd3d3]/80;
 	}
-	input[type="range"]::-moz-range-thumb {
+	input[type='range']::-moz-range-thumb {
 		@apply h-4 w-4 appearance-none rounded-full border-0 bg-[#0bd3d3] hover:bg-[#0bd3d3]/80;
 	}
 </style>

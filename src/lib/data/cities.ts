@@ -7,6 +7,8 @@ export interface City {
 }
 
 export const CITIES: City[] = [
+	{ value: 'all', label: 'All' },
+
 	{ value: 'Atlanta, GA', label: 'Atlanta, GA' },
 	{ value: 'Boston, MA', label: 'Boston, MA' },
 	{ value: 'Chicago, IL', label: 'Chicago, IL' },
@@ -27,6 +29,6 @@ export const DEFAULT_CITY = CITIES[0].value;
 
 // Helper function to get city label from value
 export function getCityLabel(value: string): string {
-	const city = CITIES.find(c => c.value === value);
+	const city = CITIES.find((c) => c.value === value);
 	return city ? city.label : value;
 }
