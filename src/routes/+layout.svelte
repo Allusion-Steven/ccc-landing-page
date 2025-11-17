@@ -48,7 +48,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" />
 	<link rel="preconnect" href="https://my.macroexotics.com" />
-	
+
 </svelte:head>
 
 <svelte:window bind:innerWidth onresize={() => (isMenuOpen = false)} onscroll={handleScroll} />
@@ -160,7 +160,7 @@
 									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 							Home
 						</a>
-
+<!--
 						<a
 							href="/rally-2025"
 							class="text-lg font-medium transition-colors duration-300 {$page.url
@@ -172,7 +172,7 @@
 									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
 									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 							2025 Rally
-						</a>
+						</a> -->
 
 						<!-- TODO: Implement pricing page for live site -->
 						{#if !isLive}

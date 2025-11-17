@@ -93,8 +93,8 @@
 		<!-- <Hero /> -->
 		<Hero2 />
 	</div>
-
-	<div use:intersectionObserver={(isVisible) => (rallyVisible = isVisible)}>
+	<!-- Rally Section -->
+	<!-- <div use:intersectionObserver={(isVisible) => (rallyVisible = isVisible)}>
 		{#if rallyVisible}
 			<div
 				in:fly={{
@@ -105,7 +105,7 @@
 				<RallySection />
 			</div>
 		{/if}
-	</div>
+	</div> -->
 
 	<div use:intersectionObserver={(isVisible) => (vehicleCarouselVisible = isVisible)}>
 		{#if vehicleCarouselVisible}
@@ -156,7 +156,7 @@
 					easing: quintOut
 				}}>
 				<ShopByMake />
-				
+
 			</div>
 		{/if}
 	</div>
