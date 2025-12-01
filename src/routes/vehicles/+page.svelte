@@ -250,7 +250,7 @@
 	// Preload image positions when component mounts
 	onMount(async () => {
 		// Detect user's closest city if no location is set
-		if (!location || location === DEFAULT_CITY) {
+		if (!location || location !== DEFAULT_CITY) {
 			try {
 				const closestCity = await getClosestCity();
 				location = closestCity;
