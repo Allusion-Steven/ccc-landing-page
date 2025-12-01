@@ -45,6 +45,7 @@
 	let { data }: { data: PageData } = $props();
 
 	let currentSort = $state('default');
+	let isLoading = $state(true);
 
 	console.log('Data', data);
 
@@ -150,6 +151,13 @@
 		if (!maxPrice) maxPrice = maxPriceAvailable;
 		if (!minYear) minYear = minYearAvailable;
 		if (!maxYear) maxYear = maxYearAvailable;
+	});
+
+	// Set loading to false once data is available
+	$effect(() => {
+		if (data.vehicles !== undefined || data.allVehicles !== undefined) {
+			isLoading = false;
+		}
 	});
 
 	// Update filter ranges when location changes
@@ -918,7 +926,20 @@
 				{/each}
 			</div>
 
-			{#if filteredVehicles.length === 0}
+			{#if isLoading}
+				<div
+					in:fade={{ duration: 200 }}
+					class="mt-8 rounded-xl {$theme === 'dark'
+						? 'bg-white/5 text-gray-300'
+						: 'bg-gray-100 text-gray-700'} p-8 text-center">
+					<div class="flex flex-col items-center gap-4">
+						<div class="h-12 w-12 animate-spin rounded-full border-4 {$theme === 'dark'
+							? 'border-white/20 border-t-white'
+							: 'border-gray-300 border-t-gray-800'}"></div>
+						<p class="text-lg {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">Loading vehicles...</p>
+					</div>
+				</div>
+			{:else if filteredVehicles.length === 0}
 				<div
 					in:fade={{ duration: 200 }}
 					class="mt-8 rounded-xl {$theme === 'dark'

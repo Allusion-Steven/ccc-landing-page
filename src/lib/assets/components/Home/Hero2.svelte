@@ -53,8 +53,7 @@
         const params = new URLSearchParams({
             location: location,
             pickupDate: pickupDate,
-            dropoffDate: dropoffDate,
-            vehicleType: vehicleType === 'Yacht' ? 'yacht' : 'car'
+            dropoffDate: dropoffDate
         });
         window.location.href = `${baseUrl}?${params.toString()}`;
     }

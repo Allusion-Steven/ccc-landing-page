@@ -44,13 +44,12 @@ export const load: PageServerLoad = async ({ url }) => {
         
         // Filter by location if provided
         filteredYachts = allYachts;
-        if (location) {
+        if(location && location === 'all') {
+            filteredYachts = allYachts;
+        } else {
             const targetState = extractStateFromLocation(location);
             if (targetState) {
-                filteredYachts = allYachts.filter((vehicle: any) => 
-                    vehicle.pickupLocation?.state && 
-                    vehicle.pickupLocation.state.toLowerCase() === targetState.toLowerCase()
-                );
+                filteredYachts = allYachts.filter((vehicle: any) => vehicle.pickupLocation?.state && vehicle.pickupLocation.state.toLowerCase() === targetState.toLowerCase());
             }
         }
     }

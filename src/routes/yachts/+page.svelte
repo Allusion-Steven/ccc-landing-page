@@ -21,16 +21,16 @@
 
 	let { data }: { data: PageData } = $props();
 
-	console.log('Yacht-------------s', data);
 
 	let currentSort = $state('default');
+	let isLoading = $state(true);
 
 	const initialLocation = $state(data.location || DEFAULT_CITY);
 
 	let pickupDate = $state(data.pickupDate || '');
 	let dropoffDate = $state(data.dropoffDate || '');
 
-	let location = $state(data.location || DEFAULT_CITY);
+	let location = $state(data?.location || 'all');
 	let yachts = $state(data.yachts || []);
 	let allYachts = $state(data.allYachts || []);
 	let maxPrice = $state(0);
@@ -52,6 +52,9 @@
 
 	// Filter yachts by location first
 	let yachtsByLocation = $derived.by(() => {
+		if(location === 'all') {
+			return allYachts;
+		}
 		return allYachts.filter((yacht: any) => yacht.pickupLocation?.state === location.split(',')[1].trim());
 	});
 
@@ -133,6 +136,13 @@
 		if (!maxPrice) maxPrice = maxPriceAvailable;
 		if (!minGuests) minGuests = minGuestsAvailable;
 		if (!maxGuests) maxGuests = maxGuestsAvailable;
+	});
+
+	// Set loading to false once data is available
+	$effect(() => {
+		if (data.yachts !== undefined || data.allYachts !== undefined) {
+			isLoading = false;
+		}
 	});
 
 	// Update filter ranges when location changes
@@ -825,7 +835,20 @@
 					{/each}
 				</div>
 
-				{#if filteredYachts.length === 0}
+				{#if isLoading}
+					<div
+						in:fade={{ duration: 200 }}
+						class="mt-8 rounded-xl {$theme === 'dark'
+							? 'bg-white/5 text-gray-300'
+							: 'bg-gray-100 text-gray-700'} p-8 text-center">
+						<div class="flex flex-col items-center gap-4">
+							<div class="h-12 w-12 animate-spin rounded-full border-4 {$theme === 'dark'
+								? 'border-white/20 border-t-white'
+								: 'border-gray-300 border-t-gray-800'}"></div>
+							<p class="text-lg {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">Loading yachts...</p>
+						</div>
+					</div>
+				{:else if filteredYachts.length === 0}
 					<div
 						in:fade={{ duration: 200 }}
 						class="mt-8 rounded-xl {$theme === 'dark'
