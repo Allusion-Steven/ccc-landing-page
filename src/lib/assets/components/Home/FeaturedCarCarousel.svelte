@@ -137,7 +137,7 @@
 								{#each vehicle.tags.slice(0, 3) as tag}
 									<div class="badge">
 										<div class="badge-icon"></div>
-										<span>{tag}</span>
+										<span class="uppercase">{tag}</span>
 									</div>
 								{/each}
 							{/if}
