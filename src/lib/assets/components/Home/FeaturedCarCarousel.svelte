@@ -19,6 +19,19 @@
 		}
 	}
 
+	function handleSlideClick(vehicle: Vehicle, index: number, event: MouseEvent) {
+		// If clicking the active slide and not the button, navigate to vehicle page
+		if (currentIndex === index) {
+			const target = event.target as HTMLElement;
+			// Check if clicked element is not the add-button or its children
+			if (!target.closest('.add-button')) {
+				window.location.href = buildItemLink(vehicle);
+			}
+		} else {
+			setActiveSlide(index);
+		}
+	}
+
 	function nextSlide() {
 		const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % items.length;
 		setActiveSlide(nextIndex);
@@ -101,7 +114,7 @@
 					<button
 						class="slide {currentIndex === index ? 'active' : ''}"
 						style="background-image: url('{getPrimaryImage(vehicle)}')"
-						onclick={() => setActiveSlide(index)}
+						onclick={(e) => handleSlideClick(vehicle, index, e)}
 						aria-label="View {vehicle.make} {vehicle.model}">
 					<div class="slide-content">
 						<div class="slide-number">{String(index + 1).padStart(2, '0')}</div>
@@ -121,13 +134,13 @@
 							{#if vehicle.tags && vehicle.tags.length > 0}
 								<div class="spec-row">
 									<span class="spec-label">Type:</span>
-									<span class="spec-value">{vehicle.tags[0]}</span>
+									<span class="spec-value uppercase">{vehicle.tags[0]}</span>
 								</div>
 							{/if}
-							{#if vehicle.location}
+							{#if vehicle.pickupLocation}
 								<div class="spec-row">
 									<span class="spec-label">Location:</span>
-									<span class="spec-value">{vehicle.location}</span>
+									<span class="spec-value capitalize">{vehicle.pickupLocation?.city}, {vehicle?.pickupLocation?.state}</span>
 								</div>
 							{/if}
 						</div>
@@ -143,8 +156,24 @@
 							{/if}
 						</div>
 					</div>
-					<div class="go-to-vheicle border-white-1 border-radius-2">
-						<a href={buildItemLink(vehicle)} class="add-button" aria-label="View details"></a>
+					<div class="go-to-vehicle-wrapper">
+						<div
+							class="add-button"
+							role="link"
+							tabindex="0"
+							aria-label="View details"
+							onclick={(e) => {
+								e.stopPropagation();
+								window.location.href = buildItemLink(vehicle);
+							}}
+							onkeydown={(e) => {
+								if (e.key === 'Enter' || e.key === ' ') {
+									e.stopPropagation();
+									e.preventDefault();
+									window.location.href = buildItemLink(vehicle);
+								}
+							}}></div>
+					</div>
 					</button>
 				{/each}
 			</div>
@@ -234,6 +263,7 @@
 
 	.slide.active {
 		flex: 2.5;
+		
 		filter: grayscale(0);
 	}
 
@@ -257,10 +287,14 @@
 	}
 
 	.slide.active .slide-content {
-		bottom: 80px;
+		bottom: 4%;
 		transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
 	}
 
+	.slide.active .slide-number {
+		text-align: center;
+		width: 100%
+	}
 	.slide-number {
 		font-size: 64px;
 		font-weight: 300;
@@ -318,7 +352,7 @@
 	.car-subtitle {
 		font-size: 16px;
 		color: rgba(255, 255, 255, 0.8);
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 		opacity: 0;
 		transform: translateY(30px);
 		transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -434,10 +468,14 @@
 		border-radius: 50%;
 	}
 
-	.add-button {
+	.go-to-vehicle-wrapper {
 		position: absolute;
-		bottom: 30px;
-		right: 30px;
+		bottom: 20px;
+		right: 20px;
+		z-index: 3;
+	}
+
+	.add-button {
 		width: 32px;
 		height: 32px;
 		background: transparent;
@@ -448,7 +486,7 @@
 		justify-content: center;
 		cursor: pointer;
 		transition: all 0.4s ease;
-		z-index: 3;
+		position: relative;
 	}
 
 	.add-button::before,
@@ -519,7 +557,7 @@
 
 	@media (max-width: 768px) {
 		.slider-container {
-			height: 500px;
+			height: 700px;
 		}
 
 		.accordion-slider {
@@ -528,7 +566,7 @@
 
 		.slide {
 			flex: 1;
-			min-height: 80px;
+			min-height: 120px;
 		}
 
 		.slide.active {
