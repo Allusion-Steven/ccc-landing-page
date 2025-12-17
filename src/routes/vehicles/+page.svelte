@@ -51,6 +51,9 @@
 
 	const initialLocation = $state(data.location || DEFAULT_CITY);
 
+	// Make filter should be reactive to URL changes
+	const makeFilter = $derived($page.url.searchParams.get('make') || '');
+
 	let pickupDate = $state(data.pickupDate || '');
 	let dropoffDate = $state(data.dropoffDate || '');
 
@@ -101,6 +104,13 @@
 	// Apply all filters (location, price, year, search, types) and sorting
 	let filteredVehicles = $derived.by(() => {
 		let filtered = vehiclesByLocation;
+
+		// Apply make filter (from URL parameter)
+		if (makeFilter) {
+			filtered = filtered.filter(
+				(vehicle: any) => vehicle.make.toLowerCase().includes(makeFilter.toLowerCase())
+			);
+		}
 
 		// Apply price filter
 		filtered = filtered.filter((vehicle: any) => vehicle.pricePerDay <= maxPrice);
@@ -171,9 +181,10 @@
 
 	// Check if any filters are active
 	const isAnyFilterActive = $derived(
-		checkFiltersActive(searchQuery, maxPrice, maxPriceAvailable, selectedTypes, {
-			yearRange: minYear !== minYearAvailable || maxYear !== maxYearAvailable
-		})
+		!!makeFilter ||
+			checkFiltersActive(searchQuery, maxPrice, maxPriceAvailable, selectedTypes, {
+				yearRange: minYear !== minYearAvailable || maxYear !== maxYearAvailable
+			})
 	);
 
 	// Clear filters function
@@ -184,8 +195,10 @@
 		maxYear = maxYearAvailable;
 		selectedTypes = [];
 		currentSort = 'default';
-		// Keep date and location values
-		updateURL();
+		// Clear make filter from URL
+		const url = new URL(window.location.href);
+		url.searchParams.delete('make');
+		goto(url.toString(), { replaceState: true, keepFocus: true, noScroll: true });
 	}
 
 	function handleSort(sortOption: string) {
@@ -316,6 +329,33 @@
 			: 'text-primary-accent'}">
 		Available Vehicles
 	</h1>
+
+	{#if makeFilter}
+		<div class="mb-6 flex justify-center" in:fade={{ duration: 200 }}>
+			<div
+				class="flex items-center gap-3 rounded-xl px-6 py-3 {$theme === 'dark'
+					? 'bg-white/10 text-white'
+					: 'bg-gray-100 text-gray-800'}">
+				<span class="text-sm font-medium">
+					Filtering by: <span class="capitalize font-bold text-[#0bd3d3]">{makeFilter}</span>
+				</span>
+				<button
+					onclick={clearFilters}
+					class="rounded-full p-1 transition-colors {$theme === 'dark'
+						? 'hover:bg-white/20'
+						: 'hover:bg-gray-200'}"
+					aria-label="Clear brand filter">
+					<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+		</div>
+	{/if}
 
 	<div class="mb-6 flex sm:justify-end">
 		<SortingOptions onSort={handleSort} {currentSort} />
