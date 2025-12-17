@@ -94,7 +94,7 @@
 <div class="featured-carousel-wrapper">
 	{#if items && items.length > 0}
 		<div class="slider-container">
-			<div class="now-showing">Now in Showroom</div>
+			<div class="now-showing">Now Available</div>
 
 			<div class="accordion-slider">
 				{#each items.slice(0, 4) as vehicle, index (vehicle.id)}
