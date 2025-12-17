@@ -3,6 +3,7 @@
 	import Hero2 from '$lib/assets/components/Home/Hero2.svelte';
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import VehicleCarousel from '$lib/assets/components/Home/VehicleCarousel.svelte';
+	import FeaturedCarCarousel from '$lib/assets/components/Home/FeaturedCarCarousel.svelte';
 	import ShopByMake from '$lib/assets/components/Home/ShopByMake.svelte';
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
 	import Experience from '$lib/assets/components/Home/Experience.svelte';
@@ -19,6 +20,7 @@
 	let mounted = false;
 	let whyVisible = $state(false);
 	let vehicleCarouselVisible = $state(false);
+	let featuredCarCarouselVisible = $state(false);
 	let shopByMakeVisible = $state(false);
 	let yachtCarouselVisible = $state(false);
 	let accordionVisible = $state(false);
@@ -106,6 +108,21 @@
 			</div>
 		{/if}
 	</div> -->
+
+	<div use:intersectionObserver={(isVisible) => (featuredCarCarouselVisible = isVisible)}>
+		{#if featuredCarCarouselVisible}
+			<div
+				in:fly={{
+					y: 50,
+					duration: 300,
+					easing: quintOut
+				}}>
+				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
+					<FeaturedCarCarousel items={featuredVehicles.vehicles} />
+				{/if}
+			</div>
+		{/if}
+	</div>
 
 	<div use:intersectionObserver={(isVisible) => (vehicleCarouselVisible = isVisible)}>
 		{#if vehicleCarouselVisible}
