@@ -150,7 +150,7 @@
 						class="flex flex-col space-y-4 px-4 py-6 text-center md:flex-row md:justify-end md:space-x-8 md:space-y-0 md:px-4 md:py-0">
 						<a
 							href="/"
-							class="text-lg font-medium transition-colors duration-300 {$page.url
+							class="text-md font-medium transition-colors duration-300 {$page.url
 								.pathname === '/'
 								? $theme === 'dark'
 									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
@@ -178,7 +178,7 @@
 						{#if !isLive}
 							<a
 								href="/pricing"
-								class="text-lg font-medium transition-colors duration-300 {$page.url
+								class="text-md font-medium transition-colors duration-300 {$page.url
 									.pathname === '/pricing'
 									? $theme === 'dark'
 										? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
@@ -191,7 +191,7 @@
 						{/if}
 						<a
 							href="/contact"
-							class="text-lg font-medium transition-colors duration-300 {$page.url
+							class="text-md font-medium transition-colors duration-300 {$page.url
 								.pathname === '/contact'
 								? $theme === 'dark'
 									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
@@ -203,7 +203,7 @@
 						</a>
 						<a
 							href={dashboardUrl}
-							class="text-lg font-medium transition-colors duration-300 {$theme === 'dark'
+							class="text-md font-medium transition-colors duration-300 {$theme === 'dark'
 								? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
 								: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 							Become a Host
@@ -220,7 +220,7 @@
 						{:else}
 							<a
 								href="/logout"
-								class="text-lg font-medium transition-colors duration-300 {$theme === 'dark'
+								class="text-md font-medium transition-colors duration-300 {$theme === 'dark'
 									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
 									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
 								Logout

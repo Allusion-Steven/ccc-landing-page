@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { Vehicle } from '$lib/types';
 	import { page } from '$app/stores';
+	import { theme } from '$lib/stores/theme';
 
 	interface Props {
 		items: Vehicle[];
@@ -186,7 +187,7 @@
 				>›</button>
 		</div>
 	{:else}
-		<div class="empty-state">
+		<div class="empty-state { $theme === 'dark' ? 'text-white' : 'text-black' }" >
 			<p>No featured vehicles available</p>
 		</div>
 	{/if}

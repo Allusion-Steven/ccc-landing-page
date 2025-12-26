@@ -3,6 +3,7 @@
 	import Hero2 from '$lib/assets/components/Home/Hero2.svelte';
 	import Why from '$lib/assets/components/Home/Why.svelte';
 	import VehicleCarousel from '$lib/assets/components/Home/VehicleCarousel.svelte';
+	import VehicleCardUpdated from '$lib/assets/components/Home/VehicleCardUpdated.svelte';
 	import FeaturedCarCarousel from '$lib/assets/components/Home/FeaturedCarCarousel.svelte';
 	import ShopByMake from '$lib/assets/components/Home/ShopByMake.svelte';
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
@@ -16,6 +17,7 @@
 	import { elasticOut, quintOut } from 'svelte/easing';
 	import heroImage from '$lib/assets/images/lambo-performante.jpg';
 	import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
+	import { theme } from '$lib/stores/theme.js';
 
 	let mounted = false;
 	let whyVisible = $state(false);
@@ -133,11 +135,17 @@
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
-					<VehicleCarousel
-						items={featuredVehicles.vehicles}
-						title="Featured Vehicles"
-						viewAllLink="/vehicles"
-						itemType="car" />
+					<div class=" mx-auto py-16 px-4">
+						<h3 class="mb-12 text-center text-4xl font-bold { $theme === 'dark' ? 'text-white' : 'text-black' }">Featured Vehicles</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+							{#each featuredVehicles.vehicles.slice(0, 4) as vehicle, index}
+								<VehicleCardUpdated
+									item={vehicle}
+									itemType="car"
+									{index} />
+							{/each}
+						</div>
+					</div>
 				{:else}
 					<div class="container mx-auto py-16 text-center">
 						<h3 class="mb-4 text-3xl font-bold text-white">Featured Vehicles</h3>
