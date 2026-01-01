@@ -179,7 +179,7 @@
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
-					<div class="md:px-[5%] mx-auto py-16 px-4">
+					<div class="md:px-[5%] mx-auto py-16 px-4 max-w-8xl container">
 						<h3 class="mb-12 text-center text-4xl font-bold { $theme === 'dark' ? 'text-white' : 'text-black' }">Featured Vehicles</h3>
 						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
 							{#each featuredVehicles.vehicles.slice(3, 11) as vehicle, index}
