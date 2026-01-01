@@ -3,7 +3,7 @@
 	import type { Vehicle, Yacht } from '$lib/types';
 	import { theme } from '$lib/stores/theme';
 	import { page } from '$app/stores';
-	import { ChevronLeft, ChevronRight, MapPin, Calendar, Check, Ruler, Users, BedDouble, Car, DollarSign, CalendarCheck } from 'lucide-svelte';
+	import { ChevronLeft, ChevronRight, MapPin, Gauge, Users, BedDouble, Anchor, ArrowRight } from 'lucide-svelte';
 
 	interface Props {
 		item: Vehicle | Yacht;
@@ -15,6 +15,7 @@
 
 	// State for carousel
 	let currentImageIndex = $state(0);
+	let isHovered = $state(false);
 
 	// Helper functions
 	function isYacht(item: Vehicle | Yacht): item is Yacht {
@@ -23,7 +24,7 @@
 
 	function getActiveImages() {
 		if (!item.images || item.images.length === 0) return [];
-		return item.images.filter((img) => img?.isActive !== false).slice(0, 4);
+		return item.images.filter((img) => img?.isActive !== false).slice(0, 5);
 	}
 
 	function getImageUrl(index: number): string {
@@ -62,7 +63,11 @@
 
 	function getFeatures() {
 		if (!item.tags || item.tags.length === 0) return [];
-		return item.tags.slice(0, 3);
+		return item.tags.slice(0, 2);
+	}
+
+	function formatPrice(price: number): string {
+		return new Intl.NumberFormat('en-US').format(price);
 	}
 
 	function buildItemLink(item: Vehicle | Yacht): string {
@@ -96,227 +101,191 @@
 
 <a
 	href={buildItemLink(item)}
-	class="card-hover block overflow-hidden rounded-2xl shadow-lg transition-all duration-300 {$theme ===
-	'dark'
-		? 'bg-[#1C1C1C] hover:shadow-2xl'
-		: 'bg-white hover:shadow-xl'}"
-	in:fly={{ y: 30, duration: 200, delay: 100 + index * 50 }}>
-	<!-- Image Carousel -->
-	<div class="carousel-container relative">
-		<div
-			class="relative h-56 overflow-hidden {$theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'}">
+	class="vehicle-card group block overflow-hidden rounded-3xl transition-all duration-500 {$theme === 'dark'
+		? 'bg-gradient-to-b from-[#1a1a1a] to-[#0d0d0d] shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_8px_40px_rgba(255,255,255,0.05)]'
+		: 'bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]'}"
+	in:fly={{ y: 40, duration: 400, delay: 80 + index * 60 }}
+	onmouseenter={() => (isHovered = true)}
+	onmouseleave={() => (isHovered = false)}
+	role="article"
+	aria-label="{item.year} {item.make} {item.model}">
+
+	<!-- Image Section -->
+	<div class="image-wrapper relative overflow-hidden">
+		<div class="relative aspect-[4/3] overflow-hidden {$theme === 'dark' ? 'bg-[#0a0a0a]' : 'bg-gray-100'}">
 			{#if getActiveImages().length > 0}
 				<img
 					src={getImageUrl(currentImageIndex)}
-					alt="{item.make} {item.model}"
+					alt="{item.year} {item.make} {item.model}"
 					loading="lazy"
-					class="carousel-slide h-full w-full object-cover transition-opacity duration-300"
+					class="image-zoom h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
 					onerror={(e) => {
 						const target = e.target as HTMLImageElement;
-						target.style.display = 'none';
+						target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23111" width="400" height="300"/><text x="200" y="150" text-anchor="middle" fill="%23333" font-family="system-ui" font-size="14">No Image</text></svg>';
 					}} />
+
+				<!-- Gradient Overlay -->
+				<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 			{:else}
-				<div
-					class="flex h-full w-full items-center justify-center {$theme === 'dark'
-						? 'text-gray-600'
-						: 'text-gray-400'}">
-					<span class="text-sm">No image available</span>
+				<div class="flex h-full w-full items-center justify-center {$theme === 'dark' ? 'text-gray-700' : 'text-gray-300'}">
+					{#if isYacht(item)}
+						<Anchor class="h-16 w-16 opacity-30" />
+					{:else}
+						<Gauge class="h-16 w-16 opacity-30" />
+					{/if}
 				</div>
 			{/if}
 		</div>
 
-		<!-- Carousel Controls -->
+		<!-- Carousel Navigation - Only visible on hover -->
 		{#if getActiveImages().length > 1}
 			<button
-				onclick={(e) => {
-					e.preventDefault();
-					changeImage(-1);
-				}}
-				class="absolute left-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 shadow-lg backdrop-blur-sm transition hover:bg-white">
-				<ChevronLeft class="h-4 w-4 text-gray-700" />
+				onclick={(e) => { e.preventDefault(); changeImage(-1); }}
+				aria-label="Previous image"
+				class="carousel-btn absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 {isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'} {$theme === 'dark'
+					? 'bg-black/60 text-white backdrop-blur-md hover:bg-black/80'
+					: 'bg-white/90 text-gray-800 shadow-lg backdrop-blur-md hover:bg-white'}">
+				<ChevronLeft class="h-5 w-5" />
 			</button>
 			<button
-				onclick={(e) => {
-					e.preventDefault();
-					changeImage(1);
-				}}
-				class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 shadow-lg backdrop-blur-sm transition hover:bg-white">
-				<ChevronRight class="h-4 w-4 text-gray-700" />
+				onclick={(e) => { e.preventDefault(); changeImage(1); }}
+				aria-label="Next image"
+				class="carousel-btn absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-300 {isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'} {$theme === 'dark'
+					? 'bg-black/60 text-white backdrop-blur-md hover:bg-black/80'
+					: 'bg-white/90 text-gray-800 shadow-lg backdrop-blur-md hover:bg-white'}">
+				<ChevronRight class="h-5 w-5" />
 			</button>
 
-			<!-- Image Indicators -->
-			<div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 space-x-1">
+			<!-- Modern Pill Indicators -->
+			<div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full {$theme === 'dark' ? 'bg-black/40' : 'bg-black/20'} px-2 py-1.5 backdrop-blur-md">
 				{#each getActiveImages() as _, imgIndex}
 					<button
-						onclick={(e) => {
-							e.preventDefault();
-							goToImage(imgIndex);
-						}}
-						class="indicator-dot h-2 rounded-full transition-all hover:bg-white {imgIndex ===
-						currentImageIndex
-							? 'active w-6 bg-white'
-							: 'w-2 bg-white/60'}"></button>
+						onclick={(e) => { e.preventDefault(); goToImage(imgIndex); }}
+						aria-label="Go to image {imgIndex + 1}"
+						class="indicator h-1.5 rounded-full transition-all duration-300 {imgIndex === currentImageIndex
+							? 'w-6 bg-white'
+							: 'w-1.5 bg-white/40 hover:bg-white/70'}">
+					</button>
 				{/each}
 			</div>
 		{/if}
 
-		<!-- Price Badge -->
-		<div
-			class="absolute left-3 top-3 rounded-full px-3 py-1 text-sm font-semibold text-black shadow-lg {$theme ===
-			'dark'
-				? 'bg-[#9fff6b]'
-				: 'bg-[#9fff6b]'}">
-			{#if isYacht(item) && item.yachtPricing}
-				${new Intl.NumberFormat('en-US').format(item.yachtPricing.fourHours)}/4h
-			{:else}
-				${new Intl.NumberFormat('en-US').format(item.pricePerDay)}/day
-			{/if}
-		</div>
+
 	</div>
 
 	<!-- Card Content -->
 	<div class="p-5">
-		<!-- Vehicle Info -->
-		<div class="mb-3">
-			<div class="mb-2 flex items-start justify-between">
-				<div>
-					<h3
-						class="text-xl font-bold {$theme === 'dark' ? 'text-white' : 'text-gray-800'}">
-						{item.make}
-						{item.model}
+		<!-- Header: Title & Year -->
+		<div class="mb-4">
+			<div class="flex items-start justify-between gap-3">
+				<div class="min-w-0 flex-1">
+					<h3 class="truncate text-lg font-bold tracking-tight {$theme === 'dark' ? 'text-white' : 'text-gray-900'}">
+						{item.make} {item.model}
 					</h3>
-					<p class="text-sm {$theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}">
-						{item.year}
+					<p class="mt-0.5 text-sm font-medium {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}">
+						{item.year} {isYacht(item) ? 'Yacht' : 'Vehicle'}
 					</p>
 				</div>
-				{#if item.isAvailable !== false}
-					<div
-						class="flex items-center space-x-1 rounded-full px-2 py-1 text-xs {$theme ===
-						'dark'
-							? 'bg-green-900/30 text-green-400'
-							: 'bg-green-100 text-green-700'}">
-						<Check class="h-3 w-3" />
-						<span>Available</span>
-					</div>
-				{/if}
 			</div>
 		</div>
 
 		<!-- Location -->
-		<div class="mb-3 flex items-center {$theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}">
-			<MapPin class="mr-2 h-4 w-4 {$theme === 'dark' ? 'text-[#08D3D3]' : 'text-[#513954]'}" />
-			<span class="text-sm capitalize">{getLocation()}</span>
+		<div class="mb-4 flex items-center gap-2 {$theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}">
+			<MapPin class="h-4 w-4 flex-shrink-0 {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}" />
+			<span class="truncate text-sm">{getLocation()}</span>
 		</div>
 
-		<!-- Features -->
+		<!-- Specs/Features -->
 		<div class="mb-4 flex flex-wrap gap-2">
-
-		{#if getFeatures().length > 0}
+			{#if isYacht(item)}
+				<div class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 {$theme === 'dark' ? 'bg-white/5' : 'bg-gray-50'}">
+					<Anchor class="h-3.5 w-3.5 {$theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}" />
+					<span class="text-xs font-medium {$theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}">{item.specs?.length || 'N/A'}</span>
+				</div>
+				<div class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 {$theme === 'dark' ? 'bg-white/5' : 'bg-gray-50'}">
+					<Users class="h-3.5 w-3.5 {$theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}" />
+					<span class="text-xs font-medium {$theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}">{item.specs?.guests || 0} Guests</span>
+				</div>
+				<div class="flex items-center gap-1.5 rounded-lg px-3 py-1.5 {$theme === 'dark' ? 'bg-white/5' : 'bg-gray-50'}">
+					<BedDouble class="h-3.5 w-3.5 {$theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}" />
+					<span class="text-xs font-medium {$theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}">{item.specs?.cabins || 0} Cabins</span>
+				</div>
+			{:else if getFeatures().length > 0}
 				{#each getFeatures() as feature}
-					<span
-						class="uppercase rounded-full border px-2 py-1 text-xs font-medium {$theme === 'dark'
-							? 'border-gray-700 bg-gray-800/50 text-gray-300'
-							: 'border-gray-200 bg-white text-gray-700'}">
+					<span class="rounded-lg px-3 py-1.5 text-xs font-medium uppercase {$theme === 'dark'
+						? 'bg-white/5 text-gray-300'
+						: 'bg-gray-50 text-gray-700'}">
 						{feature}
 					</span>
 				{/each}
-				{#if item.tags && item.tags.length > 3}
-					<span class="text-xs {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}">
-						+{item.tags.length - 3} more
-					</span>
-				{/if}
-		{/if}
-	</div>
-
-
-		<!-- Specs -->
-		<div
-			class="mb-4 flex justify-between border-b pb-3 text-xs {$theme === 'dark'
-				? 'border-gray-800 text-gray-400'
-				: 'border-gray-100 text-gray-600'}">
-			{#if isYacht(item)}
-				<div class="flex items-center">
-					<Ruler class="mr-1 h-3 w-3" />
-					<span>{item.specs?.length || 'N/A'}</span>
-				</div>
-				<div class="flex items-center">
-					<Users class="mr-1 h-3 w-3" />
-					<span>{item.specs?.guests || 0} Guests</span>
-				</div>
-				<div class="flex items-center">
-					<BedDouble class="mr-1 h-3 w-3" />
-					<span>{item.specs?.cabins || 0} Cabins</span>
-				</div>
-			{:else}
-				<div class="flex items-center">
-					<Calendar class="mr-1 h-3 w-3" />
-					<span>{item.year}</span>
-				</div>
-				<div class="flex items-center">
-					<Car class="mr-1 h-3 w-3" />
-					<span>{itemType === 'car' ? 'Car' : 'Vehicle'}</span>
-				</div>
-				<div class="flex items-center">
-					<DollarSign class="mr-1 h-3 w-3" />
-					<span>Rental</span>
-				</div>
 			{/if}
 		</div>
 
-		<!-- CTA Button -->
-		<button
-			class="cta-button relative flex w-full items-center justify-center space-x-2 overflow-hidden rounded-lg py-3 font-semiboldtransition-all duration-300 {$theme ===
-			'dark'
-				? 'bg-[#ffffff] text-black hover:bg-[#06b8b8]'
-				: 'bg-[#000000] text-white hover:bg-[#3e2c40]'}">
-			<CalendarCheck class="h-4 w-4" />
-			<span>View Details</span>
-		</button>
+		<!-- Divider -->
+		<div class="mb-4 h-px {$theme === 'dark' ? 'bg-gradient-to-r from-transparent via-gray-700 to-transparent' : 'bg-gradient-to-r from-transparent via-gray-200 to-transparent'}"></div>
+
+		<!-- Price & CTA Row -->
+		<div class="flex items-center justify-between gap-4">
+			<!-- Price -->
+			<div class="flex flex-col">
+				<span class="text-2xl font-bold tracking-tight {$theme === 'dark' ? 'text-white' : 'text-gray-900'}">
+					{#if isYacht(item) && item.yachtPricing}
+						${formatPrice(item.yachtPricing.fourHours)}
+					{:else}
+						${formatPrice(item.pricePerDay)}
+					{/if}
+				</span>
+				<span class="text-xs font-medium {$theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}">
+					{#if isYacht(item)}
+						per 4 hours
+					{:else}
+						per day
+					{/if}
+				</span>
+			</div>
+
+			<!-- CTA Button -->
+			<button
+				class="cta-button group/btn flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 {$theme === 'dark'
+					? 'border border-gray-600 bg-transparent text-gray-200 hover:border-gray-400 hover:text-white'
+					: 'bg-gray-900 text-white hover:bg-gray-800'}">
+				<span>View</span>
+				<ArrowRight class="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+			</button>
+		</div>
 	</div>
 </a>
 
 <style>
-	.card-hover {
-		transition: transform 0.3s ease;
+	.vehicle-card {
+		transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+		            box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 
-	.card-hover:hover {
-		transform: translateY(-5px);
+
+
+	.image-zoom {
+		will-change: transform;
 	}
 
-	.indicator-dot {
-		transition: all 0.3s ease;
+	.indicator {
+		transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
 
-	.carousel-slide {
-		animation: fadeIn 0.3s ease-out;
+	.carousel-btn {
+		will-change: opacity, transform;
 	}
 
-	@keyframes fadeIn {
-		from {
+
+	/* Pulsing animation for availability dot */
+	@keyframes ping {
+		75%, 100% {
+			transform: scale(2);
 			opacity: 0;
 		}
-		to {
-			opacity: 1;
-		}
 	}
 
-	.cta-button::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-		transition: left 0.5s;
-	}
-
-	.cta-button:hover::before {
-		left: 100%;
-	}
-
-	.cta-button:hover {
-		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	.animate-ping {
+		animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 	}
 </style>

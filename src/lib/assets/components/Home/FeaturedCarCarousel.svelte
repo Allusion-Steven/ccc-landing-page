@@ -6,9 +6,10 @@
 
 	interface Props {
 		items: Vehicle[];
+		itemType?: 'car' | 'yacht';
 	}
 
-	let { items = [] }: Props = $props();
+	let { items = [], itemType = 'car' }: Props = $props();
 
 	let currentIndex = $state(-1);
 
@@ -61,7 +62,8 @@
 
 	// Function to build the vehicle link with all required parameters
 	function buildItemLink(item: Vehicle): string {
-		const baseLink = `/vehicle/${item.id}`;
+		const basePath = itemType === 'yacht' ? 'yacht' : 'vehicle';
+		const baseLink = `/${basePath}/${item.id}`;
 
 		// Get current URL parameters
 		const currentUrl = $page.url;
@@ -76,7 +78,7 @@
 		params.set('userId', item.userId);
 
 		// Add vehicleType
-		params.set('vehicleType', 'car');
+		params.set('vehicleType', itemType);
 
 		// Add optional parameters only if they exist
 		params.set('pickupDate', pickupDate);
@@ -128,10 +130,14 @@
 								<span class="spec-value">{vehicle.year}</span>
 
 							</div>
+							{#if vehicle.pricePerDay}
 							<div class="spec-row">
 								<span class="spec-label">Daily Rate:</span>
+								{#if itemType === 'car'}
 								<span class="spec-value">${vehicle.pricePerDay.toLocaleString()}</span>
+								{/if}
 							</div>
+							{/if}
 							{#if vehicle.tags && vehicle.tags.length > 0}
 								<div class="spec-row">
 									<span class="spec-label">Type:</span>
@@ -200,7 +206,6 @@
 		align-items: center;
 		justify-content: center;
 		padding: 2rem 0;
-		background: #f0f2f5;
 	}
 
 	:global(.dark) .featured-carousel-wrapper {
@@ -558,7 +563,7 @@
 
 	@media (max-width: 768px) {
 		.slider-container {
-			height: 700px;
+			height: 900px;
 		}
 
 		.accordion-slider {
@@ -567,7 +572,7 @@
 
 		.slide {
 			flex: 1;
-			min-height: 120px;
+			min-height: 140px;
 		}
 
 		.slide.active {
