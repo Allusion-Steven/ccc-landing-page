@@ -563,8 +563,12 @@
 						<!-- Basic Information -->
 						<div class="grid grid-cols-2 gap-3 max500:grid-cols-2 max500:items-center max500:mx-auto sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
 							<div class="flex items-center gap-3">
-								<div class="rounded-lg bg-blue-600/20 p-3">
-									<CheckCircleOutline class="h-5 w-5 text-blue-400" />
+								<div class="rounded-lg border-2 p-3 {$theme === 'dark'
+									? 'border-gray-600 bg-gray-800/50'
+									: 'border-gray-300 bg-gray-100'}">
+									<CheckCircleOutline class="h-5 w-5 {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}" />
 								</div>
 								<div>
 									<p
@@ -583,8 +587,12 @@
 							</div>
 
 							<div class="flex items-center gap-3">
-								<div class="rounded-lg bg-green-600/20 p-3">
-									<ClipboardListOutline class="h-5 w-5 text-green-400" />
+								<div class="rounded-lg border-2 p-3 {$theme === 'dark'
+									? 'border-gray-600 bg-gray-800/50'
+									: 'border-gray-300 bg-gray-100'}">
+									<ClipboardListOutline class="h-5 w-5 {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}" />
 								</div>
 								<div>
 									<p
@@ -603,8 +611,12 @@
 							</div>
 
 							<div class="flex items-center gap-3">
-								<div class="rounded-lg bg-yellow-600/20 p-3">
-									<CalendarMonthOutline class="h-5 w-5 text-yellow-400" />
+								<div class="rounded-lg border-2 p-3 {$theme === 'dark'
+									? 'border-gray-600 bg-gray-800/50'
+									: 'border-gray-300 bg-gray-100'}">
+									<CalendarMonthOutline class="h-5 w-5 {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}" />
 								</div>
 								<div>
 									<p
@@ -624,8 +636,12 @@
 
 							<!-- Yacht-specific specifications -->
 							<div class="flex items-center gap-3">
-								<div class="rounded-lg bg-emerald-600/20 p-3">
-									<CogOutline class="h-5 w-5 text-emerald-400" />
+								<div class="rounded-lg border-2 p-3 {$theme === 'dark'
+									? 'border-gray-600 bg-gray-800/50'
+									: 'border-gray-300 bg-gray-100'}">
+									<CogOutline class="h-5 w-5 {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}" />
 								</div>
 								<div>
 									<p
@@ -644,8 +660,12 @@
 							</div>
 
 							<div class="flex items-center gap-3">
-								<div class="rounded-lg bg-purple-600/20 p-3">
-									<UsersGroupOutline class="h-5 w-5 text-purple-400" />
+								<div class="rounded-lg border-2 p-3 {$theme === 'dark'
+									? 'border-gray-600 bg-gray-800/50'
+									: 'border-gray-300 bg-gray-100'}">
+									<UsersGroupOutline class="h-5 w-5 {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}" />
 								</div>
 								<div>
 									<p
@@ -664,8 +684,12 @@
 							</div>
 
 							<div class="flex items-center gap-3">
-								<div class="rounded-lg bg-red-600/20 p-3">
-									<HomeOutline class="h-5 w-5 text-red-400" />
+								<div class="rounded-lg border-2 p-3 {$theme === 'dark'
+									? 'border-gray-600 bg-gray-800/50'
+									: 'border-gray-300 bg-gray-100'}">
+									<HomeOutline class="h-5 w-5 {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}" />
 								</div>
 								<div>
 									<p
@@ -684,8 +708,12 @@
 							</div>
 
 							<div class="flex items-center gap-3">
-								<div class="rounded-lg bg-indigo-600/20 p-3">
-									<UsersGroupOutline class="h-5 w-5 text-indigo-400" />
+								<div class="rounded-lg border-2 p-3 {$theme === 'dark'
+									? 'border-gray-600 bg-gray-800/50'
+									: 'border-gray-300 bg-gray-100'}">
+									<UsersGroupOutline class="h-5 w-5 {$theme === 'dark'
+										? 'text-gray-300'
+										: 'text-gray-700'}" />
 								</div>
 								<div>
 									<p

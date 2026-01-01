@@ -83,7 +83,7 @@
 					class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
 					Pickup Location <span class="text-red-500">*</span>
 				</label>
-				<h3 class="text-md text-sky-300 dark:text-sky-300">{location}</h3>
+				<h3 class="text-md text-black dark:text-black-300">{location}</h3>
 				<!-- 				<select
 					id="location"
 					bind:value={location}

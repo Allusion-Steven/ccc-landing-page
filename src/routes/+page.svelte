@@ -1,31 +1,27 @@
 <script lang="ts">
-	import Hero from '$lib/assets/components/Home/Hero.svelte';
-	import Hero2 from '$lib/assets/components/Home/Hero2.svelte';
-	import Why from '$lib/assets/components/Home/Why.svelte';
 	import VehicleCarousel from '$lib/assets/components/Home/VehicleCarousel.svelte';
+	import VehicleCardUpdated from '$lib/assets/components/Home/VehicleCardUpdated.svelte';
 	import FeaturedCarCarousel from '$lib/assets/components/Home/FeaturedCarCarousel.svelte';
 	import ShopByMake from '$lib/assets/components/Home/ShopByMake.svelte';
 	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
-	import Experience from '$lib/assets/components/Home/Experience.svelte';
-	import Experience2 from '$lib/assets/components/Home/Experience2.svelte';
-	import RallySection from '$lib/assets/components/Home/RallySection.svelte';
 	import { faqData } from '$lib/data/faq';
 	import type { Vehicle, Yacht } from '$lib/types';
 	import { onMount } from 'svelte';
-	import { fade, fly, scale, slide } from 'svelte/transition';
-	import { elasticOut, quintOut } from 'svelte/easing';
+	import { fly } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 	import heroImage from '$lib/assets/images/lambo-performante.jpg';
-	import yachtHeroBg from '$lib/assets/images/yacht-hero-bg.avif';
+	import { theme } from '$lib/stores/theme.js';
+	import PrimaryButton from '$lib/assets/components/buttons/PrimaryButton.svelte';
+	import SecondaryButton from '$lib/assets/components/buttons/SecondaryButton.svelte';
+	import { dashboardUrl } from '$lib';
 
-	let mounted = false;
-	let whyVisible = $state(false);
+	let mounted = $state(false);
 	let vehicleCarouselVisible = $state(false);
 	let featuredCarCarouselVisible = $state(false);
+	let featuredYachtCarouselVisible = $state(false);
 	let shopByMakeVisible = $state(false);
 	let yachtCarouselVisible = $state(false);
 	let accordionVisible = $state(false);
-	let experienceVisible = $state(false);
-	let rallyVisible = $state(false);
 
 	let { data } = $props();
 	const { featuredVehicles, featuredYachts } = data;
@@ -87,27 +83,44 @@
 	<!-- Need to replace this favicon with real images-->
 	<link rel="icon" href="https://macroexotics.com/favicon.png" />
 	<link rel="preload" as="image" href={heroImage} />
-	<link rel="preload" as="image" href={yachtHeroBg} />
 </svelte:head>
 
 <div>
-	<div in:fade={{ duration: 400 }}>
-		<!-- <Hero /> -->
-		<Hero2 />
-	</div>
-	<!-- Rally Section -->
-	<!-- <div use:intersectionObserver={(isVisible) => (rallyVisible = isVisible)}>
-		{#if rallyVisible}
-			<div
-				in:fly={{
-					y: 30,
-					duration: 300,
-					easing: quintOut
-				}}>
-				<RallySection />
+	<!-- Hero Section -->
+	<section class="relative h-[70vh] min-h-[500px] overflow-hidden">
+		<div class="absolute inset-0">
+			<img src={heroImage} alt="Luxury exotic car" class="h-full w-full object-cover" />
+			<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+			<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+		</div>
+
+		<div class="relative z-10 flex h-full items-center">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				{#if mounted}
+					<div class="max-w-2xl text-center" in:fly={{ y: 30, duration: 600, easing: quintOut }}>
+						<div class="mb-6 h-[1px] w-16 bg-white/60  text-center mx-auto"></div>
+						<h1 class="mb-6 text-5xl font-light tracking-tight text-white md:text-7xl">
+							Curated
+							<span class="block italic">Luxury</span>
+						</h1>
+						<p class="text-xl font-light leading-relaxed text-white/70">
+							Premier collection of exotic automobiles and luxury yachts,
+							available for those who appreciate the extraordinary.
+						</p>
+						<div class="mt-8 flex flex-wrap gap-4" in:fly={{ y: 20, duration: 600, delay: 200, easing: quintOut }}>
+							<SecondaryButton
+							href={dashboardUrl}
+							type="submit"
+							className=" text-center mx-auto my-0 hover:bg-transparent hover:text-white"
+							text="Join the Club"
+							colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
+							<!-- <SecondaryButton href="/yachts" text="Browse Yachts" colorScheme="dark" /> -->
+						</div>
+					</div>
+				{/if}
 			</div>
-		{/if}
-	</div> -->
+		</div>
+	</section>
 
 	<div use:intersectionObserver={(isVisible) => (featuredCarCarouselVisible = isVisible)}>
 		{#if featuredCarCarouselVisible}
@@ -118,7 +131,40 @@
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
+				<div class="md:px-[1%] px-4 pt-16 pb-4">
+					<h2 class="text-4xl md:text-5xl font-bold tracking-tight { $theme === 'dark' ? 'text-white' : 'text-black' }">
+						Featured <span class="text-miami-hotPink">Cars</span>
+					</h2>
+					<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
+						Experience Miami in style with our premium fleet
+					</p>
+					<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-black' }"></div>
+				</div>
 					<FeaturedCarCarousel items={featuredVehicles.vehicles} />
+				{/if}
+			</div>
+		{/if}
+	</div>
+
+	<div use:intersectionObserver={(isVisible) => (featuredYachtCarouselVisible = isVisible)}>
+		{#if featuredYachtCarouselVisible}
+			<div
+				in:fly={{
+					y: 50,
+					duration: 300,
+					easing: quintOut
+				}}>
+				{#if featuredYachts && featuredYachts.vehicles && featuredYachts.vehicles.length > 0}
+				<div class="md:px-[1%] px-4 pt-16 pb-4 text-right">
+					<h2 class="text-4xl md:text-5xl font-bold tracking-tight { $theme === 'dark' ? 'text-white' : 'text-black' }">
+						Featured <span class="text-miami-brightBlue">Yachts</span>
+					</h2>
+					<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
+						Cruise the Miami waters in ultimate luxury
+					</p>
+					<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-black' }"></div>
+				</div>
+					<FeaturedCarCarousel items={featuredYachts.vehicles} itemType="yacht" />
 				{/if}
 			</div>
 		{/if}
@@ -133,11 +179,21 @@
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
-					<VehicleCarousel
-						items={featuredVehicles.vehicles}
-						title="Featured Vehicles"
-						viewAllLink="/vehicles"
-						itemType="car" />
+					<div class="md:px-[5%] mx-auto py-16 px-4">
+						<h3 class="mb-12 text-center text-4xl font-bold { $theme === 'dark' ? 'text-white' : 'text-black' }">Featured Vehicles</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+							{#each featuredVehicles.vehicles.slice(3, 11) as vehicle, index}
+								<VehicleCardUpdated
+									item={vehicle}
+									itemType="car"
+									{index} />
+							{/each}
+						</div>
+						<div class="flex justify-center mt-6">
+							<SecondaryButton text="View All" className=""/>
+						</div>
+					</div>
+
 				{:else}
 					<div class="container mx-auto py-16 text-center">
 						<h3 class="mb-4 text-3xl font-bold text-white">Featured Vehicles</h3>
@@ -148,24 +204,8 @@
 		{/if}
 	</div>
 
-	<div use:intersectionObserver={(isVisible) => (experienceVisible = isVisible)}>
-		{#if experienceVisible}
-			<div
-			class="max500:hidden"
-				in:fly={{
-					x: -50,
-					duration: 300,
-					easing: quintOut
-				}}>
-				<Experience2 />
-			</div>
-		{/if}
-	</div>
-
-
-
-	<div use:intersectionObserver={(isVisible) => (whyVisible = isVisible)}>
-		{#if whyVisible}
+	<div use:intersectionObserver={(isVisible) => (shopByMakeVisible = isVisible)}>
+		{#if shopByMakeVisible}
 			<div
 				in:fly={{
 					y: 30,
@@ -173,20 +213,6 @@
 					easing: quintOut
 				}}>
 				<ShopByMake />
-
-			</div>
-		{/if}
-	</div>
-
-	<div use:intersectionObserver={(isVisible) => (shopByMakeVisible = isVisible)}>
-		{#if shopByMakeVisible}
-			<div
-				in:fly={{
-					y: 30,
-					duration: 300,
-					easing: quintOut
-				}}>
-				<Why />
 			</div>
 		{/if}
 	</div>
@@ -207,8 +233,9 @@
 						itemType="yacht" />
 				{:else}
 					<div class="container mx-auto py-16 text-center">
-						<h3 class="mb-4 text-3xl font-bold text-white">Featured Yachts</h3>
+						<h3 class="mb-4 text-3xl font-bold text-white text-right">Featured Yachts</h3>
 						<p class="text-white/70">No featured yachts available at the moment.</p>
+						<div class='h-10 bg-orange-600 w-full'></div>
 					</div>
 				{/if}
 			</div>
@@ -233,6 +260,7 @@
 
 <style>
 	div {
-		min-height: 50px;
+		min-height: 2px;
+		border-radius: 10px;
 	}
 </style>

@@ -11,20 +11,34 @@
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
 	import { page } from '$app/stores';
 	import { theme, toggleTheme } from '$lib/stores/theme';
-	import { dashboardUrl, isLive, loginUrl } from '$lib';
+	import { loginUrl } from '$lib';
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
-	let isScrolled = $state(false);
+	let lastScrollY = $state(0);
+	let showBottomNav = $state(true);
+	const SCROLL_THRESHOLD = 10; // Minimum scroll delta to trigger visibility change
 
-	// Logo source reacts directly to the theme store via inline binding in markup
+	function handleScroll() {
+		const currentScrollY = window.scrollY;
+		const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+		// Only react to scroll changes larger than threshold to prevent flashing
+		if (scrollDelta < SCROLL_THRESHOLD) {
+			return;
+		}
+
+		// Show bottom nav when scrolling up or at the top, hide when scrolling down
+		if (currentScrollY < lastScrollY || currentScrollY < 50) {
+			showBottomNav = true;
+		} else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+			showBottomNav = false;
+		}
+		lastScrollY = currentScrollY;
+	}
 
 	function closeMenu() {
 		isMenuOpen = false;
-	}
-
-	function handleScroll() {
-		isScrolled = window.scrollY > 0;
 	}
 
 	onNavigate(() => {
@@ -60,24 +74,50 @@
 		link="/"
 		linkText="Hide" />
 	<nav
-		class="sticky top-0 z-50 transition-colors duration-300 {isScrolled
-			? 'sm:bg-opacity-50'
-			: 'sm:bg-opacity-100'} {$theme === 'dark'
-			? 'bg-gray text-white'
-			: 'bg-gray-100 text-gray-900'}">
-		<div class="container mx-auto flex flex-col items-center md:flex-row md:justify-between">
-			<div class="flex w-full items-center justify-between px-4">
-				<a href="/" class="text-xl font-bold">
-					<img
-						src={$theme === 'dark' ? darkLogo : logo}
-						alt="Macro Exotics Logo"
-						class="md:h-22 h-24 p-2 transition-transform hover:scale-105" />
-				</a>
-				<div class="flex items-center gap-4">
+		class="sticky top-0 z-50 bg-gray-100 dark:bg-[#353E43] text-gray-900 dark:text-white transition-colors duration-300">
+		<!-- Top Row: Search | Logo | Account -->
+		<div class="container mx-auto px-4">
+			<div class="flex items-center justify-between py-2">
+				<!-- Left: Search Icon -->
+				<div class="flex flex-1 items-center justify-start">
 					<button
-						class="rounded-full p-2 {$theme === 'dark'
-							? 'bg-white text-primary-dark'
-							: 'bg-primary-accent text-white'}"
+						class="p-2 transition-colors duration-300 hover:text-sky-600"
+						aria-label="Search">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							stroke-width="1.5">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+						</svg>
+					</button>
+				</div>
+
+				<!-- Center: Logo -->
+				<div class="flex flex-1 items-center justify-center">
+					<a href="/" class="text-xl font-bold">
+						<!-- Light theme logo (hidden in dark mode) -->
+						<img
+							src={logo}
+							alt="Macro Exotics Logo"
+							class="h-16 transition-transform md:h-14 dark:hidden" />
+						<!-- Dark theme logo (hidden in light mode) -->
+						<img
+							src={darkLogo}
+							alt="Macro Exotics Logo"
+							class="hidden h-16 transition-transform md:h-14 dark:block" />
+					</a>
+				</div>
+
+				<!-- Right: Account Icon & Mobile Menu -->
+				<div class="flex flex-1 items-center justify-end gap-3">
+					<button
+						class="rounded-full p-2 transition-colors duration-300 hover:bg-sky-200 dark:hover:bg-white/20"
 						onclick={toggleTheme}
 						aria-label="Toggle theme">
 						{#if $theme === 'dark'}
@@ -102,16 +142,16 @@
 							</svg>
 						{/if}
 					</button>
-					{#if !$page.data.user}
-						<a
-							href={loginUrl}
-							class="flex items-center gap-2 hover:text-primary-light hover:drop-shadow-[0_0_8px_rgba(126,212,172,0.5)] sm:hidden">
-							<AccountIcon className="w-6 h-6 pointer-events-none" />
-						</a>
-					{/if}
+
+					<a
+						href={loginUrl}
+						class="p-2 transition-colors duration-300 hover:text-sky-600"
+						aria-label="Account">
+						<AccountIcon className="w-6 h-6" />
+					</a>
 
 					<button
-						class="transition-colors duration-300 hover:text-primary-light md:hidden"
+						class="p-2 transition-colors duration-300 hover:text-sky-600 md:hidden"
 						onclick={() => (isMenuOpen = !isMenuOpen)}
 						aria-label="Toggle menu">
 						<svg
@@ -137,99 +177,76 @@
 					</button>
 				</div>
 			</div>
+		</div>
 
-			{#if isMenuOpen || innerWidth >= 768}
+		<!-- Bottom Row: Navigation Links (Desktop) -->
+		<div
+			class="hidden md:block transition-all duration-300 ease-out overflow-hidden {showBottomNav ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}">
+			<!-- Divider -->
+			<div class="border-t border-sky-200 dark:border-white/30"></div>
+			<div class="container mx-auto px-4">
 				<div
-					class="w-full overflow-hidden md:block md:overflow-visible"
-					transition:slide={{
-						duration: 200,
-						axis: 'y',
-						easing: quintOut
-					}}>
+					class="flex items-center justify-center space-x-12 py-3"
+					style="font-family: 'Raleway', sans-serif;">
+					<a
+						href="/vehicles"
+						class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/vehicles' || $page.url.pathname.startsWith('/vehicle/')
+							? 'border-b-2 border-gray-900 dark:border-white'
+							: ''}">
+						Cars
+					</a>
+					<a
+						href="/yachts"
+						class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/yachts' || $page.url.pathname.startsWith('/yacht/')
+							? 'border-b-2 border-gray-900 dark:border-white'
+							: ''}">
+						Yachts
+					</a>
+					<a
+						href="/about"
+						class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/about'
+							? 'border-b-2 border-gray-900 dark:border-white'
+							: ''}">
+						About
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Mobile Menu -->
+		{#if isMenuOpen}
+			<div class="md:hidden" transition:slide={{ duration: 200, axis: 'y', easing: quintOut }}>
+				<!-- Divider -->
+				<div class="border-t border-sky-200 dark:border-white/30"></div>
+				<div class="container mx-auto px-4">
 					<div
-						class="flex flex-col space-y-4 px-4 py-6 text-center md:flex-row md:justify-end md:space-x-8 md:space-y-0 md:px-4 md:py-0">
+						class="flex flex-col items-center justify-center space-y-3 py-2"
+						style="font-family: 'Raleway', sans-serif;">
 						<a
-							href="/"
-							class="text-lg font-medium transition-colors duration-300 {$page.url
-								.pathname === '/'
-								? $theme === 'dark'
-									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
-									: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
-								: $theme === 'dark'
-									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
-									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
-							Home
-						</a>
-<!--
-						<a
-							href="/rally-2025"
-							class="text-lg font-medium transition-colors duration-300 {$page.url
-								.pathname === '/rally-2025'
-								? $theme === 'dark'
-									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
-									: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
-								: $theme === 'dark'
-									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
-									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
-							2025 Rally
-						</a> -->
-
-						<!-- TODO: Implement pricing page for live site -->
-						{#if !isLive}
-							<a
-								href="/pricing"
-								class="text-lg font-medium transition-colors duration-300 {$page.url
-									.pathname === '/pricing'
-									? $theme === 'dark'
-										? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
-										: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
-									: $theme === 'dark'
-										? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
-										: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
-								VIP
-							</a>
-						{/if}
-						<a
-							href="/contact"
-							class="text-lg font-medium transition-colors duration-300 {$page.url
-								.pathname === '/contact'
-								? $theme === 'dark'
-									? 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-700 before:backdrop-blur-sm hover:before:bg-gray-600'
-									: 'relative px-4 py-2 before:absolute before:inset-0 before:-z-10 before:rounded-lg before:bg-gray-300 before:backdrop-blur-sm hover:before:bg-gray-400'
-								: $theme === 'dark'
-									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
-									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
-							Contact
+							href="/vehicles"
+							class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/vehicles' || $page.url.pathname.startsWith('/vehicle/')
+								? 'border-b-2 border-gray-900 dark:border-white'
+								: ''}">
+							Cars
 						</a>
 						<a
-							href={dashboardUrl}
-							class="text-lg font-medium transition-colors duration-300 {$theme === 'dark'
-								? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
-								: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
-							Become a Host
+							href="/yachts"
+							class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/yachts' || $page.url.pathname.startsWith('/yacht/')
+								? 'border-b-2 border-gray-900 dark:border-white'
+								: ''}">
+							Yachts
 						</a>
-
-						{#if !$page.data.user}
-							<a
-								href={loginUrl}
-								class="flex items-center justify-center gap-2 {$theme === 'dark'
-									? 'hover:bg-gray-800 rounded-lg'
-									: 'hover:bg-gray-200 rounded-lg'}">
-								<AccountIcon className="w-6 h-6 sm:flex hidden" />
-							</a>
-						{:else}
-							<a
-								href="/logout"
-								class="text-lg font-medium transition-colors duration-300 {$theme === 'dark'
-									? 'px-4 py-2 hover:bg-gray-800 rounded-lg'
-									: 'px-4 py-2 hover:bg-gray-200 rounded-lg'}">
-								Logout
-							</a>
-						{/if}
+						<a
+							href="/about"
+							class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/about'
+								? 'border-b-2 border-gray-900 dark:border-white'
+								: ''}">
+							About
+						</a>
 					</div>
 				</div>
-			{/if}
-		</div>
+			</div>
+		{/if}
 	</nav>
 
 	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? '' : 'bg-white'}">
