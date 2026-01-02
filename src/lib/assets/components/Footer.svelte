@@ -48,6 +48,24 @@
 						</a>
 					</li>
 					<li>
+						<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
+						<a
+							href="/vehicles"
+							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-black/80 hover:text-black'} transition-colors duration-300"
+						>
+							Cars
+						</a>
+					</li>
+					<li>
+						<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
+						<a
+							href="/yachts"
+							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-black/80 hover:text-black'} transition-colors duration-300"
+						>
+							Yachts
+						</a>
+					</li>
+					<li>
 						<a
 							href="/privacy"
 							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-black/80 hover:text-black'} transition-colors duration-300"
@@ -55,15 +73,7 @@
 							Privacy Policy
 						</a>
 					</li>
-					<li>
-						<!-- TODO: Change URL from /ourVehicles to /vehicles and change vehicles listing page to fetch from /api/vehicles -->
-						<a
-							href="/ourVehicles"
-							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-black/80 hover:text-black'} transition-colors duration-300"
-						>
-							Vehicles
-						</a>
-					</li>
+
 				</ul>
 			</div>
 
@@ -71,8 +81,8 @@
 				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-white' : 'text-black'}">Contact</h3>
 				<ul class="space-y-2 text-sm {$theme === 'dark' ? 'text-white/80' : 'text-black/80'}">
 					<li><a href="mailto:support@macroexotics.com" class="hover:underline duration-300">support@macroexotics.com</a></li>
-					<li>21st Collins Ave</li>
-					<li>Miami, FL 33411</li>
+<!-- 					<li>21st Collins Ave</li>
+					<li>Miami, FL 33411</li> -->
 				</ul>
 			</div>
 

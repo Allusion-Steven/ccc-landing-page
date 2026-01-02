@@ -521,7 +521,7 @@
 							href="/yachts"
 							text="Browse Yachts"
 							colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
-						<PrimaryButton href="https://my.macroexotics.com/" text="Become a Host" />
+						<SecondaryButton href="https://my.macroexotics.com/" text="Become a Host" colorScheme={$theme === 'dark' ? 'dark' : 'light'} /> />
 					</div>
 				</div>
 			{/if}
