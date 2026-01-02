@@ -226,7 +226,7 @@
 		position: absolute;
 		top: 20px;
 		left: 20px;
-		color: #9fff6b;
+		color: #bae6fd;
 		font-size: 14px;
 		font-weight: 600;
 		display: flex;
@@ -239,7 +239,7 @@
 		content: '';
 		width: 6px;
 		height: 6px;
-		background: #9fff6b;
+		background: #bae6fd;
 		border-radius: 50%;
 	}
 
@@ -470,7 +470,7 @@
 	.badge-icon {
 		width: 8px;
 		height: 8px;
-		background: #9fff6b;
+		background: #bae6fd;
 		border-radius: 50%;
 	}
 
@@ -485,7 +485,7 @@
 		width: 32px;
 		height: 32px;
 		background: transparent;
-		border: 2px solid #9fff6b;
+		border: 2px solid #bae6fd;
 		border-radius: 50%;
 		display: flex;
 		align-items: center;
@@ -499,7 +499,7 @@
 	.add-button::after {
 		content: '';
 		position: absolute;
-		background: #9fff6b;
+		background: #bae6fd;
 		transition: all 0.4s ease;
 	}
 
