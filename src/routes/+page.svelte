@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import heroImage from '$lib/assets/images/miami-car-group.png';
+	import heroImage from '$lib/assets/images/macro-bg-compressed.png';
 	import { theme } from '$lib/stores/theme.js';
 	import PrimaryButton from '$lib/assets/components/buttons/PrimaryButton.svelte';
 	import SecondaryButton from '$lib/assets/components/buttons/SecondaryButton.svelte';
@@ -136,7 +136,7 @@
 						<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
 							Experience style and performance with a wide variety of exotic cars
 						</p>
-						<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-[#2a3136]' }"></div>
+						<div class="mt-4 h-[2px] w-full { $theme === 'dark' ? 'bg-white/40' : 'bg-[#2a3136]' }"></div>
 					</div>
 					<FeaturedCarCarousel items={featuredVehicles.vehicles} />
 				</div>
@@ -154,7 +154,7 @@
 					easing: quintOut
 				}}>
 				{#if featuredYachts && featuredYachts.vehicles && featuredYachts.vehicles.length > 0}
-				<div class="{ $theme === 'dark' ? 'bg-[#353E43]' : '' }">
+				<div class="{ $theme === 'dark' ? 'bg-[#353e43]' : '' }">
 					<div class="md:px-[1%] px-4 pt-16 pb-4 text-right max-w-[1620px] mx-auto">
 						<h2 class="text-4xl md:text-5xl font-bold tracking-tight { $theme === 'dark' ? 'text-white' : 'text-black' }">
 							Featured <span class="text-miami-brightBlue">Yachts</span>
@@ -162,7 +162,7 @@
 						<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
 							Cruise the Miami waters in ultimate luxury
 						</p>
-						<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-[#2a3136]' }"></div>
+						<div class="mt-4 h-[2px] w-full { $theme === 'dark' ? 'bg-white/40' : 'bg-[#2a3136]' }"></div>
 					</div>
 					<FeaturedCarCarousel items={featuredYachts.vehicles} itemType="yacht" />
 				</div>
@@ -180,18 +180,20 @@
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
-					<div class="md:px-[5%] mx-auto py-16 px-4 max-w-8xl container">
-						<h3 class="mb-12 text-center text-4xl font-bold { $theme === 'dark' ? 'text-white' : 'text-black' }">Featured Vehicles</h3>
-						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-							{#each featuredVehicles.vehicles.slice(3, 11) as vehicle, index}
-								<VehicleCardUpdated
-									item={vehicle}
-									itemType="car"
-									{index} />
-							{/each}
-						</div>
-						<div class="flex justify-center mt-6">
-							<SecondaryButton text="View All" className=""/>
+					<div class="{ $theme === 'dark' ? 'bg-[#2A3236]' : '' }">
+						<div class="md:px-[1%] mx-auto py-16 px-4 max-w-8xl container">
+							<h3 class="mb-12 text-center tracking-tight text-4xl md:text-5xl font-bold { $theme === 'dark' ? 'text-white' : 'text-black' }">Featured Vehicles</h3>
+							<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+								{#each featuredVehicles.vehicles.slice(3, 11) as vehicle, index}
+									<VehicleCardUpdated
+										item={vehicle}
+										itemType="car"
+										{index} />
+								{/each}
+							</div>
+							<div class="flex justify-center mt-6">
+								<SecondaryButton text="View All" className=""/>
+							</div>
 						</div>
 					</div>
 
@@ -227,13 +229,15 @@
 					easing: quintOut
 				}}>
 				{#if featuredYachts && featuredYachts.vehicles && featuredYachts.vehicles.length > 0}
-					<VehicleCarousel
-						items={featuredYachts.vehicles}
-						title="Featured Yachts"
-						viewAllLink="/yachts"
-						itemType="yacht" />
+					<div class="{ $theme === 'dark' ? 'bg-[#2A3236]' : '' }">
+						<VehicleCarousel
+							items={featuredYachts.vehicles}
+							title="Featured Yachts"
+							viewAllLink="/yachts"
+							itemType="yacht" />
+					</div>
 				{:else}
-					<div class="container mx-auto py-16 text-center ">
+					<div class="container mx-auto py-16 text-center { $theme === 'dark' ? 'bg-[#353E43]' : '' }">
 						<h3 class="mb-4 text-3xl font-bold text-white text-right ">Featured Yachts</h3>
 						<p class="text-white/70">No featured yachts available at the moment.</p>
 						<div class='h-10 bg-orange-600 w-full'></div>

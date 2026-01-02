@@ -92,12 +92,12 @@
 </script>
 
 <div
-	class="w-full mx-auto light:bg-white dark:bg-[#1C1C1C]/70">
-	<div class="max-w-8xl container mx-auto px-4 py-4">
+	class="w-full mx-auto light:bg-white dark:bg-[#353E43]">
+	<div class="max-w-8xl container mx-auto px-4 py-8">
 		{#if visible}
 			<h3
 				in:fly={{ y: 30, duration: 200, delay: 50 }}
-				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme === 'dark'
+				class="my-8 text-center tracking-tight text-4xl md:text-5xl font-bold leading-tight md:text-5xl {$theme === 'dark'
 					? 'text-white'
 					: 'text-black'}">
 				Browse by Make

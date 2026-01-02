@@ -228,6 +228,13 @@
 							: ''}">
 						About
 					</a>
+					<a
+						href="/contact"
+						class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/about'
+							? 'border-b-2 border-gray-900 dark:border-white'
+							: ''}">
+						Contact
+					</a>					
 				</div>
 			</div>
 		</div>
@@ -262,6 +269,13 @@
 								: ''}">
 							About
 						</a>
+						<a
+						href="/contact"
+						class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/about'
+							? 'border-b-2 border-gray-900 dark:border-white'
+							: ''}">
+						Contact
+					</a>
 					</div>
 				</div>
 			</div>

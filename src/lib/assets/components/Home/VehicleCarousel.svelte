@@ -22,15 +22,15 @@
 </script>
 
 <div
-	class="w-full {itemType === 'yacht' && $theme === 'dark' ? 'bg-[#1C1C1C]' : ''}
+	class="w-full {itemType === 'yacht' && $theme === 'dark' ? 'bg-[#2A3236]' : ''}
 	{itemType === 'yacht' && $theme === 'light' ? 'bg-white' : ''}
 	{$theme === 'dark' && itemType !== 'yacht' ? 'bg-transparent' : ''}
 	{$theme === 'light' && itemType !== 'yacht' ? 'bg-white' : ''}">
-	<div class="max-w-8xl container mx-auto px-4 sm:py-16">
+	<div class="max-w-8xl container mx-auto px-4 sm:py-8 py-8">
 		{#if visible}
 			<h3
 				in:fly={{ y: 30, duration: 200, delay: 50 }}
-				class="mb-12 text-center text-4xl font-bold leading-tight md:text-5xl {$theme ===
+				class="py-8 text-center tracking-tight text-4xl md:text-5xl font-bold leading-tight {$theme ===
 				'dark'
 					? 'text-white'
 					: 'text-black'}">

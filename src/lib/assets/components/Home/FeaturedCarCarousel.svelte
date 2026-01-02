@@ -210,6 +210,7 @@
 
 	:global(.dark) .featured-carousel-wrapper {
 		background: #353E43;
+		/* 3A4449 */
 	}
 
 	.slider-container {
