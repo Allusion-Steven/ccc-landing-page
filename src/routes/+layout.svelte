@@ -17,24 +17,43 @@
 	let innerWidth = $state(0);
 	let lastScrollY = $state(0);
 	let showBottomNav = $state(true);
-	const SCROLL_THRESHOLD = 10; // Minimum scroll delta to trigger visibility change
+	let lastStateChange = $state(0);
 
 	function handleScroll() {
-		const currentScrollY = window.scrollY;
-		const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+		// Ignore scroll events for 300ms after state change to prevent feedback loop
+		const now = Date.now();
+		if (now - lastStateChange < 300) return;
 
-		// Only react to scroll changes larger than threshold to prevent flashing
-		if (scrollDelta < SCROLL_THRESHOLD) {
+		const currentScrollY = window.scrollY;
+
+		// Always show at top of page
+		if (currentScrollY < 50) {
+			if (!showBottomNav) {
+				showBottomNav = true;
+				lastStateChange = now;
+			}
+			lastScrollY = currentScrollY;
 			return;
 		}
 
-		// Show bottom nav when scrolling up or at the top, hide when scrolling down
-		if (currentScrollY < lastScrollY || currentScrollY < 50) {
-			showBottomNav = true;
-		} else if (currentScrollY > lastScrollY && currentScrollY > 50) {
-			showBottomNav = false;
+		if (showBottomNav) {
+			// When showing, hide if scrolled 10px down from anchor
+			if (currentScrollY > lastScrollY + 10) {
+				showBottomNav = false;
+				lastScrollY = currentScrollY;
+				lastStateChange = now;
+			}
+		} else {
+			// When hidden, track furthest scroll position
+			if (currentScrollY > lastScrollY) {
+				lastScrollY = currentScrollY;
+			} else if (currentScrollY < lastScrollY - 10) {
+				// User scrolled up 10px from furthest point, show nav
+				showBottomNav = true;
+				lastScrollY = currentScrollY;
+				lastStateChange = now;
+			}
 		}
-		lastScrollY = currentScrollY;
 	}
 
 	function closeMenu() {
