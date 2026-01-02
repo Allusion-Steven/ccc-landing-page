@@ -5,6 +5,8 @@
 	import { theme } from '$lib/stores/theme';
 	import SecondaryButton from '$lib/assets/components/buttons/SecondaryButton.svelte';
 	import PrimaryButton from '$lib/assets/components/buttons/PrimaryButton.svelte';
+	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
+	import { faqData } from '$lib/data/faq';
 	import {
 		Shield,
 		UserCheck,
@@ -28,6 +30,7 @@
 	let trustVisible = $state(false);
 	let servicesVisible = $state(false);
 	let ctaVisible = $state(false);
+	let faqVisible = $state(false);
 
 	const stats = [
 		{ value: '500+', label: 'Exclusive Members' },
@@ -523,5 +526,39 @@
 				</div>
 			{/if}
 		</div>
+	</section>
+
+	<!-- ============================================ -->
+	<!-- SECTION 6: FAQ -->
+	<!-- ============================================ -->
+	<section
+		class="py-24 {$theme === 'dark' ? 'bg-primary-dark' : 'bg-white'}"
+		use:intersectionObserver={(v) => (faqVisible = v)}>
+		{#if faqVisible}
+			<div class="container mx-auto px-4">
+				<div class="mb-16 text-center" in:fly={{ y: 30, duration: 600, easing: quintOut }}>
+					<h2
+						class="text-4xl font-light tracking-tight md:text-5xl {$theme === 'dark'
+							? 'text-white'
+							: 'text-black'}">
+						Frequently Asked Questions
+					</h2>
+					<div
+						class="mx-auto mt-4 h-px w-24 {$theme === 'dark' ? 'bg-white' : 'bg-black'}"></div>
+					<p
+						class="mx-auto mt-6 max-w-2xl text-xl {$theme === 'dark'
+							? 'text-gray-400'
+							: 'text-gray-600'}">
+						Find answers to common questions about our services
+					</p>
+				</div>
+
+				<div in:fly={{ y: 30, duration: 600, delay: 200, easing: quintOut }}>
+					<Accordion faqs={faqData} isHomePage={true} />
+				</div>
+
+
+			</div>
+		{/if}
 	</section>
 </div>

@@ -3,13 +3,11 @@
 	import VehicleCardUpdated from '$lib/assets/components/Home/VehicleCardUpdated.svelte';
 	import FeaturedCarCarousel from '$lib/assets/components/Home/FeaturedCarCarousel.svelte';
 	import ShopByMake from '$lib/assets/components/Home/ShopByMake.svelte';
-	import Accordion from '$lib/assets/components/Home/Accordion.svelte';
-	import { faqData } from '$lib/data/faq';
 	import type { Vehicle, Yacht } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import heroImage from '$lib/assets/images/lambo-performante.jpg';
+	import heroImage from '$lib/assets/images/miami-car-group.png';
 	import { theme } from '$lib/stores/theme.js';
 	import PrimaryButton from '$lib/assets/components/buttons/PrimaryButton.svelte';
 	import SecondaryButton from '$lib/assets/components/buttons/SecondaryButton.svelte';
@@ -21,7 +19,6 @@
 	let featuredYachtCarouselVisible = $state(false);
 	let shopByMakeVisible = $state(false);
 	let yachtCarouselVisible = $state(false);
-	let accordionVisible = $state(false);
 
 	let { data } = $props();
 	const { featuredVehicles, featuredYachts } = data;
@@ -90,7 +87,7 @@
 	<section class="relative h-[70vh] min-h-[500px] overflow-hidden">
 		<div class="absolute inset-0">
 			<img src={heroImage} alt="Luxury exotic car" class="h-full w-full object-cover" />
-			<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+			<div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent"></div>
 			<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 		</div>
 
@@ -131,19 +128,21 @@
 					easing: quintOut
 				}}>
 				{#if featuredVehicles && featuredVehicles.vehicles && featuredVehicles.vehicles.length > 0}
-				<div class="md:px-[1%] px-4 pt-16 pb-4">
-					<h2 class="text-4xl md:text-5xl font-bold tracking-tight { $theme === 'dark' ? 'text-white' : 'text-black' }">
-						Featured <span class="text-miami-hotPink">Cars</span>
-					</h2>
-					<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
-						Experience Miami in style with our premium fleet
-					</p>
-					<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-black' }"></div>
-				</div>
+				<div class="{ $theme === 'dark' ? 'bg-[#353E43]' : '' }">
+					<div class="md:px-[1%] px-4 pt-16 pb-4 max-w-[1620px] mx-auto">
+						<h2 class="text-4xl md:text-5xl font-bold tracking-tight { $theme === 'dark' ? 'text-white' : 'text-black' }">
+							Featured <span class="text-miami-hotPink">Cars</span>
+						</h2>
+						<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
+							Experience style and performance with a wide variety of exotic cars
+						</p>
+						<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-[#2a3136]' }"></div>
+					</div>
 					<FeaturedCarCarousel items={featuredVehicles.vehicles} />
+				</div>
 				{/if}
 			</div>
-		{/if}
+		{/if}	
 	</div>
 
 	<div use:intersectionObserver={(isVisible) => (featuredYachtCarouselVisible = isVisible)}>
@@ -155,16 +154,18 @@
 					easing: quintOut
 				}}>
 				{#if featuredYachts && featuredYachts.vehicles && featuredYachts.vehicles.length > 0}
-				<div class="md:px-[1%] px-4 pt-16 pb-4 text-right">
-					<h2 class="text-4xl md:text-5xl font-bold tracking-tight { $theme === 'dark' ? 'text-white' : 'text-black' }">
-						Featured <span class="text-miami-brightBlue">Yachts</span>
-					</h2>
-					<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
-						Cruise the Miami waters in ultimate luxury
-					</p>
-					<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-black' }"></div>
-				</div>
+				<div class="{ $theme === 'dark' ? 'bg-[#353E43]' : '' }">
+					<div class="md:px-[1%] px-4 pt-16 pb-4 text-right max-w-[1620px] mx-auto">
+						<h2 class="text-4xl md:text-5xl font-bold tracking-tight { $theme === 'dark' ? 'text-white' : 'text-black' }">
+							Featured <span class="text-miami-brightBlue">Yachts</span>
+						</h2>
+						<p class="mt-2 text-lg { $theme === 'dark' ? 'text-white/70' : 'text-black/60' }">
+							Cruise the Miami waters in ultimate luxury
+						</p>
+						<div class="mt-4 h-[5px] w-full { $theme === 'dark' ? 'bg-white' : 'bg-[#2a3136]' }"></div>
+					</div>
 					<FeaturedCarCarousel items={featuredYachts.vehicles} itemType="yacht" />
+				</div>
 				{/if}
 			</div>
 		{/if}
@@ -232,8 +233,8 @@
 						viewAllLink="/yachts"
 						itemType="yacht" />
 				{:else}
-					<div class="container mx-auto py-16 text-center">
-						<h3 class="mb-4 text-3xl font-bold text-white text-right">Featured Yachts</h3>
+					<div class="container mx-auto py-16 text-center ">
+						<h3 class="mb-4 text-3xl font-bold text-white text-right ">Featured Yachts</h3>
 						<p class="text-white/70">No featured yachts available at the moment.</p>
 						<div class='h-10 bg-orange-600 w-full'></div>
 					</div>
@@ -242,20 +243,6 @@
 		{/if}
 	</div>
 
-	<div use:intersectionObserver={(isVisible) => (accordionVisible = isVisible)}>
-		{#if accordionVisible}
-			<div
-				in:fly={{
-					y: 50,
-					duration: 300,
-					easing: quintOut
-				}}>
-				<div class="relative">
-					<Accordion faqs={faqData} isHomePage={true} />
-				</div>
-			</div>
-		{/if}
-	</div>
 </div>
 
 <style>

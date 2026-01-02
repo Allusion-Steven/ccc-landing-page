@@ -1,14 +1,19 @@
 <script lang="ts">
 	import { theme } from '$lib/stores/theme';
+	import lightLogo from '$lib/assets/logos/macro-exotics-light-logo.png';
+	import darkLogo from '$lib/assets/logos/macro-exotics-dark-logo.png';
 	const copyDate = new Date().getFullYear();
-
 </script>
 
-<footer class="{$theme === 'dark' ? '' : 'bg-gradient-to-r from-white via-gray-50 to-white'}">
+<footer class="{$theme === 'dark' ? 'bg-primary-greyBlue	' : 'bg-gradient-to-r from-white via-gray-50 to-white'}">
 	<div class="container mx-auto px-4 py-12">
 		<div class="grid gap-8 md:grid-cols-4">
 			<div>
-				<h3 class="mb-4 text-lg font-semibold {$theme === 'dark' ? 'text-white' : 'text-black'}">Macro Exotics</h3>
+				<img
+				src={$theme === 'dark' ? darkLogo : lightLogo}
+				alt="Macro Exotics"
+				class="mb-4 h-12 w-auto"
+			/>
 				<p class="text-sm leading-relaxed {$theme === 'dark' ? 'text-white/80' : 'text-black/80'}">
 					Premium luxury vehicle and yacht rentals connecting owners and enthusiasts. Experience
 					extraordinary with Macro Exotics.
@@ -24,6 +29,14 @@
 							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-black/80 hover:text-black'} transition-colors duration-300"
 						>
 							Home
+						</a>
+					</li>
+					<li>
+						<a
+							href="/about"
+							class="{$theme === 'dark' ? 'text-white/80 hover:text-miami-light-pink' : 'text-black/80 hover:text-black'} transition-colors duration-300"
+						>
+							About
 						</a>
 					</li>
 					<li>

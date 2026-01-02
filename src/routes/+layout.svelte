@@ -3,7 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import Footer from '$lib/assets/components/Footer.svelte';
 	//TODO: Implement light v dark logo
-	import logo from '$lib/assets/logos/macro-exotics-light-logo.png';
+	import logo from '$lib/assets/logos/macro-transpaernt-logo-square.png';
 	import darkLogo from '$lib/assets/logos/macro-exotics-dark-logo.png';
 	import Banner from '$lib/components/Banner.svelte';
 	import '../app.css';
