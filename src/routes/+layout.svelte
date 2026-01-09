@@ -237,9 +237,7 @@
 					</a>		
 					<a
 					href={dashboardUrl}
-					class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/contact'
-						? 'border-b-2 border-gray-900 dark:border-white'
-						: ''}">
+					class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 ">
 					Get Started
 				</a>				
 				</div>
@@ -289,7 +287,7 @@
 		{/if}
 	</nav>
 
-	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? '' : 'bg-white'}">
+	<main class="mx-auto min-h-[80vh] w-full {$theme === 'dark' ? 'bg-[#2A3236]' : 'bg-white'}">
 		{@render children()}
 	</main>
 
