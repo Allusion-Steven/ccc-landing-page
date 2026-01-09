@@ -17,8 +17,10 @@
 		Clock,
 		Search,
 		Calendar,
-		Key
+		Key,
+		UserPlus
 	} from 'lucide-svelte';
+	import { dashboardUrl } from '$lib/index';
 	// Using static images
 	const heroBg = '/images/rr-culinan-interior.webp';
 	const yachtImage = '/images/sunseeker-78.jpg';
@@ -44,6 +46,11 @@
 			icon: Search,
 			title: 'Browse',
 			description: 'Explore our curated collection of exotic cars and luxury yachts'
+		},
+		{
+			icon: UserPlus,
+			title: 'Register',
+			description: 'Join our exclusive membership for personalized luxury experiences'
 		},
 		{
 			icon: Calendar,
@@ -207,7 +214,7 @@
 	<!-- ============================================ -->
 	<!-- SECTION 1: Company Story / Mission -->
 	<!-- ============================================ -->
-	<section class="py-24 {$theme === 'dark' ? 'bg-gray-950' : 'bg-gray-50'}">
+	<section class="py-24 {$theme === 'dark' ? 'bg-[#2A3236]' : 'bg-gray-50'}">
 		<div class="mx-auto max-w-7xl px-6 lg:px-8">
 			<div
 				class="grid items-center gap-16 lg:grid-cols-2"
@@ -231,7 +238,7 @@
 							class="space-y-6 text-lg leading-relaxed"
 							in:fly={{ y: 30, duration: 600, delay: 200, easing: quintOut }}>
 							<p class={$theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}>
-								Macro Exotics is Miami's premier peer-to-peer luxury rental platform. We connect
+								Macro Exotics is the one and only premier peer-to-peer luxury rental platform. We connect
 								passionate vehicle owners with discerning clients who appreciate the extraordinary.
 							</p>
 
@@ -300,7 +307,7 @@
 	<!-- ============================================ -->
 	<!-- SECTION 2: How It Works -->
 	<!-- ============================================ -->
-	<section class="py-24 {$theme === 'dark' ? 'bg-primary-dark' : 'bg-white'}">
+	<section class="py-24 {$theme === 'dark' ? 'bg-[#353E43]' : 'bg-white'}">
 		<div
 			class="mx-auto max-w-7xl px-6 lg:px-8"
 			use:intersectionObserver={(v) => (howItWorksVisible = v)}>
@@ -322,7 +329,7 @@
 					</p>
 				</div>
 
-				<div class="grid gap-12 md:grid-cols-3">
+				<div class="grid gap-8 grid-cols-2 lg:grid-cols-4">
 					{#each steps as step, i}
 						<div
 							class="group space-y-6 text-center"
@@ -353,6 +360,15 @@
 						</div>
 					{/each}
 				</div>
+
+				<div
+					class="mt-12 text-center"
+					in:fly={{ y: 20, duration: 600, delay: 800, easing: quintOut }}>
+					<SecondaryButton
+						href={dashboardUrl}
+						text="Get Started"
+						colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
+				</div>
 			{/if}
 		</div>
 	</section>
@@ -360,7 +376,7 @@
 	<!-- ============================================ -->
 	<!-- SECTION 3: Trust & Safety -->
 	<!-- ============================================ -->
-	<section class="py-24 {$theme === 'dark' ? 'bg-gray-950' : 'bg-gray-50'}">
+	<section class="py-24 {$theme === 'dark' ? 'bg-[#2A3236]' : 'bg-gray-50'}">
 		<div
 			class="mx-auto max-w-7xl px-6 lg:px-8"
 			use:intersectionObserver={(v) => (trustVisible = v)}>
@@ -427,7 +443,7 @@
 	<!-- ============================================ -->
 	<!-- SECTION 4: Services & Benefits -->
 	<!-- ============================================ -->
-	<section class="py-24 {$theme === 'dark' ? 'bg-primary-dark' : 'bg-white'}">
+	<section class="py-24 {$theme === 'dark' ? 'bg-[#353E43]' : 'bg-white'}">
 		<div
 			class="mx-auto max-w-7xl px-6 lg:px-8"
 			use:intersectionObserver={(v) => (servicesVisible = v)}>
@@ -491,7 +507,7 @@
 	<!-- ============================================ -->
 	<!-- SECTION 5: CTA Section -->
 	<!-- ============================================ -->
-	<section class="py-24 {$theme === 'dark' ? 'bg-gray-950' : 'bg-gray-50'}">
+	<section class="py-24 {$theme === 'dark' ? 'bg-[#2A3236]' : 'bg-gray-50'}">
 		<div
 			class="mx-auto max-w-4xl px-6 text-center lg:px-8"
 			use:intersectionObserver={(v) => (ctaVisible = v)}>
@@ -521,7 +537,7 @@
 							href="/yachts"
 							text="Browse Yachts"
 							colorScheme={$theme === 'dark' ? 'dark' : 'light'} />
-						<SecondaryButton href="https://my.macroexotics.com/" text="Become a Host" colorScheme={$theme === 'dark' ? 'dark' : 'light'} /> />
+						<SecondaryButton href="https://my.macroexotics.com/" text="Become a Host" colorScheme={$theme === 'dark' ? 'dark' : 'light'} /> 
 					</div>
 				</div>
 			{/if}
@@ -532,7 +548,7 @@
 	<!-- SECTION 6: FAQ -->
 	<!-- ============================================ -->
 	<section
-		class="py-24 {$theme === 'dark' ? 'bg-primary-dark' : 'bg-white'}"
+		class="py-24 {$theme === 'dark' ? 'bg-[#353E43]' : 'bg-white'}"
 		use:intersectionObserver={(v) => (faqVisible = v)}>
 		{#if faqVisible}
 			<div class="container mx-auto px-4">

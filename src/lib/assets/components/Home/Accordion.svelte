@@ -31,7 +31,7 @@
 	});
 </script>
 
-<section class="{$theme === 'dark' ? 'bg-primary-dark' : 'bg-white'}">
+<section class="{$theme === 'dark' ? 'bg-[#2A3236]' : 'bg-white'}">
 	<div class="mx-auto w-full max-w-7xl px-4 py-20">
 		{#if contentVisible}
 			{#if isHomePage && window.location.pathname !== '/about'} 

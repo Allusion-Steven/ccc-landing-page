@@ -11,7 +11,7 @@
 	import AccountIcon from '$lib/assets/components/Icons/AccountIcon.svelte';
 	import { page } from '$app/stores';
 	import { theme, toggleTheme } from '$lib/stores/theme';
-	import { loginUrl } from '$lib';
+	import { dashboardUrl, loginUrl } from '$lib';
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	let innerWidth = $state(0);
@@ -98,9 +98,9 @@
 		<div class="container mx-auto px-4">
 			<div class="flex items-center justify-between py-2">
 				<!-- Left: Search Icon -->
-				<div class="flex flex-1 items-center justify-start">
+				<div class="flex flex-1 items-center justify-start max500:hidden">
 					<button
-						class="p-2 transition-colors duration-300 hover:text-sky-600"
+						class="hidden p-2 transition-colors duration-300 hover:text-sky-600"
 						aria-label="Search">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +118,7 @@
 				</div>
 
 				<!-- Center: Logo -->
-				<div class="flex flex-1 items-center justify-center">
+				<div class="flex flex-1 items-center justify-center max500:justify-between">
 					<a href="/" class="text-xl font-bold">
 						<!-- Light theme logo (hidden in dark mode) -->
 						<img
@@ -136,7 +136,7 @@
 				<!-- Right: Account Icon & Mobile Menu -->
 				<div class="flex flex-1 items-center justify-end gap-3">
 					<button
-						class="rounded-full p-2 transition-colors duration-300 hover:bg-sky-200 dark:hover:bg-white/20"
+						class="rounded-full p-2 transition-colors duration-300 hover:bg-[#7f94ad] dark:hover:bg-white/20"
 						onclick={toggleTheme}
 						aria-label="Toggle theme">
 						{#if $theme === 'dark'}
@@ -202,7 +202,7 @@
 		<div
 			class="hidden md:block transition-all duration-300 ease-out overflow-hidden {showBottomNav ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'}">
 			<!-- Divider -->
-			<div class="border-t border-sky-200 dark:border-white/30"></div>
+			<div class="border-t border-[#7f94ad] dark:border-white/30"></div>
 			<div class="container mx-auto px-4">
 				<div
 					class="flex items-center justify-center space-x-12 py-3"
@@ -230,11 +230,18 @@
 					</a>
 					<a
 						href="/contact"
-						class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/about'
+						class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/contact'
 							? 'border-b-2 border-gray-900 dark:border-white'
 							: ''}">
 						Contact
-					</a>					
+					</a>		
+					<a
+					href={dashboardUrl}
+					class="text-sm font-medium uppercase tracking-widest transition-colors duration-300 hover:text-sky-600 {$page.url.pathname === '/contact'
+						? 'border-b-2 border-gray-900 dark:border-white'
+						: ''}">
+					Get Started
+				</a>				
 				</div>
 			</div>
 		</div>
